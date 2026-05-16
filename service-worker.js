@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v32-2026-05-15-all-subject-content";
+const CACHE_NAME = "mr-macs-arcade-v33-2026-05-16-all-subject-ui";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -8,6 +8,10 @@ const CACHE_FILES = [
   "./index.html",
   "./manifest.json",
   "./games.json",
+  "./games/generated-jeopardy/",
+  "./games/generated-jeopardy/index.html",
+  "./games/generated-practice-exam/",
+  "./games/generated-practice-exam/index.html",
   "./data/all-subject-course-taxonomy.json",
   "./data/released-assessment-source-catalog.json",
   "./data/generated-all-subject-jeopardy-blueprints.json",

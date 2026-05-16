@@ -148,6 +148,116 @@ test("hub cabinet menu works with zero JS errors", async ({ page }) => {
   expect(closed).toBe(true);
 });
 
+test("hub exposes expanded all-subject course catalog", async ({ page }) => {
+  const errs = [];
+  page.on("pageerror", e => errs.push(e.message));
+  page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
+  await gotoHub(page);
+  await page.waitForFunction(() =>
+    window.DIAG_BANK_COURSE_LABELS &&
+    typeof allCourseLabels === "function" &&
+    allCourseLabels().length >= 90 &&
+    Array.isArray(GENERATED_JEOPARDY_BLUEPRINTS) &&
+    GENERATED_JEOPARDY_BLUEPRINTS.length >= 600
+  , { timeout: 15000 });
+  await dismissWelcome(page);
+  expect(errs).toHaveLength(0);
+
+  const state = await page.evaluate(() => {
+    const optionText = id => Array.from(document.getElementById(id)?.options || []).map(o => o.textContent.trim());
+    const courseFilter = optionText("courseFilter");
+    const jeopardyCourseFilter = optionText("jeopardyCourseSelect");
+    const courseSelect = document.getElementById("courseFilter");
+    courseSelect.value = "AP Biology";
+    courseSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    const practiceCard = document.querySelector('[data-course-practice="AP Biology"]');
+    const examCard = document.querySelector('[data-course-exam="AP Biology"]');
+    const unitJeopardyCard = document.querySelector('[data-course-jeopardy="AP Biology"]');
+    const jeopardySelect = document.getElementById("jeopardyCourseSelect");
+    jeopardySelect.value = "AP Biology";
+    jeopardySelect.dispatchEvent(new Event("change", { bubbles: true }));
+    return {
+      courseCount: courseFilter.length,
+      hasAPBiology: courseFilter.includes("AP Biology"),
+      hasGrade5Math: courseFilter.includes("Grade 5 Mathematics"),
+      hasChemistry: courseFilter.includes("Chemistry"),
+      hasAPCybersecurity: courseFilter.includes("AP Cybersecurity"),
+      tileAPBiology: !!Array.from(document.querySelectorAll("#courseTiles .course-tile strong")).find(el => el.textContent.trim() === "AP Biology"),
+      countLabel: document.getElementById("countLabel")?.textContent || "",
+      practiceTitle: practiceCard?.querySelector("h3")?.textContent || "",
+      examTitle: examCard?.querySelector("h3")?.textContent || "",
+      unitJeopardyTitle: unitJeopardyCard?.querySelector("h3")?.textContent || "",
+      jeopardyCourseCount: jeopardyCourseFilter.length,
+      jeopardyHasAPBiology: jeopardyCourseFilter.includes("AP Biology"),
+      jeopardySummary: document.getElementById("jeopardySummary")?.textContent || "",
+      firstGeneratedJeopardy: document.querySelector("#jeopardyModes .focus-card")?.dataset.id || ""
+    };
+  });
+
+  expect(state.courseCount).toBeGreaterThanOrEqual(90);
+  expect(state.hasAPBiology).toBe(true);
+  expect(state.hasGrade5Math).toBe(true);
+  expect(state.hasChemistry).toBe(true);
+  expect(state.hasAPCybersecurity).toBe(true);
+  expect(state.tileAPBiology).toBe(true);
+  expect(state.countLabel).toContain("course questions");
+  expect(state.practiceTitle).toBe("AP Biology Practice Run");
+  expect(state.examTitle).toBe("AP Biology Practice Exam");
+  expect(state.unitJeopardyTitle).toBe("AP Biology Unit Jeopardy");
+  expect(state.jeopardyCourseCount).toBeGreaterThanOrEqual(90);
+  expect(state.jeopardyHasAPBiology).toBe(true);
+  expect(state.jeopardySummary).toContain("AP Biology");
+  expect(state.firstGeneratedJeopardy).toMatch(/^generated-jeopardy-/);
+});
+
+test("generated all-subject Jeopardy runner loads a playable board", async ({ page }) => {
+  const errs = [];
+  page.on("pageerror", e => errs.push(e.message));
+  page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
+  await page.goto(`${BASE}/games/generated-jeopardy/?board=ap-biology-unit-04`, { waitUntil: "domcontentloaded", timeout: 20000 });
+  await page.waitForSelector("#board .tile", { timeout: 10000 });
+  expect(errs).toHaveLength(0);
+  const boardState = await page.evaluate(() => ({
+    title: document.querySelector("h1")?.textContent.trim() || "",
+    categories: document.querySelectorAll(".cat").length,
+    tiles: document.querySelectorAll(".tile").length,
+    finalEnabled: !document.getElementById("finalBtn")?.disabled
+  }));
+  expect(boardState.title).toContain("AP Biology");
+  expect(boardState.categories).toBe(5);
+  expect(boardState.tiles).toBe(25);
+  expect(boardState.finalEnabled).toBe(true);
+});
+
+test("generated all-subject practice exam runner loads a playable course exam", async ({ page }) => {
+  const errs = [];
+  page.on("pageerror", e => errs.push(e.message));
+  page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
+  await page.goto(`${BASE}/games/generated-practice-exam/?course=ap-biology`, { waitUntil: "domcontentloaded", timeout: 20000 });
+  await page.waitForSelector("#courseSelect", { timeout: 10000 });
+  const setup = await page.evaluate(() => ({
+    selectedCourse: document.getElementById("courseSelect")?.value || "",
+    sourceMeta: document.getElementById("sourceMeta")?.textContent || "",
+    courseOptions: document.getElementById("courseSelect")?.options.length || 0
+  }));
+  expect(setup.selectedCourse).toBe("ap-biology");
+  expect(setup.sourceMeta).toMatch(/AP|College Board|source|CED/i);
+  expect(setup.courseOptions).toBeGreaterThanOrEqual(90);
+  await page.click("#startBtn");
+  await page.waitForSelector("#examScreen.show .choice", { timeout: 10000 });
+  const examState = await page.evaluate(() => ({
+    title: document.getElementById("title")?.textContent || "",
+    choices: document.querySelectorAll("#choices .choice").length,
+    writtenPrompts: document.querySelectorAll("#writtenPrompts textarea").length,
+    setupHidden: !document.getElementById("setupScreen")?.classList.contains("show")
+  }));
+  expect(examState.title).toContain("AP Biology");
+  expect(examState.choices).toBe(4);
+  expect(examState.writtenPrompts).toBeGreaterThanOrEqual(1);
+  expect(examState.setupHidden).toBe(true);
+  expect(errs).toHaveLength(0);
+});
+
 const JEOPARDY_REGRESSION_BOARDS = [
   {
     file: "games/ap-psychology/99 - AP Psychology Final Exam Comprehensive Review.html",

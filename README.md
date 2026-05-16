@@ -1,6 +1,6 @@
 # Mr. Mac's Review Arcade
 
-**219 review games and boards backed by a standards-aligned 5-12/AP question system — playable in the browser, no install required.**
+**221 review games, boards, and generated practice surfaces backed by a standards-aligned 5-12/AP question system — playable in the browser, no install required.**
 
 A student-facing arcade for NYS grades 5-12 standards areas, all AP courses tracked in the AP Central course catalog, and full Regents/AP practice systems. Premium arcade flagships (History Hunters, Archive Quest, Cold War Invaders, Brickoria, Stellar Drift, Source Snake, Chronoblocks, Cascade, Chronohop, Step Pyramid, Citadel, Rumor Whack, and more) sit beside Jeopardy boards, source-reading labs, writing coaches, and full timed practice exams.
 
@@ -10,7 +10,7 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 
 ## Stats
 
-- **219 catalog entries** in `games.json`: 68 arcade games/tools and 151 Jeopardy boards
+- **221 catalog entries** in `games.json`: 69 arcade games/tools and 152 Jeopardy boards
 - **65 achievements** across onboarding, streaks, per-flagship feats, cross-arcade tiers, and hidden Easter eggs
 - **7 power-up shop items** — Streak Shield, Hint Token, Time Boost, Lucky Charm (24h 2x), Fortune Refresh, Daily Double, Coin Doubler (4h 2x)
 - **Multi-profile roster** — multiple students can share a Chromebook with isolated shards, achievements, settings, course, and streaks
@@ -19,7 +19,8 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 - **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
 - **7,146-prompt** shared review library across 99 course buckets, including 42 AP/AP Career Kickstart courses
 - **90-course all-subject taxonomy** aligned to NYSED P-12 standards areas plus College Board AP CED course structures
-- **664 generated unit Jeopardy blueprints** and **90 practice-exam blueprints** staged for the all-subject rollout
+- **101 visible course labels** in the hub/course pickers after canonicalizing generated NYS/AP labels with existing social-studies labels
+- **664 generated unit Jeopardy blueprints** and **90 practice-exam blueprints** staged for the all-subject rollout, with generated Jeopardy boards playable through `games/generated-jeopardy/` and generated practice exams playable through `games/generated-practice-exam/`
 
 ## Tech stack
 
@@ -105,6 +106,8 @@ npm run validate:content
 ```
 
 The all-subject pipeline generates NYSED standards-aligned arcade questions, unit Jeopardy blueprints, and practice-exam blueprints from `scripts/generate-all-subject-content.mjs`. Released NYSED Regents and Grades 3-8 test sources are tracked in `data/released-assessment-source-catalog.json`; exact released forms stay separated from general trivia and feed the dedicated practice-exam runners.
+
+The hub exposes the generated catalog in the library course filter, profile/onboarding course pickers, Cram Mode, the horizontal course rail, and the Jeopardy course selector. Courses that do not yet have dedicated game cards still get a visible course-practice launch card backed by `assets/shared-question-bank.js`.
 
 ## How to add a new game
 

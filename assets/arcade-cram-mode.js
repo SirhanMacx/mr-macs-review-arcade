@@ -374,7 +374,33 @@
         courseSet[c] = true;
       }
     }
-    var courses = Object.keys(courseSet).sort();
+    var aliases = {
+      "AP United States Government and Politics": "AP U.S. Government and Politics",
+      "Global History 9 (Ancient–Medieval)": "Grade 9 Global History I",
+      "Global History 10 (Cold War–Modern)": "Grade 10 Global History II",
+      "Grade 7 US History": "Grade 7 U.S. History I",
+      "Grade 8 US History": "Grade 8 U.S. History II",
+      "US Government & Civics": "Civics and Participation in Government",
+      "US History (Cold War-Modern)": "Grade 11 U.S. History"
+    };
+    function displayCourseLabel(name) {
+      name = String(name || "").trim();
+      return aliases[name] || name;
+    }
+    if (root.DIAG_BANK_COURSE_LABELS) {
+      Object.keys(root.DIAG_BANK_COURSE_LABELS).forEach(function (key) {
+        var label = displayCourseLabel(root.DIAG_BANK_COURSE_LABELS[key]);
+        if (label) courseSet[label] = true;
+      });
+    }
+    var courses = Object.keys(courseSet).map(displayCourseLabel).filter(function (name, index, arr) {
+      return name && arr.indexOf(name) === index;
+    }).sort(function (a, b) {
+      var apA = /^AP\b/.test(a);
+      var apB = /^AP\b/.test(b);
+      if (apA !== apB) return apA ? 1 : -1;
+      return a.localeCompare(b, undefined, { numeric: true });
+    });
 
     var courseOptions = '<option value="">Any course</option>';
     for (var ci = 0; ci < courses.length; ci++) {

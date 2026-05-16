@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>All-Subject Practice Exam - Mr. Mac's Review Arcade</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070604;
+      --panel: #15100b;
+      --ink: #fff4d6;
+      --muted: #c8ba91;
+      --gold: #ffd15c;
+      --cyan: #72e9ff;
+      --green: #74f0aa;
+      --red: #ff6d7a;
+      --line: rgba(255, 209, 92, .28);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 100% 4px,
+        radial-gradient(circle at 20% 0%, rgba(255,209,92,.14), transparent 28%),
+        radial-gradient(circle at 80% 12%, rgba(114,233,255,.15), transparent 32%),
+        linear-gradient(180deg, #17100a, var(--bg) 62%);
+    }
+    button, select, textarea { font: inherit; color: inherit; }
+    select option { color: #111; }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100vw - 24px)); margin: 0 auto; padding: 18px 0 32px; }
+    .topbar { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 16px; }
+    .back, .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(0,0,0,.24);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .hero, .panel {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255,209,92,.10), rgba(0,0,0,.18)), var(--panel);
+      box-shadow: 0 22px 70px rgba(0,0,0,.48);
+    }
+    .hero { padding: 20px; margin-bottom: 14px; }
+    .kicker { margin: 0 0 8px; color: var(--gold); font-size: 12px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(28px, 4vw, 48px); line-height: 1.03; letter-spacing: 0; }
+    .meta { margin: 10px 0 0; color: var(--muted); line-height: 1.45; }
+    .setup { display: grid; gap: 14px; padding: 18px; }
+    .setup.show { display: grid; }
+    .setup:not(.show) { display: none; }
+    .form-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    select, textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px;
+      background: rgba(0,0,0,.32);
+      padding: 11px 12px;
+    }
+    textarea { min-height: 110px; resize: vertical; line-height: 1.45; text-transform: none; letter-spacing: 0; }
+    .btn {
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      padding: 12px 14px;
+      cursor: pointer;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: 12px;
+    }
+    .btn.primary { background: rgba(255,209,92,.18); border-color: rgba(255,209,92,.55); color: var(--gold); }
+    .exam { display: none; grid-template-columns: minmax(0, 1fr) 320px; gap: 14px; }
+    .exam.show { display: grid; }
+    .question { padding: 18px; }
+    .hud { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .hud .chip strong { color: var(--cyan); }
+    .prompt { font-size: clamp(18px, 3vw, 28px); line-height: 1.28; margin: 10px 0 16px; }
+    .choices { display: grid; gap: 9px; }
+    .choice {
+      width: 100%;
+      text-align: left;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9px;
+      background: rgba(255,255,255,.05);
+      padding: 13px 14px;
+      cursor: pointer;
+      line-height: 1.35;
+    }
+    .choice:hover, .choice:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    .choice.selected { border-color: var(--gold); background: rgba(255,209,92,.12); }
+    .choice.correct { border-color: var(--green); background: rgba(116,240,170,.13); }
+    .choice.wrong { border-color: var(--red); background: rgba(255,109,122,.13); }
+    .explain {
+      display: none;
+      margin-top: 14px;
+      border-left: 3px solid var(--cyan);
+      background: rgba(114,233,255,.08);
+      border-radius: 7px;
+      padding: 12px;
+      line-height: 1.45;
+      color: #e8faff;
+    }
+    .explain.show { display: block; }
+    .side { display: grid; gap: 12px; align-self: start; }
+    .written { padding: 14px; }
+    .written h2, .finish h2 { margin: 0 0 10px; }
+    .written-card {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 9px;
+      padding: 12px;
+      background: rgba(0,0,0,.22);
+      margin-bottom: 10px;
+    }
+    .written-card p { margin: 0 0 10px; color: var(--muted); line-height: 1.4; }
+    .finish { display: none; padding: 18px; }
+    .finish.show { display: block; }
+    .score { font-size: clamp(42px, 8vw, 72px); line-height: 1; color: var(--gold); font-weight: 1000; margin: 10px 0; }
+    .missed { display: grid; gap: 10px; margin-top: 14px; }
+    .missed-item { border: 1px solid rgba(255,255,255,.12); border-radius: 9px; padding: 12px; background: rgba(0,0,0,.2); }
+    .missed-item p { margin: 6px 0 0; color: var(--muted); line-height: 1.4; }
+    .empty { padding: 22px; text-align: center; }
+    @media (max-width: 860px) {
+      .form-grid, .exam.show { grid-template-columns: 1fr; }
+      .topbar { align-items: stretch; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topbar">
+      <a class="back" href="../../index.html#practice">Back to Arcade</a>
+      <span class="chip">Generated NYS/AP Practice Exams</span>
+    </div>
+    <section class="hero">
+      <p class="kicker">Full-Course Exam Layer</p>
+      <h1 id="title">All-Subject Practice Exams</h1>
+      <p class="meta" id="subtitle">Choose a course and run a structured practice exam built from the all-subject bank, unit map, and released-source metadata.</p>
+    </section>
+    <section class="panel setup show" id="setupScreen">
+      <div class="form-grid">
+        <label>Course
+          <select id="courseSelect"></select>
+        </label>
+        <label>Length
+          <select id="lengthSelect">
+            <option value="10">10-question sprint</option>
+            <option value="20" selected>20-question practice exam</option>
+            <option value="30">30-question extended exam</option>
+          </select>
+        </label>
+        <label>Mode
+          <select id="modeSelect">
+            <option value="review" selected>Review after each question</option>
+            <option value="exam">Exam mode, score at end</option>
+          </select>
+        </label>
+      </div>
+      <p class="meta" id="sourceMeta"></p>
+      <button class="btn primary" id="startBtn" type="button">Start Practice Exam</button>
+    </section>
+    <section class="exam" id="examScreen">
+      <article class="panel question">
+        <div class="hud">
+          <span class="chip"><strong id="progressText">1/20</strong> Progress</span>
+          <span class="chip"><strong id="scoreText">0</strong> Correct</span>
+          <span class="chip" id="unitText">Unit</span>
+        </div>
+        <p class="kicker" id="sectionText">Multiple Choice</p>
+        <h2 class="prompt" id="promptText"></h2>
+        <div class="choices" id="choices"></div>
+        <div class="explain" id="explanation"></div>
+        <div class="hud" style="margin-top:14px">
+          <button class="btn primary" id="submitBtn" type="button">Submit Answer</button>
+          <button class="btn" id="nextBtn" type="button">Next</button>
+          <button class="btn" id="finishBtn" type="button">Finish</button>
+        </div>
+      </article>
+      <aside class="side">
+        <section class="panel written">
+          <h2>Written Response</h2>
+          <div id="writtenPrompts"></div>
+        </section>
+      </aside>
+    </section>
+    <section class="panel finish" id="finishScreen">
+      <p class="kicker">Exam Complete</p>
+      <h2 id="finishTitle">Practice run complete</h2>
+      <div class="score" id="finalScore">0%</div>
+      <p class="meta" id="finishMeta"></p>
+      <div class="hud">
+        <button class="btn primary" id="retryBtn" type="button">Try Again</button>
+        <a class="btn" href="../../index.html#practice">Back to Practice</a>
+      </div>
+      <div class="missed" id="missedList"></div>
+    </section>
+    <section class="panel empty" id="emptyScreen" hidden>
+      <h2>No generated practice exams found</h2>
+      <p class="meta">Return to the arcade and regenerate the all-subject content system.</p>
+    </section>
+  </main>
+  <script src="../../assets/shared-question-bank.js?v=20260515-all-subjects-v1"></script>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const requestedCourse = params.get("course") || "";
+    const state = { exams: [], exam: null, items: [], index: 0, selected: "", correct: 0, answered: false, missed: [] };
+    const $ = (sel) => document.querySelector(sel);
+    function esc(value) {
+      return String(value == null ? "" : value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+    function norm(value) {
+      return String(value || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+    }
+    function bankFor(courseId, courseLabel) {
+      const bank = window.DIAG_BANK_BY_COURSE || {};
+      if (Array.isArray(bank[courseId])) return bank[courseId];
+      const labels = window.DIAG_BANK_COURSE_LABELS || {};
+      const key = Object.keys(labels).find((id) => norm(labels[id]) === norm(courseLabel));
+      return key && Array.isArray(bank[key]) ? bank[key] : [];
+    }
+    function examByCourse(course) {
+      return state.exams.find((exam) => exam.courseId === course)
+        || state.exams.find((exam) => norm(exam.courseLabel) === norm(course))
+        || state.exams[0];
+    }
+    function currentQuestion() {
+      return state.items[state.index];
+    }
+    function updateSourceMeta() {
+      const exam = examByCourse($("#courseSelect").value);
+      if (!exam) return;
+      const sourceIds = (exam.officialSourceIds || []).join(", ") || "course bank";
+      const sections = (exam.sectionPlan || []).map((s) => s.label + " (" + s.count + ")").join(" - ");
+      $("#sourceMeta").textContent = [exam.standardsFramework, sections, sourceIds].filter(Boolean).join(" - ");
+    }
+    function populateCourses() {
+      const options = state.exams.slice().sort((a, b) => a.courseLabel.localeCompare(b.courseLabel, undefined, { numeric: true }))
+        .map((exam) => '<option value="' + esc(exam.courseId) + '">' + esc(exam.courseLabel) + '</option>').join("");
+      $("#courseSelect").innerHTML = options;
+      const requested = examByCourse(requestedCourse);
+      if (requested) $("#courseSelect").value = requested.courseId;
+      updateSourceMeta();
+    }
+    function buildItems(exam, count) {
+      const pool = bankFor(exam.courseId, exam.courseLabel);
+      const byId = new Map(pool.map((q) => [q.id, q]));
+      const wanted = [];
+      (exam.units || []).forEach((unit) => {
+        (unit.sampledQuestionIds || []).forEach((id) => {
+          const q = byId.get(id);
+          if (q && !wanted.includes(q)) wanted.push(Object.assign({ examUnit: unit.unit }, q));
+        });
+      });
+      pool.forEach((q) => {
+        if (!wanted.find((item) => item.id === q.id)) wanted.push(q);
+      });
+      return wanted.slice(0, count).map((q, index) => Object.assign({
+        examIndex: index,
+        examUnit: q.examUnit || q.topic || q.set || "Course Review"
+      }, q));
+    }
+    function renderWrittenPrompts() {
+      const units = (state.exam.units || []).slice(0, 3);
+      $("#writtenPrompts").innerHTML = units.map((unit, index) =>
+        '<div class="written-card">' +
+          '<p><strong>Part ' + (index + 1) + ':</strong> Explain one important idea from ' + esc(unit.unit) + '. Use vocabulary, evidence, or process language from the course standards.</p>' +
+          '<textarea aria-label="Written response for ' + esc(unit.unit) + '"></textarea>' +
+        '</div>'
+      ).join("");
+    }
+    function renderQuestion() {
+      const q = currentQuestion();
+      if (!q) return finishExam();
+      state.selected = "";
+      state.answered = false;
+      $("#progressText").textContent = (state.index + 1) + "/" + state.items.length;
+      $("#scoreText").textContent = state.correct;
+      $("#unitText").textContent = q.examUnit || q.topic || q.set || "Course Review";
+      $("#sectionText").textContent = (state.exam.sectionPlan && state.exam.sectionPlan[0] && state.exam.sectionPlan[0].label) || "Multiple Choice";
+      $("#promptText").textContent = q.prompt;
+      $("#explanation").classList.remove("show");
+      $("#explanation").textContent = "";
+      $("#submitBtn").disabled = false;
+      $("#choices").innerHTML = (q.choices || []).map((choice, i) =>
+        '<button class="choice" type="button" data-choice="' + esc(choice) + '">' +
+          '<strong>' + "ABCD"[i] + '.</strong> ' + esc(choice) +
+        '</button>'
+      ).join("");
+      document.querySelectorAll(".choice").forEach((button) => {
+        button.addEventListener("click", () => {
+          if (state.answered) return;
+          state.selected = button.dataset.choice;
+          document.querySelectorAll(".choice").forEach((b) => b.classList.toggle("selected", b === button));
+        });
+      });
+    }
+    function submitAnswer() {
+      const q = currentQuestion();
+      if (!q || !state.selected || state.answered) return;
+      state.answered = true;
+      const correct = state.selected === q.correctText;
+      if (correct) state.correct += 1;
+      else state.missed.push(q);
+      document.querySelectorAll(".choice").forEach((button) => {
+        const value = button.dataset.choice;
+        button.classList.toggle("correct", value === q.correctText);
+        button.classList.toggle("wrong", value === state.selected && value !== q.correctText);
+      });
+      $("#scoreText").textContent = state.correct;
+      $("#submitBtn").disabled = true;
+      if ($("#modeSelect").value === "review") {
+        $("#explanation").innerHTML = '<strong>Answer:</strong> ' + esc(q.correctText) + '<br>' + esc(q.explanation || "Review the linked course standard and try another item from this unit.");
+        $("#explanation").classList.add("show");
+      }
+    }
+    function nextQuestion() {
+      if (!state.answered) submitAnswer();
+      state.index += 1;
+      if (state.index >= state.items.length) finishExam();
+      else renderQuestion();
+    }
+    function startExam() {
+      state.exam = examByCourse($("#courseSelect").value);
+      const count = Number($("#lengthSelect").value) || 20;
+      state.items = buildItems(state.exam, count);
+      state.index = 0;
+      state.correct = 0;
+      state.missed = [];
+      $("#title").textContent = state.exam.courseLabel + " Practice Exam";
+      $("#subtitle").textContent = state.exam.standardsFramework + " - " + (state.exam.sourceMode || "course blueprint");
+      $("#setupScreen").classList.remove("show");
+      $("#finishScreen").classList.remove("show");
+      $("#examScreen").classList.add("show");
+      renderWrittenPrompts();
+      renderQuestion();
+    }
+    function finishExam() {
+      const total = state.items.length || 1;
+      const pct = Math.round((state.correct / total) * 100);
+      $("#examScreen").classList.remove("show");
+      $("#finishScreen").classList.add("show");
+      $("#finishTitle").textContent = state.exam.courseLabel + " practice complete";
+      $("#finalScore").textContent = pct + "%";
+      $("#finishMeta").textContent = state.correct + " of " + total + " multiple-choice items correct. Written responses are saved on-screen for teacher/self review only.";
+      $("#missedList").innerHTML = state.missed.length ? state.missed.map((q) =>
+        '<div class="missed-item"><strong>' + esc(q.prompt) + '</strong><p>Answer: ' + esc(q.correctText) + '</p><p>' + esc(q.explanation || "") + '</p></div>'
+      ).join("") : '<div class="missed-item"><strong>No missed multiple-choice items.</strong><p>Try a longer run or write out the constructed responses.</p></div>';
+    }
+    async function load() {
+      try {
+        const response = await fetch("../../data/generated-practice-exam-blueprints.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("missing exam blueprints");
+        const payload = await response.json();
+        state.exams = Array.isArray(payload.exams) ? payload.exams : [];
+        if (!state.exams.length) throw new Error("empty exam blueprints");
+        populateCourses();
+      } catch (e) {
+        $("#setupScreen").classList.remove("show");
+        $("#emptyScreen").hidden = false;
+      }
+    }
+    $("#courseSelect").addEventListener("change", updateSourceMeta);
+    $("#startBtn").addEventListener("click", startExam);
+    $("#submitBtn").addEventListener("click", submitAnswer);
+    $("#nextBtn").addEventListener("click", nextQuestion);
+    $("#finishBtn").addEventListener("click", finishExam);
+    $("#retryBtn").addEventListener("click", () => {
+      $("#finishScreen").classList.remove("show");
+      $("#setupScreen").classList.add("show");
+    });
+    load();
+  </script>
+</body>
+</html>

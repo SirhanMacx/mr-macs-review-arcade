@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Course Jeopardy - Mr. Mac's Review Arcade</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090806;
+      --panel: #15100b;
+      --ink: #fff5d7;
+      --muted: #cdbf96;
+      --gold: #ffd15c;
+      --cyan: #70e8ff;
+      --pink: #ff7bcc;
+      --green: #74f0aa;
+      --line: rgba(255, 209, 92, .28);
+      --shadow: 0 18px 60px rgba(0, 0, 0, .55);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 100% 4px,
+        radial-gradient(circle at 20% 0%, rgba(112,232,255,.18), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(255,123,204,.15), transparent 30%),
+        linear-gradient(180deg, #16100b, #050403 60%);
+    }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    .wrap { width: min(1180px, calc(100vw - 24px)); margin: 0 auto; padding: 18px 0 28px; }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: rgba(0, 0, 0, .24);
+      text-decoration: none;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+    .scores { display: flex; gap: 10px; flex-wrap: wrap; }
+    .score {
+      min-width: 124px;
+      padding: 10px 12px;
+      border: 1px solid rgba(112,232,255,.26);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, .24);
+    }
+    .score span { display: block; color: var(--muted); font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: .12em; }
+    .score strong { font-size: 26px; color: var(--cyan); }
+    .hero {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(255,209,92,.12), rgba(0,0,0,.22)), var(--panel);
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(26px, 4vw, 48px);
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+    .meta {
+      margin: 10px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+      max-width: 900px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      padding: 10px;
+      border: 1px solid rgba(112,232,255,.2);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, .34);
+      box-shadow: var(--shadow);
+    }
+    .cat, .tile {
+      min-height: 72px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      background: #14205a;
+      text-align: center;
+    }
+    .cat {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      color: #fff8d7;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      line-height: 1.2;
+      background: linear-gradient(180deg, #24348c, #101a57);
+    }
+    .tile {
+      cursor: pointer;
+      color: var(--gold);
+      font-size: clamp(22px, 4vw, 38px);
+      font-weight: 1000;
+      text-shadow: 0 3px 0 rgba(0,0,0,.35);
+      transition: transform 120ms ease, filter 120ms ease, opacity 120ms ease;
+    }
+    .tile:hover, .tile:focus-visible { transform: translateY(-2px); filter: brightness(1.12); outline: 2px solid var(--cyan); outline-offset: 2px; }
+    .tile.done { opacity: .28; cursor: default; }
+    .tools { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .tool {
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-size: 12px;
+    }
+    .tool.primary { border-color: rgba(255,209,92,.55); background: rgba(255,209,92,.16); color: var(--gold); }
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding: 18px;
+      background: rgba(0,0,0,.78);
+      z-index: 20;
+    }
+    .modal.show { display: grid; }
+    .dialog {
+      width: min(760px, 100%);
+      max-height: min(720px, 92vh);
+      overflow: auto;
+      border: 1px solid rgba(255,209,92,.36);
+      border-radius: 12px;
+      background: linear-gradient(180deg, #19130d, #080605);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .clue-text { font-size: clamp(20px, 3.2vw, 34px); line-height: 1.25; margin: 8px 0 16px; }
+    .answer {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid rgba(112,232,255,.28);
+      border-radius: 9px;
+      background: rgba(112,232,255,.08);
+      line-height: 1.45;
+    }
+    .answer.show { display: block; }
+    .answer strong { color: var(--cyan); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .actions button {
+      padding: 11px 13px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 8px;
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+      font-weight: 900;
+    }
+    .actions .reveal { background: rgba(255,209,92,.18); color: var(--gold); border-color: rgba(255,209,92,.46); }
+    .actions .score-a { background: rgba(112,232,255,.14); border-color: rgba(112,232,255,.4); }
+    .actions .score-b { background: rgba(255,123,204,.13); border-color: rgba(255,123,204,.36); }
+    .status {
+      margin-top: 12px;
+      min-height: 20px;
+      color: var(--green);
+      font-weight: 900;
+    }
+    .empty {
+      margin: 20vh auto;
+      width: min(620px, calc(100vw - 32px));
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      text-align: center;
+    }
+    @media (max-width: 760px) {
+      .board { gap: 5px; padding: 6px; }
+      .cat { min-height: 58px; padding: 6px; font-size: 10px; }
+      .tile { min-height: 58px; font-size: 20px; }
+      .topbar { align-items: stretch; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="topbar">
+      <a class="back" href="../../index.html#jeopardy">Back to Arcade</a>
+      <div class="scores" aria-label="Team scores">
+        <div class="score"><span>Team A</span><strong id="scoreA">0</strong></div>
+        <div class="score"><span>Team B</span><strong id="scoreB">0</strong></div>
+      </div>
+    </div>
+    <section class="hero" id="hero" hidden>
+      <p class="kicker" id="kicker">Course Jeopardy</p>
+      <h1 id="title">Loading board...</h1>
+      <p class="meta" id="meta"></p>
+      <div class="tools">
+        <button class="tool primary" id="finalBtn" type="button">Final Jeopardy</button>
+        <button class="tool" id="resetBtn" type="button">Reset Board</button>
+      </div>
+    </section>
+    <section class="board" id="board" aria-label="Jeopardy board" hidden></section>
+    <section class="empty" id="empty" hidden>
+      <h1>Board not found</h1>
+      <p class="meta">Return to the arcade and choose another course board.</p>
+      <p><a class="back" href="../../index.html#jeopardy">Back to Arcade</a></p>
+    </section>
+  </main>
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="dialog">
+      <p class="kicker" id="modalKicker"></p>
+      <h2 class="clue-text" id="modalTitle"></h2>
+      <div class="answer" id="answerBox">
+        <p><strong>Answer:</strong> <span id="answerText"></span></p>
+        <p id="explanationText"></p>
+      </div>
+      <div class="actions">
+        <button class="reveal" id="revealBtn" type="button">Reveal Answer</button>
+        <button class="score-a" id="scoreABtn" type="button">Team A Correct</button>
+        <button class="score-b" id="scoreBBtn" type="button">Team B Correct</button>
+        <button id="missBtn" type="button">Mark Missed</button>
+        <button id="closeBtn" type="button">Close</button>
+      </div>
+      <div class="status" id="status" aria-live="polite"></div>
+    </div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const requestedBoard = params.get("board") || "";
+    const state = { board: null, active: null, scoreA: 0, scoreB: 0, completed: new Set() };
+    const $ = (sel) => document.querySelector(sel);
+    function esc(value) {
+      return String(value == null ? "" : value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+    function score(delta, team) {
+      if (team === "a") state.scoreA += delta;
+      if (team === "b") state.scoreB += delta;
+      $("#scoreA").textContent = state.scoreA;
+      $("#scoreB").textContent = state.scoreB;
+    }
+    function clueKey(categoryIndex, clueIndex) {
+      return categoryIndex + ":" + clueIndex;
+    }
+    function renderBoard() {
+      const board = state.board;
+      $("#hero").hidden = false;
+      $("#board").hidden = false;
+      $("#empty").hidden = true;
+      document.title = board.title + " - Mr. Mac's Review Arcade";
+      $("#kicker").textContent = board.courseLabel + " - " + board.unit;
+      $("#title").textContent = board.title;
+      $("#meta").textContent = [board.standardsFramework, board.sourceAuthority].filter(Boolean).join(" - ");
+      const categories = (board.categories || []).slice(0, 5);
+      let html = categories.map((cat) => '<div class="cat">' + esc(cat.name) + '</div>').join("");
+      for (let row = 0; row < 5; row++) {
+        categories.forEach((cat, col) => {
+          const clue = (cat.clues || [])[row];
+          if (!clue) {
+            html += '<button class="tile done" type="button" disabled></button>';
+            return;
+          }
+          const key = clueKey(col, row);
+          const done = state.completed.has(key);
+          html += '<button class="tile' + (done ? ' done' : '') + '" type="button" data-col="' + col + '" data-row="' + row + '"' + (done ? ' disabled' : '') + '>$' + esc(clue.value) + '</button>';
+        });
+      }
+      $("#board").innerHTML = html;
+      document.querySelectorAll(".tile[data-col]").forEach((button) => {
+        button.addEventListener("click", () => openClue(Number(button.dataset.col), Number(button.dataset.row)));
+      });
+    }
+    function openClue(col, row) {
+      const cat = state.board.categories[col];
+      const clue = cat.clues[row];
+      state.active = { col, row, clue, category: cat.name };
+      $("#modalKicker").textContent = cat.name + " - $" + clue.value;
+      $("#modalTitle").textContent = clue.clue;
+      $("#answerText").textContent = clue.answer;
+      $("#explanationText").textContent = clue.explanation || "";
+      $("#answerBox").classList.remove("show");
+      $("#status").textContent = "";
+      $("#modal").classList.add("show");
+      $("#revealBtn").focus();
+    }
+    function completeActive(message) {
+      if (!state.active) return;
+      state.completed.add(clueKey(state.active.col, state.active.row));
+      $("#status").textContent = message || "Marked complete.";
+      renderBoard();
+    }
+    function openFinal() {
+      const final = state.board && state.board.final;
+      if (!final) return;
+      state.active = { col: "final", row: "final", clue: { value: 0, clue: final.clue, answer: final.answer, explanation: final.explanation }, category: final.category || "Final Jeopardy" };
+      $("#modalKicker").textContent = final.category || "Final Jeopardy";
+      $("#modalTitle").textContent = final.clue;
+      $("#answerText").textContent = final.answer;
+      $("#explanationText").textContent = final.explanation || "";
+      $("#answerBox").classList.remove("show");
+      $("#status").textContent = "";
+      $("#modal").classList.add("show");
+      $("#revealBtn").focus();
+    }
+    async function load() {
+      try {
+        const response = await fetch("../../data/generated-all-subject-jeopardy-blueprints.json", { cache: "no-store" });
+        if (!response.ok) throw new Error("board data unavailable");
+        const payload = await response.json();
+        const boards = Array.isArray(payload.boards) ? payload.boards : [];
+        state.board = boards.find((board) => board.id === requestedBoard) || boards[0];
+        if (!state.board) throw new Error("no boards");
+        renderBoard();
+      } catch (error) {
+        $("#hero").hidden = true;
+        $("#board").hidden = true;
+        $("#empty").hidden = false;
+      }
+    }
+    $("#revealBtn").addEventListener("click", () => $("#answerBox").classList.add("show"));
+    $("#scoreABtn").addEventListener("click", () => {
+      if (state.active && state.active.clue.value) score(Number(state.active.clue.value), "a");
+      completeActive("Team A scored.");
+    });
+    $("#scoreBBtn").addEventListener("click", () => {
+      if (state.active && state.active.clue.value) score(Number(state.active.clue.value), "b");
+      completeActive("Team B scored.");
+    });
+    $("#missBtn").addEventListener("click", () => completeActive("Marked for review."));
+    $("#closeBtn").addEventListener("click", () => $("#modal").classList.remove("show"));
+    $("#modal").addEventListener("click", (event) => {
+      if (event.target.id === "modal") $("#modal").classList.remove("show");
+    });
+    $("#finalBtn").addEventListener("click", openFinal);
+    $("#resetBtn").addEventListener("click", () => {
+      state.completed = new Set();
+      state.scoreA = 0;
+      state.scoreB = 0;
+      $("#scoreA").textContent = "0";
+      $("#scoreB").textContent = "0";
+      renderBoard();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") $("#modal").classList.remove("show");
+    });
+    load();
+  </script>
+</body>
+</html>

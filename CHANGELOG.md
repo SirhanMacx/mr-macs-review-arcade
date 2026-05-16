@@ -5,6 +5,20 @@ All notable changes to Mr. Mac's Review Arcade are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions are date-based (YYYY-MM-DD) since the arcade ships continuously to GitHub Pages.
 
+## [2026-05-16] — Visible All-Subject Course UI
+
+### Added
+- All generated NYS/AP course labels now appear in the hub library course filter, Jeopardy course selector, profile/welcome course picker, onboarding flow, Cram Mode, and horizontal course rail.
+- Course-specific practice launch cards for generated courses such as AP Biology, Chemistry, Grade 5 Mathematics, and AP Cybersecurity.
+- Generic generated-Jeopardy runner at `games/generated-jeopardy/`, so generated unit blueprints are playable as 5x5 boards with Final Jeopardy.
+- Generic generated-practice-exam runner at `games/generated-practice-exam/`, so the 90 generated practice-exam blueprints are playable with MCQs, written responses, unit coverage, and released-source metadata.
+- `games.json` catalog entries for the generated all-subject Jeopardy and practice-exam layers so they appear as real arcade surfaces, not just hidden data.
+- Smoke coverage that asserts AP Biology and other generated courses are visible and playable from the hub UI.
+
+### Changed
+- Hub metrics and metadata now count the expanded visible course catalog, 221 catalog entries, and the 7,146-prompt shared bank instead of only the legacy social-studies `games.json` course list.
+- Service worker cache version bumped for the all-subject UI and generated-Jeopardy runner.
+
 ## [2026-05-15] — All-Subject 5-12/AP Content System
 
 ### Added

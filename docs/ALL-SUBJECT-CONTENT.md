@@ -6,6 +6,17 @@ The arcade now treats content as a generated system with three layers:
 2. **Unit Jeopardy blueprints** generated into `data/generated-all-subject-jeopardy-blueprints.json`.
 3. **Practice-exam blueprints** generated into `data/generated-practice-exam-blueprints.json`.
 
+The generated catalog is now exposed in the actual hub UI, not just in data files:
+
+- Library course filter
+- Jeopardy course selector
+- Profile and first-run course pickers
+- Cram Mode course picker
+- Horizontal course rail
+- Course-specific practice launch cards for generated courses
+- `games/generated-jeopardy/` generic runner for generated unit-board blueprints
+- `games/generated-practice-exam/` generic runner for generated practice-exam blueprints
+
 The source of truth is `scripts/generate-all-subject-content.mjs`. Run:
 
 ```bash

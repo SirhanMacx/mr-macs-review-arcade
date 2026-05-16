@@ -42,10 +42,10 @@
   // ---------------------------------------------------------------------------
   var BUILT_IN = {
     "first-visit": [
-      "Welcome! Pick any cabinet — there are 219 to try.",
+      "Welcome! Pick any cabinet — there are 221 to try.",
       "I'm Mr. Mac. Hop into anything — even a 5-min source sprint counts.",
       "First time here? Start anywhere. Every cabinet builds skills.",
-      "219 cabinets, infinite second chances. Dive in.",
+      "221 cabinets, infinite second chances. Dive in.",
       "All review modes are unlocked from day one. Go wild.",
       "No wrong door. Pick the cabinet that looks fun and start there.",
       "Shards are how we keep score. Questions earn shards. Easy.",

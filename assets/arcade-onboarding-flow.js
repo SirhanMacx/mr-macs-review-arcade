@@ -31,6 +31,41 @@
     'AP World History',
     'Other / All Courses'
   ];
+  var COURSE_ALIASES = {
+    'AP United States Government and Politics': 'AP U.S. Government and Politics',
+    'Global History 9 (Ancient–Medieval)': 'Grade 9 Global History I',
+    'Global History 10 (Cold War–Modern)': 'Grade 10 Global History II',
+    'Grade 7 US History': 'Grade 7 U.S. History I',
+    'Grade 8 US History': 'Grade 8 U.S. History II',
+    'US Government & Civics': 'Civics and Participation in Government',
+    'US History (Cold War-Modern)': 'Grade 11 U.S. History'
+  };
+  function displayCourseLabel(course) {
+    var value = String(course || '').trim();
+    return COURSE_ALIASES[value] || value;
+  }
+  function courseOptions() {
+    var labels = COURSES.slice();
+    try {
+      if (root.DIAG_BANK_COURSE_LABELS) {
+        Object.keys(root.DIAG_BANK_COURSE_LABELS).forEach(function (key) {
+          labels.push(displayCourseLabel(root.DIAG_BANK_COURSE_LABELS[key]));
+        });
+      }
+    } catch (e) {}
+    var seen = {};
+    return labels.filter(function (label) {
+      label = displayCourseLabel(label);
+      if (!label || seen[label]) return false;
+      seen[label] = true;
+      return true;
+    }).sort(function (a, b) {
+      var apA = /^AP\b/.test(a);
+      var apB = /^AP\b/.test(b);
+      if (apA !== apB) return apA ? 1 : -1;
+      return a.localeCompare(b, undefined, { numeric: true });
+    });
+  }
 
   var TOUR_CARDS = [
     { icon: '\u{1F525}', title: 'Daily Challenge',
@@ -218,7 +253,7 @@
       el('h2', { className: 'mo-title' },
          ["Welcome to Mr. Mac's Arcade"]),
       el('p', { className: 'mo-tagline' }, [
-        '199 social-studies review games. Pick a profile and start playing.'
+        'Grades 5-12 and AP review games. Pick a profile and start playing.'
       ]),
       el('button', {
         className: 'mo-btn', type: 'button',
@@ -274,8 +309,9 @@
     }
 
     var courseOpts = [];
-    for (var c = 0; c < COURSES.length; c++) {
-      courseOpts.push(el('option', { value: COURSES[c] }, [COURSES[c]]));
+    var courses = courseOptions();
+    for (var c = 0; c < courses.length; c++) {
+      courseOpts.push(el('option', { value: courses[c] }, [courses[c]]));
     }
 
     nameInput = el('input', {
