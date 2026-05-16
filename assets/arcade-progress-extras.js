@@ -1423,7 +1423,7 @@
       (doc.head || doc.documentElement).appendChild(script);
     }
     loadScript(peerSrc, function () {
-      loadScript(base + "arcade-multiplayer.js?v=20260513-room-score-sync", function () {
+      loadScript(base + "arcade-multiplayer.js?v=20260516-hash-digits", function () {
         try {
           if (root.MrMacsMultiplayer && root.MrMacsMultiplayer.mountGameRoomStrip) {
             root.MrMacsMultiplayer.mountGameRoomStrip();

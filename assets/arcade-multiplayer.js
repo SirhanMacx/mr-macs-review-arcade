@@ -65,7 +65,11 @@
   function codeFromHash() {
     try {
       var h = String(location.hash || "");
-      var m = h.match(/room=([A-Z]{3}-[A-Z]{3})/i);
+      // Room codes are drawn from ALPHABET (uppercase letters + digits 2-9),
+      // so the hash regex must accept both. The original [A-Z] form silently
+      // rejected ~86% of generated codes (those containing any digit), so
+      // teacher-shared join links broke for most rooms.
+      var m = h.match(/room=([A-Z0-9]{3}-[A-Z0-9]{3})/i);
       return m ? m[1].toUpperCase() : null;
     } catch (e) { return null; }
   }

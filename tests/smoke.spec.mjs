@@ -694,6 +694,38 @@ test("student-safe names guard multiplayer and global leaderboards", async ({ pa
   expect(result.localDisplay).toBe("PLAYER");
 });
 
+test("multiplayer codeFromHash accepts digit-containing room codes", async ({ page }) => {
+  // Regression for the regex bug that rejected ~86% of generated codes
+  // (anything with a digit, e.g. "H5W-CSM"). The hash parser must accept
+  // the same alphabet that makeCode() draws from: A-Z + digits 2-9.
+  await loadModuleHarness(page, [
+    "/assets/arcade-name-safety.js?v=test-hash-digits",
+    "/assets/arcade-leaderboards.js?v=test-hash-digits",
+    "/assets/arcade-multiplayer.js?v=test-hash-digits"
+  ]);
+  await page.waitForFunction(() => window.MrMacsMultiplayer, null, { timeout: 30000 });
+  const result = await page.evaluate(() => {
+    function parse(hash) {
+      location.hash = hash;
+      return window.MrMacsMultiplayer.codeFromHash();
+    }
+    return {
+      letters:    parse("#room=ABC-DEF"),
+      mixedFront: parse("#room=H5W-CSM"),
+      mixedAll:   parse("#room=A2C-3DF"),
+      lowercase:  parse("#room=abc-def"),
+      malformed:  parse("#room=23-4567"),
+      missing:    parse("")
+    };
+  });
+  expect(result.letters).toBe("ABC-DEF");
+  expect(result.mixedFront).toBe("H5W-CSM");
+  expect(result.mixedAll).toBe("A2C-3DF");
+  expect(result.lowercase).toBe("ABC-DEF");
+  expect(result.malformed).toBeNull();
+  expect(result.missing).toBeNull();
+});
+
 test("global leaderboard posts only safe public handles", async ({ page }) => {
   let posted = null;
   await page.route("http://localhost:7777/scores", async route => {
