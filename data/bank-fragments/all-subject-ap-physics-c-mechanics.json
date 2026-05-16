@@ -18,10 +18,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Derivative of position.",
       "choices": [
-        "Position",
         "Velocity",
-        "Acceleration",
-        "Power"
+        "Atwood machine",
+        "x equals x_0 plus v_0 t plus half a t squared",
+        "Acceleration"
       ],
       "correctText": "Velocity",
       "explanation": "Velocity is defined as the time derivative of position: v(t) = dx/dt, a calculus definition that distinguishes AP Physics C from algebra-based Physics 1. Newton's Principia (1687) and Leibniz's parallel work fixed this differential foundation. Velocity is a signed vector quantity - it carries direction unlike speed (which is |v|). On AP Phys C Mech FRQ, students routinely earn full credit only when they evaluate dx/dt from a given x(t) (often a polynomial like x = 3t^3 - 2t^2) using power-rule differentiation. Science Practice 1.A (translating between representations) is invoked - graph, equation, table, and verbal description must agree."
@@ -40,10 +40,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Derivative of velocity.",
       "choices": [
+        "Constant velocity",
+        "x equals x_0 plus v_0 t plus half a t squared",
         "Acceleration",
-        "Relative velocity",
-        "Position",
-        "x equals x_0 plus v_0 t plus half a t squared"
+        "Position"
       ],
       "correctText": "Acceleration",
       "explanation": "Acceleration is the time derivative of velocity: a(t) = dv/dt = d^2x/dt^2, making it the second derivative of position. This Newton-Leibniz differential framework is the calculus core of AP Physics C Mechanics. Acceleration is a vector and may be negative (slowing down a positive-velocity object) or positive (speeding up). The AP Phys C FRQ frequently presents x(t) and asks students to derive both v(t) and a(t), or presents v(t) on a graph and asks for a(t) as the slope. Science Practice 1 demands students recognize a constant-slope v(t) graph implies constant a, while curved v(t) implies a is itself time-varying."
@@ -63,8 +63,8 @@
       "prompt": "Antiderivative of velocity.",
       "choices": [
         "Position",
-        "Acceleration",
-        "Two fifths M R squared",
+        "Velocity",
+        "Terminal velocity",
         "Velocity"
       ],
       "correctText": "Position",
@@ -84,9 +84,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Antiderivative of acceleration.",
       "choices": [
+        "Position",
         "Velocity",
-        "Perfectly inelastic",
-        "Acceleration",
+        "2 pi sqrt I over m g d",
         "x equals x_0 plus v_0 t plus half a t squared"
       ],
       "correctText": "Velocity",
@@ -106,10 +106,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Position equation for constant a.",
       "choices": [
-        "x equals x_0 plus v_0 t plus half a t squared",
-        "Position",
         "Velocity",
-        "About 11.2 km per second"
+        "Vector",
+        "x equals x_0 plus v_0 t plus half a t squared",
+        "Velocity"
       ],
       "correctText": "x equals x_0 plus v_0 t plus half a t squared",
       "explanation": "The kinematic equation x = x_0 + v_0*t + (1/2)*a*t^2 holds for constant acceleration only, derived by integrating v(t) = v_0 + a*t once. On AP Physics C Mech students must distinguish when this formula applies (constant a) from when full calculus is required (variable a, drag, springs). For projectiles the equation appears in component form: y(t) = y_0 + v_0y*t - (1/2)*g*t^2 and x(t) = x_0 + v_0x*t. The 2018 FRQ #1 tested this distinction by providing a(t) = 6t (non-constant) - students who blindly applied the constant-a formula lost rubric points to those who integrated correctly using Science Practice 2."
@@ -130,8 +130,8 @@
       "choices": [
         "g downward",
         "r equals r_0 plus v_0 t plus half a t squared",
-        "Conservative force",
-        "Constant horizontal velocity"
+        "45 degrees",
+        "Yes"
       ],
       "correctText": "r equals r_0 plus v_0 t plus half a t squared",
       "explanation": "The vector position equation r(t) = r_0 + v_0*t + (1/2)*a*t^2 generalizes 1D constant-acceleration kinematics to two or three dimensions, valid when the acceleration vector a is constant. AP Physics C Mech treats this as five scalar equations (one per Cartesian component) that decouple under Galilean kinematics: x and y motions are independent. Projectile motion exemplifies this - horizontal motion has a_x = 0 (constant v_x) while vertical motion has a_y = -g (uniform downward acceleration). The 2019 FRQ #2 demanded vector decomposition before applying the scalar equation - failing to project v_0 onto axes cost rubric points."
@@ -152,8 +152,8 @@
       "choices": [
         "r equals r_0 plus v_0 t plus half a t squared",
         "Constant horizontal velocity",
-        "Equilibrium",
-        "v_0 squared sin 2 theta over g"
+        "G m_1 m_2 over r squared",
+        "g downward"
       ],
       "correctText": "Constant horizontal velocity",
       "explanation": "In projectile motion under gravity alone, the horizontal velocity component v_x remains constant because no horizontal force acts (a_x = 0); only the vertical component v_y changes due to a_y = -g. This decoupling, recognized since Galileo's Two New Sciences (1638), is the foundation of all projectile problems on AP Physics C Mech. The 2017 FRQ #1 tested this by giving a projectile launched at angle theta - students computed v_0x = v_0 cos(theta) once at launch and used it throughout the entire trajectory. Science Practice 2 (mathematical routines) and Practice 6 (argumentation from a model) both reward this independence-of-axes reasoning."
@@ -172,10 +172,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vertical acceleration of projectile.",
       "choices": [
-        "45 degrees",
         "g downward",
-        "Greater than c",
-        "r equals r_0 plus v_0 t plus half a t squared"
+        "Angular momentum",
+        "45 degrees",
+        "v_0 squared sin 2 theta over g"
       ],
       "correctText": "g downward",
       "explanation": "The vertical acceleration of a projectile is g directed downward (a_y = -g ≈ -9.8 m/s^2 if up is positive), a constant set by Earth's gravitational field at the surface. AP Physics C Mech treats this as the only force on the projectile after launch (air resistance is neglected unless explicitly stated). On AP exams students must explicitly state the sign convention - many lose rubric points by writing g = 9.8 then forgetting the negative for downward motion. The kinematic equation y(t) = y_0 + v_0y*t - (1/2)*g*t^2 (with g positive 9.8) embeds this sign. Science Practice 1 (representations) demands consistent direction conventions throughout an FRQ."
@@ -194,9 +194,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range formula for projectile on flat ground.",
       "choices": [
-        "Terminal velocity",
         "v_0 squared sin 2 theta over g",
         "Constant horizontal velocity",
+        "Acceleration",
         "r equals r_0 plus v_0 t plus half a t squared"
       ],
       "correctText": "v_0 squared sin 2 theta over g",
@@ -216,10 +216,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum range angle.",
       "choices": [
-        "All potential",
-        "r equals r_0 plus v_0 t plus half a t squared",
+        "Negative b v",
+        "45 degrees",
         "v_0 squared sin 2 theta over g",
-        "45 degrees"
+        "g downward"
       ],
       "correctText": "45 degrees",
       "explanation": "The maximum range for a projectile on flat ground occurs at launch angle theta = 45 degrees, because R = v_0^2 sin(2*theta)/g is maximized when sin(2*theta) = 1, i.e., 2*theta = 90 degrees. AP Physics C Mech derives this analytically by setting dR/d(theta) = 0 and solving (cos(2*theta) = 0 gives theta = 45 degrees). The result fails for uneven ground or with air resistance - for non-level landings the optimal angle is less than 45 degrees, an extension tested on the 2016 FRQ. Science Practice 2 requires optimization via calculus; Practice 6 expects students to argue why 45 degrees is special using the chain rule."
@@ -238,10 +238,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Acceleration toward center of circle.",
       "choices": [
-        "2 pi r over v",
+        "r alpha",
         "Centripetal acceleration",
-        "Tacoma Narrows Bridge",
-        "v over r"
+        "v over r",
+        "m v squared over r"
       ],
       "correctText": "Centripetal acceleration",
       "explanation": "Centripetal acceleration is the acceleration vector that points radially inward toward the center of a circular path, required to change the direction (but not the magnitude) of velocity in uniform circular motion. Newton (Principia, 1687) and Huygens (Horologium Oscillatorium, 1673) independently derived it. The magnitude is a_c = v^2/r where v is the tangential speed and r the radius; the direction is r-hat pointing inward. AP Physics C Mech requires recognizing that centripetal acceleration is not a 'new' force - it's the net radial component of real forces (tension, gravity, normal). Science Practice 6 (argumentation) tests this on FRQs that ask students to identify which forces contribute to a_c."
@@ -260,10 +260,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Centripetal acceleration formula.",
       "choices": [
-        "Half I omega squared",
         "v squared over r",
-        "2 pi r over v",
-        "Centripetal acceleration"
+        "Centripetal acceleration",
+        "Integral of r squared dm",
+        "m v squared over r"
       ],
       "correctText": "v squared over r",
       "explanation": "Centripetal acceleration magnitude is a_c = v^2/r, derived by Newton from the geometric construction of an inscribed polygon approaching a circle in the limit. The formula assumes uniform circular motion (constant speed) - if v also changes, a tangential component a_t = dv/dt adds vectorially. AP Physics C Mech routinely tests this on banked-curve, vertical-loop, and orbital-motion problems. The 2019 FRQ #3 gave a satellite in circular orbit and asked students to equate v^2/r = GM/r^2 to derive orbital speed; Science Practice 2 (mathematical routines) rewards setting up the equation and Practice 4 (data analysis) rewards solving for v = sqrt(GM/r)."
@@ -282,10 +282,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Centripetal force formula.",
       "choices": [
-        "Alpha",
         "2 pi r over v",
+        "v squared over r",
         "m v squared over r",
-        "Centripetal acceleration"
+        "Tau equals dL dt"
       ],
       "correctText": "m v squared over r",
       "explanation": "The centripetal force F_c = m*v^2/r is the net radial force required to maintain uniform circular motion - never a force itself but a component of real forces. AP Physics C Mech FRQs routinely demand students draw a free-body diagram (Science Practice 1) then sum forces in the radial direction setting Sigma F_r = m*v^2/r. The 2018 FRQ #2 (vertical loop) tested this: at the top, gravity and normal force both point inward, giving mg + N = m*v^2/r, leading to minimum speed condition N = 0 implying v_min = sqrt(g*r). Science Practice 6 (argumentation from model) rewards explicit identification of which forces are radial."
@@ -304,10 +304,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period of uniform circular motion.",
       "choices": [
-        "Half I omega squared",
+        "2 pi sqrt L over g",
+        "v over r",
         "2 pi r over v",
-        "Centripetal acceleration",
-        "m v squared over r"
+        "v squared over r"
       ],
       "correctText": "2 pi r over v",
       "explanation": "The period T of uniform circular motion is T = 2*pi*r/v, the time for one complete revolution at constant tangential speed v around radius r. Equivalently T = 2*pi/omega where omega = v/r is angular velocity. AP Physics C Mech connects this to Kepler's third law in Unit 7: for orbital motion v = sqrt(GM/r) gives T^2 = (4*pi^2/GM)*r^3. The 2017 FRQ on satellite motion required students to derive T from v and r as a two-step problem (Science Practice 2). Frequency f = 1/T = v/(2*pi*r) is also common in cyclotron-motion problems on the Physics C EM exam, linking the two courses."
@@ -326,10 +326,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular velocity formula.",
       "choices": [
-        "v over r",
-        "Acceleration",
+        "v squared over r",
+        "Work-Energy Theorem",
         "m v squared over r",
-        "v squared over r"
+        "v over r"
       ],
       "correctText": "v over r",
       "explanation": "Angular velocity is omega = v/r, the rotational analog of linear velocity, with SI units rad/s. For uniform circular motion omega is constant; for non-uniform omega = d(theta)/dt where theta is angular position. AP Physics C Mech defines omega as a vector (right-hand rule, perpendicular to plane of motion) - this becomes crucial in Unit 5 (rotation) for cross products like v = omega cross r and L = I omega. The 2019 FRQ #3 used this to compute angular momentum of an orbiting body. Science Practice 2 expects students to convert between linear (v) and angular (omega) when both representations appear in the same problem."
@@ -348,10 +348,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vector magnitude formula.",
       "choices": [
-        "Scalar",
         "Vector",
-        "Pythagorean",
-        "r equals r_0 plus v_0 t plus half a t squared"
+        "Atwood machine",
+        "A B cosine theta",
+        "Pythagorean"
       ],
       "correctText": "Pythagorean",
       "explanation": "The Pythagorean theorem |A| = sqrt(A_x^2 + A_y^2) (or in 3D, sqrt(A_x^2 + A_y^2 + A_z^2)) gives the magnitude of a vector from its Cartesian components. AP Physics C Mech uses this constantly for resultant forces, velocities, and accelerations. The vector's direction is theta = arctan(A_y/A_x), with quadrant determined by sign conventions. The 2018 FRQ #1 required students to add three force vectors by components, take the Pythagorean magnitude, and report the angle - a Science Practice 2 (mathematical routines) workflow. Failing to check quadrants (e.g., reporting 30 degrees when the true angle is 210 degrees) is a common deduction Practice 1 (representations) tries to prevent."
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Dot product result.",
       "choices": [
-        "Sum m_i v_i over total mass",
         "Scalar",
         "Pythagorean",
-        "A B cosine theta"
+        "Vector",
+        "v squared over r"
       ],
       "correctText": "Scalar",
       "explanation": "The dot product A . B = |A||B|cos(theta) yields a scalar - a single number with no direction, unlike the cross product. AP Physics C Mech uses dot products for work W = F . dr, power P = F . v, and magnetic flux Phi = B . A. The component form A . B = A_x*B_x + A_y*B_y + A_z*B_z is essential for evaluating these integrals. The 2019 FRQ #1 tested the dot product by computing work done by a non-uniform force along a curved path - Science Practice 2 (mathematical routines) and Practice 4 (data analysis) both reward correct integration of F . dr. Key: A . B = 0 when vectors are perpendicular (cos 90 = 0)."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cross product result.",
       "choices": [
+        "r cross F",
         "Vector",
-        "A B cosine theta",
-        "A B sine theta",
-        "T squared proportional to a cubed"
+        "Scalar",
+        "Pythagorean"
       ],
       "correctText": "Vector",
       "explanation": "The cross product A x B = |A||B|sin(theta) n-hat yields a vector perpendicular to both A and B, with direction given by the right-hand rule. AP Physics C Mech uses cross products for torque tau = r x F, angular momentum L = r x p, magnetic force F = qv x B (Phys C EM), and magnetic moment. The component form involves the determinant of a 3x3 matrix with unit vectors in the top row. The 2017 FRQ #4 on rotational dynamics tested this: students used tau = r x F to find direction of torque on a rotating disk. Science Practice 1 (representations) demands consistent right-hand-rule conventions; Practice 6 (argumentation) rewards explaining why A x B = -(B x A)."
@@ -414,10 +414,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Dot product formula.",
       "choices": [
-        "Pythagorean",
+        "2 pi sqrt m over k",
         "A B cosine theta",
-        "A B sine theta",
-        "Half k A squared"
+        "Vector",
+        "Pythagorean"
       ],
       "correctText": "A B cosine theta",
       "explanation": "The dot product formula A . B = AB cos(theta) gives the scalar product as the magnitude of A times the magnitude of B times the cosine of the angle between them. Equivalently in Cartesian components A . B = A_x*B_x + A_y*B_y + A_z*B_z. AP Physics C Mech uses this for projecting one vector onto another - the component of F along displacement dr is F cos(theta) = (F . dr-hat). When theta = 0, A . B = AB (parallel maximum); when theta = 90, A . B = 0 (perpendicular zero); when theta = 180, A . B = -AB (antiparallel minimum, e.g., work done by friction). Science Practice 2 (mathematical routines) tests this on work-energy FRQs."
@@ -436,10 +436,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cross product magnitude.",
       "choices": [
-        "Vector",
+        "v_e times ln (m_0 over m)",
         "A B sine theta",
-        "Scalar",
-        "Acceleration"
+        "A B cosine theta",
+        "Pythagorean"
       ],
       "correctText": "A B sine theta",
       "explanation": "The magnitude of the cross product |A x B| = AB sin(theta) gives the area of the parallelogram spanned by A and B. AP Physics C Mech uses this for torque magnitude tau = rF sin(theta) (when the lever arm r and force F are at angle theta) and angular momentum magnitude L = mvr sin(theta) for a point particle. Maximum at theta = 90 degrees (perpendicular) and zero at theta = 0 or 180 (parallel). The 2018 FRQ on torque computation explicitly tested this formula - Science Practice 2 (mathematical routines) rewards correct sine usage, while Practice 1 (representations) ensures students align the angle theta correctly between r and F vectors."
@@ -459,9 +459,9 @@
       "prompt": "Instantaneous velocity from position.",
       "choices": [
         "Integral of a dt",
-        "d squared x over dt squared",
-        "v_e times ln (m_0 over m)",
-        "dx over dt"
+        "Decreasing",
+        "dx over dt",
+        "Integral of v dt"
       ],
       "correctText": "dx over dt",
       "explanation": "Instantaneous velocity is v = dx/dt, the time derivative of position, the calculus definition that distinguishes AP Physics C from algebra-based courses. For x(t) = x_0 + v_0*t + (1/2)*a*t^2 this gives v(t) = v_0 + a*t by the power rule of differentiation (Leibniz, 1684). On AP Phys C Mech FRQ students must compute dx/dt for polynomial, exponential, or trigonometric x(t) functions. The 2019 FRQ #1 gave x(t) = 3*t^3 - 2*t^2 + 5*t and asked for v(2 s), requiring v(t) = 9*t^2 - 4*t + 5. Science Practice 2 (mathematical routines) tests calculus competency directly."
@@ -481,9 +481,9 @@
       "prompt": "Instantaneous acceleration from velocity.",
       "choices": [
         "dx over dt",
-        "dv over dt",
-        "Integral of v dt",
-        "Negative b v"
+        "Same as point mass at center",
+        "Integral of a dt",
+        "dv over dt"
       ],
       "correctText": "dv over dt",
       "explanation": "Instantaneous acceleration is a = dv/dt, the time derivative of velocity, equivalent to a = d^2x/dt^2 (second derivative of position). For v(t) = v_0 + a*t (constant a case) this gives a(t) = a, a constant. For non-constant a (drag, springs, variable forces) students must explicitly differentiate v(t). AP Physics C Mech FRQs commonly present v(t) graphs and require students to read off acceleration as the slope (Science Practice 3, data analysis). The 2018 FRQ #1 tested this by giving v(t) = A*sin(omega*t), requiring a(t) = A*omega*cos(omega*t) - a standard SHM result revisited in Unit 6 (Oscillations)."
@@ -502,10 +502,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Acceleration as second derivative.",
       "choices": [
-        "dv over dt",
+        "dx over dt",
         "Integral of a dt",
-        "T squared proportional to a cubed",
-        "d squared x over dt squared"
+        "d squared x over dt squared",
+        "Power"
       ],
       "correctText": "d squared x over dt squared",
       "explanation": "Acceleration as the second derivative of position: a = d^2x/dt^2. Newton (1687) and Leibniz (1684) independently developed the calculus that makes this concise. On AP Physics C Mech FRQs students sometimes receive position as x(t) (e.g., x = A*cos(omega*t) for SHM) and must compute a directly via two differentiations: v = -A*omega*sin(omega*t), then a = -A*omega^2*cos(omega*t) = -omega^2*x. This last form (a proportional to -x) is the defining feature of simple harmonic motion in Unit 6. Science Practice 2 (mathematical routines) rewards correct chain-rule applications when omega depends on x or t implicitly."
@@ -524,10 +524,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Velocity from acceleration via integration.",
       "choices": [
-        "Negative b v",
-        "dx over dt",
-        "d squared x over dt squared",
-        "Integral of a dt"
+        "Integral of a dt",
+        "dv over dt",
+        "Sum reciprocals",
+        "d squared x over dt squared"
       ],
       "correctText": "Integral of a dt",
       "explanation": "Velocity is obtained from acceleration by integration: v(t) = v_0 + integral from 0 to t of a(t')dt'. This inverse-derivative relationship is the calculus core of AP Physics C Mech. For constant a the integral evaluates to v = v_0 + a*t; for variable a (e.g., a = b*t leading to v = v_0 + (1/2)*b*t^2, the jerk regime) students perform explicit integration. The 2017 FRQ #2 tested this with a(t) given graphically - students computed v(t) as the cumulative area under the a-t curve from 0 to t using Science Practice 3 (graphical analysis). The Fundamental Theorem of Calculus underlies this inverse relationship."
@@ -546,10 +546,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Position from velocity via integration.",
       "choices": [
-        "Equilibrium",
-        "dv over dt",
+        "d squared x over dt squared",
         "Integral of v dt",
-        "dx over dt"
+        "dv over dt",
+        "Power"
       ],
       "correctText": "Integral of v dt",
       "explanation": "Position is obtained from velocity by integration: x(t) = x_0 + integral from 0 to t of v(t')dt'. This Fundamental Theorem of Calculus relationship is co-equal with the derivative side of AP Physics C Mech kinematics. On a v-t graph, x(t) - x_0 equals the signed area under the curve from 0 to t. For constant v: x = x_0 + v*t; for v = v_0 + a*t: x = x_0 + v_0*t + (1/2)*a*t^2 (the constant-a kinematic equation). The 2019 FRQ #1 gave v(t) and asked for total displacement vs total distance - the former is integral of v dt (signed), the latter integral of |v| dt (unsigned). Science Practice 3 tests this distinction."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Object at rest stays at rest.",
       "choices": [
-        "Inertial reference frame",
-        "Newton's first law",
         "Newton's second law",
-        "Atwood machine"
+        "Newton's first law",
+        "Alpha",
+        "Newton's third law"
       ],
       "correctText": "Newton's first law",
       "explanation": "Newton's first law of motion (law of inertia) states that an object at rest stays at rest and an object in uniform motion stays in uniform motion unless acted on by a net external force. Published in Principia Mathematica (1687) by Isaac Newton, it defines inertial reference frames - frames where the law holds without fictitious forces. AP Physics C Mech FRQs invoke this when students must recognize that constant velocity implies zero net force (Sigma F = 0), useful in equilibrium problems. The 2018 FRQ #2 asked students to identify which forces cancel on a block sliding at constant v - Science Practice 6 (argumentation from a model) rewards explicit citation of the first law as the justification."
@@ -590,10 +590,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "F equals m a.",
       "choices": [
-        "Newton's first law",
-        "Theta",
-        "Newton's third law",
-        "Newton's second law"
+        "Newton's second law",
+        "Drag",
+        "F equals dp/dt",
+        "Newton's first law"
       ],
       "correctText": "Newton's second law",
       "explanation": "Newton's second law states that the net force on an object equals the time rate of change of its momentum: F = dp/dt, which for constant mass reduces to the familiar F = ma. From Principia (1687) and refined by Euler. AP Physics C Mech uses the momentum form F = dp/dt for variable-mass systems (rockets, raindrops), while F = ma suffices for fixed-mass problems. The 2019 FRQ #2 tested both: a block on an incline used F = ma, while a rocket FRQ required F = dp/dt with mass changing. Science Practice 2 (mathematical routines) rewards students who recognize when to invoke each form, while Practice 6 (argumentation) demands justifying the choice."
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equal and opposite reactions.",
       "choices": [
-        "F equals dp/dt",
-        "Newton's second law",
-        "Damped oscillation",
-        "Newton's third law"
+        "r alpha",
+        "Newton's third law",
+        "Newton's first law",
+        "Newton's second law"
       ],
       "correctText": "Newton's third law",
       "explanation": "Newton's third law states that for every action there is an equal and opposite reaction: if object A exerts force F_AB on B, then B exerts -F_AB on A. Newton, Principia (1687). These force pairs always act on different objects, never on the same object, a distinction AP Physics C Mech tests rigorously. The 2017 FRQ #1 on a horse pulling a cart asked students to identify the third-law pair to the horse's pull on the cart - Science Practice 1 (representations) rewards free-body diagrams that correctly assign forces to different objects. A common student error is confusing third-law pairs with first-law force balance (forces on the same object summing to zero)."
@@ -634,10 +634,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Net force form using momentum.",
       "choices": [
-        "Inertial reference frame",
-        "I omega",
         "F equals dp/dt",
-        "Newton's third law"
+        "Newton's third law",
+        "Sqrt k over m",
+        "Inertial reference frame"
       ],
       "correctText": "F equals dp/dt",
       "explanation": "Newton's second law in momentum form is F = dp/dt, the most general statement valid for variable-mass and relativistic systems. For constant mass m: F = d(mv)/dt = m*dv/dt = ma, recovering the textbook form. AP Physics C Mech uses dp/dt explicitly for rocket equations (Tsiolkovsky 1903) and impulse problems (J = integral F dt = delta p). The 2018 FRQ #2 on a rocket required students to write F_thrust = -v_e*dm/dt as a direct consequence of F = dp/dt with both v and m time-dependent. Science Practice 2 (mathematical routines) tests the differentiation chain rule on d(mv)/dt = m*dv/dt + v*dm/dt - critical for any variable-mass problem."
@@ -656,9 +656,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sum of forces equals zero in this frame.",
       "choices": [
+        "Elliptical orbits",
         "Inertial reference frame",
         "Newton's first law",
-        "Integral of r squared dm",
         "Newton's third law"
       ],
       "correctText": "Inertial reference frame",
@@ -678,9 +678,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Object losing mass over time.",
       "choices": [
-        "Kinetic energy",
-        "Thrust force",
+        "Momentum",
         "Rocket equation",
+        "Translational plus rotational",
         "v_e times ln (m_0 over m)"
       ],
       "correctText": "Rocket equation",
@@ -700,10 +700,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Thrust from mass ejection.",
       "choices": [
-        "Watt",
         "Thrust force",
-        "v_e",
-        "Momentum"
+        "r cross F",
+        "Rocket equation",
+        "v_e"
       ],
       "correctText": "Thrust force",
       "explanation": "Thrust force on a rocket is F_thrust = -v_e * dm/dt, the rate of momentum transfer from ejected mass. Note dm/dt is negative (mass decreasing) so F_thrust is positive (forward). Derived from Newton's second law F = dp/dt applied to the ejected propellant: each kg of propellant ejected at speed v_e gives the rocket recoil of v_e per unit mass per unit time. AP Physics C Mech 2018 FRQ #2 asked students to compute thrust from given v_e and burn rate - Science Practice 2 (mathematical routines) rewards correct sign analysis. Tsiolkovsky (1903) first analyzed this for orbital rockets; modern launch vehicles routinely have v_e ~3-4 km/s."
@@ -722,10 +722,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conservation in rocket motion.",
       "choices": [
-        "v_e",
+        "Momentum",
+        "Work-Energy Theorem",
         "Rocket equation",
-        "Impulse",
-        "Momentum"
+        "Thrust force"
       ],
       "correctText": "Momentum",
       "explanation": "Momentum is conserved in rocket motion when the system (rocket + propellant) experiences no external forces, allowing Newton's second law F = dp/dt = 0 to govern the dynamics. The rocket gains forward momentum exactly equal to the backward momentum carried away by ejected mass: m*dv = -v_e*dm. AP Physics C Mech treats this on the 2018 FRQ #2 (vertical launch with gravity) where the external force F = -Mg is non-zero - students must add the gravity term to the rocket equation, yielding M*dv/dt = -v_e*dm/dt - Mg. Science Practice 6 (argumentation) demands explicit identification of which forces are external vs internal to the chosen system."
@@ -744,10 +744,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Exhaust velocity in rocket equation.",
       "choices": [
-        "Rocket equation",
-        "Tau equals I alpha",
+        "v_e times ln (m_0 over m)",
+        "Damped oscillation",
         "v_e",
-        "Momentum"
+        "Thrust force"
       ],
       "correctText": "v_e",
       "explanation": "v_e is the exhaust velocity - the speed at which propellant exits the rocket relative to the rocket itself. In the Tsiolkovsky rocket equation delta v = v_e * ln(m_0/m), v_e directly multiplies the achievable velocity change. Modern chemical rockets reach v_e ≈ 2-5 km/s; ion thrusters reach 20-40 km/s. AP Physics C Mech 2018 FRQ #2 used v_e = 2500 m/s to compute final speed after a given mass fraction was burned. Science Practice 2 (mathematical routines) rewards substituting numerical v_e into the logarithm; Practice 4 (data analysis) rewards interpreting the meaning - higher v_e means more delta v from the same propellant mass."
@@ -766,10 +766,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Velocity change of rocket.",
       "choices": [
+        "d squared x dt squared plus omega squared x equals 0",
+        "Rocket equation",
         "v_e times ln (m_0 over m)",
-        "Thrust force",
-        "v_e",
-        "Linear momentum"
+        "Momentum"
       ],
       "correctText": "v_e times ln (m_0 over m)",
       "explanation": "Tsiolkovsky's rocket equation gives velocity change as delta v = v_e * ln(m_0/m), where m_0 is initial mass (rocket + propellant), m is final mass (rocket alone), and v_e is exhaust velocity. The logarithm reflects the diminishing returns of fuel mass: doubling the propellant only adds v_e*ln(2) to delta v. Tsiolkovsky derived this in 1903; it underpins all chemical-rocket design. AP Physics C Mech 2018 FRQ #2 tested this with numerical inputs to compute final speed. Science Practice 2 (mathematical routines) rewards correct logarithm evaluation; Practice 6 (argumentation) rewards explaining why a rocket cannot reach v_e by burning all its fuel (the rocket's own mass cannot be exhausted)."
@@ -789,8 +789,8 @@
       "prompt": "Force opposing motion through fluid.",
       "choices": [
         "Drag",
-        "Watt",
         "Drag equals weight",
+        "Force proportional to 1 over r squared",
         "Negative b v"
       ],
       "correctText": "Drag",
@@ -810,10 +810,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Linear drag formula.",
       "choices": [
-        "m g h",
-        "Terminal velocity",
         "Negative b v squared",
-        "Negative b v"
+        "Drag",
+        "Negative b v",
+        "Mass"
       ],
       "correctText": "Negative b v",
       "explanation": "Linear drag (Stokes' law regime) is F_drag = -b*v, where b is a drag coefficient with units kg/s (or N*s/m) and v is the velocity vector. This linear-in-v form holds at low Reynolds number (small, slow, viscous-fluid objects like marbles falling in oil). Stokes (1851) derived F = -6*pi*eta*r*v for a sphere of radius r in fluid of viscosity eta. AP Physics C Mech 2017 FRQ #3 used linear drag to derive v(t) for a falling object: m*dv/dt = mg - b*v yields v(t) = v_terminal*(1 - exp(-t/tau)) where tau = m/b. Science Practice 2 (mathematical routines) demands solving the linear first-order ODE by separation of variables or integrating factor."
@@ -833,9 +833,9 @@
       "prompt": "Quadratic drag formula.",
       "choices": [
         "Negative b v squared",
-        "Negative G M m over 2 a",
-        "Drag",
-        "Negative b v"
+        "Drag equals weight",
+        "Terminal velocity",
+        "v_0 squared sin 2 theta over g"
       ],
       "correctText": "Negative b v squared",
       "explanation": "Quadratic drag (Newton's drag) is F_drag = -b*v^2 in the direction opposing motion, applicable at high Reynolds number for objects like skydivers, baseballs, and cars. The coefficient b = (1/2)*C_d*rho*A depends on drag coefficient C_d, fluid density rho, and cross-sectional area A. AP Physics C Mech FRQs occasionally test this on the 2019 mock-style problems - the ODE m*dv/dt = mg - b*v^2 is nonlinear but separable, yielding v(t) = v_terminal*tanh(t/tau) where v_terminal = sqrt(mg/b). Science Practice 2 (mathematical routines) and Practice 4 (data analysis) co-test the hyperbolic-tangent approach to terminal velocity."
@@ -854,10 +854,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum velocity with drag.",
       "choices": [
+        "Negative b v squared",
+        "Drag",
         "Terminal velocity",
-        "F dot v",
-        "Drag equals weight",
-        "Drag"
+        "Two fifths M R squared"
       ],
       "correctText": "Terminal velocity",
       "explanation": "Terminal velocity is the constant maximum speed an object reaches falling through a fluid when drag force equals gravity: F_drag = mg, so net force is zero and acceleration ceases. For linear drag v_t = mg/b; for quadratic drag v_t = sqrt(mg/b). AP Physics C Mech 2017 FRQ #3 asked students to compute v_t from given b and m, then sketch v(t) showing asymptotic approach. A skydiver in spread-eagle reaches v_t ≈ 53 m/s; in a diving position 75-90 m/s. Science Practice 2 (mathematical routines) rewards setting mg = b*v_t (linear) or mg = b*v_t^2 (quadratic); Practice 6 (argumentation) rewards explaining why terminal velocity is reached asymptotically (never exactly) as exp(-t/tau) decays."
@@ -876,10 +876,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Terminal velocity condition.",
       "choices": [
-        "Drag",
+        "Terminal velocity",
+        "Newton's first law",
         "Drag equals weight",
-        "Two fifths M R squared",
-        "Negative b v"
+        "Negative b v squared"
       ],
       "correctText": "Drag equals weight",
       "explanation": "The terminal velocity condition F_drag = mg (drag equals weight) emerges when an object has fallen long enough that the drag force has built up to exactly balance gravity, producing zero net force and zero acceleration. From this point onward velocity is constant at v_t. AP Physics C Mech derives this asymptote from the ODE: setting dv/dt = 0 yields F_drag = mg. The 2017 FRQ #3 tested this in the limit t -> infinity of v(t) = v_terminal*(1 - exp(-t/tau)), where (1 - exp(-t/tau)) -> 1. Science Practice 2 (mathematical routines) rewards the limit analysis; Practice 6 (argumentation) rewards explaining why the asymptote is approached, not crossed - drag cannot exceed weight in steady state."
@@ -899,9 +899,9 @@
       "prompt": "Friction preventing motion.",
       "choices": [
         "Opposes motion or impending motion",
+        "Perfectly inelastic",
         "Static friction",
-        "G m_1 m_2 over r squared",
-        "Smaller than static"
+        "Kinetic friction"
       ],
       "correctText": "Static friction",
       "explanation": "Static friction is the force that prevents motion between two surfaces in contact, with magnitude f_s up to a maximum f_s,max = mu_s * N where mu_s is the static friction coefficient and N is the normal force. AP Physics C Mech treats f_s as adjusting to whatever value is needed (up to the maximum) to keep the object stationary - it's a constraint force. The 2018 FRQ #1 on a block on an incline tested when static friction transitions to kinetic: as tilt angle theta increases, f_s grows until mu_s*N = mg sin(theta) at which point the block slips. Science Practice 6 (argumentation) rewards explicit identification of the threshold tan(theta_c) = mu_s."
@@ -920,10 +920,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Friction during motion.",
       "choices": [
-        "Smaller than static",
-        "Negative half k x squared",
-        "Static friction",
-        "Kinetic friction"
+        "Normal force",
+        "45 degrees",
+        "Kinetic friction",
+        "Opposes motion or impending motion"
       ],
       "correctText": "Kinetic friction",
       "explanation": "Kinetic friction is the friction force between surfaces in relative motion, with magnitude f_k = mu_k * N where mu_k is the kinetic friction coefficient (typically 0.1-0.5 for most surfaces) and N is the normal force. Unlike static friction, f_k has a fixed magnitude independent of applied force and acts opposite to the velocity. AP Physics C Mech 2017 FRQ #1 tested f_k on a sliding block - Science Practice 2 (mathematical routines) demands setting up Newton's second law as m*a = F_applied - mu_k*N to solve for acceleration. Coulomb (1781) systematized these dry-friction laws; they hold approximately but ignore stick-slip and velocity-dependent effects."
@@ -942,10 +942,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Kinetic friction is typically this.",
       "choices": [
-        "Kinetic friction",
+        "Static friction",
         "Smaller than static",
-        "Normal force",
-        "Momentum"
+        "Escape velocity",
+        "Opposes motion or impending motion"
       ],
       "correctText": "Smaller than static",
       "explanation": "Kinetic friction is typically smaller than maximum static friction: mu_k < mu_s for most surface pairs. This explains why it takes more force to start a stationary object moving than to keep it moving - once the bond is broken at mu_s*N, only mu_k*N is needed. AP Physics C Mech 2018 FRQ #1 tested this transition: a block on an incline at angle theta would not slip until tan(theta) > mu_s, then would accelerate down at a = g*(sin(theta) - mu_k*cos(theta)). Science Practice 6 (argumentation) rewards explaining the stick-slip jump as the difference between mu_s and mu_k - a real effect with engineering implications in clutches, brakes, and earthquake fault dynamics."
@@ -964,9 +964,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Friction proportional to this.",
       "choices": [
-        "Velocity",
-        "Smaller than static",
+        "Sine theta approximately theta",
         "Normal force",
+        "Kinetic friction",
         "Opposes motion or impending motion"
       ],
       "correctText": "Normal force",
@@ -986,9 +986,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Direction of friction.",
       "choices": [
-        "Inelastic collision",
         "Normal force",
-        "Smaller than static",
+        "Kinetic friction",
+        "2 pi sqrt r cubed over G M",
         "Opposes motion or impending motion"
       ],
       "correctText": "Opposes motion or impending motion",
@@ -1008,10 +1008,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pulley with two masses.",
       "choices": [
-        "Atwood machine",
+        "Alpha",
         "Equal throughout",
-        "Opposes motion or impending motion",
-        "Tension"
+        "Same magnitude",
+        "Atwood machine"
       ],
       "correctText": "Atwood machine",
       "explanation": "An Atwood machine consists of two masses m_1 and m_2 connected by a string over a frictionless, massless pulley, named for George Atwood (Treatise on the Rectilinear Motion, 1784). AP Physics C Mech analyzes it by applying Newton's second law to each mass: T - m_1*g = m_1*a and m_2*g - T = m_2*a (with m_2 > m_1), yielding a = (m_2 - m_1)*g/(m_1 + m_2) and T = 2*m_1*m_2*g/(m_1 + m_2). The 2018 FRQ #1 (real pulley) extended this by adding a pulley moment of inertia I, coupling rotational dynamics. Science Practice 2 (mathematical routines) tests the simultaneous-equation solution; Practice 6 (argumentation) demands consistent sign conventions for a."
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tension in massless string.",
       "choices": [
-        "Atwood machine",
+        "Same magnitude",
         "Equal throughout",
-        "Fastest no-oscillation",
-        "Tension"
+        "Atwood machine",
+        "Thrust force"
       ],
       "correctText": "Equal throughout",
       "explanation": "The tension in a massless, inextensible string is equal throughout its length - the same value T appears at every point. This is because any mass element dm of the string would require dT = dm*a, but with dm = 0 the tension is uniform. AP Physics C Mech relies on this constantly in Atwood and pulley problems. The 2017 FRQ on a block on an incline connected to a hanging mass used T_1 = T_2 = T from this assumption. For a massive string the tension varies (heavier ends, lighter middle if hanging) - the 2019 FRQ tested this as an extension. Science Practice 6 (argumentation) rewards justifying the uniform-T assumption explicitly."
@@ -1052,10 +1052,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Force in pulley analysis.",
       "choices": [
-        "Atwood machine",
-        "Escape velocity",
-        "Same magnitude",
-        "Tension"
+        "Tension",
+        "Yes",
+        "J equals delta p",
+        "Atwood machine"
       ],
       "correctText": "Tension",
       "explanation": "Tension is the pulling force transmitted through a string, rope, cable, or rigid rod, always directed along the line of the string and away from the object it acts on. AP Physics C Mech treats tension as a constraint force determined by the dynamics - one cannot prescribe T independently; it adjusts to whatever value satisfies Newton's second law for the entire system. The 2018 FRQ #1 used this on a real pulley problem: T_1 (left side) and T_2 (right side) differ because the pulley has moment of inertia and torque T_2*R - T_1*R = I*alpha. Science Practice 2 (mathematical routines) demands separate Newton's second law equations on each side of the pulley."
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Connected masses acceleration.",
       "choices": [
-        "Yes",
-        "Instantaneous power",
         "Same magnitude",
-        "Tension"
+        "Atwood machine",
+        "Equal throughout",
+        "Resonance"
       ],
       "correctText": "Same magnitude",
       "explanation": "Connected masses in a single-string pulley system have accelerations of the same magnitude (constraint of inextensible string) but may differ in direction. In an Atwood machine, if m_1 accelerates upward with magnitude a, then m_2 accelerates downward with the same magnitude a. AP Physics C Mech tests this on the 2017 FRQ: a block on a frictionless incline (mass m_1) connected to a hanging mass (m_2) by a string over a pulley moves with the same |a|, but m_1's a is along the incline while m_2's a is vertical. Science Practice 6 (argumentation) rewards explicit statement of the constraint, and Practice 2 (mathematical routines) uses it to reduce two unknowns (a_1, a_2) to one."
@@ -1096,9 +1096,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pulley change in tension direction.",
       "choices": [
-        "Same magnitude",
+        "Atwood machine",
         "Equal throughout",
-        "Torque",
+        "Position",
         "Yes"
       ],
       "correctText": "Yes",
@@ -1118,10 +1118,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Definition of work by integral.",
       "choices": [
-        "W_net equals delta KE",
+        "F times t",
+        "dW over dt",
         "Integral of F dot dr",
-        "Negative b v",
-        "F d cosine theta"
+        "W_net equals delta KE"
       ],
       "correctText": "Integral of F dot dr",
       "explanation": "Work done by a force is W = integral of F . dr along the path of motion, a line integral that reduces to W = F*d*cos(theta) for constant force and straight-line displacement. AP Physics C Mech distinguishes the calculus-based work integral from the algebra-based Physics 1 formula - on FRQs students must set up W = integral from a to b of F(x)*dx for position-dependent forces (springs, gravitation). The 2018 FRQ #1 tested this: a variable force F(x) = ax + bx^2 acting from x = 0 to x = L required W = (a*L^2)/2 + (b*L^3)/3. Science Practice 2 (mathematical routines) rewards correct definite integration; Practice 1 (representations) demands recognizing W as the signed area under F-x curve."
@@ -1140,10 +1140,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Work done by constant force.",
       "choices": [
-        "Elliptical orbits",
-        "dW over dt",
+        "Smaller than static",
+        "Negative half k x squared",
         "F d cosine theta",
-        "Negative half k x squared"
+        "Integral of F dot dr"
       ],
       "correctText": "F d cosine theta",
       "explanation": "Work done by a constant force on an object undergoing displacement d at angle theta to the force is W = F*d*cos(theta). The cos(theta) factor projects F onto the displacement direction - only the parallel component does work. AP Physics C Mech derives this as a special case of W = integral F . dr when F is constant. The 2017 FRQ on a block on an incline used W_gravity = -mg*h (with h the vertical drop, cos(180-theta) and the geometry combining) and W_friction = -mu_k*N*L (with theta = 180). Science Practice 2 (mathematical routines) tests the dot-product application; Practice 6 (argumentation) rewards sign analysis - W positive for parallel, negative for antiparallel."
@@ -1162,9 +1162,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Work-Energy Theorem statement.",
       "choices": [
-        "F d cosine theta",
+        "dW over dt",
+        "Weighted average of m_i r_i",
         "Integral of F dot dr",
-        "Elastic collision",
         "W_net equals delta KE"
       ],
       "correctText": "W_net equals delta KE",
@@ -1184,10 +1184,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Work done by spring.",
       "choices": [
+        "F d cosine theta",
+        "W_net equals delta KE",
         "Negative half k x squared",
-        "9.8 meter per second squared",
-        "Integral of F dot dr",
-        "F d cosine theta"
+        "Acceleration"
       ],
       "correctText": "Negative half k x squared",
       "explanation": "Work done by a spring from x = 0 to x = x_f is W_spring = -(1/2)*k*x_f^2, derived by integrating Hooke's law F = -kx: W = integral from 0 to x_f of -kx*dx = -(1/2)*k*x_f^2. The negative sign reflects that the spring does negative work when stretched (force opposes displacement). AP Physics C Mech 2019 FRQ #1 used this: a block compressing a spring by distance x stores PE = (1/2)*k*x^2 in the spring, equal in magnitude to the negative work done by the spring. Science Practice 2 (mathematical routines) rewards definite integration; Practice 6 (argumentation) rewards sign analysis."
@@ -1206,10 +1206,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power formula by integration.",
       "choices": [
-        "F times t",
-        "dW over dt",
+        "Integral of F dot dr",
         "Negative half k x squared",
-        "Integral of F dot dr"
+        "Escape velocity",
+        "dW over dt"
       ],
       "correctText": "dW over dt",
       "explanation": "Instantaneous power is P = dW/dt, the time rate of doing work, with SI unit watt (W = J/s, named for James Watt, 1736-1819). For a constant force on a moving object P = F . v (dot product of force and velocity). AP Physics C Mech 2018 FRQ #3 on a car accelerating along a road tested both: P_inst = F*v, P_avg = W/t. Critical for engineering applications - a car at constant maximum power has v approaching its maximum as F approaches zero (P/v relation). Science Practice 2 (mathematical routines) demands time-differentiation of work; Practice 4 (data analysis) rewards interpretation of P-v curves on vehicle datasheets."
@@ -1228,10 +1228,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Force doing zero net work on closed loop.",
       "choices": [
-        "Negative dU dr",
+        "Conservative",
         "Conservative force",
-        "Rocket equation",
-        "Non-conservative"
+        "Negative dU dr",
+        "Pendulum"
       ],
       "correctText": "Conservative force",
       "explanation": "A conservative force is one whose total work around any closed loop is zero, equivalently, whose work between two points depends only on the endpoints (not the path). Examples include gravity, springs (Hooke's law), and electrostatic forces; counterexamples are friction and air drag. AP Physics C Mech connects this to the existence of a potential energy function U such that F = -dU/dx (1D) or F = -gradient of U (3D). The 2017 FRQ on a block on a curved track required identifying which forces are conservative to apply energy conservation - Science Practice 6 (argumentation) rewards explicit citation of the path-independence property as the test for conservativeness."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Potential energy formula from force.",
       "choices": [
-        "Negative integral of F dr",
         "Negative dU dr",
-        "F equals dp/dt",
-        "Non-conservative"
+        "Non-conservative",
+        "Newton's first law",
+        "Negative integral of F dr"
       ],
       "correctText": "Negative integral of F dr",
       "explanation": "Potential energy from a conservative force is U(x) = -integral of F(x)dx + constant, with the constant fixed by choice of reference point. AP Physics C Mech derives this from the conservative force's path independence: W_conservative = -delta U. For gravity (1D): U_grav = mgh from integral of (-mg)*dy with y up positive. For springs: U_spring = (1/2)*kx^2 from integral of (-(-kx))dx = (1/2)*kx^2. The 2018 FRQ #2 tested this by giving F(x) = 3x^2 and asking for U(x) - the answer U = -x^3 + C earns full credit (the constant is arbitrary). Science Practice 2 (mathematical routines) demands correct antidifferentiation and sign tracking."
@@ -1272,9 +1272,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Force from PE gradient.",
       "choices": [
-        "F d cosine theta",
         "Negative integral of F dr",
-        "Conservative",
+        "F equals dp dt",
+        "Conservative force",
         "Negative dU dr"
       ],
       "correctText": "Negative dU dr",
@@ -1295,9 +1295,9 @@
       "prompt": "Friction is this type of force.",
       "choices": [
         "Conservative",
-        "Galilean transformation",
+        "Integral of v dt",
         "Non-conservative",
-        "Negative integral of F dr"
+        "Negative dU dr"
       ],
       "correctText": "Non-conservative",
       "explanation": "Friction is a non-conservative force: its work depends on the path (longer path = more energy lost) and equivalently its work around a closed loop is non-zero (negative). AP Physics C Mech treats friction as removing kinetic energy from the macroscopic system and converting it to thermal energy of the surfaces. The 2018 FRQ #1 on a block on a curved track with friction required students to write Energy_initial = Energy_final + |W_friction|, since W_friction = -mu_k*N*L (with L the path length) cannot be encoded in a potential energy function. Science Practice 6 (argumentation) rewards explicit recognition that friction prevents mechanical energy conservation while total energy (including thermal) is still conserved."
@@ -1316,9 +1316,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravity is this type of force.",
       "choices": [
-        "Negative dU dr",
-        "I omega",
+        "Perfectly inelastic",
         "Conservative force",
+        "Non-conservative",
         "Conservative"
       ],
       "correctText": "Conservative",
@@ -1338,10 +1338,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hooke's Law.",
       "choices": [
-        "Sqrt 2 G M over R",
-        "Half k x squared",
+        "Newton-meter",
         "F equals minus k x",
-        "Sum reciprocals"
+        "Sum reciprocals",
+        "2 pi sqrt m over k"
       ],
       "correctText": "F equals minus k x",
       "explanation": "Hooke's law for an ideal spring is F = -kx, where k is the spring constant (N/m) and x is the displacement from equilibrium. The minus sign indicates the restoring force always points toward equilibrium - Robert Hooke (1660) discovered this as Ut tensio, sic vis ('as the extension, so the force'). AP Physics C Mech uses this throughout SHM (Unit 6), energy conservation, and connected oscillators. The 2018 FRQ #3 on a horizontal spring tested F = -kx and the resulting equation of motion m*d^2x/dt^2 = -kx, yielding SHM with omega = sqrt(k/m). Science Practice 2 (mathematical routines) rewards explicit derivation of the ODE; Practice 1 (representations) demands consistent sign convention."
@@ -1360,10 +1360,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Spring PE formula.",
       "choices": [
-        "Sqrt G M over r",
-        "Sqrt k over m",
         "Half k x squared",
-        "Sum reciprocals"
+        "Impulse",
+        "2 pi sqrt m over k",
+        "F equals minus k x"
       ],
       "correctText": "Half k x squared",
       "explanation": "Spring potential energy is U_spring = (1/2)*k*x^2, derived by integrating F = -kx: U(x) = -integral from 0 to x of (-kx')dx' = (1/2)*k*x^2. The parabolic shape (Hooke 1660) reflects the linear restoring force - twice the displacement stores four times the energy. AP Physics C Mech 2019 FRQ #1 used this in a launch: a block compressed against a spring with U = (1/2)*k*x^2 was released, converting U entirely to KE = (1/2)*m*v^2 (if frictionless). Science Practice 2 (mathematical routines) rewards correct quadratic integration; Practice 6 (argumentation) rewards explaining why U > 0 regardless of compression vs extension direction."
@@ -1383,9 +1383,9 @@
       "prompt": "Period of mass on spring.",
       "choices": [
         "2 pi sqrt m over k",
-        "Sum reciprocals",
-        "Negative integral of F dr",
-        "F equals minus k x"
+        "Conservative",
+        "Sqrt k over m",
+        "Half k x squared"
       ],
       "correctText": "2 pi sqrt m over k",
       "explanation": "Period of a mass m on a spring with constant k is T = 2*pi*sqrt(m/k), derived from the SHM ODE m*d^2x/dt^2 = -kx with angular frequency omega = sqrt(k/m) and T = 2*pi/omega. Independent of amplitude - isochronism of simple harmonic motion (Galileo's pendulum insight 1602, generalized to springs). AP Physics C Mech 2018 FRQ #3 tested this with numerical values; Practice 2 (mathematical routines) rewards correct square-root computation. Important counterintuitive result: heavier mass slows the period (T grows as sqrt(m)) and stiffer spring quickens it (T shrinks as 1/sqrt(k))."
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular frequency of spring SHM.",
       "choices": [
-        "F equals minus k x",
+        "G constant",
+        "Sum reciprocals",
         "Sqrt k over m",
-        "Sum of m_i v_i",
-        "Half k x squared"
+        "2 pi sqrt m over k"
       ],
       "correctText": "Sqrt k over m",
       "explanation": "Angular frequency of spring SHM is omega = sqrt(k/m), the rate (in rad/s) at which the phase angle advances. Derived from the SHM ODE: assume x(t) = A*cos(omega*t + phi), substitute into m*x'' + k*x = 0, obtain m*(-omega^2)*A*cos + k*A*cos = 0, giving omega = sqrt(k/m). AP Physics C Mech 2019 FRQ #3 tested this on a horizontal spring; the period T = 2*pi/omega = 2*pi*sqrt(m/k) follows. Science Practice 2 (mathematical routines) rewards the substitution-and-solve approach; Practice 6 (argumentation) rewards distinguishing omega (angular frequency) from f = omega/(2*pi) (cyclic frequency in Hz)."
@@ -1426,10 +1426,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Spring constants in series.",
       "choices": [
-        "Half k x squared",
-        "Negative half k x squared",
+        "Sqrt k over m",
         "Sum reciprocals",
-        "Sqrt k over m"
+        "Normal force",
+        "2 pi sqrt m over k"
       ],
       "correctText": "Sum reciprocals",
       "explanation": "Springs in series have effective constant k_eff with reciprocal sum: 1/k_eff = 1/k_1 + 1/k_2 (so k_eff < min(k_1, k_2)). Springs in parallel have k_eff = k_1 + k_2. AP Physics C Mech derives the series rule from the constraint that each spring stretches by its own amount (x_1 and x_2), but both experience the same force F: F = k_1*x_1 = k_2*x_2, total stretch x = x_1 + x_2 = F/k_1 + F/k_2 = F*(1/k_1 + 1/k_2), so F/x = k_eff = 1/(1/k_1 + 1/k_2). Science Practice 2 (mathematical routines) rewards the algebraic manipulation; Practice 6 (argumentation) rewards mapping the result to the analogous circuit rule for capacitors in series."
@@ -1448,10 +1448,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total mechanical energy.",
       "choices": [
-        "v_0 squared sin 2 theta over g",
+        "I equals I_cm plus M d squared",
+        "KE plus PE",
         "Decreasing",
-        "m g h",
-        "KE plus PE"
+        "Thermal energy"
       ],
       "correctText": "KE plus PE",
       "explanation": "Total mechanical energy E = KE + PE = (1/2)*m*v^2 + U(x) is the sum of kinetic and potential energies. AP Physics C Mech treats this as a constant when only conservative forces act, but as a decreasing function when non-conservative forces (friction, drag) dissipate energy. The 2018 FRQ #2 tested energy conservation on a curved frictionless track: setting E_top = E_bottom gives v_bottom = sqrt(2gh). When friction is present, E_top = E_bottom + |W_friction|. Science Practice 2 (mathematical routines) rewards equating the two states; Practice 6 (argumentation) rewards explicit listing of which forces are conservative vs non-conservative in the given problem."
@@ -1470,10 +1470,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mechanical energy conserved when this.",
       "choices": [
-        "One third M L squared",
-        "Decreasing",
-        "m g h",
-        "Only conservative forces act"
+        "Only conservative forces act",
+        "KE plus PE",
+        "Impulse",
+        "Decreasing"
       ],
       "correctText": "Only conservative forces act",
       "explanation": "Mechanical energy is conserved when only conservative forces act on a system - no friction, drag, applied forces doing net non-conservative work, or other dissipative mechanisms. AP Physics C Mech treats this as a stringent condition that students must verify before applying delta E = 0. The 2017 FRQ #2 on a roller coaster (assumed frictionless) used this, but the 2018 FRQ on a block with friction required the modified statement delta E = -W_friction (mechanical energy decreases by the magnitude of friction work). Science Practice 6 (argumentation) rewards verifying conservation conditions before invoking the conservation law - students who blindly apply E_i = E_f to friction problems lose rubric points."
@@ -1493,9 +1493,9 @@
       "prompt": "Energy lost to friction becomes this.",
       "choices": [
         "m g h",
-        "Decreasing",
         "Thermal energy",
-        "v squared over r"
+        "Only conservative forces act",
+        "F equals dp dt"
       ],
       "correctText": "Thermal energy",
       "explanation": "Energy lost to friction becomes thermal energy of the contacting surfaces, raising their temperature. From the first law of thermodynamics (Joule, 1843), mechanical energy is not destroyed but converted: delta E_mech = -delta E_thermal. AP Physics C Mech treats |W_friction| = mu_k*N*L (with L the path length) as exactly the thermal energy generated. The 2017 FRQ #3 asked students to compute thermal energy generated by friction during a block's slide and verify the total-energy balance. Science Practice 4 (data analysis) rewards numerical evaluation; Practice 6 (argumentation) rewards explicit distinction between (a) energy is conserved overall and (b) mechanical energy is not conserved when dissipation occurs."
@@ -1514,10 +1514,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "PE of gravity at height h.",
       "choices": [
-        "Decreasing",
+        "Only conservative forces act",
         "m g h",
-        "Newton's second law",
-        "Thermal energy"
+        "Thermal energy",
+        "Newton's second law"
       ],
       "correctText": "m g h",
       "explanation": "Gravitational potential energy near Earth's surface is U_grav = mgh, where h is height above the chosen reference level. Derived from W_grav = -mg*delta h with the constant -mg being approximately the gravitational force at small heights. AP Physics C Mech treats this as a Taylor-expansion approximation to the full inverse-square U = -GMm/r: at r ≈ R_Earth, expanding U(R + h) around R gives U ≈ U(R) + mgh + O(h^2), with g = GM/R^2. The 2018 FRQ #2 on a roller coaster (low altitude) used U = mgh; the 2017 FRQ on a satellite required the full U = -GMm/r. Science Practice 6 (argumentation) rewards justifying which form applies."
@@ -1536,10 +1536,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total energy in damped oscillation.",
       "choices": [
+        "Thermal energy",
         "Decreasing",
-        "KE plus PE",
-        "m g h",
-        "m v squared over r"
+        "T squared proportional to a cubed",
+        "KE plus PE"
       ],
       "correctText": "Decreasing",
       "explanation": "Total mechanical energy of a damped oscillation decreases over time as the damping force dissipates energy. For light damping E(t) ≈ E_0 * exp(-gamma*t/m) where gamma is the damping coefficient. AP Physics C Mech 2019 FRQ #3 tested this with an oscillator subject to F_damp = -gamma*v: the equation of motion m*x'' + gamma*x' + k*x = 0 yields underdamped solutions x(t) = A*exp(-gamma*t/(2m))*cos(omega'*t + phi) with amplitude decaying exponentially and total energy decaying as exp(-gamma*t/m). Science Practice 2 (mathematical routines) demands solving the linear ODE; Practice 6 (argumentation) rewards explaining where the energy goes (heat in damping medium)."
@@ -1559,9 +1559,9 @@
       "prompt": "Rate of energy transfer.",
       "choices": [
         "Power",
-        "Watt",
         "Instantaneous power",
-        "Momentum"
+        "Infinity",
+        "Work over time"
       ],
       "correctText": "Power",
       "explanation": "Power is the rate of energy transfer or work done: P = dW/dt, with SI unit watt (1 W = 1 J/s, named for James Watt who revolutionized steam engines in the 1770s). AP Physics C Mech distinguishes average power P_avg = W/t from instantaneous power P = dW/dt. For mechanical applications P = F . v gives instantaneous power as the dot product of force and velocity. The 2018 FRQ #3 on a car accelerating tested both definitions, with P_max occurring at the engine's rated output. Science Practice 2 (mathematical routines) demands consistent dimensions [W] = [J/s] = [kg*m^2/s^3]; Practice 4 (data analysis) rewards reading P-v curves on vehicle specifications."
@@ -1580,10 +1580,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power as dW over dt.",
       "choices": [
-        "Power",
         "Instantaneous power",
-        "Sum of m_i v_i",
-        "F dot v"
+        "g downward",
+        "F dot v",
+        "Power"
       ],
       "correctText": "Instantaneous power",
       "explanation": "Instantaneous power is P(t) = dW/dt, the time derivative of work, expressing the current rate of energy transfer. For a force F applied to an object moving at velocity v, P = F . v (the dot product captures both magnitude and direction). AP Physics C Mech 2017 FRQ #4 used this on a winch lifting a load at constant v: F = mg (balances gravity), so P = mg*v. The 2018 FRQ on a car at max power required setting dv/dt = 0 at the terminal velocity where F = P_max/v balances drag. Science Practice 2 (mathematical routines) rewards differentiation; Practice 4 (data analysis) rewards reading instantaneous values from W(t) graphs."
@@ -1602,10 +1602,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power formula F times v.",
       "choices": [
-        "Work over time",
-        "F dot v",
         "Instantaneous power",
-        "2 pi sqrt I over m g d"
+        "Work over time",
+        "Drag equals weight",
+        "F dot v"
       ],
       "correctText": "F dot v",
       "explanation": "Power delivered by a force F to an object moving at velocity v is P = F . v, the dot product giving the scalar rate of energy transfer. AP Physics C Mech derives this from P = dW/dt with dW = F . dr: dividing by dt gives P = F . dr/dt = F . v. When F and v are parallel P = F*v (maximum); when perpendicular P = 0 (no work done despite force, e.g., centripetal force on circular motion). The 2019 FRQ #4 tested this on a satellite where centripetal gravity does no work on the orbiting body. Science Practice 2 (mathematical routines) rewards dot-product computation; Practice 6 (argumentation) rewards explaining why circular orbits conserve KE."
@@ -1624,10 +1624,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "SI unit of power.",
       "choices": [
-        "Power",
+        "Work over time",
+        "Watt",
         "Instantaneous power",
-        "Torque",
-        "Watt"
+        "Critically damped"
       ],
       "correctText": "Watt",
       "explanation": "The watt (W), SI unit of power, equals one joule per second (1 W = 1 J/s = 1 kg*m^2/s^3). Named for James Watt (1736-1819), Scottish engineer whose steam-engine improvements drove the Industrial Revolution. Common multiples: 1 kW = 10^3 W (household appliances), 1 MW = 10^6 W (large engines, small power plants), 1 GW = 10^9 W (nuclear reactors). 1 horsepower (Watt's own unit) = 746 W. AP Physics C Mech 2018 FRQ #3 required correct unit handling: 50 hp engine = 37.3 kW. Science Practice 2 (mathematical routines) demands dimensional consistency; Practice 4 (data analysis) rewards interpreting watt ratings on real-world devices."
@@ -1646,10 +1646,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Average power formula.",
       "choices": [
-        "Vector",
-        "Power",
         "Work over time",
-        "Watt"
+        "Half k A squared",
+        "Power",
+        "F dot v"
       ],
       "correctText": "Work over time",
       "explanation": "Average power is P_avg = W_total/t_total, the total work done over the elapsed time. AP Physics C Mech distinguishes this from instantaneous power P(t) = dW/dt - the average over an interval can differ from any particular instant's value. The 2018 FRQ #3 tested both: a car accelerating from rest with constant power P_inst = P_max has v(t) = sqrt(2*P_max*t/m) and W = P_max*t, so P_avg = W/t = P_max. But for a car with constant force F_const, P_inst grows linearly with v while P_avg = (1/2)*F*v_final. Science Practice 2 (mathematical routines) rewards correct integration to find W; Practice 6 (argumentation) rewards distinguishing the two cases."
@@ -1668,9 +1668,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Average position of system mass.",
       "choices": [
-        "Sum m_i r_i over total mass",
-        "d squared x over dt squared",
         "Center of mass",
+        "Sum m_i r_i over total mass",
+        "Elastic",
         "Sum m_i v_i over total mass"
       ],
       "correctText": "Center of mass",
@@ -1690,10 +1690,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Center of mass formula.",
       "choices": [
-        "F dot v",
-        "Center of mass",
-        "Constant velocity",
-        "Sum m_i r_i over total mass"
+        "COM acceleration",
+        "F equals dp/dt",
+        "Sum m_i r_i over total mass",
+        "Sum m_i v_i over total mass"
       ],
       "correctText": "Sum m_i r_i over total mass",
       "explanation": "The COM position formula is r_COM = (Sigma m_i * r_i) / M_total, summing each particle's mass times position vector and dividing by total mass M_total = Sigma m_i. For continuous distributions: r_COM = (integral of r*dm) / M_total, with dm = rho*dV. AP Physics C Mech 2017 FRQ #2 tested this on a non-uniform rod with lambda(x) = a*x: the COM position involves integral of x * lambda dx / integral of lambda dx, giving x_COM = 2L/3 for a rod of length L with linearly increasing density. Science Practice 2 (mathematical routines) rewards correct setup and evaluation of the integrals; Practice 4 (data analysis) rewards consistent units."
@@ -1712,10 +1712,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Velocity of center of mass.",
       "choices": [
-        "Sum m_i v_i over total mass",
         "Center of mass",
-        "COM acceleration",
-        "Angular momentum"
+        "Sum m_i r_i over total mass",
+        "Momentum",
+        "Sum m_i v_i over total mass"
       ],
       "correctText": "Sum m_i v_i over total mass",
       "explanation": "Velocity of the center of mass is v_COM = (Sigma m_i * v_i) / M_total, the mass-weighted average velocity. By Newton's third law, internal forces cancel pairwise, so the COM moves as if all external forces acted on a point mass M_total at r_COM. AP Physics C Mech 2019 FRQ #2 on a collision tested this: before and after collision the v_COM is unchanged (only external forces could change it, and none act during the brief collision). Total momentum P = M_total * v_COM conservation follows directly. Science Practice 2 (mathematical routines) rewards weighted-average computation; Practice 6 (argumentation) rewards explaining why v_COM = constant in isolated systems."
@@ -1734,10 +1734,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Net external force changes this.",
       "choices": [
-        "Sum of m_i v_i",
+        "v_e",
         "COM acceleration",
         "Constant velocity",
-        "Sum m_i v_i over total mass"
+        "Center of mass"
       ],
       "correctText": "COM acceleration",
       "explanation": "The net external force on a system changes the center-of-mass acceleration: F_ext = M_total * a_COM. Internal forces (between system parts) cancel in pairs by Newton's third law and never contribute. AP Physics C Mech 2018 FRQ #4 used this to predict the motion of a two-mass cart system with an applied external force F: regardless of internal tensions or oscillations, a_COM = F/(m_1+m_2). The 2019 FRQ on an exploding projectile tested this further: at the moment of explosion the COM continues its parabolic trajectory (only gravity is external) even as the fragments fly apart. Science Practice 6 (argumentation) rewards explicit Newton's-third-law cancellation reasoning."
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "COM motion in absence of external force.",
       "choices": [
-        "Center of mass",
-        "COM acceleration",
         "Constant velocity",
-        "Newton's law of gravitation"
+        "2 pi sqrt m over k",
+        "COM acceleration",
+        "Sum m_i r_i over total mass"
       ],
       "correctText": "Constant velocity",
       "explanation": "In the absence of net external force, the center of mass moves with constant velocity (or stays at rest). This is Newton's first law applied to the COM, with M_total replacing m. AP Physics C Mech 2017 FRQ #2 used this on a two-skater problem on frictionless ice: before they push off each other their COM was at rest, so after the push the COM remains at rest, requiring m_1*v_1 = m_2*v_2 (momentum conservation in the COM frame). Science Practice 6 (argumentation) rewards justifying COM stillness; Practice 2 (mathematical routines) rewards using v_COM = 0 to relate the two final velocities by mass ratio."
@@ -1778,10 +1778,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mass times velocity.",
       "choices": [
+        "Conserved",
+        "Theta",
         "Momentum",
-        "Sum of m_i v_i",
-        "Linear momentum",
-        "2 pi sqrt r cubed over G M"
+        "F equals dp dt"
       ],
       "correctText": "Momentum",
       "explanation": "Linear momentum p = m*v is the product of mass and velocity, a vector quantity with SI units kg*m/s. Newton's Principia (1687) used 'quantity of motion' for what we now call momentum. AP Physics C Mech treats p as the conserved quantity in collisions and the time-integral target of impulse (J = integral F dt = delta p). The 2018 FRQ #1 used p = m*v to compute initial and final momenta in a collision; Science Practice 2 (mathematical routines) rewards vector decomposition. Note that momentum is more fundamental than KE: it is exactly conserved in all collisions while KE is conserved only in elastic ones."
@@ -1801,9 +1801,9 @@
       "prompt": "Total momentum in isolated system.",
       "choices": [
         "Conserved",
-        "Elastic collision",
+        "F equals dp dt",
         "Momentum",
-        "Linear momentum"
+        "v_e"
       ],
       "correctText": "Conserved",
       "explanation": "Total momentum of an isolated system (no external forces) is conserved: P_total = Sigma m_i * v_i = constant. Derived from Newton's third law (internal forces cancel pairwise) or equivalently from F_ext = dP/dt with F_ext = 0. AP Physics C Mech 2019 FRQ #2 used this on a perfectly inelastic collision: m_1*v_1i + m_2*v_2i = (m_1 + m_2)*v_f (after they stick). Science Practice 2 (mathematical routines) rewards setting up the conservation equation; Practice 6 (argumentation) rewards justifying why external forces are negligible during the brief collision time (impulse approximation)."
@@ -1822,10 +1822,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Newton's 2nd law in momentum form.",
       "choices": [
-        "Conserved",
         "F equals dp dt",
-        "Momentum",
-        "Elastic collision"
+        "Conserved",
+        "Velocity",
+        "Sum of m_i v_i"
       ],
       "correctText": "F equals dp dt",
       "explanation": "Newton's second law in momentum form is F = dp/dt, the most general statement covering variable-mass systems. AP Physics C Mech uses this for rockets (Tsiolkovsky 1903) and for impulse-momentum analysis: F*dt = dp, integrating gives integral F dt = delta p (impulse-momentum theorem). For constant mass this reduces to F = m*a; for variable mass like rockets F = m*dv/dt + v*dm/dt couples both. The 2018 FRQ #3 on a stream of water hitting a wall tested dp/dt directly: each second a mass rho*A*v hits the wall losing speed v, requiring F = rho*A*v^2. Science Practice 2 (mathematical routines) rewards the differentiation."
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Quantity always conserved in collisions.",
       "choices": [
-        "Conserved",
-        "Linear momentum",
-        "Infinity",
-        "Sum of m_i v_i"
+        "Sum of m_i v_i",
+        "F dot v",
+        "F equals dp dt",
+        "Linear momentum"
       ],
       "correctText": "Linear momentum",
       "explanation": "Linear momentum is the quantity always conserved in collisions, regardless of elastic or inelastic type. AP Physics C Mech distinguishes momentum conservation (universal in collisions due to short collision time making external impulse negligible) from KE conservation (holds only in elastic collisions). The 2017 FRQ #1 on a perfectly inelastic collision tested this: momentum gives v_f, but KE_before > KE_after (the difference being heat/sound/deformation). Science Practice 6 (argumentation) rewards explaining why momentum survives but KE may not - momentum is linear in v while KE is quadratic; internal-force impulses cancel in P but their squared contributions don't cancel in KE."
@@ -1868,8 +1868,8 @@
       "choices": [
         "Momentum",
         "Sum of m_i v_i",
-        "Greater than c",
-        "F equals dp dt"
+        "F equals dp dt",
+        "Position"
       ],
       "correctText": "Sum of m_i v_i",
       "explanation": "Total momentum of a system is P = Sigma m_i * v_i, the vector sum of individual momenta. For two particles in 1D: P = m_1*v_1 + m_2*v_2 (with signs encoding direction). AP Physics C Mech 2018 FRQ #1 used this on a recoiling cannon: before firing P = 0, so after firing m_cannon*v_cannon + m_ball*v_ball = 0, giving v_cannon = -(m_ball/m_cannon)*v_ball (negative = backward recoil). Science Practice 2 (mathematical routines) rewards correct sign tracking; Practice 6 (argumentation) rewards justifying conservation - the cannon-ball system experiences no external horizontal force during the brief firing time."
@@ -1890,8 +1890,8 @@
       "choices": [
         "Impulse",
         "Newton-second",
-        "J equals delta p",
-        "Atwood machine"
+        "F times t",
+        "Drag"
       ],
       "correctText": "Impulse",
       "explanation": "Impulse is J = integral of F(t) dt, the time integral of force - a vector quantity with SI units N*s = kg*m/s (same as momentum). For constant force J = F*delta t. AP Physics C Mech treats impulse as the cause of momentum change via the impulse-momentum theorem J = delta p. The 2018 FRQ #1 on a ball bouncing off a wall tested impulse: J = m*(v_f - v_i) with v_f and v_i opposite-signed (the ball reverses direction), so |J| ~ 2mv. Science Practice 2 (mathematical routines) rewards correct vector subtraction; Practice 3 (graphical analysis) rewards reading impulse as the area under the F-t curve."
@@ -1911,9 +1911,9 @@
       "prompt": "Impulse-Momentum Theorem.",
       "choices": [
         "J equals delta p",
-        "Position",
-        "F times t",
-        "Impulse"
+        "Impulse",
+        "Impulse",
+        "I equals I_cm plus M d squared"
       ],
       "correctText": "J equals delta p",
       "explanation": "The Impulse-Momentum Theorem states J = delta p, i.e., the impulse on an object equals its change in momentum. Derived by integrating Newton's second law F = dp/dt over time: integral F dt = integral dp = p_f - p_i = delta p. AP Physics C Mech 2019 FRQ #1 used this on a bat hitting a baseball: given F(t) graph and ball's initial velocity, the area under F-t gives impulse = delta p, yielding final velocity. Science Practice 2 (mathematical routines) rewards correct integration; Practice 4 (data analysis) rewards estimating areas under irregular F-t curves with techniques like trapezoidal rule."
@@ -1932,10 +1932,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Impulse from constant force.",
       "choices": [
+        "Impulse",
         "F times t",
-        "J equals delta p",
-        "Normal force",
-        "Impulse"
+        "Elliptical orbits",
+        "Newton-second"
       ],
       "correctText": "F times t",
       "explanation": "Impulse from a constant force is J = F*t, the simplest case where the time integral collapses to a product. AP Physics C Mech 2017 FRQ #1 used this on a rocket with constant thrust F for time t: J = F*t = m_payload*delta v gives the velocity gained, with the mass changing complications usually neglected for short bursts. Science Practice 2 (mathematical routines) rewards this multiplication; Practice 6 (argumentation) rewards distinguishing this special case from the general J = integral F dt for time-varying forces (the 2019 FRQ on a baseball impact required the general form)."
@@ -1954,10 +1954,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Area under force-time graph.",
       "choices": [
+        "Force proportional to 1 over r squared",
         "Newton-second",
         "Impulse",
-        "Two fifths M R squared",
-        "F times t"
+        "J equals delta p"
       ],
       "correctText": "Impulse",
       "explanation": "Impulse equals the signed area under a force-time graph: J = integral F dt. For a triangular F-t pulse with peak F_max and duration delta t, J = (1/2)*F_max*delta t. AP Physics C Mech 2018 FRQ #1 tested this with a graphical impulse: students computed J by area, then equated J = delta p to find the velocity change. Science Practice 3 (graphical analysis) rewards correct geometric area computation (triangles, trapezoids, rectangles); Practice 2 (mathematical routines) rewards the J = delta p connection. A common student error is forgetting that area below the t-axis represents negative impulse (reverses momentum)."
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "SI unit of impulse.",
       "choices": [
+        "Impulse",
         "Newton-second",
-        "Impulse",
-        "Impulse",
-        "Maximum displacement"
+        "Sum reciprocals",
+        "F times t"
       ],
       "correctText": "Newton-second",
       "explanation": "The SI unit of impulse is the newton-second (N*s), equivalent to kg*m/s (same as momentum, as required by J = delta p). AP Physics C Mech tests unit consistency on the 2017 FRQ - if J = 4 N*s, then delta p = 4 kg*m/s, and for a 2 kg ball delta v = 2 m/s. Common unit conversions: 1 N*s = 1 kg*m/s = 10^5 g*cm/s. Science Practice 2 (mathematical routines) demands dimensional consistency throughout multi-step problems; Practice 4 (data analysis) rewards interpreting impulse-rated specifications (e.g., 'crumple zone provides 10 N*s of impulse over 0.2 s, giving peak force 50 N' - lower force, same impulse, safer for occupants)."
@@ -1998,10 +1998,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Collision conserving KE.",
       "choices": [
+        "Atwood machine",
+        "Kinetic energy",
         "Momentum",
-        "Elastic collision",
-        "Thrust force",
-        "Inelastic collision"
+        "Elastic collision"
       ],
       "correctText": "Elastic collision",
       "explanation": "An elastic collision conserves both momentum and kinetic energy. Examples: idealized collisions between molecules, billiard balls (approximately), and atomic-scale scattering. AP Physics C Mech derives the 1D elastic collision result: for masses m_1 and m_2 with v_1i, v_2i, the final velocities are v_1f = ((m_1-m_2)/(m_1+m_2))*v_1i + (2*m_2/(m_1+m_2))*v_2i (and symmetric for v_2f). The 2018 FRQ #2 tested this on equal masses (m_1 = m_2): final velocities swap (v_1f = v_2i, v_2f = v_1i), the famous 'Newton's cradle' result. Science Practice 2 (mathematical routines) rewards algebraic manipulation; Practice 6 (argumentation) rewards verifying both conservation laws."
@@ -2020,10 +2020,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Collision not conserving KE.",
       "choices": [
-        "Inelastic collision",
         "Momentum",
-        "Sum reciprocals",
-        "Perfectly inelastic"
+        "Kinetic energy",
+        "Inelastic collision",
+        "Gamma"
       ],
       "correctText": "Inelastic collision",
       "explanation": "An inelastic collision conserves momentum but not kinetic energy - some KE converts to heat, sound, deformation, or other internal modes. AP Physics C Mech treats this as the general case (most real collisions). The 2017 FRQ #1 tested an inelastic collision between two carts: momentum conservation gave v_f, then computing KE_initial vs KE_final showed energy was lost. Science Practice 6 (argumentation) rewards explaining where the missing KE went (heat in deformation, sound, etc.); Practice 2 (mathematical routines) rewards correct algebra for both initial and final KE values. The coefficient of restitution e = |v_rel,f|/|v_rel,i| quantifies inelasticity (0 < e < 1)."
@@ -2042,10 +2042,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Collision where objects stick.",
       "choices": [
-        "Elastic collision",
-        "Half I omega squared",
         "Perfectly inelastic",
-        "Kinetic energy"
+        "F times t",
+        "Momentum",
+        "Elastic collision"
       ],
       "correctText": "Perfectly inelastic",
       "explanation": "A perfectly inelastic collision is one in which the objects stick together after impact, sharing a common final velocity v_f = (m_1*v_1i + m_2*v_2i)/(m_1 + m_2). This is the maximum inelastic case - maximum KE is lost (consistent with momentum conservation). AP Physics C Mech 2018 FRQ #1 tested this on a ballistic pendulum: a bullet embedding in a block, then swinging upward. Momentum gives v_f immediately after; energy conservation then gives the swing height. Science Practice 2 (mathematical routines) rewards the two-step momentum-then-energy workflow; Practice 6 (argumentation) rewards explaining why KE conservation cannot be used during the collision phase."
@@ -2065,9 +2065,9 @@
       "prompt": "Quantity conserved in any collision.",
       "choices": [
         "Perfectly inelastic",
+        "Sqrt 2 G M over R",
         "Momentum",
-        "Elliptical orbits",
-        "Elastic collision"
+        "Inelastic collision"
       ],
       "correctText": "Momentum",
       "explanation": "Momentum is always conserved in collisions when external impulse is negligible during the brief collision time. This is the universal collision law - elastic, inelastic, and perfectly inelastic collisions all conserve momentum. AP Physics C Mech 2019 FRQ #2 tested this distinction: students computed v_f from momentum conservation, then separately decided whether to use KE conservation (elastic) or compute KE loss (inelastic). Science Practice 6 (argumentation) rewards justifying when external forces are negligible (e.g., gravity is external but acts over the long approach/recede phases, not the brief collision); Practice 2 (mathematical routines) rewards setting up the conservation equation correctly."
@@ -2086,9 +2086,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sometimes lost in collisions.",
       "choices": [
-        "Elastic collision",
-        "45 degrees",
+        "Inelastic collision",
         "Kinetic energy",
+        "Linear momentum",
         "Momentum"
       ],
       "correctText": "Kinetic energy",
@@ -2108,10 +2108,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Velocity of A in frame of B.",
       "choices": [
-        "Half k A squared",
-        "Relative velocity ratio after to before",
         "Perfectly inelastic",
-        "Relative velocity"
+        "Relative velocity",
+        "Galilean transformation",
+        "2 pi sqrt m over k"
       ],
       "correctText": "Relative velocity",
       "explanation": "Relative velocity of object A in the reference frame of object B is v_AB = v_A - v_B, the difference in velocities measured in a common inertial frame. AP Physics C Mech uses relative velocity in collision analysis and the cross-frame Galilean transformation. The 2017 FRQ #2 tested this on two carts approaching each other: v_AB = v_A - (-v_B) = v_A + v_B (the apparent approach speed in either cart's frame). Science Practice 2 (mathematical routines) rewards vector subtraction; Practice 6 (argumentation) rewards distinguishing relative speed (always positive) from relative velocity (signed). The frame transformation is invariant under Galilean relativity at non-relativistic speeds."
@@ -2130,10 +2130,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Galilean transformation.",
       "choices": [
-        "G constant",
-        "Galilean transformation",
+        "Perfectly inelastic",
+        "Atwood machine",
         "Relative velocity ratio after to before",
-        "Perfectly inelastic"
+        "Galilean transformation"
       ],
       "correctText": "Galilean transformation",
       "explanation": "Galilean transformation relates positions and velocities in two inertial frames moving with relative velocity u: x' = x - u*t (and t' = t in non-relativistic Galileo-Newton mechanics). Velocities transform as v' = v - u. AP Physics C Mech invokes this for shifting between lab frame and center-of-mass frame in collisions, where the COM frame often simplifies the analysis (in COM frame, total momentum is zero before and after). The 2019 FRQ #3 tested frame-shifting: working in the COM frame, an elastic collision simply reverses each particle's velocity. Science Practice 6 (argumentation) rewards justifying the frame choice; Practice 2 (mathematical routines) rewards correct velocity addition."
@@ -2152,10 +2152,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Coefficient of restitution.",
       "choices": [
-        "Relative velocity ratio after to before",
         "Galilean transformation",
-        "Atwood machine",
-        "Elastic"
+        "v over r",
+        "Perfectly inelastic",
+        "Relative velocity ratio after to before"
       ],
       "correctText": "Relative velocity ratio after to before",
       "explanation": "Coefficient of restitution is e = |v_rel,after| / |v_rel,before|, the ratio of relative speeds after to before collision. Newton (1687) introduced this empirical measure: e = 1 for perfectly elastic, e = 0 for perfectly inelastic (stick together), 0 < e < 1 for typical inelastic. AP Physics C Mech 2018 FRQ #2 tested this on a bouncing ball: e = v_after/v_before, and consecutive bounce heights ratio h_n+1/h_n = e^2 (since h ~ v^2). Science Practice 4 (data analysis) rewards extracting e from drop-bounce data; Practice 6 (argumentation) rewards explaining why e < 1 in real collisions (energy lost to heat, sound, deformation)."
@@ -2174,10 +2174,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "e equals 1 corresponds to this collision.",
       "choices": [
+        "Power",
         "Relative velocity ratio after to before",
         "Perfectly inelastic",
-        "Elastic",
-        "Negative integral of F dr"
+        "Elastic"
       ],
       "correctText": "Elastic",
       "explanation": "An elastic collision has coefficient of restitution e = 1: the relative speed is unchanged (only reversed in direction). For two equal-mass particles with v_1i and v_2i, e = 1 implies (v_2f - v_1f) = -(v_2i - v_1i), and combined with momentum conservation gives v_1f = v_2i, v_2f = v_1i (a swap). AP Physics C Mech 2018 FRQ #2 on Newton's cradle (5 balls in a line) tested this: when one ball strikes the end, only the far-end ball moves out (the equivalent of multiple sequential elastic collisions). Science Practice 6 (argumentation) rewards using e = 1 to confirm both momentum and KE conservation; Practice 2 (mathematical routines) rewards algebraic derivation."
@@ -2196,10 +2196,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "e equals 0 corresponds to this collision.",
       "choices": [
-        "Galilean transformation",
         "Perfectly inelastic",
-        "Relative velocity ratio after to before",
-        "Maximum displacement"
+        "Relative velocity",
+        "Elastic",
+        "45 degrees"
       ],
       "correctText": "Perfectly inelastic",
       "explanation": "A perfectly inelastic collision has coefficient of restitution e = 0: the objects move with a common final velocity (no relative motion). AP Physics C Mech derives this from the e = (v_2f - v_1f)/(v_1i - v_2i) = 0, requiring v_1f = v_2f. The 2017 FRQ #1 used this on a ballistic-pendulum-style problem: a bullet embeds in a wooden block, and the combined system moves with v_f = m_bullet*v_bullet/(m_bullet + m_block). The energy lost during this collision is the maximum possible (consistent with momentum conservation), all converted to heat and deformation. Science Practice 2 (mathematical routines) rewards setting v_1f = v_2f as the defining constraint."
@@ -2219,9 +2219,9 @@
       "prompt": "Angular position symbol.",
       "choices": [
         "Alpha",
-        "r cross p",
-        "r omega",
-        "Theta"
+        "r alpha",
+        "Theta",
+        "Equilibrium"
       ],
       "correctText": "Theta",
       "explanation": "Angular position is theta (Greek letter), measured in radians from a chosen reference axis. AP Physics C Mech uses theta as the rotational analog of linear position x, with the relation arc-length s = r*theta connecting them on a circle of radius r. Theta is a signed quantity: counter-clockwise positive by convention (right-hand rule with thumb out of the page). The 2018 FRQ #3 on a disk rotation tested theta(t): given alpha = constant, integration yields theta(t) = theta_0 + omega_0*t + (1/2)*alpha*t^2 (analogous to x = x_0 + v_0*t + (1/2)*a*t^2). Science Practice 1 (representations) demands consistent sign conventions throughout the problem."
@@ -2240,10 +2240,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular velocity symbol.",
       "choices": [
-        "Alpha",
-        "Omega",
-        "6.67 times 10 to the minus 11",
-        "Theta"
+        "r omega",
+        "Theta",
+        "Rocket equation",
+        "Omega"
       ],
       "correctText": "Omega",
       "explanation": "Angular velocity is omega = d(theta)/dt, the time derivative of angular position, measured in rad/s. AP Physics C Mech uses omega as the rotational analog of linear velocity v, with v = r*omega for a point at radius r on a rotating rigid body. Omega is a vector (right-hand rule, perpendicular to the plane of rotation). The 2019 FRQ #3 on a pulley required students to compute omega from given theta(t) by differentiation. Science Practice 2 (mathematical routines) rewards calculus; Practice 6 (argumentation) rewards explaining the connection v = r*omega - the linear speed of a point on a rotating body grows with radial distance from the axis."
@@ -2262,10 +2262,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular acceleration symbol.",
       "choices": [
-        "r omega",
-        "Conserved",
+        "v equals r omega",
+        "r alpha",
         "Alpha",
-        "Omega"
+        "r omega"
       ],
       "correctText": "Alpha",
       "explanation": "Angular acceleration is alpha = d(omega)/dt = d^2(theta)/dt^2, the time derivative of angular velocity, measured in rad/s^2. AP Physics C Mech uses alpha as the rotational analog of linear acceleration a, with a_tangential = r*alpha for a point at radius r (the tangential, not centripetal, component). Newton's second law for rotation tau = I*alpha relates net torque to angular acceleration via moment of inertia. The 2018 FRQ #3 on a string unwinding from a spool tested alpha: the tangential acceleration of the string equals r*alpha. Science Practice 2 (mathematical routines) rewards the analog of linear kinematics for constant alpha."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tangential velocity formula.",
       "choices": [
-        "Omega",
-        "Opposes motion or impending motion",
-        "r alpha",
-        "r omega"
+        "Sine theta approximately theta",
+        "r omega",
+        "Theta",
+        "r alpha"
       ],
       "correctText": "r omega",
       "explanation": "Tangential velocity at a point on a rotating rigid body at radius r is v_t = r*omega, the linear speed parallel to the velocity vector. AP Physics C Mech uses this to convert between linear and angular descriptions of motion. For uniform circular motion v_t is constant (omega constant); for non-uniform v_t may change as omega changes. The 2017 FRQ #4 on a yo-yo unwinding tested this: the string's linear speed v equals r*omega where r is the spool radius. Science Practice 2 (mathematical routines) rewards the conversion; Practice 6 (argumentation) rewards explaining why a point farther from the axis (larger r) moves faster (larger v_t) for the same omega."
@@ -2307,9 +2307,9 @@
       "prompt": "Tangential acceleration formula.",
       "choices": [
         "Theta",
+        "Alpha",
         "r alpha",
-        "I omega",
-        "r omega"
+        "Elliptical orbits"
       ],
       "correctText": "r alpha",
       "explanation": "Tangential acceleration at a point on a rotating body is a_t = r*alpha, the linear acceleration in the direction of motion (perpendicular to centripetal a_c = v^2/r = r*omega^2). AP Physics C Mech distinguishes the two: a_t changes the speed of the point; a_c changes only the direction. Total linear acceleration has magnitude sqrt(a_t^2 + a_c^2). The 2018 FRQ on a non-uniform circular motion (a disk spinning up from rest) tested both: a_t = r*alpha drives the speed up, while a_c = r*omega^2 grows as omega grows. Science Practice 2 (mathematical routines) rewards Pythagorean combination; Practice 6 (argumentation) rewards distinguishing tangential from centripetal in the free-body analysis."
@@ -2328,10 +2328,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Rotational equivalent of force.",
       "choices": [
+        "F equals minus k x",
         "Torque",
-        "Non-conservative",
-        "r F sine theta",
-        "Newton-meter"
+        "r cross F",
+        "Tau equals I alpha"
       ],
       "correctText": "Torque",
       "explanation": "Torque is the rotational analog of force - the agent that produces angular acceleration. Defined as tau = r x F (cross product), with magnitude tau = r*F*sin(theta), units N*m. AP Physics C Mech uses Newton's second law for rotation tau_net = I*alpha to predict alpha from net torque. The 2018 FRQ #3 on a torque applied to a disk tested this: tau = F*R (force F applied tangentially at rim R) produced alpha = tau/I = (F*R)/((1/2)*M*R^2) = 2F/(M*R). Science Practice 2 (mathematical routines) rewards the cross-product computation; Practice 6 (argumentation) rewards explaining why torque depends on both force magnitude and lever arm."
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Torque vector formula.",
       "choices": [
-        "Torque",
+        "r F sine theta",
         "r cross F",
-        "v_e times ln (m_0 over m)",
-        "r F sine theta"
+        "Tau equals I alpha",
+        "Instantaneous power"
       ],
       "correctText": "r cross F",
       "explanation": "Torque vector is tau = r x F, where r is the position vector from the rotation axis to the point of force application and F is the force vector. The right-hand rule gives the direction (point fingers from r to F, thumb gives tau direction perpendicular to both). AP Physics C Mech uses this for 3D rotational problems. The 2019 FRQ #3 tested the right-hand rule: a wrench applied at angle theta to the bolt produces tau = r*F*sin(theta) in the axial direction. Science Practice 1 (representations) demands correct right-hand-rule application; Practice 6 (argumentation) rewards distinguishing tau = r x F (vector) from |tau| = r*F*sin(theta) (scalar magnitude)."
@@ -2373,9 +2373,9 @@
       "prompt": "Torque magnitude.",
       "choices": [
         "Newton-meter",
-        "Two fifths M R squared",
+        "Translational plus rotational",
         "r F sine theta",
-        "Tau equals I alpha"
+        "Torque"
       ],
       "correctText": "r F sine theta",
       "explanation": "Torque magnitude is tau = r*F*sin(theta), where theta is the angle between the position vector r and the force F. AP Physics C Mech writes this equivalently as tau = r_perp*F (where r_perp = r*sin(theta) is the perpendicular component of r) or tau = r*F_perp (where F_perp = F*sin(theta) is the perpendicular component of F). The 2017 FRQ on a door hinge tested this: pushing the door perpendicular at radius r gives maximum torque, while pushing along the door (theta = 0) gives zero. Science Practice 2 (mathematical routines) rewards correct sine factor; Practice 1 (representations) demands consistent direction conventions."
@@ -2394,10 +2394,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Newton's second law for rotation.",
       "choices": [
-        "Elastic collision",
         "Tau equals I alpha",
         "Torque",
-        "Newton-meter"
+        "G m_1 m_2 over r squared",
+        "r cross F"
       ],
       "correctText": "Tau equals I alpha",
       "explanation": "Newton's second law for rotation is tau_net = I*alpha, where tau_net is net torque (sum of all torques about the chosen axis), I is moment of inertia, and alpha is angular acceleration. This is the rotational analog of F_net = m*a, with tau replacing F, I replacing m, and alpha replacing a. AP Physics C Mech 2018 FRQ #3 on a pulley with two hanging masses tested this: the net torque (T_1*R - T_2*R) on the pulley equals I*alpha, with I = (1/2)*M_p*R^2. Science Practice 6 (argumentation) rewards explicit identification of all torques; Practice 2 (mathematical routines) rewards combining with Newton's linear laws on the hanging masses."
@@ -2416,10 +2416,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "SI unit of torque.",
       "choices": [
-        "r F sine theta",
-        "Translational plus rotational",
-        "Newton-meter",
-        "Tau equals I alpha"
+        "2 pi sqrt m over k",
+        "Tau equals I alpha",
+        "Torque",
+        "Newton-meter"
       ],
       "correctText": "Newton-meter",
       "explanation": "The SI unit of torque is the newton-meter (N*m), with dimensions [kg*m^2/s^2]. Note this has the same dimensions as energy (joule, J), but the two are physically distinct - torque is a vector that produces rotation, while energy is a scalar. AP Physics C Mech keeps them separate by writing torque in N*m and energy in J, and by noting torque arises from r x F (vector) while energy arises from F . d (scalar). The 2017 FRQ #4 on a wrench tightening a bolt tested unit consistency. Science Practice 2 (mathematical routines) demands dimensional analysis; Practice 6 (argumentation) rewards distinguishing torque (rotational cause) from work (energy transfer)."
@@ -2439,9 +2439,9 @@
       "prompt": "Moment of inertia definition integral.",
       "choices": [
         "Integral of r squared dm",
-        "I equals I_cm plus M d squared",
-        "F times t",
-        "Half M R squared"
+        "One third M L squared",
+        "Half M R squared",
+        "x equals x_0 plus v_0 t plus half a t squared"
       ],
       "correctText": "Integral of r squared dm",
       "explanation": "Moment of inertia about an axis is I = integral of r^2 dm, where r is the perpendicular distance from each mass element dm to the axis. AP Physics C Mech treats I as the rotational analog of mass - it quantifies an object's resistance to angular acceleration in tau = I*alpha. The integral form is essential because mass is distributed continuously: for a thin ring of mass M and radius R, I = integral r^2 dm = R^2 * M (all mass at radius R). The 2018 FRQ #4 tested this on a thin rod: I = integral from -L/2 to L/2 of x^2 (M/L) dx = (1/12)*M*L^2. Science Practice 2 (mathematical routines) rewards correct integration."
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parallel axis theorem.",
       "choices": [
-        "One third M L squared",
-        "I equals I_cm plus M d squared",
         "Half M R squared",
-        "Impulse"
+        "Two fifths M R squared",
+        "No external torque",
+        "I equals I_cm plus M d squared"
       ],
       "correctText": "I equals I_cm plus M d squared",
       "explanation": "Parallel axis theorem: I = I_CM + M*d^2, where I is moment of inertia about an axis parallel to one through the center of mass and offset by distance d, I_CM is moment about the CM axis, and M is total mass. AP Physics C Mech uses this for shifted axes - e.g., a rod's I about an end axis is I_CM + M*(L/2)^2 = (1/12)*M*L^2 + (1/4)*M*L^2 = (1/3)*M*L^2. The 2017 FRQ #4 tested the theorem on a physical pendulum (rod swinging about an end). Science Practice 2 (mathematical routines) rewards correct application; Practice 6 (argumentation) rewards explaining why I always increases when shifting away from the CM (M*d^2 > 0 always)."
@@ -2482,9 +2482,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Moment of inertia of solid sphere.",
       "choices": [
-        "Torque",
         "Two fifths M R squared",
-        "I equals I_cm plus M d squared",
+        "2 pi sqrt m over k",
+        "One third M L squared",
         "Integral of r squared dm"
       ],
       "correctText": "Two fifths M R squared",
@@ -2504,10 +2504,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Moment of inertia of disk.",
       "choices": [
-        "I equals I_cm plus M d squared",
-        "Half M R squared",
-        "Conservative",
-        "Integral of r squared dm"
+        "One third M L squared",
+        "Two fifths M R squared",
+        "Integral of a dt",
+        "Half M R squared"
       ],
       "correctText": "Half M R squared",
       "explanation": "Moment of inertia of a solid disk (or cylinder) about its central axis is I = (1/2)*M*R^2. Derived by integrating I = integral r^2 dm in cylindrical coordinates: dm = (M/(pi*R^2))*2*pi*r dr, integral from 0 to R of r^2 * (M/(pi*R^2))*2*pi*r dr = (M*R^2)/2. AP Physics C Mech 2019 FRQ #3 on a rolling disk down an incline tested this: I = (1/2)*M*R^2 yields v_bottom = sqrt(4*g*h/3), intermediate between a solid sphere and a thin ring. Science Practice 2 (mathematical routines) rewards correct integration setup."
@@ -2527,9 +2527,9 @@
       "prompt": "Moment of inertia of thin rod about end.",
       "choices": [
         "One third M L squared",
-        "Greater than c",
-        "Half M R squared",
-        "I equals I_cm plus M d squared"
+        "Two fifths M R squared",
+        "Integral of r squared dm",
+        "Terminal velocity"
       ],
       "correctText": "One third M L squared",
       "explanation": "Moment of inertia of a thin rod of length L and mass M about an axis through one end perpendicular to the rod is I = (1/3)*M*L^2. Derived from parallel axis theorem: I_end = I_CM + M*(L/2)^2 = (1/12)*M*L^2 + (1/4)*M*L^2 = (1/3)*M*L^2. Alternative direct integration: I = integral from 0 to L of x^2 (M/L) dx = (M*L^2)/3. AP Physics C Mech 2017 FRQ #4 on a physical pendulum (rod pivoting at one end) used this in T = 2*pi*sqrt(I/(m*g*d)) = 2*pi*sqrt(2L/(3g)). Science Practice 2 (mathematical routines) rewards both derivation paths; Practice 6 (argumentation) rewards the parallel axis verification."
@@ -2548,10 +2548,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Rotational KE formula.",
       "choices": [
-        "Half I omega squared",
-        "No external torque",
-        "Elastic",
-        "Smaller I/M ratio"
+        "v equals r omega",
+        "Escape velocity squared times mass over 2",
+        "Smaller I/M ratio",
+        "Half I omega squared"
       ],
       "correctText": "Half I omega squared",
       "explanation": "Rotational kinetic energy is KE_rot = (1/2)*I*omega^2, the rotational analog of (1/2)*m*v^2. Derived by summing translational KE of all mass elements: (1/2)*Sigma m_i*v_i^2 = (1/2)*Sigma m_i*(r_i*omega)^2 = (1/2)*omega^2*Sigma m_i*r_i^2 = (1/2)*I*omega^2. AP Physics C Mech 2018 FRQ #3 used this on a rolling object: KE_total = (1/2)*M*v_CM^2 + (1/2)*I*omega^2 (translation + rotation). Science Practice 2 (mathematical routines) rewards the additive decomposition; Practice 6 (argumentation) rewards the rolling constraint v_CM = R*omega connecting the two terms."
@@ -2571,9 +2571,9 @@
       "prompt": "Total KE of rolling object.",
       "choices": [
         "Translational plus rotational",
-        "Underdamped",
+        "m g h",
         "No external torque",
-        "Smaller I/M ratio"
+        "v equals r omega"
       ],
       "correctText": "Translational plus rotational",
       "explanation": "Total kinetic energy of a rolling object is the sum of translational and rotational parts: KE = (1/2)*M*v_CM^2 + (1/2)*I_CM*omega^2. AP Physics C Mech uses this on energy-conservation problems for rolling spheres, disks, and rings. For a rolling-without-slipping object v_CM = R*omega, so KE = (1/2)*M*v_CM^2*(1 + I_CM/(M*R^2)). The 2018 FRQ #3 tested this: a rolling sphere descending height h gains KE = M*g*h, with the fraction (M*R^2)/(M*R^2 + I_CM) appearing in v_CM. Science Practice 6 (argumentation) rewards justifying why a heavier I_CM (more rotational inertia) results in slower v_CM at the bottom."
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Rolling without slipping condition.",
       "choices": [
-        "Mass of escaping object",
-        "Translational plus rotational",
-        "No external torque",
-        "v equals r omega"
+        "v equals r omega",
+        "Half I omega squared",
+        "Vector",
+        "No external torque"
       ],
       "correctText": "v equals r omega",
       "explanation": "Rolling without slipping condition: v_CM = R*omega, where R is the radius of the rolling object. AP Physics C Mech derives this from the kinematic constraint that the contact point is instantaneously at rest relative to the ground (no slipping means no relative motion). The 2017 FRQ #4 on a yo-yo and the 2018 FRQ on a rolling disk both required this constraint to couple translational and rotational degrees of freedom. Science Practice 6 (argumentation) rewards explaining why this is a constraint (the contact point's velocity v_CM - R*omega must equal zero); Practice 2 (mathematical routines) rewards using it to eliminate omega in favor of v_CM."
@@ -2614,10 +2614,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Faster down ramp.",
       "choices": [
+        "v equals r omega",
         "Smaller I/M ratio",
-        "Momentum",
         "No external torque",
-        "Half I omega squared"
+        "2 pi r over v"
       ],
       "correctText": "Smaller I/M ratio",
       "explanation": "An object with smaller moment of inertia (smaller I/M ratio) rolls down a ramp faster, because less of its KE is tied up in rotation. From energy conservation M*g*h = (1/2)*M*v_CM^2 + (1/2)*I*omega^2, with v_CM = R*omega, we get v_CM = sqrt(2*g*h/(1 + I/(M*R^2))). For a hollow ring I = M*R^2, so v_CM = sqrt(g*h). For a solid disk I = M*R^2/2, v_CM = sqrt(4*g*h/3). For a solid sphere I = (2/5)*M*R^2, v_CM = sqrt(10*g*h/7). AP Physics C Mech 2018 FRQ #3 tested this ranking: solid sphere > solid disk > hollow ring. Science Practice 6 (argumentation) rewards explaining the I/(M*R^2) ratio dependence."
@@ -2636,10 +2636,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conservation of angular momentum requires this.",
       "choices": [
-        "v equals r omega",
-        "Half I omega squared",
         "No external torque",
-        "Equal throughout"
+        "Negative dU dr",
+        "v equals r omega",
+        "Smaller I/M ratio"
       ],
       "correctText": "No external torque",
       "explanation": "Conservation of angular momentum requires the net external torque on the system to be zero: tau_ext = 0 implies dL/dt = 0, so L is constant. AP Physics C Mech invokes this for isolated systems or systems with only central forces (like satellites in orbit, where the central gravitational force exerts no torque about the central body). The 2017 FRQ #4 on a figure skater pulling in her arms tested this: I decreases (mass moves closer to axis), so omega increases (L = I*omega = constant). Science Practice 6 (argumentation) rewards identifying that internal forces (her muscles) can change I but cannot change L (no external torque). Practice 2 (mathematical routines) rewards setting I_i*omega_i = I_f*omega_f."
@@ -2660,8 +2660,8 @@
       "choices": [
         "r cross p",
         "Angular momentum",
-        "F dot v",
-        "I omega"
+        "Tau equals dL dt",
+        "Sine theta approximately theta"
       ],
       "correctText": "Angular momentum",
       "explanation": "Angular momentum is the rotational analog of linear momentum, with magnitude L = I*omega for a rigid body or L = r x p for a point particle. AP Physics C Mech treats L as a vector (right-hand rule). The 2019 FRQ #4 on an orbiting satellite used L = m*v*r*sin(theta) at perihelion and aphelion - conservation of L combined with the right-hand rule gave the orbital plane. Science Practice 6 (argumentation) rewards distinguishing the two equivalent forms; Practice 2 (mathematical routines) rewards correct vector or scalar computation depending on geometry."
@@ -2681,8 +2681,8 @@
       "prompt": "Angular momentum formula.",
       "choices": [
         "I omega",
-        "Sqrt 2 G M over R",
-        "Angular momentum",
+        "Resonance",
+        "Tau equals dL dt",
         "r cross p"
       ],
       "correctText": "I omega",
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular momentum of point particle.",
       "choices": [
-        "r cross p",
-        "Tau equals dL dt",
         "I omega",
-        "J equals delta p"
+        "r cross p",
+        "Angular momentum conserved",
+        "Velocity"
       ],
       "correctText": "r cross p",
       "explanation": "Angular momentum of a point particle about a chosen origin is L = r x p = r x (m*v), with magnitude |L| = m*v*r*sin(theta) (theta is angle between r and v). AP Physics C Mech uses this for orbital problems and central-force problems. The 2018 FRQ #4 on a planet orbiting the sun: at perihelion (closest approach) r is small but v is large; at aphelion (farthest) r is large but v is small, and L = m*v*r*sin(90 degrees) = m*v*r is conserved throughout. Science Practice 2 (mathematical routines) rewards cross-product computation; Practice 6 (argumentation) rewards explaining why gravity exerts no torque about the central body (force is radial)."
@@ -2724,10 +2724,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Newton's 2nd in angular form.",
       "choices": [
-        "Tau equals dL dt",
-        "I omega",
-        "Angular momentum",
-        "Negative half k x squared"
+        "Sqrt G M over r",
+        "Angular momentum conserved",
+        "r cross p",
+        "Tau equals dL dt"
       ],
       "correctText": "Tau equals dL dt",
       "explanation": "Newton's second law in angular form is tau = dL/dt, the rate of change of angular momentum equals net torque. This is the rotational analog of F = dp/dt. For a rigid body with constant I, tau = I*(d/dt)(omega) = I*alpha (recovering tau = I*alpha). For a system with variable I (like a contracting figure skater), tau = (dI/dt)*omega + I*(d omega/dt) - but if tau_ext = 0, the product I*omega = L is conserved. AP Physics C Mech 2019 FRQ #4 tested this on a precessing top: gravity exerts torque tau = m*g*r causing dL/dt to point horizontally, producing precession at rate omega_p = tau/L = m*g*r/(I*omega). Science Practice 2 (mathematical routines) rewards correct differentiation."
@@ -2746,10 +2746,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conservation when no net torque.",
       "choices": [
-        "r cross p",
-        "Angular momentum conserved",
+        "I omega",
+        "Decreasing",
         "Tau equals dL dt",
-        "m g h"
+        "Angular momentum conserved"
       ],
       "correctText": "Angular momentum conserved",
       "explanation": "Angular momentum is conserved when the net external torque about the chosen axis is zero. AP Physics C Mech tests this on diverse systems: figure skaters spinning faster as they pull in their arms (I decreases, omega increases, L = I*omega constant), neutron stars spinning rapidly as their parent stars collapse (I decreases dramatically, omega increases dramatically), gyroscopes precessing rather than falling (the torque from gravity changes L's direction, not magnitude). The 2017 FRQ #4 tested I_i*omega_i = I_f*omega_f for a rotating platform. Science Practice 6 (argumentation) rewards identifying when external torques are negligible and the conservation law applies."
@@ -2768,10 +2768,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Restoring force proportional to displacement.",
       "choices": [
-        "A cosine omega t plus phi",
-        "Two fifths M R squared",
-        "d squared x dt squared plus omega squared x equals 0",
-        "Simple harmonic motion"
+        "Watt",
+        "Simple harmonic motion",
+        "Sqrt k over m",
+        "A cosine omega t plus phi"
       ],
       "correctText": "Simple harmonic motion",
       "explanation": "Simple harmonic motion (SHM) is oscillatory motion in which the restoring force is proportional to displacement: F = -k*x (Hooke's law). Examples: mass on spring, small-angle pendulum, LC circuit oscillations (Phys C EM Unit 6). AP Physics C Mech derives SHM from Newton's second law m*d^2x/dt^2 = -k*x, yielding x(t) = A*cos(omega*t + phi) with omega = sqrt(k/m). Galileo (1602) discovered isochronism for pendulums; Hooke (1660) discovered the spring law. The 2018 FRQ #3 on a spring tested SHM frequency and amplitude. Science Practice 2 (mathematical routines) rewards solving the ODE; Practice 6 (argumentation) rewards identifying when small-amplitude approximations apply."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "SHM differential equation.",
       "choices": [
-        "d squared x dt squared plus omega squared x equals 0",
-        "A cosine omega t plus phi",
+        "Resonant frequency",
+        "Simple harmonic motion",
         "Sqrt k over m",
-        "r equals r_0 plus v_0 t plus half a t squared"
+        "d squared x dt squared plus omega squared x equals 0"
       ],
       "correctText": "d squared x dt squared plus omega squared x equals 0",
       "explanation": "The SHM differential equation is d^2x/dt^2 + omega^2*x = 0, derived from Newton's second law m*x'' = -k*x by dividing by m and defining omega^2 = k/m. AP Physics C Mech recognizes this as a linear second-order homogeneous ODE with constant coefficients, with general solution x(t) = A*cos(omega*t + phi). The 2017 FRQ #3 on a pendulum tested derivation: starting from torque tau = -m*g*L*sin(theta), the small-angle approximation sin(theta) ≈ theta gives I*theta'' = -m*g*L*theta, or theta'' + (m*g*L/I)*theta = 0, with omega^2 = m*g*L/I. Science Practice 2 (mathematical routines) rewards ODE derivation and substitution to verify the solution."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "General solution to SHM ODE.",
       "choices": [
-        "Perfectly inelastic",
+        "Simple harmonic motion",
         "2 pi sqrt m over k",
-        "d squared x dt squared plus omega squared x equals 0",
-        "A cosine omega t plus phi"
+        "A cosine omega t plus phi",
+        "Driven oscillation"
       ],
       "correctText": "A cosine omega t plus phi",
       "explanation": "The general solution to the SHM ODE x'' + omega^2*x = 0 is x(t) = A*cos(omega*t + phi), where A is amplitude and phi is phase. Equivalent forms: x = A*sin(omega*t + phi') or x = B*cos(omega*t) + C*sin(omega*t). AP Physics C Mech uses the cosine form with phi determined by initial conditions: at t = 0, x(0) = A*cos(phi) and v(0) = -A*omega*sin(phi). The 2019 FRQ #3 tested this: given x(0) = A (released from rest at amplitude), phi = 0 yields x(t) = A*cos(omega*t). Science Practice 2 (mathematical routines) rewards substituting the assumed solution into the ODE to verify; Practice 6 (argumentation) rewards justifying the choice of cosine vs sine vs general form."
@@ -2834,10 +2834,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular frequency of spring.",
       "choices": [
-        "d squared x over dt squared",
-        "d squared x dt squared plus omega squared x equals 0",
+        "Vector",
+        "2 pi sqrt m over k",
         "Sqrt k over m",
-        "2 pi sqrt m over k"
+        "A cosine omega t plus phi"
       ],
       "correctText": "Sqrt k over m",
       "explanation": "Angular frequency of a spring-mass oscillator is omega = sqrt(k/m), with units rad/s. Derived from the ODE m*x'' + k*x = 0 by assuming x(t) = A*cos(omega*t) and substituting: -A*omega^2*cos + (k/m)*A*cos = 0, requiring omega^2 = k/m. AP Physics C Mech connects omega to period T = 2*pi/omega = 2*pi*sqrt(m/k) and frequency f = omega/(2*pi). The 2018 FRQ #3 used omega = sqrt(k/m) on a horizontal spring with given k and m. Science Practice 2 (mathematical routines) rewards correct substitution; Practice 6 (argumentation) rewards explaining why omega depends only on k/m (not on amplitude A), illustrating isochronism."
@@ -2856,10 +2856,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period of spring oscillation.",
       "choices": [
-        "Sqrt k over m",
-        "d squared x dt squared plus omega squared x equals 0",
         "2 pi sqrt m over k",
-        "Sum m_i r_i over total mass"
+        "Sqrt k over m",
+        "T squared proportional to a cubed",
+        "d squared x dt squared plus omega squared x equals 0"
       ],
       "correctText": "2 pi sqrt m over k",
       "explanation": "Period of a spring-mass oscillator is T = 2*pi*sqrt(m/k), with units seconds. Derived from T = 2*pi/omega and omega = sqrt(k/m). AP Physics C Mech tests this on the 2018 FRQ #3 with numerical values. The amplitude-independence (isochronism) means a heavier mass oscillates slower, a stiffer spring oscillates faster, but the period is the same whether the mass swings 1 cm or 10 cm. Galileo's discovery of pendulum isochronism (1602) extended to springs via Hooke (1660). Science Practice 2 (mathematical routines) rewards numerical computation; Practice 6 (argumentation) rewards explaining why amplitude doesn't appear in T - the linear restoring force scales identically with displacement."
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mass on string oscillating.",
       "choices": [
-        "Pendulum",
-        "2 pi sqrt I over m g d",
-        "Position",
-        "2 pi sqrt L over g"
+        "Tau equals dL dt",
+        "2 pi sqrt L over g",
+        "Sine theta approximately theta",
+        "Pendulum"
       ],
       "correctText": "Pendulum",
       "explanation": "A pendulum is a mass suspended on a string or rigid rod that swings under gravity. Galileo discovered its isochronism (1602) by observing chandeliers in Pisa Cathedral. AP Physics C Mech derives the small-angle pendulum equation: torque tau = -m*g*L*sin(theta) about the pivot, Newton's second law for rotation I*theta'' = tau gives theta'' = -(g/L)*sin(theta). For small theta the sin(theta) ≈ theta approximation linearizes the ODE to theta'' = -(g/L)*theta, yielding SHM with omega = sqrt(g/L). The 2017 FRQ #3 tested this derivation. Science Practice 2 (mathematical routines) rewards both derivation and recognition of the small-angle limit."
@@ -2900,10 +2900,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pendulum period.",
       "choices": [
-        "Zero",
         "Pendulum",
-        "2 pi sqrt L over g",
-        "Mass"
+        "Tension",
+        "2 pi sqrt I over m g d",
+        "2 pi sqrt L over g"
       ],
       "correctText": "2 pi sqrt L over g",
       "explanation": "Period of a simple pendulum is T = 2*pi*sqrt(L/g), where L is the length and g is gravitational acceleration. Independent of mass m (cancels in the ODE) and amplitude (small-angle limit). AP Physics C Mech tests this on the 2017 FRQ #3: a pendulum of length L = 1 m on Earth (g = 9.8 m/s^2) has T = 2.0 s. Science Practice 2 (mathematical routines) rewards correct square-root computation; Practice 6 (argumentation) rewards explaining mass independence (gravity provides the restoring force proportional to m, but inertia is also proportional to m, so the ratio is independent). For a physical pendulum the formula generalizes to T = 2*pi*sqrt(I/(m*g*d))."
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pendulum small-angle approximation.",
       "choices": [
+        "2 pi sqrt I over m g d",
+        "F dot v",
         "2 pi sqrt L over g",
-        "Sine theta approximately theta",
-        "Mass",
-        "r F sine theta"
+        "Sine theta approximately theta"
       ],
       "correctText": "Sine theta approximately theta",
       "explanation": "The small-angle approximation sin(theta) ≈ theta (with theta in radians) is essential to linearize the pendulum's nonlinear ODE theta'' = -(g/L)*sin(theta) into the SHM form theta'' = -(g/L)*theta. AP Physics C Mech derives the approximation from the Taylor series sin(theta) = theta - theta^3/6 + O(theta^5), accurate to better than 1% for theta < 0.1 rad (about 5.7 degrees). For larger amplitudes the period acquires an amplitude-dependent correction T = 2*pi*sqrt(L/g)*(1 + theta_max^2/16 + ...). The 2017 FRQ #3 verified the approximation. Science Practice 6 (argumentation) rewards explicit citation of theta < 15 degrees as the typical safe range."
@@ -2944,10 +2944,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Physical pendulum period.",
       "choices": [
+        "Negative dU dr",
         "2 pi sqrt L over g",
-        "Relative velocity ratio after to before",
         "2 pi sqrt I over m g d",
-        "Sine theta approximately theta"
+        "Mass"
       ],
       "correctText": "2 pi sqrt I over m g d",
       "explanation": "A physical pendulum is a rigid body pivoting about a point not at its CM, with period T = 2*pi*sqrt(I/(m*g*d)), where I is moment of inertia about the pivot, m is mass, g is gravitational acceleration, and d is the distance from pivot to CM. AP Physics C Mech derives this from rotational dynamics: torque tau = -m*g*d*sin(theta) gives I*theta'' = -m*g*d*sin(theta), and small-angle linearization yields omega^2 = m*g*d/I. The 2018 FRQ #3 on a rod pendulum used I_end = (1/3)*M*L^2 and d = L/2, giving T = 2*pi*sqrt(2L/(3g)). Science Practice 2 (mathematical routines) rewards the parallel axis theorem application."
@@ -2966,10 +2966,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pendulum period independent of this.",
       "choices": [
+        "Sine theta approximately theta",
         "Mass",
-        "2 pi sqrt I over m g d",
-        "2 pi sqrt L over g",
-        "About 11.2 km per second"
+        "v squared over r",
+        "2 pi sqrt L over g"
       ],
       "correctText": "Mass",
       "explanation": "Pendulum period is independent of mass in the small-angle limit: T = 2*pi*sqrt(L/g) does not contain m. The mass enters both the inertial side (I = m*L^2 for a simple pendulum) and the gravitational side (force m*g) of Newton's second law, canceling exactly. AP Physics C Mech links this to Einstein's principle of equivalence (1907): inertial mass equals gravitational mass to high precision, a fact tested by Eötvös (1908) to one part in 10^9 and by modern torsion-balance experiments to 10^-13. Science Practice 6 (argumentation) rewards explaining the mass cancellation; the 2017 FRQ #3 tested this with two pendulums of different masses but equal lengths having equal periods."
@@ -2988,10 +2988,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Oscillation losing energy over time.",
       "choices": [
-        "Damped oscillation",
+        "Critically damped",
+        "Newton's second law",
         "Overdamped",
-        "Non-conservative",
-        "Gamma"
+        "Damped oscillation"
       ],
       "correctText": "Damped oscillation",
       "explanation": "A damped oscillation loses energy over time due to a velocity-dependent friction-like force, typically F_damp = -gamma*v. AP Physics C Mech writes the damped SHM ODE as m*x'' + gamma*x' + k*x = 0, a linear second-order ODE. The character of the solution depends on the damping strength: light damping (gamma < 2*sqrt(m*k)) gives underdamped oscillation with decaying amplitude; critical damping (gamma = 2*sqrt(m*k)) returns to equilibrium fastest without oscillation; heavy damping (gamma > 2*sqrt(m*k)) overdamped, slow non-oscillatory return. Science Practice 2 (mathematical routines) rewards solving the characteristic equation lambda^2 + (gamma/m)*lambda + k/m = 0."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Light damping characteristic.",
       "choices": [
+        "Underdamped",
+        "Half M R squared",
         "Damped oscillation",
-        "Newton-second",
-        "Overdamped",
-        "Underdamped"
+        "Critically damped"
       ],
       "correctText": "Underdamped",
       "explanation": "An underdamped oscillator has damping gamma small enough that oscillations still occur but with decaying amplitude. AP Physics C Mech writes x(t) = A*exp(-gamma*t/(2m))*cos(omega'*t + phi), where omega' = sqrt(k/m - (gamma/(2m))^2) is the damped frequency (slightly less than the undamped omega = sqrt(k/m)). Energy decays as exp(-gamma*t/m). The 2019 FRQ #3 tested this on a mass-spring system with given damping. Science Practice 2 (mathematical routines) rewards correct solution form; Practice 6 (argumentation) rewards explaining why omega' < omega (damping slows the oscillation)."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Returning quickly to equilibrium without oscillation.",
       "choices": [
-        "Damped oscillation",
-        "g downward",
         "Critically damped",
-        "Gamma"
+        "Underdamped",
+        "Gamma",
+        "45 degrees"
       ],
       "correctText": "Critically damped",
       "explanation": "Critical damping occurs when gamma = 2*sqrt(m*k), the unique value at which the system returns to equilibrium fastest without overshooting. AP Physics C Mech writes the critical-damping solution as x(t) = (A + B*t)*exp(-omega*t) (a repeated root of the characteristic equation gives a polynomial-times-exponential form). This is the ideal damping for car shock absorbers, door closers, and instrument needles - we don't want oscillation, but we also don't want a slow approach. The 2018 FRQ #3 on a damped door closer tested this condition. Science Practice 6 (argumentation) rewards explaining why critical damping is optimal for return speed; Practice 2 (mathematical routines) rewards finding gamma_c = 2*sqrt(m*k)."
@@ -3054,9 +3054,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Returning slowly without oscillation.",
       "choices": [
-        "Escape velocity squared times mass over 2",
-        "Damped oscillation",
-        "Underdamped",
+        "r omega",
+        "Gamma",
+        "Critically damped",
         "Overdamped"
       ],
       "correctText": "Overdamped",
@@ -3076,9 +3076,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Damping coefficient symbol.",
       "choices": [
-        "Critically damped",
+        "Two fifths M R squared",
+        "Damped oscillation",
         "Underdamped",
-        "COM acceleration",
         "Gamma"
       ],
       "correctText": "Gamma",
@@ -3098,10 +3098,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total energy in SHM.",
       "choices": [
-        "Escape velocity",
+        "All kinetic",
         "Half k A squared",
-        "Equilibrium",
-        "All kinetic"
+        "All potential",
+        "Thermal energy"
       ],
       "correctText": "Half k A squared",
       "explanation": "Total energy in SHM is E = (1/2)*k*A^2, where A is the amplitude. AP Physics C Mech derives this by noting that at the turning point (x = A) all energy is PE = (1/2)*k*A^2 (KE = 0), and at equilibrium (x = 0) all energy is KE = (1/2)*m*v_max^2 with v_max = A*omega = A*sqrt(k/m), giving KE_max = (1/2)*m*A^2*(k/m) = (1/2)*k*A^2. Total energy is conserved (no damping) and equals the constant value (1/2)*k*A^2 at every moment. The 2019 FRQ #3 used this to relate amplitude to total energy. Science Practice 2 (mathematical routines) rewards the energy-conservation equation; Practice 6 (argumentation) rewards consistency check."
@@ -3120,9 +3120,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "KE maximum location.",
       "choices": [
-        "Equilibrium",
+        "Negative G M m over 2 a",
         "All potential",
-        "2 pi sqrt m over k",
+        "Equilibrium",
         "All kinetic"
       ],
       "correctText": "Equilibrium",
@@ -3142,10 +3142,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "PE maximum location.",
       "choices": [
-        "Maximum displacement",
-        "Escape velocity squared times mass over 2",
         "All kinetic",
-        "All potential"
+        "Half k A squared",
+        "T squared proportional to a cubed",
+        "Maximum displacement"
       ],
       "correctText": "Maximum displacement",
       "explanation": "Potential energy in SHM reaches its maximum at the turning points x = +/-A, where KE = 0 and PE = (1/2)*k*A^2 = E (total energy). AP Physics C Mech writes U(x) = (1/2)*k*x^2, a parabolic well centered at equilibrium. The 2019 FRQ #3 graphed U(x) and KE(x) on the same axes, showing the trade-off as x oscillates between -A and +A. Science Practice 1 (representations) rewards correct sketches; Practice 6 (argumentation) rewards explaining the trade-off (E = KE + PE constant, the mass swings through the well, exchanging KE and PE)."
@@ -3164,10 +3164,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Energy at equilibrium.",
       "choices": [
+        "All potential",
         "All kinetic",
-        "Momentum",
-        "Half k A squared",
-        "Equilibrium"
+        "Equilibrium",
+        "Sqrt G M over r"
       ],
       "correctText": "All kinetic",
       "explanation": "At the equilibrium position (x = 0) all energy in SHM is kinetic: KE = (1/2)*m*v_max^2 = (1/2)*k*A^2 (with v_max = A*omega, omega = sqrt(k/m)). AP Physics C Mech treats this as the position where PE = (1/2)*k*x^2 = 0 (with the natural choice of zero at equilibrium). The 2018 FRQ #3 tested computing v_max from A and omega: v_max = A*omega. Science Practice 2 (mathematical routines) rewards correct substitution; Practice 6 (argumentation) rewards distinguishing equilibrium-position physics (max KE, zero PE) from turning-point physics (zero KE, max PE) in SHM energy exchanges."
@@ -3187,8 +3187,8 @@
       "prompt": "Energy at amplitude.",
       "choices": [
         "All potential",
-        "All kinetic",
-        "Impulse-Momentum Theorem",
+        "Torque",
+        "Maximum displacement",
         "Half k A squared"
       ],
       "correctText": "All potential",
@@ -3208,9 +3208,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum amplitude at natural frequency.",
       "choices": [
-        "Resonant frequency",
+        "Quality of resonance",
+        "r F sine theta",
         "Resonance",
-        "Negative dU dr",
         "Tacoma Narrows Bridge"
       ],
       "correctText": "Resonance",
@@ -3230,10 +3230,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Natural frequency of system.",
       "choices": [
+        "Resonance",
         "Resonant frequency",
-        "Normal force",
-        "Tacoma Narrows Bridge",
-        "Quality of resonance"
+        "r F sine theta",
+        "Tacoma Narrows Bridge"
       ],
       "correctText": "Resonant frequency",
       "explanation": "Resonant frequency is the natural frequency at which a system oscillates freely (omega_0 = sqrt(k/m) for spring-mass), which is also the frequency that produces maximum response when driven. AP Physics C Mech distinguishes the resonant frequency from the damped frequency omega' = sqrt(omega_0^2 - (gamma/2m)^2) - for light damping these are nearly equal but not identical. The 2018 FRQ tested the natural frequency calculation. Science Practice 2 (mathematical routines) rewards omega_0 = sqrt(k/m) for spring; sqrt(g/L) for pendulum; 1/sqrt(LC) for LC circuit (Phys C EM Unit 6)."
@@ -3252,10 +3252,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Externally forced oscillation.",
       "choices": [
+        "g",
+        "Quality of resonance",
         "Driven oscillation",
-        "Resonant frequency",
-        "Escape velocity squared times mass over 2",
-        "Quality of resonance"
+        "Resonance"
       ],
       "correctText": "Driven oscillation",
       "explanation": "A driven oscillation has a periodic external force applied at frequency omega_d: m*x'' + gamma*x' + k*x = F_0*cos(omega_d*t). AP Physics C Mech writes the steady-state solution as x(t) = A(omega_d)*cos(omega_d*t - phi), where A depends on omega_d (resonant peak at omega_d ≈ omega_0) and phi is the phase lag (0 below resonance, 90 degrees at resonance, 180 degrees above). The 2019 FRQ tested driven response. Science Practice 6 (argumentation) rewards distinguishing transient and steady-state responses; Practice 2 (mathematical routines) rewards the trial-solution method."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Famous resonant bridge failure.",
       "choices": [
-        "Resonant frequency",
         "Tacoma Narrows Bridge",
-        "Driven oscillation",
-        "Same as point mass at center"
+        "One third M L squared",
+        "Resonance",
+        "Resonant frequency"
       ],
       "correctText": "Tacoma Narrows Bridge",
       "explanation": "The Tacoma Narrows Bridge (1940) is the most famous resonance-related structural failure in physics history. The bridge collapsed when wind-induced vortex shedding drove torsional oscillations at the bridge's natural twisting frequency, with amplitude growing until structural failure. AP Physics C Mech uses this as an engineering case study for resonance avoidance. Modern bridges use damping (mass dampers, viscous dampers) and structural design (closed box girders to prevent vortex shedding) to suppress resonance. Science Practice 6 (argumentation) rewards connecting the physical principle (resonance) to engineering practice (damping, design). The footage and analysis remain standard physics-education material."
@@ -3296,10 +3296,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Q factor measures this.",
       "choices": [
-        "Resonant frequency",
-        "Tacoma Narrows Bridge",
-        "Sqrt 2 G M over R",
-        "Quality of resonance"
+        "Resonance",
+        "Driven oscillation",
+        "Quality of resonance",
+        "Newton's third law"
       ],
       "correctText": "Quality of resonance",
       "explanation": "The Q factor (quality factor) measures the sharpness of resonance in a driven oscillator. Defined as Q = omega_0/(gamma/m) (lightly damped) or equivalently Q = (omega_0 * m / gamma), the Q factor quantifies the ratio of energy stored to energy lost per cycle. High Q (low damping) means a sharp resonance peak and long ringing time; low Q means a broad peak and rapid decay. AP Physics C Mech treats this on the 2018 FRQ on a tuning fork: Q ≈ 1000 means the fork rings for ~1000 cycles before decaying significantly. Science Practice 4 (data analysis) rewards reading Q from the width of the resonance peak (FWHM = omega_0/Q)."
@@ -3318,10 +3318,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Force between two masses.",
       "choices": [
-        "Newton's law of gravitation",
+        "No external torque",
         "6.67 times 10 to the minus 11",
-        "Newton-meter",
-        "G m_1 m_2 over r squared"
+        "G constant",
+        "Newton's law of gravitation"
       ],
       "correctText": "Newton's law of gravitation",
       "explanation": "Newton's law of universal gravitation states that every pair of masses attracts each other with a force F = G*m_1*m_2/r^2, where G is the gravitational constant and r is the distance between centers. Newton, Principia (1687), unified terrestrial gravity (apples falling) with celestial mechanics (planets orbiting). AP Physics C Mech uses this for orbital dynamics, escape velocity, and gravitational potential. The 2018 FRQ #4 on a satellite tested this: setting F_grav = m*v^2/r (centripetal) gives orbital speed v = sqrt(G*M/r). Science Practice 6 (argumentation) rewards explaining universality - the same law applies to apples, the moon, and distant galaxies."
@@ -3340,10 +3340,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitation formula.",
       "choices": [
-        "KE plus PE",
         "Force proportional to 1 over r squared",
         "G m_1 m_2 over r squared",
-        "6.67 times 10 to the minus 11"
+        "Driven oscillation",
+        "G constant"
       ],
       "correctText": "G m_1 m_2 over r squared",
       "explanation": "The gravitation force formula is F = G*m_1*m_2/r^2, an inverse-square law derived empirically by Newton (Principia 1687) from Kepler's third law and the observation that the moon's centripetal acceleration matches g/(R_moon-orbit/R_Earth)^2. AP Physics C Mech treats G = 6.67 x 10^-11 N*m^2/kg^2 as a constant. The 2019 FRQ on orbital dynamics tested F = G*M*m/r^2 setting it equal to m*v^2/r (centripetal force) or m*omega^2*r (rotational form). Science Practice 2 (mathematical routines) rewards substitution into either equality; Practice 6 (argumentation) rewards explaining the geometric origin of the 1/r^2 scaling (surface area of sphere)."
@@ -3362,10 +3362,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitational constant.",
       "choices": [
+        "A B cosine theta",
         "6.67 times 10 to the minus 11",
         "G m_1 m_2 over r squared",
-        "Force proportional to 1 over r squared",
-        "dx over dt"
+        "G constant"
       ],
       "correctText": "6.67 times 10 to the minus 11",
       "explanation": "The gravitational constant G ≈ 6.67 x 10^-11 N*m^2/kg^2, determined by Henry Cavendish in his torsion-balance experiment (1798) - one of the most delicate measurements of the 18th century. Cavendish measured the gravitational attraction between two pairs of lead spheres, deducing G from the torsion-spring twist. AP Physics C Mech accepts G to two significant figures; modern measurements give G = 6.674 x 10^-11. The Cavendish experiment also yielded the first measurement of Earth's mass (M_Earth = g*R^2/G ≈ 6 x 10^24 kg). Science Practice 6 (argumentation) rewards explaining why G is hardest to measure of all fundamental constants (gravity is by far the weakest force)."
@@ -3384,10 +3384,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inverse-square law form.",
       "choices": [
-        "6.67 times 10 to the minus 11",
+        "G constant",
         "Force proportional to 1 over r squared",
-        "Newton's law of gravitation",
-        "Gamma"
+        "Sqrt G M over r",
+        "6.67 times 10 to the minus 11"
       ],
       "correctText": "Force proportional to 1 over r squared",
       "explanation": "The inverse-square law form F proportional to 1/r^2 means that doubling the distance reduces gravitational force by a factor of four. AP Physics C Mech uses this scaling throughout: orbital speed v ~ 1/sqrt(r), orbital period T ~ r^(3/2) (Kepler's third law), gravitational potential U ~ -1/r. The 2017 FRQ on a satellite at altitude 2*R_Earth tested this: g_altitude = g_surface/9, so weight is 1/9 of surface weight. Science Practice 6 (argumentation) rewards the explicit scaling derivation. The geometric origin of 1/r^2 is the surface area 4*pi*r^2 of a sphere - flux through a sphere is constant, so intensity dilutes as 1/r^2."
@@ -3406,10 +3406,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cavendish's measurement.",
       "choices": [
+        "Force proportional to 1 over r squared",
         "G constant",
         "6.67 times 10 to the minus 11",
-        "Newton's law of gravitation",
-        "Inertial reference frame"
+        "F dot v"
       ],
       "correctText": "G constant",
       "explanation": "Henry Cavendish's torsion-balance experiment (1798) measured the gravitational constant G by detecting the tiny attractive force between two pairs of lead spheres. The setup: a horizontal rod suspended by a thin fiber, with small lead balls at each end; two large lead spheres positioned to attract the small ones; the rod twists by a small angle, calibrated by independent torsion-spring measurements. AP Physics C Mech credits Cavendish with the first measurement of G - and thus the first determination of Earth's mass (via g = G*M_Earth/R_Earth^2 and known g, R_Earth). Science Practice 6 (argumentation) rewards explaining why G measurement is so difficult: gravity is 10^38 times weaker than electromagnetism between same-mass particles."
@@ -3428,10 +3428,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitational acceleration field.",
       "choices": [
-        "Two fifths M R squared",
-        "g",
+        "Zero",
+        "Mass of escaping object",
         "Same as point mass at center",
-        "G M over r squared"
+        "g"
       ],
       "correctText": "g",
       "explanation": "Gravitational field g is the acceleration a test mass experiences at a point - a vector field with magnitude g = F_grav/m and direction toward the source mass. AP Physics C Mech generalizes the local g ≈ 9.8 m/s^2 near Earth's surface to g(r) = G*M/r^2 at distance r from a point mass M. The 2018 FRQ tested g at various altitudes: at r = 2*R_Earth, g = G*M_Earth/(2*R)^2 = g_surface/4. Science Practice 6 (argumentation) rewards distinguishing g as a field (independent of test mass) from F_grav as a force (proportional to test mass). The field concept (Faraday 1830s, formalized by Maxwell) generalizes from gravity to electromagnetism."
@@ -3450,10 +3450,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "g near Earth's surface.",
       "choices": [
-        "g",
         "G M over r squared",
-        "9.8 meter per second squared",
-        "Escape velocity"
+        "dx over dt",
+        "Zero",
+        "9.8 meter per second squared"
       ],
       "correctText": "9.8 meter per second squared",
       "explanation": "Gravitational acceleration g at Earth's surface is approximately 9.8 m/s^2 (more precisely 9.81 m/s^2 averaged, with variations from 9.78 at equator to 9.83 at poles due to centrifugal effects and Earth's oblateness). AP Physics C Mech uses g = 9.8 m/s^2 as the standard value for problems near Earth's surface; for higher altitudes the inverse-square law gives g(h) = G*M_Earth/(R_Earth+h)^2. The 2017 FRQ #2 on a pendulum used g = 9.8 m/s^2 in T = 2*pi*sqrt(L/g). Science Practice 2 (mathematical routines) demands correct unit handling; Practice 6 (argumentation) rewards explaining why g varies geographically."
@@ -3472,10 +3472,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "g from gravitation formula.",
       "choices": [
-        "9.8 meter per second squared",
         "G M over r squared",
         "Zero",
-        "Sqrt G M over r"
+        "Same as point mass at center",
+        "v_e"
       ],
       "correctText": "G M over r squared",
       "explanation": "Gravitational field magnitude from a point mass M at distance r is g(r) = G*M/r^2, derived from F = G*M*m/r^2 by dividing by the test mass m. AP Physics C Mech extends this to extended bodies via integration: for a uniform sphere outside its radius, g equals the point-mass value (Newton's shell theorem). The 2018 FRQ #4 tested this on a satellite: g at orbital radius = G*M_Earth/r^2 provides the centripetal acceleration v^2/r, yielding v = sqrt(G*M_Earth/r). Science Practice 2 (mathematical routines) rewards correct setup; Practice 6 (argumentation) rewards justifying when point-mass treatment is valid (spherical symmetry)."
@@ -3494,10 +3494,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitational field inside spherical shell.",
       "choices": [
-        "g",
+        "I equals I_cm plus M d squared",
         "Zero",
-        "g downward",
-        "G M over r squared"
+        "G M over r squared",
+        "g"
       ],
       "correctText": "Zero",
       "explanation": "The gravitational field inside a uniform spherical shell is zero, a remarkable result derived by Newton from his shell theorem. The geometric proof: any point inside the shell receives gravitational contributions from all directions, and by symmetric integration these contributions exactly cancel. AP Physics C Mech tests this on theoretical problems: an object inside Earth (treated as concentric shells) at distance r from center feels only the gravity from the mass within r (the inner shells), since the outer shells exert zero net force. The 2019 FRQ on a hypothetical tunnel through Earth tested this. Science Practice 6 (argumentation) rewards the symmetry argument."
@@ -3516,10 +3516,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitational field outside sphere.",
       "choices": [
-        "Velocity",
-        "g",
+        "Alpha",
         "Same as point mass at center",
-        "G M over r squared"
+        "Zero",
+        "9.8 meter per second squared"
       ],
       "correctText": "Same as point mass at center",
       "explanation": "Gravitational field outside a uniform sphere is the same as if all the mass were concentrated at the center: g(r) = G*M/r^2 for r > R. This is Newton's shell theorem (Principia 1687), allowing planets and stars to be treated as point masses for external gravity problems. AP Physics C Mech uses this throughout orbital dynamics - Kepler's laws derived assuming planets are point masses are valid because the shell theorem says even extended spherical bodies act like points externally. The 2018 FRQ #4 implicitly relied on this. Science Practice 6 (argumentation) rewards explaining why elementary orbital mechanics works despite the planets being extended bodies."
@@ -3538,10 +3538,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitational PE formula far from Earth.",
       "choices": [
-        "g downward",
-        "Escape velocity squared times mass over 2",
         "Negative G M m over r",
-        "Negative G M m over 2 a"
+        "I omega",
+        "Escape velocity squared times mass over 2",
+        "Infinity"
       ],
       "correctText": "Negative G M m over r",
       "explanation": "Gravitational PE far from Earth (general inverse-square form) is U = -G*M*m/r, with reference U = 0 at infinity. AP Physics C Mech derives this by integrating F = -G*M*m/r^2 from r to infinity: U(r) = -integral from r to infinity of (G*M*m/r'^2) dr' = -G*M*m/r. The negative sign reflects that gravity is attractive - the bound system has less energy than the separated system at infinity. The 2018 FRQ #4 on orbital energy used this: E_orbit = KE + U = (1/2)*m*v^2 - G*M*m/r. Science Practice 2 (mathematical routines) rewards the definite integral; Practice 6 (argumentation) rewards explaining the negative sign."
@@ -3560,10 +3560,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reference point for U.",
       "choices": [
-        "Infinity",
-        "m g h",
+        "Work over time",
         "Escape velocity squared times mass over 2",
-        "A cosine omega t plus phi"
+        "Negative G M m over r",
+        "Infinity"
       ],
       "correctText": "Infinity",
       "explanation": "Reference point for gravitational PE in the inverse-square form is taken at r = infinity, where U = 0 by convention. AP Physics C Mech uses this so that bound systems have negative U (need positive energy input to escape to infinity) and free systems have U approaching zero from below. The 2017 FRQ on escape velocity tested this: an object launched with KE = G*M*m/R has just enough energy to reach r = infinity with v = 0 (E = KE - G*M*m/R = 0 means escape). Science Practice 6 (argumentation) rewards justifying the convention; Practice 2 (mathematical routines) rewards consistent reference-point choice throughout a problem."
@@ -3582,9 +3582,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "PE near Earth's surface approximation.",
       "choices": [
-        "Escape velocity squared times mass over 2",
+        "J equals delta p",
+        "Infinity",
         "m g h",
-        "Vector",
         "Negative G M m over 2 a"
       ],
       "correctText": "m g h",
@@ -3604,10 +3604,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total energy of orbit.",
       "choices": [
-        "Negative G M m over r",
-        "A cosine omega t plus phi",
         "Negative G M m over 2 a",
-        "Infinity"
+        "m g h",
+        "Infinity",
+        "Half I omega squared"
       ],
       "correctText": "Negative G M m over 2 a",
       "explanation": "Total energy of a circular orbit at radius r is E = (1/2)*m*v^2 - G*M*m/r = -G*M*m/(2r) = -(1/2)*|U|, derived using v^2 = G*M/r from the centripetal equation. The total energy is exactly half the (negative) potential energy in magnitude. AP Physics C Mech generalizes to elliptical orbits with semi-major axis a: E = -G*M*m/(2a). The 2017 FRQ #4 on transferring between two circular orbits used this: delta E = -G*M*m/(2*r_f) - (-G*M*m/(2*r_i)) = (G*M*m/2)*(1/r_i - 1/r_f). Science Practice 2 (mathematical routines) rewards the algebraic simplification."
@@ -3626,10 +3626,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Energy required to escape Earth.",
       "choices": [
-        "Infinity",
         "m g h",
-        "Escape velocity squared times mass over 2",
-        "Kinetic friction"
+        "Negative G M m over r",
+        "r F sine theta",
+        "Escape velocity squared times mass over 2"
       ],
       "correctText": "Escape velocity squared times mass over 2",
       "explanation": "Escape energy is the kinetic energy needed to escape Earth's gravity from the surface: KE_escape = G*M_Earth*m/R_Earth, equivalent to v_escape = sqrt(2*G*M/R) ≈ 11.2 km/s. AP Physics C Mech derives this from energy conservation: at launch KE = G*M*m/R (so total E = 0); at infinity KE = 0 (so total E = 0 + 0 = 0). For an object to reach infinity (escape), total E must be at least 0, requiring KE_min = G*M*m/R. The 2018 FRQ #4 used escape velocity in a satellite-launch problem. Science Practice 2 (mathematical routines) rewards energy-balance setup; Practice 6 (argumentation) rewards the bound vs unbound distinction."
@@ -3648,10 +3648,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Speed for circular orbit at radius r.",
       "choices": [
-        "T squared proportional to a cubed",
-        "Thermal energy",
         "Sqrt G M over r",
-        "Equal areas in equal times"
+        "Integral of F dot dr",
+        "Equal areas in equal times",
+        "2 pi sqrt r cubed over G M"
       ],
       "correctText": "Sqrt G M over r",
       "explanation": "Speed for a circular orbit at radius r is v = sqrt(G*M/r), derived by setting gravity = centripetal force: G*M*m/r^2 = m*v^2/r, so v^2 = G*M/r. AP Physics C Mech uses this for satellite orbits, the moon, planetary motion. Note v scales as 1/sqrt(r): outer planets orbit slower (Earth 30 km/s, Neptune 5 km/s). The 2018 FRQ #4 tested this: a satellite at altitude 2*R_Earth orbits at v = sqrt(G*M/(3*R_Earth)) (note r = 3*R_Earth measured from center). Science Practice 2 (mathematical routines) rewards correct r reckoning; Practice 6 (argumentation) rewards explaining why orbital speed is unique at each radius (fixed by gravity)."
@@ -3670,10 +3670,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period for circular orbit.",
       "choices": [
-        "2 pi sqrt r cubed over G M",
-        "6.67 times 10 to the minus 11",
+        "Sqrt G M over r",
         "Equal areas in equal times",
-        "Elliptical orbits"
+        "Smaller I/M ratio",
+        "2 pi sqrt r cubed over G M"
       ],
       "correctText": "2 pi sqrt r cubed over G M",
       "explanation": "Period for a circular orbit is T = 2*pi*sqrt(r^3/(G*M)), derived from v = sqrt(G*M/r) and T = 2*pi*r/v. Squaring: T^2 = (4*pi^2/(G*M))*r^3, which is Kepler's third law for circular orbits. AP Physics C Mech extends to elliptical orbits with semi-major axis a: T^2 = (4*pi^2/(G*M))*a^3. The 2019 FRQ tested this for geostationary orbit (T = 24 hours): solving for r gives r = (G*M*T^2/(4*pi^2))^(1/3) ≈ 42,000 km. Science Practice 2 (mathematical routines) rewards algebraic manipulation; Practice 6 (argumentation) rewards Kepler-third-law derivation."
@@ -3692,10 +3692,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Kepler's first law.",
       "choices": [
+        "T squared proportional to a cubed",
+        "Equal areas in equal times",
         "Elliptical orbits",
-        "Sqrt G M over r",
-        "Relative velocity",
-        "2 pi sqrt r cubed over G M"
+        "F equals minus k x"
       ],
       "correctText": "Elliptical orbits",
       "explanation": "Kepler's first law (1609) states that planets move in elliptical orbits with the Sun at one focus, not at the center. AP Physics C Mech proves this is a consequence of Newton's law of universal gravitation (1687) - the inverse-square central force produces conic-section orbits (ellipse for bound, parabola for marginal, hyperbola for unbound). The eccentricity e measures ellipticity: e = 0 circle, 0 < e < 1 ellipse, e = 1 parabola, e > 1 hyperbola. Earth's orbit has e ≈ 0.017 (nearly circular); Mercury's e ≈ 0.21; comets often e > 0.9. Science Practice 6 (argumentation) rewards distinguishing the Sun's offset from the center (focus position)."
@@ -3714,9 +3714,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Kepler's second law.",
       "choices": [
+        "Sqrt G M over r",
         "Elliptical orbits",
-        "2 pi sqrt r cubed over G M",
-        "Integral of r squared dm",
+        "Negative half k x squared",
         "Equal areas in equal times"
       ],
       "correctText": "Equal areas in equal times",
@@ -3736,10 +3736,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Kepler's third law.",
       "choices": [
-        "T squared proportional to a cubed",
-        "All potential",
         "Elliptical orbits",
-        "2 pi sqrt r cubed over G M"
+        "Equal areas in equal times",
+        "T squared proportional to a cubed",
+        "Centripetal acceleration"
       ],
       "correctText": "T squared proportional to a cubed",
       "explanation": "Kepler's third law (1619) states that T^2 is proportional to a^3, where T is the orbital period and a is the semi-major axis of the ellipse. AP Physics C Mech derives this from Newton's gravitation: F = G*M*m/r^2 = m*omega^2*r (centripetal for circle), giving omega = sqrt(G*M/r^3) and T = 2*pi/omega = 2*pi*sqrt(r^3/(G*M)). For ellipses replace r with a. The proportionality constant is 4*pi^2/(G*M) - so T^2/a^3 is the same for all planets orbiting the same central star. The 2018 FRQ #4 used this to compare Earth and Mars orbits. Science Practice 2 (mathematical routines) rewards the ratio computation."
@@ -3758,10 +3758,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Minimum speed to escape gravity.",
       "choices": [
-        "Escape velocity",
-        "A B cosine theta",
-        "Mass of escaping object",
-        "Greater than c"
+        "Sqrt 2 G M over R",
+        "Smaller I/M ratio",
+        "About 11.2 km per second",
+        "Escape velocity"
       ],
       "correctText": "Escape velocity",
       "explanation": "Escape velocity is the minimum speed needed for an object to escape a gravitational source's pull without further propulsion, reaching infinity with zero kinetic energy. AP Physics C Mech derives this from energy conservation: at launch KE = (1/2)*m*v_escape^2 must equal the depth of the gravitational potential well |U| = G*M*m/R. Solving gives v_escape = sqrt(2*G*M/R). The 2018 FRQ #4 tested this on Earth: v_escape ≈ 11.2 km/s from the surface. Science Practice 6 (argumentation) rewards the energy-balance reasoning; Practice 2 (mathematical routines) rewards correct algebraic manipulation."
@@ -3780,10 +3780,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Escape velocity formula.",
       "choices": [
-        "2 pi sqrt m over k",
+        "Greater than c",
+        "Same as point mass at center",
         "Sqrt 2 G M over R",
-        "Mass of escaping object",
-        "About 11.2 km per second"
+        "Mass of escaping object"
       ],
       "correctText": "Sqrt 2 G M over R",
       "explanation": "Escape velocity from a body of mass M and radius R is v_escape = sqrt(2*G*M/R), derived by setting total mechanical energy at the surface equal to zero: (1/2)*m*v_escape^2 - G*M*m/R = 0. AP Physics C Mech 2018 FRQ tested this with numerical values; Earth's v_escape ≈ 11.2 km/s, Moon's ≈ 2.4 km/s, Sun's surface ≈ 618 km/s. Science Practice 2 (mathematical routines) rewards setting E = 0 (object barely escapes); Practice 6 (argumentation) rewards explaining why escape velocity is independent of escape direction (energy is a scalar, doesn't care about direction)."
@@ -3802,10 +3802,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Earth's escape velocity.",
       "choices": [
-        "Mass of escaping object",
-        "Newton-second",
+        "Greater than c",
         "Escape velocity",
-        "About 11.2 km per second"
+        "About 11.2 km per second",
+        "Escape velocity squared times mass over 2"
       ],
       "correctText": "About 11.2 km per second",
       "explanation": "Earth's escape velocity from the surface is approximately 11.2 km/s, computed as sqrt(2*G*M_Earth/R_Earth) = sqrt(2 * 6.67e-11 * 5.97e24/6.37e6) ≈ 11,200 m/s. AP Physics C Mech 2017 FRQ tested this numerically. Rockets reaching this speed (e.g., Apollo lunar missions, Voyager probes) can escape Earth's gravity entirely. For comparison: orbital velocity at Earth's surface (if no atmosphere) is sqrt(G*M/R) ≈ 7.9 km/s, exactly v_escape/sqrt(2). Science Practice 4 (data analysis) rewards numerical computation; Practice 6 (argumentation) rewards distinguishing orbital from escape velocity."
@@ -3825,9 +3825,9 @@
       "prompt": "Escape velocity independent of this.",
       "choices": [
         "Mass of escaping object",
-        "G m_1 m_2 over r squared",
-        "About 11.2 km per second",
-        "Sqrt 2 G M over R"
+        "Greater than c",
+        "Sqrt 2 G M over R",
+        "v_0 squared sin 2 theta over g"
       ],
       "correctText": "Mass of escaping object",
       "explanation": "Escape velocity is independent of the escaping object's mass: v_escape = sqrt(2*G*M/R) contains only the central body's mass M and radius R, not the rocket's or projectile's mass. AP Physics C Mech derives this from the m cancellation in (1/2)*m*v^2 = G*M*m/R. A 1-kg ball and a 100,000-kg rocket need the same launch speed to escape. The 2019 FRQ tested this principle. Science Practice 6 (argumentation) rewards explaining the m cancellation and its physical meaning (heavier objects need more energy to launch, but also have more KE for the same speed - the two scale together)."
@@ -3846,10 +3846,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Speed for black hole escape.",
       "choices": [
-        "Sqrt 2 G M over R",
         "Greater than c",
-        "2 pi sqrt L over g",
-        "About 11.2 km per second"
+        "Mass of escaping object",
+        "Escape velocity",
+        "Constant velocity"
       ],
       "correctText": "Greater than c",
       "explanation": "For a black hole, escape velocity exceeds the speed of light c, making escape physically impossible (in classical and special-relativistic mechanics). The Schwarzschild radius r_s = 2*G*M/c^2 marks the event horizon - the radius at which v_escape = c. AP Physics C Mech treats this conceptually: setting v_escape = c in sqrt(2*G*M/R) = c yields R = 2*G*M/c^2. For a Sun-mass black hole, r_s ≈ 3 km; for the Milky Way's supermassive black hole (Sagittarius A*) ≈ 12 million km. Science Practice 6 (argumentation) rewards the conceptual leap from Newtonian gravity to general relativity (Schwarzschild 1916)."
@@ -3868,10 +3868,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Derivative of position.",
       "choices": [
-        "Acceleration",
-        "Conserved",
+        "v squared over r",
         "Velocity",
-        "v squared over r"
+        "Damped oscillation",
+        "Vector"
       ],
       "correctText": "Velocity",
       "explanation": "Velocity is the time derivative of position: v = dx/dt, the foundational calculus definition that distinguishes AP Physics C Mech from algebra-based Physics 1. On the cumulative review students must rapidly transition between position, velocity, and acceleration via differentiation/integration. The 2019 FRQ #1 gave x(t) and asked for v(t) = dx/dt. Science Practice 2 (mathematical routines) demands fluent calculus operations; Practice 6 (argumentation) rewards recognizing that v is signed (direction matters) while speed = |v| is unsigned."
@@ -3890,10 +3890,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Derivative of velocity.",
       "choices": [
-        "45 degrees",
-        "Inertial reference frame",
+        "Sum reciprocals",
         "Acceleration",
-        "v squared over r"
+        "v squared over r",
+        "45 degrees"
       ],
       "correctText": "Acceleration",
       "explanation": "Acceleration is the time derivative of velocity: a = dv/dt = d^2x/dt^2. AP Physics C Mech cumulative review tests fluent calculus between x, v, a. On the 2018 FRQ a polynomial v(t) = 3t^2 - 4t gives a(t) = 6t - 4 by differentiation. For motion under non-constant force (drag, springs), full calculus is required rather than constant-a kinematic equations. Science Practice 2 (mathematical routines) rewards correct chain-rule and product-rule applications across complex v(t) functions."
@@ -3912,10 +3912,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Centripetal acceleration formula.",
       "choices": [
-        "Vector",
         "v squared over r",
-        "Negative half k x squared",
-        "Velocity"
+        "Velocity",
+        "Newton-meter",
+        "Acceleration"
       ],
       "correctText": "v squared over r",
       "explanation": "Centripetal acceleration is a_c = v^2/r toward the center of a circular path, fundamental to uniform circular motion. Derived from the geometric limit of inscribed polygons by Newton (Principia 1687). The cumulative review pairs this with orbital problems (a_c = G*M/r^2 for circular orbits) and rotational dynamics (a_c = r*omega^2). The 2019 FRQ #3 tested a_c on a satellite. Science Practice 6 (argumentation) rewards distinguishing centripetal (real force component) from a 'centrifugal force' (pseudo-force in non-inertial frame)."
@@ -3934,10 +3934,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Vector cross-product result.",
       "choices": [
-        "2 pi sqrt L over g",
-        "v squared over r",
-        "Vector",
-        "Velocity"
+        "2 pi sqrt m over k",
+        "45 degrees",
+        "Acceleration",
+        "Vector"
       ],
       "correctText": "Vector",
       "explanation": "Cross product yields a vector perpendicular to both input vectors, with direction by the right-hand rule. AP Physics C Mech uses this for torque tau = r x F, angular momentum L = r x p, and (Phys C EM) magnetic force F = qv x B. The cumulative review tests fluent right-hand-rule application: point fingers from r to F, curl, and thumb gives tau direction. Science Practice 1 (representations) demands consistent right-hand-rule conventions; the 2018 FRQ #4 tested this on a precessing top."
@@ -3956,10 +3956,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Max range angle.",
       "choices": [
-        "Vector",
-        "Sum of m_i v_i",
-        "Acceleration",
-        "45 degrees"
+        "Velocity",
+        "45 degrees",
+        "Instantaneous power",
+        "Vector"
       ],
       "correctText": "45 degrees",
       "explanation": "Maximum range for a projectile on level ground occurs at launch angle 45 degrees, derived from R = v_0^2 * sin(2*theta)/g by setting dR/d(theta) = 0. This optimization result (cos(2*theta) = 0 gives theta = 45 degrees) is a standard AP Physics C Mech cumulative-review item. For non-level landings or with air resistance the optimal angle differs (less than 45 degrees for high landings, more if landing below launch). Science Practice 2 (mathematical routines) rewards calculus optimization; Practice 6 (argumentation) rewards explaining why the optimum exists."
@@ -3978,10 +3978,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "F equals m a.",
       "choices": [
-        "Two fifths M R squared",
-        "Newton's second law",
-        "Atwood machine",
-        "Terminal velocity"
+        "Terminal velocity",
+        "Tension",
+        "Newton's third law",
+        "Newton's second law"
       ],
       "correctText": "Newton's second law",
       "explanation": "Newton's second law F = m*a (or more generally F = dp/dt) relates net force to acceleration via mass. AP Physics C Mech cumulative review combines this with free-body diagrams, friction, drag, and connected systems. The 2019 FRQ #2 on a block on an incline tested F_net = m*a with multiple forces (gravity, normal, friction). Science Practice 1 (representations) demands accurate free-body diagrams; Practice 2 (mathematical routines) rewards correct vector summation in chosen coordinate axes."
@@ -4001,9 +4001,9 @@
       "prompt": "Equal and opposite reactions.",
       "choices": [
         "Newton's third law",
-        "Sqrt 2 G M over R",
-        "F equals dp dt",
-        "Atwood machine"
+        "Atwood machine",
+        "Newton's second law",
+        "Quality of resonance"
       ],
       "correctText": "Newton's third law",
       "explanation": "Newton's third law: forces come in equal-and-opposite pairs acting on different objects. AP Physics C Mech cumulative review tests this on connected-system problems: the tension in a string pulls one mass forward and the other backward, equal in magnitude. The 2017 FRQ #1 on a horse-cart system distinguished the horse-pulling-cart force from the cart-pulling-horse force (third-law pair, on different objects). Science Practice 6 (argumentation) rewards correctly identifying third-law pairs - never on the same object."
@@ -4023,8 +4023,8 @@
       "prompt": "Pulley system.",
       "choices": [
         "F equals dp dt",
-        "Angular momentum conserved",
         "Newton's third law",
+        "Theta",
         "Atwood machine"
       ],
       "correctText": "Atwood machine",
@@ -4044,9 +4044,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Maximum speed with drag.",
       "choices": [
-        "Newton's second law",
-        "Pythagorean",
+        "Integral of F dot dr",
         "Terminal velocity",
+        "Atwood machine",
         "F equals dp dt"
       ],
       "correctText": "Terminal velocity",
@@ -4066,10 +4066,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Newton's 2nd in momentum form.",
       "choices": [
-        "d squared x over dt squared",
+        "Newton's second law",
         "F equals dp dt",
-        "Atwood machine",
-        "Newton's third law"
+        "Terminal velocity",
+        "G m_1 m_2 over r squared"
       ],
       "correctText": "F equals dp dt",
       "explanation": "Newton's second law in momentum form is F = dp/dt, the most general statement valid for variable-mass systems. AP Physics C Mech cumulative review uses this for rocket problems (Tsiolkovsky 1903) and impulse analysis: J = integral F dt = delta p. The 2018 FRQ #2 on a rocket tested F = dp/dt where both mass and velocity change with time. Science Practice 2 (mathematical routines) rewards the product-rule expansion d(mv)/dt = m*dv/dt + v*dm/dt."
@@ -4088,10 +4088,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem on work and KE.",
       "choices": [
-        "Pythagorean",
-        "Impulse-Momentum Theorem",
         "Work-Energy Theorem",
-        "Weighted average of m_i r_i"
+        "2 pi sqrt m over k",
+        "Impulse-Momentum Theorem",
+        "2 pi r over v"
       ],
       "correctText": "Work-Energy Theorem",
       "explanation": "The Work-Energy Theorem states W_net = delta KE, the net work done on an object equals its change in kinetic energy. AP Physics C Mech cumulative review uses this universally - it holds whether forces are conservative or not. The 2018 FRQ on a block sliding down a curved track used W_grav = mg*h = delta KE = (1/2)*m*v_f^2 to find v_f = sqrt(2gh). Science Practice 2 (mathematical routines) rewards integrating F . dr; Practice 6 (argumentation) rewards distinguishing the universal work-energy theorem from energy conservation (which requires conservative forces)."
@@ -4110,10 +4110,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Theorem on impulse and momentum.",
       "choices": [
+        "Inelastic collision",
+        "Work-Energy Theorem",
         "Weighted average of m_i r_i",
-        "Impulse-Momentum Theorem",
-        "2 pi sqrt m over k",
-        "Kinetic friction"
+        "Impulse-Momentum Theorem"
       ],
       "correctText": "Impulse-Momentum Theorem",
       "explanation": "The Impulse-Momentum Theorem states J = delta p, the impulse on an object equals its change in momentum. Derived by integrating F = dp/dt. AP Physics C Mech cumulative review uses this for collision and impulse analysis: J = integral F dt is the signed area under the F-t curve, equal to mass times velocity change. The 2018 FRQ #1 used this on a bat striking a baseball. Science Practice 3 (graphical analysis) rewards reading area under F-t curve; Practice 2 (mathematical routines) rewards J = m*delta v."
@@ -4132,10 +4132,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Period of spring.",
       "choices": [
-        "2 pi sqrt m over k",
-        "Impulse-Momentum Theorem",
+        "Work-Energy Theorem",
         "Elastic",
-        "dW over dt"
+        "Sqrt 2 G M over R",
+        "2 pi sqrt m over k"
       ],
       "correctText": "2 pi sqrt m over k",
       "explanation": "Period of a spring-mass oscillator is T = 2*pi*sqrt(m/k), derived from omega = sqrt(k/m) and T = 2*pi/omega. AP Physics C Mech cumulative review tests this on SHM problems. Amplitude-independence (isochronism) is a key insight: a heavier mass oscillates slower regardless of amplitude. The 2018 FRQ #3 used this. Science Practice 2 (mathematical routines) rewards correct square-root computation; Practice 6 (argumentation) rewards explaining the m vs k dependences."
@@ -4154,10 +4154,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Center of mass formula.",
       "choices": [
-        "Sine theta approximately theta",
         "2 pi sqrt m over k",
-        "Weighted average of m_i r_i",
-        "Impulse-Momentum Theorem"
+        "W_net equals delta KE",
+        "Impulse-Momentum Theorem",
+        "Weighted average of m_i r_i"
       ],
       "correctText": "Weighted average of m_i r_i",
       "explanation": "Center of mass position is r_COM = (Sigma m_i * r_i) / M_total, the mass-weighted average. AP Physics C Mech cumulative review tests this for discrete systems (sum) and continuous (integral). The 2017 FRQ on a non-uniform rod required integral form: x_COM = integral x*lambda(x) dx / integral lambda(x) dx. Science Practice 2 (mathematical routines) rewards weighted-average formula; Practice 6 (argumentation) rewards explaining why COM motion is governed by external forces alone."
@@ -4176,10 +4176,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Collision conserving KE.",
       "choices": [
-        "Overdamped",
-        "Weighted average of m_i r_i",
-        "Elastic",
-        "Work-Energy Theorem"
+        "2 pi sqrt m over k",
+        "Impulse-Momentum Theorem",
+        "Drag equals weight",
+        "Elastic"
       ],
       "correctText": "Elastic",
       "explanation": "An elastic collision conserves both momentum and kinetic energy, distinguishing it from inelastic collisions where KE decreases. AP Physics C Mech cumulative review tests the 1D elastic-collision result: v_1f = ((m_1-m_2)/(m_1+m_2))*v_1i + (2*m_2/(m_1+m_2))*v_2i. For equal masses (m_1 = m_2) the velocities swap. Science Practice 2 (mathematical routines) rewards the algebraic manipulation; Practice 6 (argumentation) rewards verifying both conservation laws simultaneously."
@@ -4198,10 +4198,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Rotational form of Newton's 2nd.",
       "choices": [
-        "Impulse",
-        "Tau equals I alpha",
-        "I omega",
-        "I equals I_cm plus M d squared"
+        "2 pi sqrt L over g",
+        "Fastest no-oscillation",
+        "Velocity",
+        "Tau equals I alpha"
       ],
       "correctText": "Tau equals I alpha",
       "explanation": "Rotational form of Newton's second law is tau = I*alpha, where tau is net torque, I is moment of inertia, and alpha is angular acceleration. AP Physics C Mech cumulative review applies this to pulleys (T*R = I*alpha), rolling objects (tau_friction*R = I*alpha), and spinning systems. The 2018 FRQ #3 on a pulley used this. Science Practice 6 (argumentation) rewards explicit free-body identification of all torques; Practice 2 (mathematical routines) rewards combining with Newton's linear law on connected masses."
@@ -4220,10 +4220,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Angular momentum formula.",
       "choices": [
+        "Constant velocity",
         "2 pi sqrt L over g",
         "I omega",
-        "dW over dt",
-        "I equals I_cm plus M d squared"
+        "Tau equals I alpha"
       ],
       "correctText": "I omega",
       "explanation": "Angular momentum of a rigid body is L = I*omega, the rotational analog of p = m*v. AP Physics C Mech cumulative review tests conservation when net external torque is zero: I_i*omega_i = I_f*omega_f (figure skater pulling arms in, neutron star formation). The 2017 FRQ #4 tested this. Science Practice 6 (argumentation) rewards explaining why internal forces (muscles) can change I but not L; Practice 2 (mathematical routines) rewards the conservation equation."
@@ -4242,10 +4242,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Parallel axis theorem.",
       "choices": [
-        "Normal force",
         "Fastest no-oscillation",
-        "I equals I_cm plus M d squared",
-        "I omega"
+        "Tau equals I alpha",
+        "d squared x dt squared plus omega squared x equals 0",
+        "I equals I_cm plus M d squared"
       ],
       "correctText": "I equals I_cm plus M d squared",
       "explanation": "Parallel axis theorem: I = I_CM + M*d^2, where d is the distance from the CM axis to a parallel offset axis. AP Physics C Mech cumulative review applies this to physical pendulums and shifted rotation axes. The 2018 FRQ #4 used it: a rod's I about an end axis is (1/12)*M*L^2 + M*(L/2)^2 = (1/3)*M*L^2. Science Practice 2 (mathematical routines) rewards correct algebraic combination; Practice 6 (argumentation) rewards explaining why I is minimized at the CM axis."
@@ -4264,10 +4264,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Pendulum period.",
       "choices": [
-        "45 degrees",
-        "Fastest no-oscillation",
         "2 pi sqrt L over g",
-        "Tau equals I alpha"
+        "I omega",
+        "I equals I_cm plus M d squared",
+        "Quality of resonance"
       ],
       "correctText": "2 pi sqrt L over g",
       "explanation": "Period of a simple pendulum is T = 2*pi*sqrt(L/g), independent of mass and (small-angle approximation) independent of amplitude. AP Physics C Mech cumulative review derives this from the small-angle linearized ODE theta'' = -(g/L)*theta, with omega = sqrt(g/L). The 2017 FRQ #3 tested this. Science Practice 6 (argumentation) rewards explaining mass-independence (gravitational m cancels inertial m); Practice 2 (mathematical routines) rewards correct radical computation."
@@ -4286,10 +4286,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Critical damping return.",
       "choices": [
-        "Sqrt k over m",
-        "2 pi sqrt L over g",
-        "Tau equals I alpha",
-        "Fastest no-oscillation"
+        "Fastest no-oscillation",
+        "Conservative force",
+        "I equals I_cm plus M d squared",
+        "I omega"
       ],
       "correctText": "Fastest no-oscillation",
       "explanation": "Critical damping is the unique damping value gamma = 2*sqrt(m*k) that returns the system to equilibrium fastest without oscillation. AP Physics C Mech cumulative review distinguishes this from underdamped (oscillates while decaying), critically damped (no oscillation, fastest return), and overdamped (no oscillation, slow return). Science Practice 6 (argumentation) rewards regime classification from the damped-SHM ODE; Practice 3 (graphical analysis) rewards reading damping type from x(t) waveform."
@@ -4308,10 +4308,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Force between two masses.",
       "choices": [
-        "Constant velocity",
+        "Escape velocity",
         "Newton's law of gravitation",
         "T squared proportional to a cubed",
-        "Escape velocity"
+        "r cross F"
       ],
       "correctText": "Newton's law of gravitation",
       "explanation": "Newton's universal law of gravitation states F = G*m_1*m_2/r^2, with G ≈ 6.67 x 10^-11 N*m^2/kg^2. Published in Principia (1687), it unifies terrestrial and celestial gravity. AP Physics C Mech cumulative review uses this for orbital and escape problems. Science Practice 6 (argumentation) rewards explaining universality - one law for apples, moons, and galaxies; Practice 2 (mathematical routines) rewards setting F_grav = m*a_c for orbital problems."
@@ -4330,9 +4330,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Gravitation formula.",
       "choices": [
-        "r alpha",
+        "I equals I_cm plus M d squared",
         "G m_1 m_2 over r squared",
-        "Sqrt G M over r",
+        "T squared proportional to a cubed",
         "Newton's law of gravitation"
       ],
       "correctText": "G m_1 m_2 over r squared",
@@ -4352,10 +4352,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Speed to escape Earth.",
       "choices": [
-        "9.8 meter per second squared",
-        "Escape velocity",
         "Sqrt G M over r",
-        "G m_1 m_2 over r squared"
+        "Escape velocity",
+        "T squared proportional to a cubed",
+        "Sum of m_i v_i"
       ],
       "correctText": "Escape velocity",
       "explanation": "Escape velocity from Earth's surface is v_escape = sqrt(2*G*M_Earth/R_Earth) ≈ 11.2 km/s. AP Physics C Mech cumulative review derives this from energy conservation: (1/2)*m*v_escape^2 = G*M*m/R. Note the factor sqrt(2) relative to circular orbital velocity at the same radius. Science Practice 2 (mathematical routines) rewards energy-balance setup; Practice 6 (argumentation) rewards explaining mass-independence of v_escape."
@@ -4374,10 +4374,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Kepler's third law.",
       "choices": [
-        "T squared proportional to a cubed",
-        "Constant velocity",
-        "Sqrt G M over r",
-        "Escape velocity"
+        "Newton's law of gravitation",
+        "Escape velocity",
+        "Integral of F dot dr",
+        "T squared proportional to a cubed"
       ],
       "correctText": "T squared proportional to a cubed",
       "explanation": "Kepler's third law states T^2 is proportional to a^3, where T is orbital period and a is semi-major axis. AP Physics C Mech cumulative review derives this from Newton's universal gravitation: T = 2*pi*sqrt(r^3/(G*M)) for circular orbits, extending to elliptical with r -> a. The 2018 FRQ #4 used T^2/a^3 = 4*pi^2/(G*M) constancy across all planets. Science Practice 2 (mathematical routines) rewards correct ratio manipulation."
@@ -4396,10 +4396,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Orbital velocity formula.",
       "choices": [
-        "Escape velocity",
-        "Newton's law of gravitation",
         "Sqrt G M over r",
-        "Negative dU dr"
+        "Escape velocity",
+        "Vector",
+        "T squared proportional to a cubed"
       ],
       "correctText": "Sqrt G M over r",
       "explanation": "Orbital velocity formula v = sqrt(G*M/r) for a circular orbit at radius r. AP Physics C Mech cumulative review derives this from F_grav = m*v^2/r (centripetal balance): G*M*m/r^2 = m*v^2/r gives v = sqrt(G*M/r). The 2019 FRQ #3 used this for satellite speed at varying altitudes. Science Practice 2 (mathematical routines) rewards correct algebraic manipulation; Practice 6 (argumentation) rewards explaining why v decreases with r (outer planets orbit slower)."

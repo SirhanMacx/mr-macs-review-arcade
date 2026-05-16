@@ -18,10 +18,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two equations sharing the exact same solution set, often produced by adding the same quantity to both sides or by multiplying both sides by a nonzero constant.",
       "choices": [
-        "constraint",
-        "literal equation",
-        "solution set",
-        "equivalent equation"
+        "equivalent equation",
+        "contradiction equation",
+        "symmetry argument",
+        "solution set"
       ],
       "correctText": "equivalent equation",
       "explanation": "Equivalent equations have identical solution sets. The Addition Property of Equality (if a=b then a+c=b+c) and the Multiplication Property of Equality (if a=b and c is not zero then ac=bc) generate equivalents. Worked example: 2x+5=13 and 2x=8 and x=4 are all equivalent. NY A-REI.1 requires students to justify each step. Regents items often display a 4-line solution and ask which property justifies a given step — confirm both sides changed by the same operation."
@@ -40,10 +40,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The complete collection of values that, when substituted for the variable, make the equation a true statement.",
       "choices": [
-        "simplest radical form",
-        "equivalent equation",
+        "solution set",
+        "literal equation",
         "identity equation",
-        "solution set"
+        "common binomial factor"
       ],
       "correctText": "solution set",
       "explanation": "The solution set of 3x-7=8 is {5} because 3(5)-7=8. For inequalities like 2x<10 the solution set is {x | x<5}, an infinite set graphed on a number line. NY A-REI.3 requires solving linear equations and inequalities in one variable. Regents Part I items typically ask students to identify which value from a choice list belongs to the solution set; substitute and verify before bubbling."
@@ -62,10 +62,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An equation written with several letters, like A=lw or C=2*pi*r, that students rearrange to isolate one specified variable.",
       "choices": [
-        "solution set",
+        "constant rate",
+        "identity equation",
         "literal equation",
-        "contradiction equation",
-        "correlation coefficient"
+        "equivalent equation"
       ],
       "correctText": "literal equation",
       "explanation": "Literal equations use the same Properties of Equality but treat other letters as constants. Worked example: solve d=rt for t — divide both sides by r to get t=d/r. NY A-CED.4 (Create Equations) requires rearranging formulas to highlight a quantity of interest. Regents Part II often asks for the formula solved for a different variable; watch for sign flips when dividing by a negative coefficient like in F=(9/5)C+32 solved for C."
@@ -84,10 +84,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An equation that is true for every real value of the variable, producing infinitely many solutions, such as 2(x+3)=2x+6.",
       "choices": [
+        "discriminant",
         "literal equation",
-        "identity equation",
-        "different slope",
-        "equivalent equation"
+        "solution set",
+        "identity equation"
       ],
       "correctText": "identity equation",
       "explanation": "Identities reduce to a true statement like 0=0 or 6=6 after simplification. Distribute and combine like terms: 2(x+3)=2x+6 becomes 2x+6=2x+6 which is true for all real x. NY A-REI.1 expects students to recognize identities. On the Regents, an item might show 4(x-1)+5=4x+1 and ask for the number of solutions; the answer is 'infinitely many' or 'all real numbers' — not zero and not one."
@@ -106,10 +106,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An equation with no solution because the simplification produces a false numerical statement like 5=8.",
       "choices": [
-        "equivalent equation",
-        "polynomial multiplication",
+        "identity equation",
+        "graphing method",
         "contradiction equation",
-        "solution set"
+        "literal equation"
       ],
       "correctText": "contradiction equation",
       "explanation": "Contradictions arise when variable terms cancel but the constants disagree. Example: 3x+4=3x+9 simplifies to 4=9, which is false, so the solution set is the empty set. NY A-REI.1 requires students to distinguish identities from contradictions. Regents items often test this by asking 'How many solutions does this equation have?' with the trap answer being one extracted by ignoring the contradiction. Always finish simplifying before deciding."
@@ -128,10 +128,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The opposite arithmetic action used to undo a step when isolating a variable — addition reverses subtraction and multiplication reverses division.",
       "choices": [
-        "independent variable",
+        "quadratic feature",
+        "combine like terms",
         "inverse operation",
-        "checking a solution",
-        "clearing fractions"
+        "distributive property"
       ],
       "correctText": "inverse operation",
       "explanation": "Inverse operations isolate the variable using Properties of Equality. Worked example: solve 2x+5=13 by subtracting 5 (inverse of +5) to get 2x=8, then dividing by 2 (inverse of *2) to get x=4. NY A-REI.3 requires this fluency. Regents items often present a 3 or 4-step linear equation; students who reverse PEMDAS-style (undo addition, then multiplication) score full credit. Always perform the same inverse on both sides."
@@ -150,10 +150,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The rule a(b+c)=ab+ac used to multiply a factor across each term inside parentheses before solving.",
       "choices": [
+        "combine like terms",
+        "distributive property",
         "clearing fractions",
-        "checking a solution",
-        "order of magnitude",
-        "distributive property"
+        "box plot"
       ],
       "correctText": "distributive property",
       "explanation": "The Distributive Property eliminates parentheses. Worked example: 3(x+4)=21 distributes to 3x+12=21, then x=3. NY A-SSE.1 and A-REI.3 both require this. Common trap: forgetting to distribute a negative — -2(x-5) equals -2x+10, not -2x-10. Regents items often hide distribution inside a 4-step equation. The 2x+5 distractor for 3(x+4) tests whether students multiplied only the first term."
@@ -172,10 +172,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The simplification step where coefficients of terms with identical variable parts are added or subtracted: 5x+3x equals 8x.",
       "choices": [
-        "distributive property",
+        "population",
         "combine like terms",
-        "checking a solution",
-        "revenue model"
+        "distributive property",
+        "inverse operation"
       ],
       "correctText": "combine like terms",
       "explanation": "Like terms share the same variable raised to the same power. Worked example: 4x+7-2x+1 combines to 2x+8. Constants combine with constants and x-terms with x-terms. NY A-SSE.3 requires producing equivalent expressions. Regents Part I items often place like terms on opposite sides — like 7x-3=4x+9 — requiring students to move variables to one side (3x=12, so x=4). Color-code or underline matching terms on the test booklet."
@@ -194,10 +194,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The technique of multiplying both sides of an equation by the least common denominator to eliminate fractional coefficients.",
       "choices": [
-        "combine like terms",
+        "inverse operation",
+        "clearing fractions",
         "distributive property",
-        "doubling time",
-        "clearing fractions"
+        "standard form"
       ],
       "correctText": "clearing fractions",
       "explanation": "Multiply every term by the LCD to remove fractions. Worked example: x/3+x/4=7 has LCD 12, so multiplying gives 4x+3x=84, then 7x=84, so x=12. NY A-REI.3 includes this skill. Regents items often present rational coefficients to test LCD fluency. Common error: multiplying only one term — every term, including the constant on the other side, must be multiplied by the LCD or the equation is no longer equivalent."
@@ -218,8 +218,8 @@
       "choices": [
         "combine like terms",
         "clearing fractions",
-        "checking a solution",
-        "function notation"
+        "reasonable answer",
+        "checking a solution"
       ],
       "correctText": "checking a solution",
       "explanation": "Always substitute to verify. Worked example: for 2x+5=13 check x=4 by computing 2(4)+5=13 (true). NY A-REI.1 makes checking part of justification. Regents Part II (2-point) items award one point for the correct value and one for showing the check or full algebraic work. Forgetting to check loses points on rational and radical equations where extraneous answers (values that satisfy the derived form but not the original) are introduced."
@@ -238,10 +238,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "One of the relations <, >, less-than-or-equal, or greater-than-or-equal, that compares two expressions without claiming exact equality.",
       "choices": [
-        "boundary point",
+        "inequality symbol",
+        "common binomial factor",
         "reversal rule",
-        "literal equation",
-        "inequality symbol"
+        "compound inequality"
       ],
       "correctText": "inequality symbol",
       "explanation": "Inequality symbols compare quantities. Strict symbols < and > use open circles or dashed boundaries; less-than-or-equal and greater-than-or-equal use closed circles or solid boundaries. NY A-REI.3 covers solving linear inequalities. Worked example: x>3 is graphed with an open circle at 3 and an arrow right. Regents items test reading and writing — the phrase 'at most 50' translates to less-than-or-equal 50, and 'more than 50' translates to >50."
@@ -260,9 +260,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A statement joining two simple inequalities with the words AND or OR, such as -2 less-than-or-equal x<5.",
       "choices": [
-        "boundary point",
-        "percent decrease",
+        "shaded half-plane",
         "reversal rule",
+        "interval notation",
         "compound inequality"
       ],
       "correctText": "compound inequality",
@@ -282,10 +282,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A bracket-and-parenthesis shorthand for solution sets where square brackets include endpoints and parentheses exclude them.",
       "choices": [
-        "solution set",
-        "inequality symbol",
-        "interval notation",
-        "compound inequality"
+        "compound inequality",
+        "mean",
+        "boundary point",
+        "interval notation"
       ],
       "correctText": "interval notation",
       "explanation": "Interval notation compresses inequalities. Worked example: -2 less-than-or-equal x<5 becomes [-2, 5). Use ( and ) for strict and infinity, and [ and ] for closed endpoints. NY A-REI references this in modeling. While the Regents typically uses inequality notation, classroom and SAT-aligned items use intervals. Common error: writing [3, infinity] — infinity always takes a parenthesis because infinity is not a number that can be reached."
@@ -304,10 +304,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The endpoint value where an inequality switches from true to false, marked with an open or closed circle on a number line.",
       "choices": [
-        "reversal rule",
+        "horizontal line",
+        "inequality symbol",
         "boundary point",
-        "interval notation",
-        "perfect square"
+        "reversal rule"
       ],
       "correctText": "boundary point",
       "explanation": "The boundary is the solution to the related equation. Worked example: for 2x+1>7 the boundary is x=3 (from 2x+1=7), drawn as an open circle since the inequality is strict. NY A-REI.10-12 connects boundaries to graphs. Regents items present a graph with a marked endpoint and ask students to identify the inequality. A closed circle indicates the endpoint is included (less-than-or-equal or greater-than-or-equal); open indicates strict < or >."
@@ -326,9 +326,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The requirement that when an inequality is multiplied or divided by a negative number, the inequality symbol must be flipped.",
       "choices": [
-        "sample",
         "interval notation",
-        "inequality symbol",
+        "survey bias",
+        "boundary point",
         "reversal rule"
       ],
       "correctText": "reversal rule",
@@ -348,7 +348,7 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A real-world restriction — like a budget cap or a non-negative quantity — that limits which solutions are meaningful.",
       "choices": [
-        "combine like terms",
+        "geometric sequence",
         "break-even point",
         "total cost model",
         "constraint"
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A ratio expressed per one unit of the second quantity, such as 60 miles per 1 hour, often appearing as the slope in a linear model.",
       "choices": [
-        "total cost model",
-        "starting value",
+        "break-even point",
         "unit rate",
-        "linear rate"
+        "literal rearrangement",
+        "starting value"
       ],
       "correctText": "unit rate",
       "explanation": "Unit rates connect tables, graphs, and equations. Worked example: $7.50 for 3 pounds is a unit rate of $2.50/pound, so cost c=2.50p models the relationship. NY F-IF.6 and 8.EE.5 use unit rates as slope. Regents items present tables where students must compute (change in y)/(change in x). Common error: writing pounds/dollar instead of dollar/pound — always check which quantity is per one of the other."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The output of a linear model when the input is zero, equal to the y-intercept and to the constant term b in y=mx+b.",
       "choices": [
+        "radicand",
         "starting value",
         "total cost model",
-        "vertical line",
-        "constraint"
+        "unit rate"
       ],
       "correctText": "starting value",
       "explanation": "Starting value is the y-intercept of a linear model. Worked example: in C=15+0.10m (cost = base fee + per-mile rate), the starting value is $15 — the fee charged before any miles are driven. NY F-LE.2 and F-IF.7 cover this interpretation. Regents items ask students to identify and interpret b in context — the answer must include units (dollars, students, gallons) and reference what the value means at time zero."
@@ -415,9 +415,9 @@
       "prompt": "A linear equation of the form C=mx+b where m is a per-item rate and b is a fixed fee that together produce total cost.",
       "choices": [
         "total cost model",
+        "perpendicular lines",
         "break-even point",
-        "revenue model",
-        "starting value"
+        "constraint"
       ],
       "correctText": "total cost model",
       "explanation": "Total cost combines fixed and variable components. Worked example: a taxi charges $3 base plus $2/mile, so C=2m+3. After 5 miles, C=$13. NY A-CED.2 requires writing such equations from situations. Regents Part II problems often ask students to (a) write the equation, (b) compute cost for a specific input, and (c) solve C=value for the input mileage — verify each piece independently to maximize partial credit."
@@ -436,10 +436,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The input value where two linear cost or revenue models produce the same output, found by setting the equations equal.",
       "choices": [
-        "mean",
-        "break-even point",
+        "unit rate",
         "constraint",
-        "total cost model"
+        "break-even point",
+        "mean"
       ],
       "correctText": "break-even point",
       "explanation": "Break-even is where two lines intersect, indicating equal cost or zero profit. Worked example: company A charges 5+2x, company B charges 8+1.50x; setting 5+2x=8+1.50x yields 0.50x=3, so x=6 — at 6 units the prices match. NY A-REI.6 (systems) supports this. Regents items often phrase it as 'after how many months will both plans cost the same?' — the answer comes from solving the system and must include units (months, miles, hours)."
@@ -459,9 +459,9 @@
       "prompt": "Step-by-step written work showing each property (Addition, Multiplication, Distributive) used to transform an equation, required for full credit on Part II.",
       "choices": [
         "algebraic justification",
-        "extraneous answer",
-        "outlier",
-        "reasonable solution"
+        "domain restriction",
+        "x-intercept",
+        "extraneous answer"
       ],
       "correctText": "algebraic justification",
       "explanation": "Justification means naming the property used at each step. Worked example: solving 3x+2=11 — Step 1: Subtract 2 (Subtraction Property of Equality), Step 2: Divide by 3 (Division Property of Equality), giving x=3. NY A-REI.1 explicitly requires justification. Regents 2-point items award one point for correct answer and one for valid algebraic work; an answer without supporting steps maxes at one point even if numerically correct."
@@ -480,10 +480,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The process of replacing the variable with the proposed solution and evaluating both sides to confirm equality.",
       "choices": [
-        "extraneous answer",
-        "greatest common factor",
+        "substitution check",
         "algebraic justification",
-        "substitution check"
+        "index",
+        "extraneous answer"
       ],
       "correctText": "substitution check",
       "explanation": "Substitution verifies a candidate solution. Worked example: for 4x-7=9, check x=4 by computing 4(4)-7=9 (true). NY A-REI.1 makes checking a verification standard. Regents constructed-response items frequently award an explicit point for the check. Students should perform substitution on the ORIGINAL equation, not a simplified version — errors made during simplification will not be caught if the check uses the wrong form."
@@ -502,10 +502,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A limit on input values that excludes those making the equation undefined or contextually impossible, like negative time or division by zero.",
       "choices": [
-        "equivalent equation",
         "domain restriction",
-        "algebraic justification",
-        "substitution check"
+        "substitution check",
+        "fractional exponent",
+        "reasonable solution"
       ],
       "correctText": "domain restriction",
       "explanation": "Domain restrictions arise from context and from algebra. Worked example: in t=d/r, r cannot equal 0 (division undefined). For a population model P=20+5t, t is greater-than-or-equal 0 since time is non-negative. NY F-IF.5 covers interpreting domain in context. Regents items expect students to state restrictions explicitly: 'x is greater-than-or-equal 0 because x represents the number of students sold tickets, which cannot be negative.'"
@@ -524,10 +524,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An algebraic answer that satisfies real-world constraints — non-negative, integer when counting, within the stated range — selected from a possibly larger algebraic solution set.",
       "choices": [
-        "exponent denominator",
         "reasonable solution",
-        "algebraic justification",
-        "domain restriction"
+        "x-intercept",
+        "extraneous answer",
+        "substitution check"
       ],
       "correctText": "reasonable solution",
       "explanation": "Reasonable solutions match context. Worked example: if x represents the number of seats and algebra yields x=-3 or x=7, only x=7 is reasonable because seat counts must be a positive integer. NY A-CED.3 requires interpretation. Regents items deliberately produce both reasonable and unreasonable algebraic solutions, then ask which is appropriate for the context. Discarding the impossible answer with a written reason earns the explanation point."
@@ -546,10 +546,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A value produced by valid algebraic steps that fails to satisfy the original equation, often arising when squaring both sides or clearing rational denominators.",
       "choices": [
+        "extraneous answer",
         "algebraic justification",
-        "substitution check",
-        "causation",
-        "extraneous answer"
+        "maximum value",
+        "domain restriction"
       ],
       "correctText": "extraneous answer",
       "explanation": "Extraneous solutions appear from non-reversible operations. Worked example: solving sqrt(x)=x-6 by squaring gives x=x^2-12x+36, leading to x=4 or x=9 — but x=4 does NOT satisfy the original (sqrt(4)=2 not equal -2), so x=4 is extraneous. NY A-REI.2 requires checking. The Regents penalizes uncheckedanswers; always substitute back into the ORIGINAL form to filter extraneous values."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The constant rate of change of a linear function, computed as rise over run or (y2-y1)/(x2-x1) between any two points on the line.",
       "choices": [
-        "slope",
-        "rate of change",
         "x-intercept",
-        "independent variable"
+        "overlap region",
+        "slope",
+        "y-intercept"
       ],
       "correctText": "slope",
       "explanation": "Slope measures steepness and direction. Worked example: the line through (2,3) and (6,11) has slope (11-3)/(6-2)=8/4=2. NY 8.F.4 and F-IF.6 require this. Positive slope rises left-to-right; negative slope falls; zero slope is horizontal; undefined slope is vertical. Regents items ask students to compute slope from two points, a table, or a graph — and to interpret slope in context (dollars per hour, miles per gallon)."
@@ -592,8 +592,8 @@
       "choices": [
         "y-intercept",
         "rate of change",
-        "slope",
-        "horizontal asymptote"
+        "initial value",
+        "factoring method"
       ],
       "correctText": "y-intercept",
       "explanation": "The y-intercept is the output when x=0. Worked example: in y=3x+7, the y-intercept is (0, 7) — confirm by substituting x=0 to get y=7. NY F-IF.4 and F-LE.2 emphasize interpretation. In a context like cost C=2x+15, the y-intercept $15 represents the fixed fee before any units are bought. The Regents often asks students to identify the y-intercept from a graph or to interpret its meaning in a real situation."
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The point (a, 0) where a graph crosses the x-axis, found by setting y=0 and solving for x.",
       "choices": [
-        "doubling time",
+        "estimation",
         "slope",
-        "x-intercept",
-        "y-intercept"
+        "initial value",
+        "x-intercept"
       ],
       "correctText": "x-intercept",
       "explanation": "The x-intercept is also called the zero of the function. Worked example: for y=2x-8, set 0=2x-8, so x=4 — the x-intercept is (4, 0). NY F-IF.4 includes intercepts as key features. In context, an x-intercept might mean the time when a balance reaches zero or when an object lands. Regents items often present a graph and require both intercepts to be read off or computed from the given equation."
@@ -634,10 +634,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The ratio (change in output)/(change in input) over an interval; equal to slope for linear functions but variable for nonlinear ones.",
       "choices": [
-        "y-intercept",
-        "initial value",
+        "mean",
+        "x-intercept",
         "rate of change",
-        "standard form"
+        "initial value"
       ],
       "correctText": "rate of change",
       "explanation": "Rate of change describes how y changes per unit x. Worked example: from (1, 5) to (4, 17) the rate is (17-5)/(4-1)=12/3=4 units of y per unit of x. NY F-IF.6 requires computing average rate of change over any interval. Linear functions have a constant rate (equal to slope), while quadratics and exponentials do not. Regents items use 'average rate of change' across an interval to compare growth — always divide change in y by change in x."
@@ -656,9 +656,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The output of a function when the input is zero — the b in y=mx+b — representing the starting amount in real-world models.",
       "choices": [
-        "equivalent equation",
-        "y-intercept",
         "initial value",
+        "least squares regression",
+        "x-intercept",
         "rate of change"
       ],
       "correctText": "initial value",
@@ -678,10 +678,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The linear equation form y=mx+b where m is slope and b is y-intercept, ideal for quick graphing and identifying key features.",
       "choices": [
-        "standard form",
+        "intersection point",
+        "vertical line",
         "point-slope form",
-        "slope-intercept form",
-        "explicit formula"
+        "slope-intercept form"
       ],
       "correctText": "slope-intercept form",
       "explanation": "Slope-intercept form makes graphing easy. Worked example: y=2x-3 has slope 2 and y-intercept (0,-3); plot (0,-3), then rise 2 right 1 to (1,-1). NY F-IF.7 and F-LE.5 use this form. Students convert from standard or point-slope by isolating y. Regents items often ask students to rewrite 2x+3y=12 in slope-intercept form (y=(-2/3)x+4) to identify slope. The form is essential for comparing functions side-by-side."
@@ -701,9 +701,9 @@
       "prompt": "The linear equation form Ax+By=C where A, B, and C are integers and A is non-negative; useful for finding intercepts quickly.",
       "choices": [
         "vertical line",
-        "slope-intercept form",
-        "standard form",
-        "different slope"
+        "FOIL method",
+        "horizontal line",
+        "standard form"
       ],
       "correctText": "standard form",
       "explanation": "Standard form simplifies intercept finding. Worked example: in 3x+4y=12, set y=0 to find x=4, and set x=0 to find y=3 — intercepts (4,0) and (0,3). NY A-CED.2 uses standard form for context problems with two quantities. Regents items convert between standard and slope-intercept. Beware: -2x+3y=6 is sometimes rewritten with the leading coefficient made positive: 2x-3y=-6."
@@ -722,9 +722,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The linear equation form y - y1 = m(x - x1) where (x1, y1) is a known point and m is the slope; useful when given a point and a slope.",
       "choices": [
+        "horizontal line",
         "vertical line",
-        "slope-intercept form",
-        "factor pair",
+        "residual",
         "point-slope form"
       ],
       "correctText": "point-slope form",
@@ -745,9 +745,9 @@
       "prompt": "A line of the form x=k with undefined slope, parallel to the y-axis, and not representing a function.",
       "choices": [
         "vertical line",
-        "horizontal line",
+        "slope-intercept form",
         "point-slope form",
-        "interquartile range"
+        "perpendicular lines"
       ],
       "correctText": "vertical line",
       "explanation": "Vertical lines have undefined slope (division by zero in rise/run) and are NOT functions because one x-value maps to infinitely many y-values. Worked example: x=5 is a vertical line through (5, 0), (5, 2), (5, -3), etc. NY F-IF.1 (function definition) is the relevant standard. Regents items use vertical-line failures to test the function definition; students should apply the vertical line test to determine whether a graph represents a function."
@@ -766,10 +766,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A line of the form y=k with slope zero, parallel to the x-axis, representing a constant function.",
       "choices": [
+        "horizontal line",
+        "break-even comparison",
         "slope-intercept form",
-        "mean",
-        "point-slope form",
-        "horizontal line"
+        "standard form"
       ],
       "correctText": "horizontal line",
       "explanation": "Horizontal lines have slope 0 because rise is zero. Worked example: y=4 passes through (0,4), (3,4), (-5,4); the slope is (4-4)/(any-any)=0. NY F-IF.4 includes constant functions. A horizontal line is a valid function (each x maps to one y). Regents items contrast horizontal (slope 0) with vertical (undefined slope) — a common trap is mixing the two. The y-intercept of y=4 is (0,4) itself."
@@ -788,10 +788,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The input quantity, conventionally x, whose value is chosen freely and determines the output.",
       "choices": [
+        "dependent variable",
+        "graph interpretation",
         "increasing function",
-        "system solution",
-        "independent variable",
-        "dependent variable"
+        "independent variable"
       ],
       "correctText": "independent variable",
       "explanation": "The independent variable is the input. Worked example: in C=2t+5 modeling cost over time, t (time) is independent — you pick t, the equation produces C. NY F-IF.1 establishes this. On axes, the independent variable goes on the horizontal axis. Regents context items ask students to identify which variable is independent — typically the cause (time, items bought, hours worked) rather than the effect (cost, distance, total earnings)."
@@ -810,10 +810,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The output quantity, conventionally y, whose value depends on the input through the function rule.",
       "choices": [
-        "range",
+        "increasing function",
         "dependent variable",
-        "independent variable",
-        "square root method"
+        "common binomial factor",
+        "domain"
       ],
       "correctText": "dependent variable",
       "explanation": "The dependent variable is the output. Worked example: in d=55t (distance equals 55 times hours), d depends on t — choose t, compute d. NY F-IF.1 makes this explicit. On axes, dependent goes on the vertical axis. Regents items ask students to label graphs correctly: when time is in hours and cost in dollars, time goes on x and cost goes on y because cost depends on time, not the reverse."
@@ -832,10 +832,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The set of all permissible input values for a function, restricted by context and by algebraic undefined points.",
       "choices": [
+        "increasing function",
         "independent variable",
-        "dependent variable",
         "domain",
-        "constraint interpretation"
+        "growth factor"
       ],
       "correctText": "domain",
       "explanation": "Domain is the input set. Worked example: f(x)=2x+1 has domain all real numbers; in context, if x represents seats sold, the domain is non-negative integers. NY F-IF.5 requires interpreting domain in context. Regents items often ask 'What is an appropriate domain?' for a real-world model — the answer is rarely 'all reals' because counting variables cannot be negative or fractional. State the bound and the type (integers)."
@@ -855,9 +855,9 @@
       "prompt": "The set of all output values a function can produce, dependent on the domain and the function rule.",
       "choices": [
         "range",
-        "standard form",
-        "increasing function",
-        "dependent variable"
+        "dependent variable",
+        "zero product property",
+        "increasing function"
       ],
       "correctText": "range",
       "explanation": "Range is the output set. Worked example: f(x)=x^2 with domain all reals has range y is greater-than-or-equal 0 because squares are non-negative. NY F-IF.5 covers range interpretation. For linear functions over a restricted domain like 0 less-than-or-equal x less-than-or-equal 10, plug in the endpoints to find range bounds (e.g., y=2x+1 gives range 1 less-than-or-equal y less-than-or-equal 21). Regents items expect range stated with the correct inequality symbols and endpoint inclusion."
@@ -876,9 +876,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function whose output values grow as input values grow, equivalent to positive slope for a linear function.",
       "choices": [
+        "dependent variable",
         "increasing function",
-        "same slope",
-        "independent variable",
+        "shaded half-plane",
         "range"
       ],
       "correctText": "increasing function",
@@ -898,10 +898,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A two-column listing of paired inputs and outputs, used to identify the constant difference that indicates a linear function.",
       "choices": [
-        "domain statement",
-        "sequence representation",
-        "function notation",
-        "table of values"
+        "table of values",
+        "linear graph",
+        "verbal model",
+        "survey bias"
       ],
       "correctText": "table of values",
       "explanation": "Tables reveal linearity through constant first differences in y when x changes by 1. Worked example: x=1,2,3,4 yields y=5,8,11,14 — differences 3,3,3, so the function is linear with slope 3 and y-intercept 2 (extrapolate back to x=0). NY F-IF.7 and F-LE.1 use tables to identify function type. Regents items present a table and ask students to write the equation; compute slope from any two points then back-solve for b."
@@ -920,10 +920,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A straight-line plot of a function on the coordinate plane, with constant slope and one y-intercept.",
       "choices": [
-        "population",
         "verbal model",
         "linear graph",
-        "table of values"
+        "standard form",
+        "function notation"
       ],
       "correctText": "linear graph",
       "explanation": "Linear graphs are non-vertical straight lines. Worked example: graph y=(1/2)x-3 by plotting (0,-3), moving right 2 and up 1 to (2,-2), and drawing the line. NY F-IF.7 requires graphing linear functions. Regents items show a graph and ask for the equation, or vice versa. Confirm linearity by checking that the slope is constant between any pair of marked points — if not, the graph is not linear."
@@ -942,10 +942,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The shorthand f(x) for the output of function f at input x, replacing y in many algebraic settings.",
       "choices": [
-        "verbal model",
+        "compound inequality",
+        "linear graph",
         "table of values",
-        "function notation",
-        "slope-intercept form"
+        "function notation"
       ],
       "correctText": "function notation",
       "explanation": "f(x) reads 'f of x' and equals the output. Worked example: if f(x)=2x+5, then f(3)=2(3)+5=11. NY F-IF.2 introduces this notation. Students must NOT interpret f(x) as f times x. Regents items use function notation in tables, equations, and contexts — 'find f(4)' means substitute 4 for x, while 'solve f(x)=10' means find x such that the output is 10. Distinguish input vs output questions."
@@ -964,10 +964,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function whose domain is the positive integers, often written as a_n or f(n), used for term-by-term linear or arithmetic patterns.",
       "choices": [
-        "table of values",
         "function notation",
         "sequence representation",
-        "literal equation"
+        "domain statement",
+        "table of values"
       ],
       "correctText": "sequence representation",
       "explanation": "Arithmetic sequences are linear functions with integer domain. Worked example: a_n=3n+1 gives 4, 7, 10, 13 ... — common difference 3, first term 4. NY F-IF.3 and F-LE.2 cover sequences. Regents items present the first few terms and ask for the n-th term formula; identify the common difference d (the slope) and the first term (used to find n=1 output). An arithmetic sequence can be rewritten as a_n=a_1+d(n-1) or a_n=dn+(a_1-d)."
@@ -986,10 +986,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A written-word description of a real-world linear relationship that students translate into an equation, table, or graph.",
       "choices": [
-        "quadratic formula",
         "verbal model",
-        "sequence representation",
-        "linear graph"
+        "function notation",
+        "linear graph",
+        "equivalent expression"
       ],
       "correctText": "verbal model",
       "explanation": "Verbal models bridge words and algebra. Worked example: 'A printer costs $80 plus $0.05 per page' becomes C=0.05p+80, where p is pages. NY A-CED.2 and F-LE.5 require this translation. Regents items present a paragraph and ask students to write the equation, compute a specific value, and interpret slope or intercept. Highlight keywords: 'per' indicates rate (slope), 'starting' or 'flat fee' indicates initial value (y-intercept)."
@@ -1008,10 +1008,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two lines in the same plane that share the same slope but different y-intercepts and therefore never intersect.",
       "choices": [
-        "constant rate",
+        "half-life",
+        "perpendicular lines",
         "parallel lines",
-        "linear regression",
-        "symmetry argument"
+        "linear regression"
       ],
       "correctText": "parallel lines",
       "explanation": "Parallel lines have equal slopes. Worked example: y=2x+3 and y=2x-5 are parallel — both slope 2, never intersect. NY G-GPE.5 in geometry connects to Algebra 1 slope work. The system formed by two parallel lines has no solution (consistent with the 'no solution' system case). Regents items often ask for the equation of a line parallel to a given one through a specified point — use the given slope and point-slope form."
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two lines whose slopes are negative reciprocals, meeting at a 90-degree angle and producing a product of slopes equal to -1.",
       "choices": [
-        "monomial",
-        "intersection point",
         "perpendicular lines",
-        "linear regression"
+        "linear regression",
+        "simplest radical form",
+        "parallel lines"
       ],
       "correctText": "perpendicular lines",
       "explanation": "Perpendicular slopes multiply to -1. Worked example: y=2x+1 and y=(-1/2)x+4 are perpendicular because 2 * (-1/2) = -1. NY G-GPE.5 introduces this in algebra context. To find a perpendicular line through a point, flip the slope and change its sign, then use point-slope form. Regents items frequently test this — a common wrong answer uses only the reciprocal without changing sign or only the sign without reciprocal."
@@ -1052,10 +1052,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A change that occurs by the same amount per unit input across the entire domain, distinguishing linear from nonlinear behavior.",
       "choices": [
-        "intersection point",
-        "linear regression",
         "constant rate",
-        "inequality symbol"
+        "intersection point",
+        "parallel lines",
+        "zero of a function"
       ],
       "correctText": "constant rate",
       "explanation": "Constant rate is the defining property of linear functions. Worked example: if a tree grows 2 inches per month every month, the height is linear in time, h=2t+initial. NY F-LE.1 requires distinguishing constant from changing rates. Regents items test this with tables — if first differences are constant, the function is linear; if second differences are constant, the function is quadratic; if ratios are constant, the function is exponential."
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The (x, y) coordinate where two lines meet, representing the simultaneous solution to both equations.",
       "choices": [
-        "perpendicular lines",
+        "interquartile range",
         "parallel lines",
-        "inequality symbol",
-        "intersection point"
+        "intersection point",
+        "constant rate"
       ],
       "correctText": "intersection point",
       "explanation": "Intersection of two lines is the system's solution. Worked example: y=x+1 and y=-x+5 intersect at (2, 3) — set x+1=-x+5 to get 2x=4 and x=2, then y=3. NY A-REI.6 covers systems. Regents items may give a graph with a clearly marked intersection or require algebraic solving. The intersection point is the unique ordered pair that satisfies both equations simultaneously."
@@ -1096,10 +1096,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The statistical method of finding the line of best fit y=mx+b that minimizes the sum of squared residuals for a scatter plot.",
       "choices": [
-        "intersection point",
         "linear regression",
-        "multiplicative rate",
-        "perpendicular lines"
+        "intersection point",
+        "distributive property",
+        "constant rate"
       ],
       "correctText": "linear regression",
       "explanation": "Linear regression produces a model for noisy data. Worked example: a calculator's LinReg on points (1,3), (2,5), (3,6.5) yields y approximately 1.75x+1.33. NY S-ID.6 requires computing and interpreting linear models. Regents items provide bivariate data and ask students to use a calculator's regression feature, then interpret slope and intercept in context. The correlation coefficient r (close to plus/minus 1 means strong) accompanies the regression."
@@ -1118,10 +1118,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The ordered pair (x, y) where the graphs of two equations meet, which is simultaneously a solution to both equations.",
       "choices": [
-        "no solution",
-        "range of parabola",
-        "infinitely many solutions",
-        "intersection point"
+        "ordered pair solution",
+        "intersection point",
+        "one solution",
+        "negative association"
       ],
       "correctText": "intersection point",
       "explanation": "Intersection points solve systems graphically. Worked example: y=x+1 and y=-2x+7 intersect at (2, 3); substitute to check: 3=2+1 (true) and 3=-2(2)+7 (true). NY A-REI.6 requires this. Regents items show two lines on the same grid and ask students to read or verify the intersection. The intersection represents a context value where both quantities are equal — like the moment two cars are at the same distance from a starting point."
@@ -1140,10 +1140,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Any (x, y) coordinate that satisfies every equation in the system when substituted; for two linear equations this is usually one unique point.",
       "choices": [
-        "residual",
-        "one solution",
         "ordered pair solution",
-        "intersection point"
+        "no solution",
+        "intersection point",
+        "graphing method"
       ],
       "correctText": "ordered pair solution",
       "explanation": "An ordered pair must satisfy ALL equations in the system. Worked example: is (3, 4) a solution of x+y=7 and 2x-y=2? Check: 3+4=7 (true) and 2(3)-4=2 (true), so yes. NY A-REI.6 covers checking. Regents Part I items list ordered pairs and ask which is the solution; substitute each candidate into both equations and discard any that fail one. The check must succeed on both, not just one."
@@ -1162,10 +1162,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The outcome when two lines have different slopes and intersect at exactly one point, giving the system a unique ordered-pair solution.",
       "choices": [
-        "ordered pair solution",
-        "data distribution",
         "intersection point",
-        "one solution"
+        "one solution",
+        "infinitely many solutions",
+        "slope-intercept swap"
       ],
       "correctText": "one solution",
       "explanation": "A system with one solution has two lines crossing once. Worked example: y=2x+1 and y=-x+4 have different slopes (2 and -1), so they intersect once — at (1, 3). NY A-REI.6 covers all three system outcomes. Regents items ask 'How many solutions does the system have?' Determining different slopes algebraically (after converting to y=mx+b) is the fastest method without graphing the lines explicitly."
@@ -1184,10 +1184,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The outcome when two lines have the same slope but different y-intercepts (parallel lines) and never intersect.",
       "choices": [
-        "intersection point",
-        "distributive property",
+        "ordered pair solution",
+        "one solution",
         "no solution",
-        "ordered pair solution"
+        "graphing method"
       ],
       "correctText": "no solution",
       "explanation": "No solution corresponds to parallel lines. Worked example: y=2x+3 and y=2x-5 both have slope 2 but different intercepts; substituting yields 2x+3=2x-5, simplifying to 3=-5 (false), so no solution. NY A-REI.6 covers this. Regents items test 'no solution' as one of three possible answers; verify by either graphing (parallel lines) or solving algebraically and reaching a false statement."
@@ -1206,10 +1206,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The outcome when two equations describe the same line; every point on the line satisfies both, so the system has unlimited solutions.",
       "choices": [
-        "infinitely many solutions",
-        "perfect square",
-        "ordered pair solution",
-        "one solution"
+        "intersection point",
+        "no solution",
+        "slope-intercept form",
+        "infinitely many solutions"
       ],
       "correctText": "infinitely many solutions",
       "explanation": "Infinitely many solutions means the equations are equivalent. Worked example: y=2x+3 and 2y=4x+6 are the same line (divide the second by 2 to recover the first). Substitution yields 0=0, which is always true. NY A-REI.6 covers this. Regents items disguise this with multiplied versions of the same equation; reducing both to slope-intercept form and seeing identical results confirms infinitely many solutions."
@@ -1229,9 +1229,9 @@
       "prompt": "The algebraic technique of solving one equation for a variable, then substituting that expression into the other equation to solve.",
       "choices": [
         "substitution method",
-        "negative association",
-        "elimination method",
-        "graphing method"
+        "graphing method",
+        "standard form",
+        "checking ordered pair"
       ],
       "correctText": "substitution method",
       "explanation": "Substitution works best when one equation already has an isolated variable. Worked example: solve y=2x+1 and 3x+y=11 by substituting 2x+1 for y: 3x+(2x+1)=11, so 5x=10 and x=2, giving y=5. NY A-REI.6 requires this method. Regents items often include one equation already in y=form, signaling substitution. Always back-substitute to find the second variable and verify the answer in both originals."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The algebraic technique of adding or subtracting equations to eliminate one variable, often after multiplying to create matching coefficients.",
       "choices": [
-        "matrix display",
-        "elimination method",
-        "break-even comparison",
-        "graphing method"
+        "parallel lines",
+        "checking ordered pair",
+        "graphing method",
+        "elimination method"
       ],
       "correctText": "elimination method",
       "explanation": "Elimination cancels a variable via addition. Worked example: 2x+y=10 and 3x-y=5; add to get 5x=15, so x=3, then y=4. NY A-REI.6 requires fluency. Sometimes multiplication is needed: for x+2y=5 and 3x+y=10, multiply the first by 3 to get 3x+6y=15, then subtract from 3x+y=10 to get -5y=-5, so y=1. Regents items award full credit for either substitution or elimination as long as work is shown."
@@ -1272,10 +1272,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The visual technique of plotting both equations on the same coordinate plane and identifying their intersection point as the solution.",
       "choices": [
-        "substitution method",
         "graphing method",
-        "constant difference",
-        "elimination method"
+        "elimination method",
+        "decay factor",
+        "checking ordered pair"
       ],
       "correctText": "graphing method",
       "explanation": "Graphing is reliable when intersections are at integer coordinates. Worked example: plot y=x+1 and y=-x+5 on a grid; they meet at (2, 3). NY A-REI.6 and A-REI.11 cover graphical solving. Regents items often include a coordinate grid in the test booklet for this purpose. Graphing fails when intersections are non-integer — always verify by substituting the read coordinates into both equations algebraically."
@@ -1294,10 +1294,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A coefficient-only rectangular array that organizes a system's numerical data, supporting elimination via row operations on a calculator.",
       "choices": [
-        "substitution method",
-        "matrix display",
-        "square root",
-        "graphing method"
+        "greatest common factor",
+        "elimination method",
+        "graphing method",
+        "matrix display"
       ],
       "correctText": "matrix display",
       "explanation": "Matrices store coefficients compactly. Worked example: the system 2x+y=5 and x-y=1 has augmented matrix [[2,1,5],[1,-1,1]]. NY does not require matrix algebra in Algebra 1, but TI calculators include rref (reduced row echelon form) that returns the solution directly. Regents items rarely require matrices, but advanced students may use them as a check on substitution or elimination work."
@@ -1316,10 +1316,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The verification step of substituting both x and y values back into both original equations to confirm the proposed solution.",
       "choices": [
-        "elimination method",
+        "matrix display",
         "substitution method",
-        "system constraint",
-        "checking ordered pair"
+        "checking ordered pair",
+        "interquartile range"
       ],
       "correctText": "checking ordered pair",
       "explanation": "Checking confirms accuracy. Worked example: claimed solution (3, 2) for 2x+y=8 and x-y=1; check: 2(3)+2=8 (true) and 3-2=1 (true), confirmed. NY A-REI.6 expects verification. Regents 2-point items often award one point for correct answer and one for the check. A common error: checking only one equation — both must be verified because the ordered pair must satisfy the entire system simultaneously."
@@ -1339,9 +1339,9 @@
       "prompt": "The condition where two linear equations have identical slope values, producing either parallel lines (no solution) or the same line (infinite).",
       "choices": [
         "same line",
-        "graph interpretation",
-        "consistent system",
-        "same slope"
+        "same slope",
+        "reasonable answer",
+        "consistent system"
       ],
       "correctText": "same slope",
       "explanation": "Same slope means the lines never cross or are identical. Worked example: y=3x+2 and y=3x-1 both have slope 3 but different intercepts — parallel, no solution. y=3x+2 and 2y=6x+4 also have slope 3 but identical intercepts (after simplifying), so infinite solutions. NY A-REI.6 covers both subcases. Regents items present both equations in different forms — convert each to slope-intercept and compare m and b."
@@ -1360,10 +1360,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The condition where two linear equations have unequal slopes, guaranteeing exactly one intersection point regardless of intercept values.",
       "choices": [
-        "common binomial factor",
-        "parallel lines",
-        "same line",
-        "different slope"
+        "same slope",
+        "turning point",
+        "different slope",
+        "consistent system"
       ],
       "correctText": "different slope",
       "explanation": "Different slopes mean the lines must cross once. Worked example: y=2x+1 (slope 2) and y=-3x+8 (slope -3) intersect at exactly one point. NY A-REI.6 confirms this. Regents items use this to test the 'how many solutions' question — different slopes guarantees one solution. Finding the intersection still requires substitution, elimination, or graphing; knowing it exists is the first step."
@@ -1382,10 +1382,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The condition where two equations are equivalent (one is a multiple of the other), producing the identical graph and infinite solutions.",
       "choices": [
-        "dot plot",
+        "factored form",
         "consistent system",
-        "same line",
-        "parallel lines"
+        "same slope",
+        "same line"
       ],
       "correctText": "same line",
       "explanation": "Same line means infinite solutions. Worked example: x+y=4 and 2x+2y=8 are the same line — divide the second by 2 to recover the first. Algebraically the system reduces to 0=0. NY A-REI.6 covers this. Regents items hide this by scaling both sides; students should reduce both equations to lowest terms and compare. A common error: assuming different-looking equations describe different lines without simplifying first."
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two lines with the same slope but different y-intercepts, producing zero intersection points and a system with no solution.",
       "choices": [
-        "same slope",
-        "parabola",
-        "different slope",
-        "parallel lines"
+        "starting value",
+        "parallel lines",
+        "same line",
+        "different slope"
       ],
       "correctText": "parallel lines",
       "explanation": "Parallel lines never cross. Worked example: y=4x-1 and y=4x+6 are parallel (same slope 4, different intercepts) — system has no solution. Confirm algebraically: 4x-1=4x+6 simplifies to -1=6 (false). NY A-REI.6 connects parallel lines to systems. Regents items often graph parallel lines and ask students to identify how many solutions; the answer is zero, not one or infinite."
@@ -1427,9 +1427,9 @@
       "prompt": "A system of equations that has at least one solution — either exactly one (independent) or infinitely many (dependent).",
       "choices": [
         "consistent system",
-        "table pattern",
-        "different slope",
-        "same line"
+        "parallel lines",
+        "same slope",
+        "axis of symmetry"
       ],
       "correctText": "consistent system",
       "explanation": "Consistent systems have at least one solution. Worked example: y=x+1 and y=-x+5 is consistent with one solution (2, 3). y=2x+3 and 2y=4x+6 is consistent with infinitely many. The opposite, inconsistent, has no solution (parallel lines). NY A-REI.6 uses this vocabulary occasionally. Regents items may ask students to classify a system as consistent/inconsistent and dependent/independent — three categories combined into two answers per system."
@@ -1448,10 +1448,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A context where two ingredients with different concentrations or prices are combined; system equations track total amount and total quality.",
       "choices": [
-        "ticket problem",
-        "order of magnitude",
+        "explicit formula",
+        "feasible region",
         "mixture problem",
-        "break-even model"
+        "system constraint"
       ],
       "correctText": "mixture problem",
       "explanation": "Mixture problems use one equation for total quantity and one for total value/concentration. Worked example: mix 10% acid with 40% acid to get 100 mL of 25% — x+y=100 and 0.10x+0.40y=25 yields x=50, y=50. NY A-CED.2 and A-REI.6 cover modeling and solving. Regents items present coffee, alcohol, candy, or salt-water mixtures; identify the two unknowns clearly (mL of solution A and B) before writing equations."
@@ -1470,10 +1470,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A context with two ticket prices (adult, child) sold in two equations — one for total tickets, one for total revenue — solved as a system.",
       "choices": [
-        "ticket problem",
+        "range of parabola",
         "system constraint",
         "break-even model",
-        "additive pattern"
+        "ticket problem"
       ],
       "correctText": "ticket problem",
       "explanation": "Ticket problems use number-and-value equations. Worked example: adult tickets $12, child tickets $7, total 50 tickets sold for $475 — a+c=50 and 12a+7c=475 yields a=25, c=25. NY A-CED.2 requires writing the system; A-REI.6 requires solving. Regents items vary the context (movie tickets, concert seats, museum admission); the structure is identical — count equation plus price equation."
@@ -1493,9 +1493,9 @@
       "prompt": "A system where cost and revenue equations are set equal to find the production level at which profit equals zero.",
       "choices": [
         "system constraint",
+        "feasible region",
         "break-even model",
-        "prediction",
-        "ticket problem"
+        "cube root"
       ],
       "correctText": "break-even model",
       "explanation": "Break-even is where revenue equals cost. Worked example: cost C=200+5x, revenue R=15x; set R=C to get 15x=200+5x, so 10x=200 and x=20 — selling 20 units breaks even. NY A-CED.3 and A-REI.6 cover modeling. Regents items often ask 'How many items must be sold to break even?' Below break-even is loss, above is profit. Always state units (items, hours, units sold) in the answer."
@@ -1514,10 +1514,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A real-world limit (capacity, budget, time) written as a linear inequality alongside other equations or inequalities in a system.",
       "choices": [
-        "system constraint",
-        "mixture problem",
-        "decay factor",
-        "break-even model"
+        "feasible region",
+        "reasonable answer",
+        "ticket problem",
+        "system constraint"
       ],
       "correctText": "system constraint",
       "explanation": "Constraints filter feasible solutions. Worked example: 'spend at most $40 on apples ($2 each) and bread ($3 each)' becomes 2a+3b is less-than-or-equal 40, plus a is greater-than-or-equal 0 and b is greater-than-or-equal 0. NY A-CED.3 requires representing constraints. Regents modeling items list multiple restrictions; each translates into a separate inequality, and the solution set is the intersection (feasible region) of all of them."
@@ -1536,10 +1536,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The set of (x, y) points satisfying every inequality in a system; on a graph, the overlapping shaded region where all constraints hold.",
       "choices": [
+        "reasonable answer",
+        "system constraint",
         "feasible region",
-        "constraint",
-        "mixture problem",
-        "break-even model"
+        "mixture problem"
       ],
       "correctText": "feasible region",
       "explanation": "The feasible region is the intersection of shaded half-planes. Worked example: for x+y is less-than-or-equal 6, x is greater-than-or-equal 0, y is greater-than-or-equal 0, the feasible region is the triangular shaded area with vertices (0,0), (6,0), (0,6). NY A-REI.12 covers graphing systems of linear inequalities. Regents items present a region and ask which ordered pair lies inside, on the boundary, or outside — substitute the candidate into each inequality."
@@ -1558,10 +1558,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The visual representation of an inequality like y<2x+3 as a shaded half-plane bounded by the corresponding line.",
       "choices": [
-        "overlap region",
+        "sign pattern",
         "test point",
-        "linear inequality graph",
-        "difference of squares"
+        "shaded half-plane",
+        "linear inequality graph"
       ],
       "correctText": "linear inequality graph",
       "explanation": "Graphing inequalities requires the boundary plus shading. Worked example: y<2x+3 is graphed with a dashed line through (0,3) with slope 2; shade BELOW the line. NY A-REI.12 requires this. Use solid line for less-than-or-equal/greater-than-or-equal, dashed for strict < or >. Regents items present the graph and ask for the inequality, or vice versa; verify shading direction with a test point like (0,0) substituted into the inequality."
@@ -1580,10 +1580,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The portion of the coordinate plane on one side of a boundary line that contains all the (x, y) values satisfying a linear inequality.",
       "choices": [
-        "minimum value",
         "boundary line",
-        "shaded half-plane",
-        "overlap region"
+        "explicit formula",
+        "overlap region",
+        "shaded half-plane"
       ],
       "correctText": "shaded half-plane",
       "explanation": "Half-planes are the solution sets of strict and non-strict linear inequalities. Worked example: y is greater-than-or-equal x-2 shades the half-plane above the solid line y=x-2. NY A-REI.12 covers this. To decide which side, pick a test point not on the line (often (0,0)) and substitute; if the inequality is true, shade that side. Regents items penalize wrong-side shading and using the wrong boundary type."
@@ -1602,10 +1602,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The line obtained by replacing the inequality symbol with an equals sign, drawn solid for less-than-or-equal/greater-than-or-equal and dashed for < or >.",
       "choices": [
-        "linear inequality graph",
-        "constant term",
-        "test point",
-        "boundary line"
+        "shaded half-plane",
+        "overlap region",
+        "boundary line",
+        "intersection point"
       ],
       "correctText": "boundary line",
       "explanation": "The boundary separates solution from non-solution. Worked example: for y<3x+1, the boundary line is y=3x+1 (dashed because strict). For y is less-than-or-equal 3x+1, the boundary is solid (included). NY A-REI.12 specifies this convention. Regents items provide a graph with dashed or solid boundaries; students must match symbol type — a dashed line with shading above might be y>3x+1, never y is greater-than-or-equal 3x+1."
@@ -1624,10 +1624,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The intersection of two or more shaded half-planes, representing the solution set of a system of linear inequalities.",
       "choices": [
-        "constant ratio",
-        "linear inequality graph",
-        "test point",
-        "overlap region"
+        "exponential growth graph",
+        "overlap region",
+        "boundary line",
+        "linear inequality graph"
       ],
       "correctText": "overlap region",
       "explanation": "Overlap is the simultaneous solution of all constraints. Worked example: y<x+2 and y is greater-than-or-equal -x-1 produce two half-planes; the overlap (darker double-shaded region) is the system's solution. NY A-REI.12 requires graphing the system. Regents items often shade the final region with a different pattern (cross-hatching, darker shading). Any point in the overlap satisfies every inequality; any point outside fails at least one."
@@ -1646,10 +1646,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A specific coordinate substituted into an inequality to decide which half-plane to shade, often (0,0) if the line does not pass through the origin.",
       "choices": [
-        "overlap region",
+        "shaded half-plane",
+        "prediction",
         "test point",
-        "boundary line",
-        "intersection point"
+        "boundary line"
       ],
       "correctText": "test point",
       "explanation": "Test points determine shading direction. Worked example: for 2x+3y<6, test (0,0): 2(0)+3(0)=0<6 (true), so shade the side containing the origin. NY A-REI.12 implicitly uses this. Regents items rely on this strategy. If the boundary passes through (0,0), pick another easy point like (1,0) or (0,1). A common error: forgetting to test and shading the wrong side based on visual intuition."
@@ -1669,9 +1669,9 @@
       "prompt": "The exponent law stating that x^a times x^b equals x^(a+b) when the bases are identical, used to simplify multiplied powers.",
       "choices": [
         "product rule",
+        "median",
         "quotient rule",
-        "sign pattern",
-        "negative exponent"
+        "zero exponent"
       ],
       "correctText": "product rule",
       "explanation": "The product rule combines like bases. Worked example: x^3 times x^5 = x^(3+5) = x^8. NY 8.EE.1 introduces this; A-SSE.2 extends it to algebraic manipulation. Worked example with coefficients: 2x^3 * 4x^2 = 8x^5. Regents items often combine this with the power rule. Common error: multiplying the exponents instead of adding — 3+5=8 (add), not 15 (multiply). The bases must be identical for the rule to apply."
@@ -1690,10 +1690,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The exponent law stating that x^a divided by x^b equals x^(a-b) when the bases match, used to simplify fractions of powers.",
       "choices": [
-        "power rule",
-        "negative exponent",
-        "zero product property",
-        "quotient rule"
+        "quotient rule",
+        "product rule",
+        "verbal model",
+        "negative exponent"
       ],
       "correctText": "quotient rule",
       "explanation": "Quotient rule subtracts exponents. Worked example: x^7/x^3 = x^(7-3) = x^4. With coefficients: 12x^5/4x^2 = 3x^3. NY 8.EE.1 covers this. The rule explains why x^0 = 1: x^5/x^5 = x^0 must equal 1. Regents items frequently test this in simplification problems. Common error: subtracting the wrong way (3-7 instead of 7-3) — the numerator's exponent always comes first in the subtraction."
@@ -1712,10 +1712,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The exponent law stating that (x^a)^b equals x^(a*b), used when a power is raised to another power.",
       "choices": [
-        "data distribution",
-        "power rule",
-        "quotient rule",
-        "zero exponent"
+        "negative exponent",
+        "coefficient pattern",
+        "product rule",
+        "power rule"
       ],
       "correctText": "power rule",
       "explanation": "Power rule multiplies exponents. Worked example: (x^3)^4 = x^(3*4) = x^12. NY 8.EE.1 covers this. With coefficients: (2x^3)^4 = 2^4 * x^(3*4) = 16x^12 — the exponent applies to BOTH the coefficient and the variable. Regents items combine this with other exponent rules. Common error: applying the exponent only to the variable, forgetting to raise the coefficient (writing 2x^12 instead of 16x^12)."
@@ -1734,10 +1734,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The convention that any nonzero base raised to the zero power equals 1, derived from the quotient rule applied to identical exponents.",
       "choices": [
-        "linear inequality graph",
+        "same line",
+        "quotient rule",
         "zero exponent",
-        "negative exponent",
-        "quotient rule"
+        "power rule"
       ],
       "correctText": "zero exponent",
       "explanation": "Zero exponent gives 1. Worked example: 5^0 = 1, (3x)^0 = 1, but 0^0 is undefined. NY 8.EE.1 establishes this. The convention is consistent: x^5/x^5 = x^0 by the quotient rule and equals 1 by direct division. Regents items use this to test understanding; many Part I distractors set the answer to 0. Note: 0 * x^0 = 0 (because of the leading coefficient), not 1 — the zero-exponent rule applies only to the power, not coefficients."
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The convention that x^(-n) equals 1/x^n, allowing negative exponents to be rewritten as positive exponents in the denominator.",
       "choices": [
-        "domain restriction",
         "negative exponent",
-        "quotient rule",
-        "zero exponent"
+        "identity equation",
+        "zero exponent",
+        "power rule"
       ],
       "correctText": "negative exponent",
       "explanation": "Negative exponents move the base to the denominator. Worked example: 2^(-3) = 1/2^3 = 1/8, and x^(-4) = 1/x^4. NY 8.EE.1 introduces this. With multiplication: 5x^(-2) = 5/x^2. Regents items combine negative exponents with other rules; simplify all negatives last so they don't compound. Common error: making the entire fraction negative (writing -1/x^4) instead of moving the base — the value 1/x^4 is positive when x is."
@@ -1778,10 +1778,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A number expressed as a * 10^n where 1 is less-than-or-equal |a| < 10 and n is an integer, used for very large or very small magnitudes.",
       "choices": [
-        "scientific notation",
+        "standard notation",
         "calculator notation",
-        "order of magnitude",
-        "term number"
+        "scientific notation",
+        "no association"
       ],
       "correctText": "scientific notation",
       "explanation": "Scientific notation compresses extreme values. Worked example: 3,400,000 = 3.4 * 10^6 and 0.0000072 = 7.2 * 10^-6. NY 8.EE.3-4 requires writing and operating with scientific notation. The mantissa a must satisfy 1 is less-than-or-equal |a| < 10 (so 34 * 10^5 is not in scientific notation; rewrite as 3.4 * 10^6). Regents items test conversion both directions and arithmetic operations with scientific notation."
@@ -1800,10 +1800,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A number written out fully with all digits and decimal places, the opposite of scientific notation.",
       "choices": [
-        "calculator notation",
-        "scientific notation",
         "standard notation",
-        "inequality symbol"
+        "powers of ten",
+        "scientific notation",
+        "polynomial operation"
       ],
       "correctText": "standard notation",
       "explanation": "Standard notation spells out the value. Worked example: 4.5 * 10^4 in standard notation is 45,000. 6.2 * 10^-3 is 0.0062. NY 8.EE.4 includes conversion. Move the decimal point n places right for positive exponent, left for negative. Regents items provide scientific notation and ask for the standard form, or vice versa — count zeros carefully. Common error: confusing direction for negative exponents (decimal moves left, value gets smaller)."
@@ -1822,9 +1822,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The integer power of 10 that represents the approximate size of a number, used to compare numerical scales like 10^3 vs 10^6.",
       "choices": [
-        "standard notation",
+        "y-intercept",
         "scientific notation",
-        "minimum value",
+        "powers of ten",
         "order of magnitude"
       ],
       "correctText": "order of magnitude",
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Numbers of the form 10^n that form the backbone of scientific notation, the metric system, and place-value reasoning.",
       "choices": [
-        "powers of ten",
+        "standard notation",
         "order of magnitude",
-        "calculator notation",
-        "two-way table"
+        "substitution check",
+        "powers of ten"
       ],
       "correctText": "powers of ten",
       "explanation": "Powers of ten are 10, 100, 1000 ... and 0.1, 0.01, 0.001. Worked example: 10^3 = 1000 (three zeros), 10^-2 = 0.01 (two decimal places). NY 8.EE.1 covers exponent rules with base 10. Each power of ten shifts the decimal one place. Regents items test arithmetic with powers of 10 (multiplying 4 * 10^5 by 3 * 10^2 equals 12 * 10^7 = 1.2 * 10^8). Always renormalize the mantissa to be at least 1 and less than 10."
@@ -1866,10 +1866,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The display format like 3.5E8 or 3.5 EE 8 used by graphing calculators to show scientific notation when results exceed the screen width.",
       "choices": [
-        "scientific notation",
-        "powers of ten",
-        "zero exponent",
-        "calculator notation"
+        "order of magnitude",
+        "minimum value",
+        "calculator notation",
+        "standard notation"
       ],
       "correctText": "calculator notation",
       "explanation": "Calculator notation uses E for exponent. Worked example: 3.5E8 on a TI-84 display means 3.5 * 10^8 = 350,000,000. NY does not formally test calculator notation, but Regents calculators (TI-30XS, TI-84) display this format. Students must translate to a * 10^n form before writing their answer. Common error: copying '3.5E8' as a final answer; convert to scientific or standard notation according to the question's instructions."
@@ -1888,10 +1888,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The number that, when multiplied by itself, gives the radicand; sqrt(25) = 5 because 5 * 5 = 25.",
       "choices": [
-        "radicand",
+        "cube root",
         "square root",
-        "polynomial operation",
-        "simplest radical form"
+        "perfect square",
+        "boundary point"
       ],
       "correctText": "square root",
       "explanation": "Square root is the principal (positive) value. Worked example: sqrt(49) = 7, sqrt(144) = 12, sqrt(20) = sqrt(4*5) = 2*sqrt(5). NY N-RN.2 covers radical operations. The principal root convention excludes the negative root; if the equation x^2=25 is solved, the answer is x = plus or minus 5, but sqrt(25) alone is 5. Regents items test perfect squares (1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225) — memorize these."
@@ -1910,10 +1910,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The number that, when cubed, gives the radicand; cbrt(8) = 2 because 2 * 2 * 2 = 8.",
       "choices": [
-        "context parameter",
+        "simplest radical form",
+        "radicand",
         "cube root",
-        "square root",
-        "perfect square"
+        "polynomial addition"
       ],
       "correctText": "cube root",
       "explanation": "Cube roots can be negative because (-2)^3 = -8. Worked example: cbrt(27) = 3, cbrt(-64) = -4 (since (-4)^3=-64), cbrt(125) = 5. NY N-RN.2 covers cube roots. Perfect cubes: 1, 8, 27, 64, 125, 216, 343. Regents items sometimes embed cube roots in volume problems (cube root of volume gives side length). Unlike square roots, cube roots accept negative radicands."
@@ -1932,10 +1932,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quantity sitting under the radical sign — for sqrt(x+5), the radicand is x+5.",
       "choices": [
-        "polynomial subtraction",
-        "square root",
+        "perfect square",
         "radicand",
-        "perfect square"
+        "cube root",
+        "same line"
       ],
       "correctText": "radicand",
       "explanation": "Radicand is the expression inside the radical. Worked example: in sqrt(2x+8), the radicand is 2x+8 and must be greater-than-or-equal 0 for real-number outputs, so x is greater-than-or-equal -4. NY A-REI.2 covers radical equations. Regents items use radicand to test domain understanding. To solve sqrt(2x+8)=4, square both sides to get 2x+8=16, then x=4 — and check (the radicand must be non-negative and the original equation must hold)."
@@ -1954,10 +1954,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A radical expression with no perfect-square factors under the root, no fractions inside the radical, and no radicals in the denominator.",
       "choices": [
+        "simplest radical form",
         "cube root",
-        "perfect square",
-        "common ratio",
-        "simplest radical form"
+        "square root",
+        "coefficient pattern"
       ],
       "correctText": "simplest radical form",
       "explanation": "Simplest radical form factors out perfect squares. Worked example: sqrt(72) = sqrt(36*2) = 6*sqrt(2). For sqrt(50): factor 50 = 25*2, so sqrt(50) = 5*sqrt(2). NY N-RN.2 requires simplifying to standard form. Regents items present radicals and ask for the simplest form. Common error: stopping too early — sqrt(8) is not simplified; rewrite as 2*sqrt(2). Always check whether 4, 9, 16, 25 divide the radicand."
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A whole number that is the square of an integer, like 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, and so on.",
       "choices": [
-        "degree",
+        "parallel lines",
         "perfect square",
-        "simplest radical form",
-        "radicand"
+        "cube root",
+        "square root"
       ],
       "correctText": "perfect square",
       "explanation": "Perfect squares have integer square roots. Worked example: 144 is a perfect square because sqrt(144) = 12. Variable perfect squares include x^2, 4x^2, 25x^2. NY N-RN.2 and A-SSE.2 use perfect squares for simplification and factoring (difference of squares). Regents items use perfect squares for radical simplification — extract them from larger radicands. Memorize squares from 1 to 25: 1, 4, 9, ..., 625."
@@ -1999,9 +1999,9 @@
       "prompt": "An exponent written as a fraction, like x^(1/2) or x^(2/3), where the denominator indicates a root and the numerator indicates a power.",
       "choices": [
         "fractional exponent",
-        "turning point",
-        "principal root",
-        "exponent denominator"
+        "equivalent form",
+        "revenue model",
+        "principal root"
       ],
       "correctText": "fractional exponent",
       "explanation": "Fractional exponents are radicals. Worked example: x^(1/2) = sqrt(x), x^(1/3) = cbrt(x), x^(2/3) = cbrt(x^2) or (cbrt(x))^2. NY N-RN.1-2 cover this conversion. The denominator is always the root index. Regents items rewrite radicals as rational exponents and vice versa. Common evaluation: 8^(2/3) = (cbrt(8))^2 = 2^2 = 4 — take the cube root first (smaller numbers) then square."
@@ -2020,10 +2020,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The small number written just outside the radical sign indicating which root to take; index 2 is a square root, index 3 is a cube root.",
       "choices": [
-        "ticket problem",
+        "principal root",
         "index",
-        "fractional exponent",
-        "equivalent form"
+        "equivalent form",
+        "starting value"
       ],
       "correctText": "index",
       "explanation": "The index specifies the root type. Worked example: in cbrt(x) the index is 3; in sqrt(x) the index is 2 (usually unwritten). NY N-RN.1 introduces this notation. Index 4 gives fourth roots: 4th-root(16) = 2 because 2^4 = 16. Regents items rarely use indices above 3 explicitly but rational exponents like x^(1/4) are equivalent. The index is the denominator in fractional-exponent form: x^(1/n) = nth-root(x)."
@@ -2042,10 +2042,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The non-negative root convention used for square roots (and even-index roots) so that the radical function returns a single value.",
       "choices": [
-        "factoring method",
         "equivalent form",
-        "index",
-        "principal root"
+        "extraneous solution",
+        "principal root",
+        "fractional exponent"
       ],
       "correctText": "principal root",
       "explanation": "Principal root is the standard positive choice. Worked example: sqrt(36) = 6 (principal), not -6 — even though (-6)^2 = 36. NY N-RN.2 follows this convention. Regents items use sqrt without ambiguity to mean the principal root. The equation x^2 = 36 has two solutions (plus and minus 6), but the function sqrt(36) returns only 6. Cube roots (and odd indices) have no ambiguity — cbrt(8) = 2 only."
@@ -2064,10 +2064,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An algebraic rewriting of a radical or exponential expression that uses different notation but represents the same value.",
       "choices": [
+        "equivalent form",
+        "principal root",
         "index",
-        "test point",
-        "fractional exponent",
-        "equivalent form"
+        "factor pair"
       ],
       "correctText": "equivalent form",
       "explanation": "Equivalent forms swap radicals and rational exponents. Worked example: sqrt(x^3) and x^(3/2) are equivalent; cbrt(x^4) and x^(4/3) are equivalent. NY N-RN.1-2 expects students to convert in both directions. Regents items present an expression and ask which choice is equivalent. Always check by substituting a simple value like x=4 into both forms — equivalent expressions must produce identical numerical outputs."
@@ -2087,9 +2087,9 @@
       "prompt": "The bottom number in a fractional exponent, which determines the root index: in x^(2/5), the denominator 5 means the fifth root.",
       "choices": [
         "principal root",
-        "equivalent form",
-        "quotient rule",
-        "exponent denominator"
+        "exponent denominator",
+        "fractional exponent",
+        "linear inequality graph"
       ],
       "correctText": "exponent denominator",
       "explanation": "Denominator equals root index. Worked example: x^(3/4) = 4th-root(x^3). NY N-RN.1 makes this connection. For 27^(2/3): denominator 3 means cube root, numerator 2 means square the result — cbrt(27)=3, then 3^2 = 9. Regents items often test this with perfect-power radicands (8, 27, 64, 125). Compute the root first to keep numbers manageable, then apply the power."
@@ -2108,10 +2108,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The skill of producing an approximate value for a complex calculation by rounding to convenient numbers before computing.",
       "choices": [
+        "growth factor",
+        "total cost model",
         "decay factor",
-        "scale factor",
-        "estimation",
-        "parallel lines"
+        "estimation"
       ],
       "correctText": "estimation",
       "explanation": "Estimation checks reasonableness. Worked example: estimate 3.97 * 198 by rounding to 4 * 200 = 800; exact value 786.06 confirms the estimate. NY 7.NS.3 and 8.EE.4 build estimation. Regents items embed estimation in reasonableness checks — after computing 4.7E6, ask 'Is the answer about 5 million?' Estimation also helps reject calculator-typing errors when the final value differs from a quick mental check by a factor of 10."
@@ -2130,10 +2130,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A ratio that compares corresponding dimensions of two similar figures or two quantities, equal to new value divided by original value.",
       "choices": [
-        "estimation",
-        "initial value",
+        "area model",
         "decay factor",
-        "scale factor"
+        "scale factor",
+        "estimation"
       ],
       "correctText": "scale factor",
       "explanation": "Scale factor is a multiplicative ratio. Worked example: if a triangle's sides scale from (3,4,5) to (9,12,15), the scale factor is 3. NY 7.G.1 introduces scale; A-CED.2 uses scale in modeling (growth/decay factors are scale factors). Regents items use scale in geometry and exponential models. Doubling has scale factor 2; halving has scale factor 1/2 or 0.5. The scale factor multiplies the original to produce the scaled value."
@@ -2152,9 +2152,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multiplying by a conversion factor (a ratio equal to 1) to change a measurement from one unit to another, like inches to centimeters.",
       "choices": [
-        "equation solving",
+        "scale factor",
         "estimation",
-        "decay factor",
+        "constant rate",
         "unit conversion"
       ],
       "correctText": "unit conversion",
@@ -2174,10 +2174,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The multiplier (1+r) applied each period in an exponential growth model, where r is the decimal growth rate.",
       "choices": [
-        "x-intercept",
-        "scale factor",
+        "discriminant",
+        "decay factor",
         "growth factor",
-        "unit conversion"
+        "scale factor"
       ],
       "correctText": "growth factor",
       "explanation": "Growth factor multiplies the previous value. Worked example: a 5% annual growth has growth factor 1.05; a population of 1000 after 3 years is 1000 * 1.05^3 = 1157.625. NY F-LE.1 and A-SSE.3 cover growth. The general form is A = A_0 * b^t where b > 1 for growth. Regents items test interest, population, and bacterial growth — find r from the factor (b-1) and interpret in context (e.g., 1.07 means 7% growth per period)."
@@ -2196,9 +2196,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The multiplier (1-r) applied each period in an exponential decay model, where r is the decimal decay rate, producing a factor between 0 and 1.",
       "choices": [
-        "scale factor",
+        "inequality graph",
+        "unit conversion",
         "decay factor",
-        "constraint",
         "estimation"
       ],
       "correctText": "decay factor",
@@ -2218,10 +2218,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A polynomial with exactly one term, such as 5x^2, -7, or 3xy.",
       "choices": [
-        "degree",
         "monomial",
-        "context parameter",
-        "leading coefficient"
+        "slope-intercept form",
+        "leading coefficient",
+        "degree"
       ],
       "correctText": "monomial",
       "explanation": "Monomials have one term and non-negative integer exponents. Worked examples: 4x, -7, 3x^2y, and 9 are all monomials. NY A-APR.1 introduces polynomial vocabulary. The degree of a monomial is the sum of exponents on its variables: 3x^2y has degree 3. Regents items use monomial vocabulary in classification questions and in factoring (GCF is always a monomial). The coefficient and degree together describe each monomial."
@@ -2241,9 +2241,9 @@
       "prompt": "A polynomial with exactly two terms separated by + or -, such as x^2-9 or 3x+5.",
       "choices": [
         "monomial",
+        "discriminant",
         "degree",
-        "binomial",
-        "population"
+        "binomial"
       ],
       "correctText": "binomial",
       "explanation": "Binomials have two terms. Worked examples: x+5, 2x^2-7x, and a^2-b^2 are binomials. NY A-APR.1 and A-SSE.2 use binomials extensively. Multiplying two binomials uses FOIL: (x+3)(x-2) = x^2+x-6. The Regents tests binomials in factoring (difference of squares: a^2-b^2=(a+b)(a-b)) and in multiplication. Trinomials and higher-term polynomials build from binomial operations."
@@ -2262,10 +2262,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A polynomial with exactly three terms separated by + or -, such as x^2+5x+6.",
       "choices": [
-        "leading coefficient",
-        "correlation",
+        "projectile height model",
         "trinomial",
-        "monomial"
+        "binomial",
+        "leading coefficient"
       ],
       "correctText": "trinomial",
       "explanation": "Trinomials have three terms. Worked examples: x^2+5x+6, 2a^2-3a+1, and y^2-9y+20 are trinomials. NY A-SSE.2-3 includes factoring quadratic trinomials. Standard-form quadratic trinomials ax^2+bx+c are central to Unit 5-6. Factoring x^2+5x+6 = (x+2)(x+3) requires finding two numbers that multiply to c and add to b. Regents items frequently test trinomial factoring as a 2-point Part II item or as multiple-choice Part I."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The largest exponent on a variable in a polynomial — for 4x^3-2x^2+x-5, the degree is 3.",
       "choices": [
-        "leading coefficient",
-        "monomial",
+        "trinomial",
+        "simplest radical form",
         "degree",
-        "dot plot"
+        "leading coefficient"
       ],
       "correctText": "degree",
       "explanation": "Degree determines polynomial behavior. Worked examples: x^4-3x has degree 4; 2x^3+x^2-7 has degree 3 (cubic); 5x^2+3 has degree 2 (quadratic). NY A-APR.1 introduces degree. The degree predicts the number of solutions (real or complex) for a polynomial equation — degree 2 has up to 2 solutions, degree 3 has up to 3, etc. Regents Algebra 1 focuses on degree 1 (linear) and degree 2 (quadratic) but expects students to recognize higher degrees."
@@ -2306,8 +2306,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The numerical coefficient of the highest-degree term when a polynomial is written in standard form (descending powers).",
       "choices": [
-        "binomial",
-        "base",
+        "trinomial",
+        "dot plot",
         "leading coefficient",
         "degree"
       ],
@@ -2328,10 +2328,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Combining two polynomials by grouping like terms — terms with the same variable raised to the same power — and adding their coefficients.",
       "choices": [
-        "polynomial multiplication",
-        "parallel lines",
-        "FOIL method",
-        "polynomial addition"
+        "polynomial addition",
+        "polynomial subtraction",
+        "residual",
+        "FOIL method"
       ],
       "correctText": "polynomial addition",
       "explanation": "Add like terms. Worked example: (3x^2+5x-2)+(x^2-4x+7) = 4x^2+x+5. NY A-APR.1 covers this. Align terms by degree before adding. Regents items often present this as a Part I (multiple choice) or Part II (show work) item. Common error: combining unlike terms — 3x^2 cannot combine with 5x because the exponents differ. Use parentheses to track signs cleanly when adding."
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subtracting one polynomial from another by distributing the negative sign and then combining like terms.",
       "choices": [
+        "like terms",
         "polynomial addition",
-        "FOIL method",
-        "compound inequality",
-        "polynomial subtraction"
+        "polynomial subtraction",
+        "survey bias"
       ],
       "correctText": "polynomial subtraction",
       "explanation": "Distribute the minus sign before combining. Worked example: (5x^2-3x+1) - (2x^2-7x+4) = 5x^2-3x+1-2x^2+7x-4 = 3x^2+4x-3. NY A-APR.1 covers this. The sign change applies to EVERY term in the subtrahend, not just the first one. Regents items penalize sign errors — write the subtraction with explicit parentheses, distribute the negative, then collect like terms."
@@ -2372,10 +2372,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Combining two polynomials by distributing each term in one across every term in the other, then combining like terms in the result.",
       "choices": [
+        "polynomial addition",
         "polynomial multiplication",
-        "like terms",
-        "FOIL method",
-        "revenue model"
+        "parabola",
+        "FOIL method"
       ],
       "correctText": "polynomial multiplication",
       "explanation": "Distribute every term. Worked example: (x+3)(x^2-2x+5) = x^3-2x^2+5x+3x^2-6x+15 = x^3+x^2-x+15. NY A-APR.1 covers this. For trinomial-by-trinomial, use a 3-by-3 grid (box method) to organize products. Regents items test binomial-by-binomial (FOIL) most often, with occasional binomial-by-trinomial. Be systematic: every term in the first must multiply every term in the second."
@@ -2395,9 +2395,9 @@
       "prompt": "A mnemonic for multiplying two binomials by computing First, Outer, Inner, Last products and adding them.",
       "choices": [
         "FOIL method",
-        "like terms",
-        "matrix display",
-        "polynomial multiplication"
+        "polynomial subtraction",
+        "zero of a function",
+        "polynomial addition"
       ],
       "correctText": "FOIL method",
       "explanation": "FOIL is shorthand for the distributive property on binomials. Worked example: (x+4)(x-3): First x*x = x^2, Outer x*(-3) = -3x, Inner 4*x = 4x, Last 4*(-3) = -12. Sum: x^2+x-12. NY A-APR.1 implicitly covers FOIL. Regents Part I items test FOIL fluency. Common error: only computing F and L (forgetting Outer and Inner) — this misses the linear term. Use a box-grid alternative for students who prefer it."
@@ -2416,10 +2416,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Two or more terms with identical variable parts and exponents that can be combined by adding or subtracting coefficients.",
       "choices": [
+        "mean",
+        "polynomial subtraction",
         "polynomial multiplication",
-        "like terms",
-        "matrix display",
-        "polynomial subtraction"
+        "like terms"
       ],
       "correctText": "like terms",
       "explanation": "Like terms share variables and powers. Worked examples: 3x^2 and 7x^2 are like; 4ab and -2ab are like; 3x^2 and 3x are NOT like. NY A-APR.1 uses this concept. To combine: 5x^3-2x^3 = 3x^3 (subtract coefficients, keep variable). Regents items embed like-terms reasoning in polynomial operations. Color-coding or underlining matching variable parts helps prevent miscombining."
@@ -2438,10 +2438,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The largest monomial that divides evenly into every term of a polynomial, factored out as the first step in most factoring problems.",
       "choices": [
+        "sequence representation",
+        "perfect square trinomial",
         "greatest common factor",
-        "common binomial factor",
-        "difference of squares",
-        "minimum value"
+        "common binomial factor"
       ],
       "correctText": "greatest common factor",
       "explanation": "GCF is the first factoring step. Worked example: 12x^3-8x^2+4x = 4x(3x^2-2x+1) — factor out 4x (the GCF). NY A-SSE.2 requires identifying and factoring GCFs. Find the GCF by taking the smallest power of each variable common to all terms and the GCD of coefficients. Regents items penalize incomplete factoring — after a GCF is removed, check whether the remaining polynomial can be factored further (often a difference of squares or trinomial)."
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The factoring pattern a^2 - b^2 = (a+b)(a-b), recognized by two perfect-square terms separated by a minus sign.",
       "choices": [
-        "factored form",
-        "scale factor",
+        "sequence representation",
+        "greatest common factor",
         "difference of squares",
-        "greatest common factor"
+        "perfect square trinomial"
       ],
       "correctText": "difference of squares",
       "explanation": "Difference of squares factors into conjugate pairs. Worked examples: x^2-25 = (x+5)(x-5); 4x^2-9 = (2x+3)(2x-3); x^2-49 = (x+7)(x-7). NY A-SSE.2 names this pattern. The two terms must be perfect squares and the operation between them MUST be subtraction. Regents items test this pattern in Part I. Sum of squares like x^2+25 does NOT factor over the reals."
@@ -2482,10 +2482,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A trinomial of the form a^2 + 2ab + b^2 that factors as (a+b)^2, or a^2 - 2ab + b^2 that factors as (a-b)^2.",
       "choices": [
-        "difference of squares",
-        "no solution",
         "perfect square trinomial",
-        "factored form"
+        "factored form",
+        "exponential factor",
+        "greatest common factor"
       ],
       "correctText": "perfect square trinomial",
       "explanation": "Perfect-square trinomials have a structure of square + double product + square. Worked example: x^2+10x+25 = (x+5)^2 because 5+5=10 (the middle) and 5*5=25 (the last). NY A-SSE.2 names this. Recognize by checking that the first and last terms are perfect squares and the middle is twice the product of their roots. Regents items use perfect-square trinomials in factoring and in completing the square (Unit 6)."
@@ -2504,10 +2504,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A polynomial expressed as a product of factors, equivalent to standard form but useful for finding zeros and graphing.",
       "choices": [
+        "greatest common factor",
+        "perfect square trinomial",
         "factored form",
-        "common binomial factor",
-        "doubling time",
-        "difference of squares"
+        "range"
       ],
       "correctText": "factored form",
       "explanation": "Factored form exposes the zeros. Worked example: x^2-5x+6 in factored form is (x-2)(x-3); setting each factor to zero gives x=2 and x=3 as zeros. NY A-SSE.3 connects factored form to graph features. The Regents asks students to convert between factored and standard forms and to identify x-intercepts of quadratics directly from factored form using the Zero Product Property."
@@ -2526,10 +2526,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A repeated binomial that appears in both groups of a 4-term polynomial, factored out using grouping.",
       "choices": [
-        "common binomial factor",
-        "perfect square trinomial",
         "factored form",
-        "square root method"
+        "common binomial factor",
+        "difference of squares",
+        "turning point"
       ],
       "correctText": "common binomial factor",
       "explanation": "Grouping pulls out a common binomial. Worked example: x^3+2x^2+3x+6 — group as x^2(x+2)+3(x+2), then factor (x+2) to get (x+2)(x^2+3). NY A-SSE.2 uses grouping for 4-term polynomials and for the AC method on hard trinomials. Regents items occasionally test grouping. The key is recognizing the matching binomial in both groups — if it does not match, try rearranging terms before grouping."
@@ -2549,9 +2549,9 @@
       "prompt": "The principle that if a product AB = 0, then A=0 or B=0 (or both), used to solve factored quadratic equations.",
       "choices": [
         "root",
-        "zero product property",
-        "x-intercept",
-        "average rate of change"
+        "quadratic expression",
+        "substitution check",
+        "zero product property"
       ],
       "correctText": "zero product property",
       "explanation": "Zero product turns factoring into solving. Worked example: (x-3)(x+2) = 0 implies x-3=0 or x+2=0, so x=3 or x=-2. NY A-REI.4 explicitly cites this property. After factoring a quadratic equation, apply ZPP to each factor and solve. Regents items often factor a quadratic in one problem and apply ZPP in the next. Common error: applying ZPP when the equation does not equal zero — always move everything to one side first."
@@ -2570,9 +2570,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A solution to a polynomial equation; for quadratic ax^2+bx+c=0, the roots are also the x-intercepts of the corresponding graph.",
       "choices": [
-        "range of parabola",
+        "quadratic expression",
+        "increasing function",
         "root",
-        "standard form",
         "zero product property"
       ],
       "correctText": "root",
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The polynomial form ax^2+bx+c with terms ordered by descending powers, where a is non-zero for a quadratic.",
       "choices": [
-        "base",
+        "root",
+        "x-intercept",
         "standard form",
-        "quadratic expression",
-        "zero product property"
+        "quadratic feature"
       ],
       "correctText": "standard form",
       "explanation": "Standard form orders terms descending. Worked example: rewrite 5x-3+2x^2 in standard form as 2x^2+5x-3 (degree 2 first). NY A-SSE.1 and A-REI.4 require standard form before using formulas like the quadratic formula. The coefficients a, b, c are read directly. Regents items present a quadratic in non-standard form and require rearranging before solving — always move everything to one side equal to zero."
@@ -2614,9 +2614,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A polynomial of degree 2, written as ax^2+bx+c, that may be factored or simplified but does not necessarily equal zero.",
       "choices": [
-        "zero product property",
+        "standard form",
         "quadratic expression",
-        "context parameter",
+        "trinomial",
         "x-intercept"
       ],
       "correctText": "quadratic expression",
@@ -2637,9 +2637,9 @@
       "prompt": "A point where the graph of a function crosses the x-axis, equivalent to a real root of the function.",
       "choices": [
         "x-intercept",
-        "polynomial multiplication",
+        "quadratic expression",
         "root",
-        "standard form"
+        "quadratic feature"
       ],
       "correctText": "x-intercept",
       "explanation": "X-intercepts are the visible roots on a graph. Worked example: y=x^2-5x+6 has x-intercepts at (2, 0) and (3, 0), matching the factored form (x-2)(x-3). NY F-IF.7 and A-APR.3 cover this. Set y=0 and solve to find x-intercepts. Regents items often show a parabola with marked x-intercepts and ask students to construct the equation in factored form — multiply (x - x_intercept_1)(x - x_intercept_2) and check the vertex."
@@ -2658,10 +2658,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A rectangular grid representation of polynomial multiplication where each row is a term of one polynomial and each column is a term of the other.",
       "choices": [
+        "equivalent expression",
+        "area model",
         "coefficient pattern",
-        "factor pair",
-        "factored form",
-        "area model"
+        "verbal model"
       ],
       "correctText": "area model",
       "explanation": "Area models visualize distribution. Worked example: (x+3)(x+5) drawn as a 2-by-2 grid: cells contain x^2, 5x, 3x, 15; sum is x^2+8x+15. NY A-APR.1 supports this visual approach. The box method scales to larger polynomials, making it useful for trinomial-by-trinomial multiplication. Regents items rarely show the box explicitly, but it is a reliable strategy. The model directly inverts to factoring."
@@ -2681,9 +2681,9 @@
       "prompt": "Two numbers whose product equals c and whose sum equals b in factoring a trinomial x^2+bx+c into (x+p)(x+q).",
       "choices": [
         "sign pattern",
-        "area model",
-        "horizontal line",
-        "factor pair"
+        "negative exponent",
+        "factor pair",
+        "equivalent expression"
       ],
       "correctText": "factor pair",
       "explanation": "Factor pairs unlock trinomial factoring. Worked example: factor x^2+7x+12 — find two numbers multiplying to 12 and summing to 7: 3 and 4. So x^2+7x+12 = (x+3)(x+4). NY A-SSE.2 implies this method. List factor pairs of c, then check sums. Negative coefficients: for x^2-5x+6, find pair multiplying to 6 and summing to -5: -2 and -3, so (x-2)(x-3). Regents items test this fluency."
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A recurring numerical relationship among a, b, c in trinomials that suggests a factoring strategy or a special form.",
       "choices": [
+        "area model",
         "coefficient pattern",
-        "linear regression",
         "equivalent expression",
-        "sign pattern"
+        "parallel lines"
       ],
       "correctText": "coefficient pattern",
       "explanation": "Coefficient patterns hint at factoring approaches. Worked example: if a=1 and c is positive, look for factor pairs summing to b. If a is greater than 1, try the AC method (multiply a*c, find factors of that summing to b). NY A-SSE.2 covers strategy choice. Regents items use varying coefficient patterns to test method selection — simple monic trinomials, harder a-greater-than-1 trinomials, and special forms (difference of squares, perfect square trinomial)."
@@ -2724,10 +2724,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The arrangement of + and - signs in a trinomial that predicts the signs of the factors when factored.",
       "choices": [
-        "area model",
-        "equivalent equation",
-        "equivalent expression",
-        "sign pattern"
+        "coefficient pattern",
+        "system solution",
+        "sign pattern",
+        "area model"
       ],
       "correctText": "sign pattern",
       "explanation": "Sign patterns predict factor signs. Worked examples: x^2+5x+6 has both factors positive (x+2)(x+3); x^2-5x+6 has both negative (x-2)(x-3); x^2+x-6 has opposite signs (x+3)(x-2); x^2-x-6 has opposite signs (x-3)(x+2). NY A-SSE.2 implies these rules. The constant's sign indicates same vs opposite, and the middle's sign indicates which dominates. Regents items test factoring across all four sign patterns."
@@ -2746,10 +2746,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An expression produced by valid algebraic manipulation (factoring, distributing, combining like terms) that has the same value as the original for all inputs.",
       "choices": [
-        "equivalent expression",
+        "interval notation",
         "area model",
-        "coefficient pattern",
-        "intersection point"
+        "factor pair",
+        "equivalent expression"
       ],
       "correctText": "equivalent expression",
       "explanation": "Equivalent expressions agree on every input. Worked example: 2(x+3)+4x and 6x+6 are equivalent — substitute x=5 to get 16 and 16. NY A-SSE.2-3 covers equivalence. Regents Part I items ask which choice is equivalent to a given expression. The fastest check is substituting a non-zero, non-one value (like x=2 or x=5) and computing both — equivalent expressions always match. Algebraic verification (distributing, factoring) confirms permanently."
@@ -2769,9 +2769,9 @@
       "prompt": "The U-shaped curve produced by graphing a quadratic function y=ax^2+bx+c, opening upward when a>0 and downward when a<0.",
       "choices": [
         "parabola",
-        "minimum value",
         "axis of symmetry",
-        "slope-intercept form"
+        "minimum value",
+        "parallel lines"
       ],
       "correctText": "parabola",
       "explanation": "Parabolas are quadratic graphs. Worked example: y=x^2 has vertex (0,0) and opens upward; y=-x^2+4 has vertex (0,4) and opens downward. NY F-IF.7 requires graphing parabolas. Key features: vertex (highest or lowest point), axis of symmetry (vertical line through the vertex), x-intercepts (zero, one, or two), y-intercept (the c in standard form). Regents items always include at least one parabola graph or equation per exam."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A strategy for solving quadratic equations by writing the polynomial as a product of binomials and applying the Zero Product Property.",
       "choices": [
-        "monomial",
-        "minimum value",
+        "factoring method",
         "vertex",
-        "factoring method"
+        "initial value",
+        "axis of symmetry"
       ],
       "correctText": "factoring method",
       "explanation": "Factoring solves quadratic equations when integer roots exist. Worked example: solve x^2-5x+6=0 by factoring as (x-2)(x-3)=0; ZPP gives x=2 or x=3. NY A-REI.4 covers this. Factoring is the preferred method when the quadratic factors nicely over the integers. Regents items test this as a 2-point Part II problem — show factoring, ZPP application, and both solutions to earn full credit."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The point where a parabola turns — the minimum if a>0 or maximum if a<0 — located at x = -b/(2a) for standard form.",
       "choices": [
+        "negative association",
         "vertex",
-        "exponential decay graph",
-        "factoring method",
-        "parabola"
+        "minimum value",
+        "axis of symmetry"
       ],
       "correctText": "vertex",
       "explanation": "Vertex is the parabola's turning point. Worked example: y=x^2-6x+5 has vertex at x = -(-6)/(2*1) = 3, then y = 9-18+5 = -4, so vertex (3, -4). NY F-IF.4 and F-IF.7 require finding vertices. In vertex form y=a(x-h)^2+k, the vertex is (h, k) directly. Regents items ask for vertex coordinates and their meaning in context (maximum profit, peak height of a projectile)."
@@ -2834,9 +2834,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The vertical line x = -b/(2a) passing through the vertex, around which the parabola is mirror-symmetric.",
       "choices": [
-        "parabola",
-        "inequality symbol",
-        "vertex",
+        "minimum value",
+        "factoring method",
+        "survey bias",
         "axis of symmetry"
       ],
       "correctText": "axis of symmetry",
@@ -2856,10 +2856,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The smallest y-value on a parabola opening upward, equal to the y-coordinate of the vertex.",
       "choices": [
-        "axis of symmetry",
-        "scatterplot",
         "minimum value",
-        "parabola"
+        "axis of symmetry",
+        "initial value",
+        "vertex"
       ],
       "correctText": "minimum value",
       "explanation": "Minimum occurs at the vertex when a>0. Worked example: y=x^2-4x+5 — vertex x = -(-4)/2 = 2, y = 4-8+5 = 1, so minimum is 1 at x=2. NY F-IF.4 covers extrema. In context, minimum might represent the lowest cost or smallest distance. Regents items provide quadratic models and ask 'What is the minimum value?' or 'When does the minimum occur?' Both questions reduce to finding the vertex coordinates."
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The closed-form solution x = (-b plus or minus sqrt(b^2-4ac)) / (2a) for solving any quadratic equation ax^2+bx+c=0.",
       "choices": [
-        "polynomial operation",
+        "intersection point",
+        "square root method",
         "quadratic formula",
-        "completing the square",
-        "turning point"
+        "discriminant"
       ],
       "correctText": "quadratic formula",
       "explanation": "The quadratic formula always works. Worked example: solve x^2-6x+5=0 with a=1, b=-6, c=5 — x = (6 plus or minus sqrt(36-20))/2 = (6 plus or minus 4)/2, so x=5 or x=1. NY A-REI.4 explicitly cites this formula. It is provided on the NY Algebra 1 Reference Sheet during the Regents. Use it when factoring fails or roots are irrational. The discriminant under the radical tells how many real solutions exist."
@@ -2901,9 +2901,9 @@
       "prompt": "Another name for the vertex of a parabola — the precise location where the function transitions from increasing to decreasing or vice versa.",
       "choices": [
         "turning point",
-        "quadratic formula",
-        "inverse operation",
-        "square root method"
+        "completing the square",
+        "square root method",
+        "polynomial operation"
       ],
       "correctText": "turning point",
       "explanation": "Turning point synonymous with vertex. Worked example: y=-(x-2)^2+9 has its turning point at (2, 9), where the function changes from increasing to decreasing (max). NY F-IF.4 uses this terminology. Quadratics have exactly one turning point; cubics may have two; quartics may have three. Regents items use 'turning point' interchangeably with 'vertex' — calculate x=-b/(2a) and substitute back for y."
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The technique of rewriting ax^2+bx+c by adding and subtracting (b/2)^2 to produce a perfect-square trinomial inside a binomial-squared form.",
       "choices": [
-        "quadratic formula",
-        "parabola",
         "discriminant",
-        "completing the square"
+        "exponential factor",
+        "completing the square",
+        "quadratic formula"
       ],
       "correctText": "completing the square",
       "explanation": "Completing the square converts to vertex form. Worked example: x^2-6x+5 — take half of -6 (which is -3), square (9), add and subtract: (x^2-6x+9)-9+5 = (x-3)^2-4. NY A-REI.4 covers this method. The resulting form (x-3)^2-4 reveals vertex (3,-4) directly. Regents items test completing the square for solving equations and converting to vertex form for graphing."
@@ -2944,10 +2944,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solving quadratic equations of the form (x-h)^2 = k by taking the square root of both sides, yielding x-h = plus or minus sqrt(k).",
       "choices": [
-        "turning point",
         "discriminant",
-        "square root method",
-        "verbal model"
+        "turning point",
+        "reasonable solution",
+        "square root method"
       ],
       "correctText": "square root method",
       "explanation": "Square root method works on isolated squared terms. Worked example: (x-3)^2 = 16 — take square root: x-3 = plus or minus 4, so x = 3 plus or minus 4 = 7 or -1. NY A-REI.4 includes this method. Don't forget the plus or minus — both roots must be reported. Regents items often present equations already in the form (x-h)^2=k or convert into this form via completing the square."
@@ -2966,10 +2966,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The expression b^2-4ac inside the quadratic-formula radical that determines the number and type of solutions to ax^2+bx+c=0.",
       "choices": [
-        "turning point",
+        "completing the square",
         "discriminant",
-        "quadratic formula",
-        "percent increase"
+        "square root method",
+        "boundary point"
       ],
       "correctText": "discriminant",
       "explanation": "Discriminant reveals solution count. Worked example: for x^2-4x+3=0, discriminant = 16-12 = 4 > 0, so 2 real solutions. For x^2-4x+4=0, discriminant = 0, so 1 real solution (a double root). For x^2+x+1=0, discriminant = 1-4 = -3 < 0, so no real solutions. NY A-REI.4 expects students to use this. Regents items test 'how many real solutions' — compute discriminant only, no need to find the solutions themselves."
@@ -2990,8 +2990,8 @@
       "choices": [
         "intercept form",
         "constant term",
-        "sequence representation",
-        "standard form"
+        "standard form",
+        "unit conversion"
       ],
       "correctText": "standard form",
       "explanation": "Standard form makes y-intercept obvious. Worked example: y=2x^2-3x+5 has a=2, b=-3, c=5; the y-intercept is (0, 5). NY F-IF.7 requires graphing from standard form. Compute the axis of symmetry as x=-b/(2a), find vertex, then plot symmetric points. Regents items present quadratics in standard form for the quadratic formula and for identifying the y-intercept directly."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quadratic form y=a(x-h)^2+k, where (h, k) is the vertex of the parabola, useful for direct identification of the turning point.",
       "choices": [
-        "constant term",
+        "perfect square",
+        "standard form",
         "vertex form",
-        "intercept form",
-        "rate of change"
+        "leading coefficient sign"
       ],
       "correctText": "vertex form",
       "explanation": "Vertex form puts the vertex on display. Worked example: y=3(x-2)^2-7 has vertex (2, -7) — read directly. NY F-IF.7 covers vertex form. Convert from standard via completing the square. The a value still indicates opening direction (a>0 up, a<0 down) and width (|a|>1 narrower, |a|<1 wider). Regents items provide vertex form to test direct extraction of (h, k) and to verify transformations from the parent y=x^2."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The quadratic form y=a(x-p)(x-q), where p and q are the x-intercepts (zeros) of the parabola.",
       "choices": [
-        "rounding instruction",
-        "standard form",
         "intercept form",
-        "constant term"
+        "cube root",
+        "constant term",
+        "standard form"
       ],
       "correctText": "intercept form",
       "explanation": "Intercept form exposes the zeros. Worked example: y=2(x-1)(x+3) has x-intercepts (1, 0) and (-3, 0). NY F-IF.7 supports this form. The axis of symmetry is the average of p and q: x=(p+q)/2. Then substitute to find the vertex y. Regents items provide graphs with marked intercepts and ask students to write the equation in factored form — multiply (x - p)(x - q) and adjust a using a third point."
@@ -3054,10 +3054,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The plus or minus sign on a in y=ax^2+bx+c, which determines whether the parabola opens upward (positive a) or downward (negative a).",
       "choices": [
-        "graphing method",
-        "leading coefficient sign",
+        "constant rate",
+        "constant term",
         "standard form",
-        "constant term"
+        "leading coefficient sign"
       ],
       "correctText": "leading coefficient sign",
       "explanation": "Leading coefficient sign predicts shape. Worked example: y=x^2 (a=1, positive) opens upward; y=-2x^2+5 (a=-2, negative) opens downward. NY F-IF.7 connects this to graph behavior. The vertex is a minimum when a>0 and a maximum when a<0. Regents items use leading coefficient sign to interpret context — a negative coefficient in a projectile motion model h=-16t^2+v0t+h0 reflects gravity pulling down."
@@ -3077,9 +3077,9 @@
       "prompt": "The c in standard-form y=ax^2+bx+c, equal to the y-intercept and to the value of y when x=0.",
       "choices": [
         "leading coefficient sign",
-        "equivalent form",
+        "intercept form",
         "constant term",
-        "vertex form"
+        "vertical line"
       ],
       "correctText": "constant term",
       "explanation": "Constant term is the y-intercept. Worked example: y=2x^2-3x+7 has constant 7 and crosses the y-axis at (0, 7). NY F-IF.7 and F-IF.4 cover this. Substitute x=0 to verify: y=0-0+7=7. In context, the constant might be the initial value, starting balance, or launch height. Regents items use the constant for quick y-intercept reading in both linear and quadratic models."
@@ -3098,10 +3098,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An input value where the function output equals zero; for y=f(x), a zero is any x making f(x)=0.",
       "choices": [
-        "maximum value",
-        "average rate of change",
         "zero of a function",
-        "slope-intercept swap"
+        "average rate of change",
+        "constraint",
+        "maximum value"
       ],
       "correctText": "zero of a function",
       "explanation": "Zero is where the graph crosses the x-axis. Worked example: zeros of f(x)=x^2-9 are x=3 and x=-3 because f(3)=0 and f(-3)=0. NY A-APR.3 and F-IF.7 connect zeros to graphs. Zeros are also called roots, solutions, or x-intercepts. Regents items use these terms interchangeably. Find zeros by factoring, using the quadratic formula, or reading the graph. For a quadratic, the number of real zeros equals 0, 1, or 2 depending on the discriminant."
@@ -3120,10 +3120,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The set of all input values for a quadratic function, which is all real numbers when the function has no contextual restriction.",
       "choices": [
+        "range of parabola",
         "average rate of change",
-        "inequality graph",
         "domain of parabola",
-        "range of parabola"
+        "equivalent expression"
       ],
       "correctText": "domain of parabola",
       "explanation": "Parabolic functions have unrestricted algebraic domain. Worked example: y=x^2-4x+5 has domain all real numbers. NY F-IF.5 requires interpreting domain in context — a projectile-height function h(t)=-16t^2+64t+5 has domain t is greater-than-or-equal 0 (time cannot be negative) and t less-than-or-equal time-of-landing. Regents modeling items expect a restricted domain matching the situation; pure algebraic items take all reals."
@@ -3143,9 +3143,9 @@
       "prompt": "The set of output values a quadratic can produce; for y=a(x-h)^2+k with a>0, range is y is greater-than-or-equal k; with a<0, y less-than-or-equal k.",
       "choices": [
         "maximum value",
-        "average rate of change",
+        "domain of parabola",
         "range of parabola",
-        "unit conversion"
+        "exponential factor"
       ],
       "correctText": "range of parabola",
       "explanation": "Parabola range bounded by vertex y-value. Worked example: y=(x-3)^2+2 has vertex (3, 2) and opens up, so range is y is greater-than-or-equal 2. y=-2(x+1)^2+8 has vertex (-1, 8) and opens down, so range is y less-than-or-equal 8. NY F-IF.5 requires this. Regents items ask for range in interval-like form using inequalities. Always determine vertex y-value first, then apply the opening direction to bound y above or below."
@@ -3164,10 +3164,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The largest y-value on a parabola opening downward, equal to the y-coordinate of the vertex.",
       "choices": [
-        "zero of a function",
-        "range of parabola",
-        "negative association",
-        "maximum value"
+        "growth factor",
+        "average rate of change",
+        "maximum value",
+        "domain of parabola"
       ],
       "correctText": "maximum value",
       "explanation": "Maximum occurs at the vertex when a<0. Worked example: y=-x^2+6x-5 — vertex x = -6/(-2) = 3, y = -9+18-5 = 4, so max is 4 at x=3. NY F-IF.4 covers extrema. In projectile motion h(t)=-16t^2+v0t+h0, the maximum height is reached at the vertex. Regents items ask 'What is the maximum height?' (the y-value) and 'At what time?' (the x-value) — answer both with units."
@@ -3186,10 +3186,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The slope between two specific points (x1, f(x1)) and (x2, f(x2)) on a function, computed as (f(x2)-f(x1))/(x2-x1).",
       "choices": [
-        "range of parabola",
+        "average rate of change",
         "zero of a function",
-        "zero exponent",
-        "average rate of change"
+        "range of parabola",
+        "x-intercept"
       ],
       "correctText": "average rate of change",
       "explanation": "Average rate of change is slope between two points. Worked example: for f(x)=x^2 between x=1 and x=4, rate = (16-1)/(4-1) = 5. NY F-IF.6 requires this computation. For linear functions the average rate of change is constant (equal to the slope) regardless of the interval. For quadratics it varies — closer to the vertex, slower change; farther, faster change. Regents items test this on quadratic and exponential functions."
@@ -3208,10 +3208,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A quadratic function h(t)=-16t^2+v0*t+h0 (in feet) describing an object's height as it travels under gravity, where v0 is initial velocity and h0 is initial height.",
       "choices": [
-        "revenue model",
-        "reasonable solution",
+        "projectile height model",
+        "substitution method",
         "symmetry argument",
-        "projectile height model"
+        "revenue model"
       ],
       "correctText": "projectile height model",
       "explanation": "Projectile motion uses standard physics quadratic. Worked example: a ball launched from 5 ft with initial velocity 64 ft/s — h(t) = -16t^2+64t+5. Vertex t = -64/(2*-16) = 2 s, max height h(2) = -64+128+5 = 69 ft. NY F-IF.4 and A-CED.2 cover this. Regents items routinely use this model. The -16 coefficient comes from half the acceleration of gravity. Set h(t)=0 to find when the object lands."
@@ -3230,10 +3230,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An optimization problem where a quadratic function expresses the area of a figure with one variable dimension, and the maximum is found at the vertex.",
       "choices": [
-        "doubling time",
-        "area maximization",
-        "time at ground level",
-        "projectile height model"
+        "standard form",
+        "symmetry argument",
+        "projectile height model",
+        "area maximization"
       ],
       "correctText": "area maximization",
       "explanation": "Maximize area by finding the vertex. Worked example: 100 ft of fence makes a rectangular pen with width w and length 50-w (using all fencing on 3 sides against a wall). Area = w(50-w) = -w^2+50w. Vertex w=25 gives area 625 sq ft. NY A-CED.2 and F-IF.4 cover this modeling. Regents items present a fencing or boundary constraint and ask for the dimensions producing maximum area — find vertex of the area function."
@@ -3253,9 +3253,9 @@
       "prompt": "A quadratic function R(p) = p * D(p), where D(p) is a linear demand function, capturing how revenue depends on price.",
       "choices": [
         "projectile height model",
-        "intersection point",
-        "area maximization",
-        "revenue model"
+        "revenue model",
+        "time at ground level",
+        "factoring choice"
       ],
       "correctText": "revenue model",
       "explanation": "Revenue is price times quantity sold, often quadratic. Worked example: D(p)=200-5p (quantity decreases as price rises), so R(p) = p(200-5p) = -5p^2+200p. Vertex p = -200/(2*-5) = 20, max revenue R(20) = $2000. NY A-CED.2 covers this. Regents items use demand-price relationships in business contexts; the maximum revenue occurs at the vertex price, not at the highest or lowest price."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The x-intercept of a projectile-height function — the time when h(t)=0, found via factoring or the quadratic formula.",
       "choices": [
-        "area maximization",
-        "area model",
         "time at ground level",
-        "projectile height model"
+        "projectile height model",
+        "area maximization",
+        "total cost model"
       ],
       "correctText": "time at ground level",
       "explanation": "Ground time is when h=0. Worked example: for h(t)=-16t^2+48t+64, set 0=-16t^2+48t+64, divide by -16: t^2-3t-4=0, factor (t-4)(t+1)=0, so t=4 or t=-1. Reject t=-1 (negative time). The object hits the ground at t=4 seconds. NY A-CED.3 and A-REI.4 cover this. Regents items emphasize the meaningful root — reject negative time values."
@@ -3298,8 +3298,8 @@
       "choices": [
         "symmetry argument",
         "area maximization",
-        "projectile height model",
-        "intercept form"
+        "x-intercept",
+        "projectile height model"
       ],
       "correctText": "symmetry argument",
       "explanation": "Symmetry maps points across the axis. Worked example: for y=x^2-6x+5 (axis x=3), the values y(1) and y(5) are equal — both inputs are 2 units from the axis (y(1)=0 and y(5)=0). NY F-IF.4 supports this reasoning. Regents items occasionally ask students to predict a function value using symmetry without computing directly. Pair up symmetric inputs to verify or to fill in missing table values."
@@ -3318,10 +3318,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A function of the form f(x)=a*b^x where a is the initial value, b is the constant base, and x is the exponent input.",
       "choices": [
-        "exponential function",
         "base",
-        "initial value",
-        "equation solving"
+        "exponential function",
+        "reversal rule",
+        "decay factor"
       ],
       "correctText": "exponential function",
       "explanation": "Exponential functions multiply by the same factor each step. Worked example: f(x)=100(1.05)^x grows by 5% per period; f(0)=100, f(1)=105, f(2)=110.25. NY F-LE.1-2 and F-IF.7 cover exponentials. The base b is positive and not equal to 1; b>1 means growth, 0<b<1 means decay. Regents items distinguish exponential from linear: exponential uses a constant ratio, linear uses a constant difference."
@@ -3340,10 +3340,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The constant multiplicative factor b in f(x)=a*b^x, indicating the per-period growth (b>1) or decay (0<b<1) factor.",
       "choices": [
+        "base",
+        "exponential function",
         "initial value",
-        "common binomial factor",
-        "growth factor",
-        "base"
+        "checking ordered pair"
       ],
       "correctText": "base",
       "explanation": "Base is the per-step multiplier. Worked example: in y=8*(1.10)^x the base 1.10 means 10% growth per period; in y=400*(0.85)^x the base 0.85 means 15% decay. NY F-LE.5 covers interpreting parameters. The base must be positive and not equal to 1. Regents items often write the base as 1+r for growth or 1-r for decay; identify r from the base value to interpret in context."
@@ -3363,9 +3363,9 @@
       "prompt": "The output of an exponential function when the input is zero — equal to a in f(x)=a*b^x — representing the starting amount.",
       "choices": [
         "initial value",
-        "base",
-        "exponential function",
-        "horizontal asymptote"
+        "verbal model",
+        "growth factor",
+        "base"
       ],
       "correctText": "initial value",
       "explanation": "Initial value is f(0). Worked example: f(x)=200*(1.04)^x has initial value 200; at x=0, f(0)=200*1=200. NY F-LE.5 covers this. In context (savings, population, drug concentration), the initial value is the starting amount before any growth/decay occurs. Regents items provide a context and ask 'what is the initial value' — read off the coefficient a or compute f(0) directly. Always include units (dollars, people, mg)."
@@ -3384,10 +3384,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The base b in an exponential growth model where b>1, equivalent to 1+r where r is the decimal growth rate per period.",
       "choices": [
-        "initial value",
-        "quotient rule",
-        "growth factor",
-        "exponential function"
+        "decay factor",
+        "constraint interpretation",
+        "exponential function",
+        "growth factor"
       ],
       "correctText": "growth factor",
       "explanation": "Growth factor is the base above 1. Worked example: a 7% annual growth has factor 1.07; a doubling per year has factor 2. NY F-LE.5 covers this. From a factor, recover the rate: factor 1.12 means 12% growth (r=0.12). Regents items use compound growth in interest, populations, and biological models. The factor multiplies each period, producing exponential growth that beats any linear function eventually."
@@ -3406,10 +3406,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The base b in an exponential decay model where 0<b<1, equivalent to 1-r where r is the decimal decay rate per period.",
       "choices": [
-        "point-slope form",
-        "decay factor",
-        "growth factor",
-        "exponential function"
+        "base",
+        "projectile height model",
+        "exponential function",
+        "decay factor"
       ],
       "correctText": "decay factor",
       "explanation": "Decay factor is the base below 1. Worked example: 8% annual decline has factor 0.92; halving per period has factor 0.5. NY F-LE.5 covers this. From a factor, recover the rate: factor 0.93 means 7% decay (r=0.07). Regents items use this for depreciation (cars, equipment), radioactive decay, and medicine clearance. Each period multiplies by the factor, producing exponential decline that approaches zero but never reaches it."
@@ -3428,10 +3428,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The relative growth of a quantity, computed as (new-old)/old times 100%, used to interpret the growth factor in exponential models.",
       "choices": [
-        "percent increase",
-        "doubling time",
         "compound interest",
-        "perpendicular lines"
+        "doubling time",
+        "percent increase",
+        "equivalent form"
       ],
       "correctText": "percent increase",
       "explanation": "Percent increase from old to new. Worked example: value rises from 50 to 65 — increase = (65-50)/50 = 0.30 = 30%. NY 7.RP.3 introduces this; F-LE.5 ties it to exponentials. The exponential model after a 30% rise has factor 1.30. Regents items convert between factor (e.g., 1.15) and percent increase (15%). Common error: subtracting only — (new-old) does not give percent; divide by old and multiply by 100."
@@ -3450,10 +3450,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The relative shrinking of a quantity, computed as (old-new)/old times 100%, used to interpret the decay factor in exponential models.",
       "choices": [
-        "percent decrease",
-        "compound interest",
+        "scientific notation",
+        "half-life",
         "percent increase",
-        "contradiction equation"
+        "percent decrease"
       ],
       "correctText": "percent decrease",
       "explanation": "Percent decrease from old to new. Worked example: value drops from 200 to 150 — decrease = (200-150)/200 = 0.25 = 25%. NY 7.RP.3 introduces this; F-LE.5 connects to exponentials. A 25% decay has factor 0.75 (since 1-0.25=0.75). Regents items convert between factor (e.g., 0.88) and percent decrease (12%). Always divide by the ORIGINAL value, not the new one."
@@ -3472,10 +3472,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Interest computed on both the principal and the accumulated previous interest, modeled as A=P*(1+r/n)^(n*t).",
       "choices": [
-        "symbolic expression",
+        "compound interest",
         "half-life",
-        "percent decrease",
-        "compound interest"
+        "unit conversion",
+        "percent increase"
       ],
       "correctText": "compound interest",
       "explanation": "Compound interest grows exponentially. Worked example: $1000 at 5% annual interest compounded yearly for 3 years — A=1000*(1.05)^3 about $1157.63. For monthly compounding: A=1000*(1+0.05/12)^(12*3) about $1161.47. NY F-LE.5 and A-SSE.3 cover this. The Reference Sheet may include this formula. Regents items typically use annual compounding for simplicity, but vary the rate, principal, and time."
@@ -3495,9 +3495,9 @@
       "prompt": "The time required for a decaying quantity to fall to half its original value, used to characterize exponential decay rates.",
       "choices": [
         "half-life",
-        "percent decrease",
-        "point-slope form",
-        "compound interest"
+        "leading coefficient",
+        "compound interest",
+        "percent increase"
       ],
       "correctText": "half-life",
       "explanation": "Half-life is the period for 50% reduction. Worked example: a substance with half-life 10 years and initial mass 100 g satisfies A(t) = 100*(0.5)^(t/10). After 30 years (3 half-lives), A = 100*0.125 = 12.5 g. NY F-LE.5 covers half-life modeling. Regents items use half-life with radioactive substances and medicines. The decay factor per half-life is 0.5; per other time units, the factor adjusts via the exponent."
@@ -3516,10 +3516,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The time required for an exponentially growing quantity to twice its original value, used to characterize exponential growth rates.",
       "choices": [
-        "percent increase",
+        "half-life",
         "doubling time",
-        "substitution method",
-        "compound interest"
+        "compound interest",
+        "perpendicular lines"
       ],
       "correctText": "doubling time",
       "explanation": "Doubling time is the period for 100% increase. Worked example: a population with doubling time 8 years and initial value 500 satisfies P(t) = 500*2^(t/8). After 24 years (3 doubling periods), P = 500*8 = 4000. NY F-LE.5 covers this. The growth factor per doubling time is 2. Regents items use doubling time with bacterial growth, population, and investment scenarios; the formula structure parallels half-life with base 2 instead of 0.5."
@@ -3539,9 +3539,9 @@
       "prompt": "A horizontal line that an exponential graph approaches but never crosses, typically y=0 for f(x)=a*b^x.",
       "choices": [
         "horizontal asymptote",
+        "common ratio",
         "exponential decay graph",
-        "multiplicative rate",
-        "inverse operation"
+        "y-intercept"
       ],
       "correctText": "horizontal asymptote",
       "explanation": "Asymptote is the limit line. Worked example: f(x)=2^x approaches but never reaches y=0 as x decreases; the horizontal asymptote is y=0. NY F-IF.7 covers this feature. For f(x)=3*(0.5)^x+4, the asymptote shifts to y=4. The asymptote is determined by the vertical shift, not by the base or initial value. Regents items expect students to identify asymptotes from graphs and from equations; they bound the range."
@@ -3560,10 +3560,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A curve that rises steeply to the upper right and approaches a horizontal asymptote on the left, characteristic of f(x)=a*b^x with b>1.",
       "choices": [
-        "y-intercept",
-        "decay factor",
+        "break-even model",
+        "exponential growth graph",
         "multiplicative rate",
-        "exponential growth graph"
+        "horizontal asymptote"
       ],
       "correctText": "exponential growth graph",
       "explanation": "Growth graphs increase rapidly. Worked example: f(x)=2^x passes through (0,1), (1,2), (2,4), (3,8) — quadrupling every two units. NY F-IF.7 requires graphing exponentials. The shape is concave up, with slope increasing without bound. Regents items present growth graphs and ask students to identify the base or to write the equation given two points. The y-intercept equals a (initial value)."
@@ -3582,10 +3582,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A curve that falls rapidly from the upper left and approaches a horizontal asymptote on the right, characteristic of f(x)=a*b^x with 0<b<1.",
       "choices": [
-        "exponential decay graph",
         "multiplicative rate",
-        "contradiction equation",
-        "y-intercept"
+        "exponential decay graph",
+        "exponential growth graph",
+        "vertex form"
       ],
       "correctText": "exponential decay graph",
       "explanation": "Decay graphs decrease toward an asymptote. Worked example: f(x)=8*(0.5)^x passes through (0,8), (1,4), (2,2), (3,1) — halving every unit. NY F-IF.7 covers decay graphs. Same overall shape as growth but reflected: starts high, falls fast, then levels off. Regents items distinguish decay (b<1, falling) from growth (b>1, rising) at a glance. The y-intercept always equals a, regardless of growth or decay."
@@ -3604,10 +3604,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The point (0, a) where an exponential graph f(x)=a*b^x crosses the y-axis, equal to the initial value a.",
       "choices": [
-        "horizontal asymptote",
         "y-intercept",
-        "linear rate",
-        "exponential growth graph"
+        "exponential growth graph",
+        "equivalent equation",
+        "multiplicative rate"
       ],
       "correctText": "y-intercept",
       "explanation": "Y-intercept of exponential is initial value. Worked example: f(x)=50*(1.04)^x has y-intercept (0, 50) because f(0)=50*1=50. NY F-IF.4 covers this feature. The y-intercept is unaffected by the base; the base only controls the curve's shape and direction. Regents items use y-intercept to test whether students understand initial value as the coefficient a in the exponential form."
@@ -3626,10 +3626,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The base b in an exponential function, describing how the output is multiplied per unit increase in input.",
       "choices": [
-        "multiplicative pattern",
+        "table pattern",
+        "multiplicative rate",
         "exponential decay graph",
-        "exponential growth graph",
-        "multiplicative rate"
+        "horizontal asymptote"
       ],
       "correctText": "multiplicative rate",
       "explanation": "Multiplicative rate distinguishes exponential from linear. Worked example: f(x)=8*(1.5)^x multiplies by 1.5 each step — f(0)=8, f(1)=12, f(2)=18, f(3)=27. NY F-LE.1 distinguishes constant difference (linear) from constant ratio (exponential). Regents items test recognition: if a table shows consecutive ratios of 1.5, 1.5, 1.5, the function is exponential with base 1.5, not linear."
@@ -3648,10 +3648,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A list of numbers where each term is the previous term times a constant common ratio, like 3, 6, 12, 24 with ratio 2.",
       "choices": [
-        "geometric sequence",
-        "explicit formula",
-        "standard form",
-        "recursive formula"
+        "term number",
+        "common ratio",
+        "residual",
+        "geometric sequence"
       ],
       "correctText": "geometric sequence",
       "explanation": "Geometric sequences are discrete exponentials. Worked example: 5, 10, 20, 40, 80 has common ratio 2; the n-th term is a_n = 5*2^(n-1). NY F-LE.2 and F-IF.3 cover sequences. Geometric sequences have constant ratios between consecutive terms, while arithmetic sequences have constant differences. Regents items ask for the n-th term given the first few values — identify a_1 and r, then write a_n = a_1*r^(n-1)."
@@ -3671,9 +3671,9 @@
       "prompt": "A rule defining each term using the previous term, like a_n = a_(n-1)*r for geometric sequences and a_1 specified separately.",
       "choices": [
         "recursive formula",
-        "parabola",
-        "explicit formula",
-        "common ratio"
+        "boundary point",
+        "term number",
+        "geometric sequence"
       ],
       "correctText": "recursive formula",
       "explanation": "Recursive formulas reference earlier terms. Worked example: for sequence 3, 12, 48, 192, the recursive formula is a_1=3, a_n=4*a_(n-1) for n>1. NY F-IF.3 introduces recursion. Recursive is good for computing nearby terms; explicit is better for far terms. Regents items present both forms and may ask students to convert between them. Always include the initial condition (a_1 or a_0) — the recursive rule alone is incomplete."
@@ -3692,10 +3692,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A direct formula for the n-th term in terms of n alone, like a_n = a_1 * r^(n-1) for geometric or a_n = a_1 + (n-1)d for arithmetic.",
       "choices": [
-        "common ratio",
         "explicit formula",
-        "scatterplot",
-        "geometric sequence"
+        "geometric sequence",
+        "term number",
+        "contradiction equation"
       ],
       "correctText": "explicit formula",
       "explanation": "Explicit formulas compute any term directly. Worked example: for 6, 18, 54, 162 (ratio 3, first term 6), the explicit formula is a_n = 6*3^(n-1); a_10 = 6*3^9 = 6*19683 = 118098. NY F-LE.2 covers explicit forms. Regents items often ask for a specific term (a_15 or a_20) — use the explicit formula rather than computing iteratively. Confirm the formula on a known term first."
@@ -3714,10 +3714,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The constant value r obtained by dividing any term in a geometric sequence by the previous term.",
       "choices": [
-        "recursive formula",
-        "term number",
+        "system constraint",
         "common ratio",
-        "table of values"
+        "recursive formula",
+        "term number"
       ],
       "correctText": "common ratio",
       "explanation": "Common ratio is the geometric multiplier. Worked example: for 4, 12, 36, 108, the common ratio is r = 12/4 = 36/12 = 108/36 = 3. NY F-LE.1-2 covers this. Verify the ratio between MULTIPLE consecutive pairs to confirm a geometric pattern. Regents items ask for the common ratio and may test whether a given sequence is arithmetic (constant difference), geometric (constant ratio), or neither."
@@ -3736,10 +3736,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The position index n of a value in a sequence; the first term is n=1, the second is n=2, etc.",
       "choices": [
-        "explicit formula",
-        "term number",
         "common ratio",
-        "inverse operation"
+        "term number",
+        "constraint",
+        "recursive formula"
       ],
       "correctText": "term number",
       "explanation": "Term number labels position. Worked example: in 5, 10, 20, 40 the term number 1 corresponds to 5, term number 4 to 40. NY F-IF.3 establishes the integer-domain convention for sequences. The term number is the input to the function a_n. Regents items distinguish term value (the output) from term number (the input). Sometimes sequences start at n=0 instead of n=1 — read the problem carefully."
@@ -3758,9 +3758,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A sequence or function where each term equals the previous one plus a constant, characteristic of arithmetic sequences and linear functions.",
       "choices": [
-        "constant difference",
-        "two-way table",
         "additive pattern",
+        "scale factor",
+        "model choice",
         "multiplicative pattern"
       ],
       "correctText": "additive pattern",
@@ -3780,10 +3780,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A sequence or function where each term equals the previous one times a constant, characteristic of geometric sequences and exponential functions.",
       "choices": [
-        "constant difference",
-        "parallel lines",
         "multiplicative pattern",
-        "model choice"
+        "survey bias",
+        "model choice",
+        "constant difference"
       ],
       "correctText": "multiplicative pattern",
       "explanation": "Multiplicative patterns indicate exponential behavior. Worked example: 3, 12, 48, 192 multiplies by 4 each time — geometric with common ratio 4. NY F-LE.1 distinguishes this from additive (linear) patterns. Exponential functions y=a*b^x grow multiplicatively: each unit of x multiplies y by b. Regents items contrast tables — constant first difference means linear, constant ratio means exponential. The pattern type determines which model fits."
@@ -3802,10 +3802,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The fixed value d obtained by subtracting consecutive terms in an arithmetic sequence, equal to the slope of the corresponding linear function.",
       "choices": [
-        "constant difference",
+        "model choice",
         "multiplicative pattern",
-        "additive pattern",
-        "zero of a function"
+        "constant difference",
+        "discriminant"
       ],
       "correctText": "constant difference",
       "explanation": "Constant difference is the additive step. Worked example: for 7, 11, 15, 19, the constant difference is 4 because each term increases by 4. NY F-LE.1 covers identification. Confirm by checking multiple consecutive differences. Regents items test this in arithmetic sequence identification — if differences are constant, the sequence is arithmetic; if not, try ratios for geometric or check for another pattern."
@@ -3824,10 +3824,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The fixed value r obtained by dividing consecutive terms in a geometric sequence, equal to the base of the corresponding exponential function.",
       "choices": [
-        "constant difference",
+        "leading coefficient sign",
         "constant ratio",
         "model choice",
-        "system solution"
+        "multiplicative pattern"
       ],
       "correctText": "constant ratio",
       "explanation": "Constant ratio is the multiplicative step. Worked example: for 2, 6, 18, 54, the constant ratio is 3 because each term is three times the previous. NY F-LE.1 covers identification. Verify by checking multiple consecutive ratios. Regents items test geometric vs arithmetic distinction — if ratios are constant (and differences are not), the sequence is geometric with that ratio."
@@ -3846,10 +3846,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The decision to use a linear or exponential function based on whether a data set shows constant first differences or constant ratios.",
       "choices": [
-        "line of best fit",
-        "model choice",
+        "constant ratio",
         "constant difference",
-        "multiplicative pattern"
+        "model choice",
+        "point-slope form"
       ],
       "correctText": "model choice",
       "explanation": "Model choice depends on pattern. Worked example: data (1,5), (2,10), (3,15), (4,20) has constant difference 5, so linear y=5x. Data (1,4), (2,8), (3,16), (4,32) has constant ratio 2, so exponential y=2^(x+1). NY F-LE.1-3 explicitly require model selection. Regents items present a table and ask students to choose; sometimes the answer is neither (e.g., quadratic), so check first AND second differences."
@@ -3868,9 +3868,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A graph plotting paired (x, y) data points on a coordinate plane to reveal possible association between two variables.",
       "choices": [
-        "dot plot",
-        "multiplicative pattern",
-        "histogram",
+        "standard form",
+        "two-way table",
+        "box plot",
         "scatterplot"
       ],
       "correctText": "scatterplot",
@@ -3891,9 +3891,9 @@
       "prompt": "A bar graph displaying the frequency of values within consecutive intervals (bins), used to visualize the distribution of a single quantitative variable.",
       "choices": [
         "scatterplot",
-        "histogram",
-        "two-way table",
-        "growth factor"
+        "dot plot",
+        "common binomial factor",
+        "histogram"
       ],
       "correctText": "histogram",
       "explanation": "Histograms summarize one-variable distributions. Worked example: 30 students' test scores divided into bins 60-69, 70-79, 80-89, 90-100 — bar heights show how many fall in each bin. NY S-ID.1 covers histograms. The shape (symmetric, skewed left, skewed right) and spread are key features. Regents items present histograms and ask about median location (skewed graphs have median pulled toward the longer tail)."
@@ -3912,10 +3912,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A five-number-summary display (min, Q1, median, Q3, max) showing the central 50% of data as a box and the tails as whiskers.",
       "choices": [
-        "two-way table",
-        "increasing function",
-        "dot plot",
-        "box plot"
+        "box plot",
+        "range",
+        "scatterplot",
+        "two-way table"
       ],
       "correctText": "box plot",
       "explanation": "Box plots show spread and skewness. Worked example: data 1, 3, 5, 7, 8, 10, 12, 15, 18, 20 has min=1, Q1=5, median=9, Q3=15, max=20 — box from 5 to 15 with median line at 9. NY S-ID.1-2 covers box plots. IQR = Q3-Q1 = 10 shows middle 50% range. Regents items compare two box plots side-by-side to discuss center, spread, and skew."
@@ -3934,9 +3934,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A simple frequency display where each data value is shown as a dot stacked above its position on a number line.",
       "choices": [
-        "two-way table",
+        "regression prediction",
+        "histogram",
         "dot plot",
-        "vertex",
         "box plot"
       ],
       "correctText": "dot plot",
@@ -3956,10 +3956,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A grid summarizing counts for two categorical variables — like male/female crossed with prefers-coffee/prefers-tea — supporting marginal and conditional analysis.",
       "choices": [
-        "dot plot",
-        "scatterplot",
-        "perfect square trinomial",
-        "two-way table"
+        "function notation",
+        "two-way table",
+        "box plot",
+        "scatterplot"
       ],
       "correctText": "two-way table",
       "explanation": "Two-way tables organize categorical data. Worked example: 50 students surveyed on coffee/tea by gender — table cells show counts in each combination. Marginal frequencies are row/column totals; conditional frequencies are row or column percentages. NY S-ID.5 covers two-way tables. Regents items ask 'What percent of females prefer tea?' — divide the cell value by the female row total."
@@ -3978,10 +3978,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The arithmetic average of a data set, computed as the sum of values divided by the count.",
       "choices": [
-        "outlier",
         "standard deviation",
-        "equivalent expression",
-        "mean"
+        "mean",
+        "interquartile range",
+        "regression prediction"
       ],
       "correctText": "mean",
       "explanation": "Mean is the balance point of data. Worked example: mean of 4, 7, 10, 13, 16 is (4+7+10+13+16)/5 = 50/5 = 10. NY S-ID.2 covers mean. The mean is sensitive to outliers — adding a value of 100 to the above set raises the mean substantially. Regents items contrast mean with median, especially in skewed distributions. The mean is appropriate for symmetric distributions; median is more robust for skewed or outlier-affected data."
@@ -4000,10 +4000,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The middle value of a data set arranged in order; for an even count, the average of the two middle values.",
       "choices": [
-        "dependent variable",
-        "outlier",
+        "simplest radical form",
+        "median",
         "mean",
-        "median"
+        "interquartile range"
       ],
       "correctText": "median",
       "explanation": "Median is the middle position. Worked example: median of 3, 7, 8, 12, 15 is 8 (the 3rd of 5 values). For 3, 7, 8, 12 the median is (7+8)/2 = 7.5. NY S-ID.2 covers median. Robust to outliers — adding a value of 100 to a small data set may shift mean substantially but barely affects median. Regents items prefer median over mean for skewed data. To find: order the values, identify the middle."
@@ -4022,10 +4022,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A measure of spread equal to Q3 - Q1, capturing the range of the middle 50% of the data and resistant to outliers.",
       "choices": [
-        "degree",
-        "standard deviation",
-        "interquartile range",
-        "outlier"
+        "population",
+        "outlier",
+        "mean",
+        "interquartile range"
       ],
       "correctText": "interquartile range",
       "explanation": "IQR is the middle 50% width. Worked example: for data with Q1=4 and Q3=12, IQR = 12-4 = 8. NY S-ID.2 covers IQR. Large IQR means data are spread out; small IQR means data cluster. Outliers (1.5*IQR beyond Q1 or Q3) are identified using this measure. Regents items use IQR to compare spreads of two distributions side-by-side (especially via box plots)."
@@ -4044,10 +4044,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A measure of how spread out data are from the mean, computed via sum of squared deviations and used with symmetric distributions.",
       "choices": [
-        "outlier",
-        "unit conversion",
+        "mean",
+        "median",
         "standard deviation",
-        "interquartile range"
+        "square root method"
       ],
       "correctText": "standard deviation",
       "explanation": "Standard deviation quantifies variability. Worked example: data 4, 6, 8, 10, 12 has mean 8; deviations from mean are -4, -2, 0, 2, 4; squared deviations 16, 4, 0, 4, 16; sample SD = sqrt(40/4) about 3.16. NY S-ID.2 covers SD. Larger SD means more variability. Regents items expect calculator computation of SD (1-Var Stats on TI-84) rather than manual calculation, but understanding the concept is required."
@@ -4066,10 +4066,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A data value lying far beyond the bulk of the data, typically more than 1.5*IQR below Q1 or above Q3, that disproportionately influences mean and SD.",
       "choices": [
-        "outlier",
         "mean",
-        "standard deviation",
-        "graph interpretation"
+        "interquartile range",
+        "outlier",
+        "scale factor"
       ],
       "correctText": "outlier",
       "explanation": "Outliers are extreme values. Worked example: in scores 70, 72, 75, 78, 80, 95, the value 95 may be an outlier if more than 1.5*IQR above Q3. NY S-ID.3 covers outliers. They pull the mean toward themselves but not the median. Regents items identify outliers from box plots (dots beyond whiskers) and discuss their effect on summary statistics. Outliers may indicate data errors or genuine extreme observations."
@@ -4088,10 +4088,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A statistical measure of the strength and direction of a linear relationship between two quantitative variables, ranging from -1 to 1.",
       "choices": [
-        "no solution",
-        "correlation",
+        "positive association",
         "no association",
-        "causation"
+        "constant term",
+        "correlation"
       ],
       "correctText": "correlation",
       "explanation": "Correlation r quantifies linear association. Worked example: r=0.95 indicates strong positive linear correlation; r=-0.40 indicates weak negative; r=0.02 indicates no linear correlation. NY S-ID.8 covers correlation. r close to plus or minus 1 means strong linear; r close to 0 means weak or no linear relationship. Regents items use calculator output. Note: correlation does not imply causation — a high r only describes linear association, not cause."
@@ -4110,10 +4110,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A relationship where changes in one variable produce changes in another, established only through controlled experiments and not implied by correlation alone.",
       "choices": [
-        "positive association",
-        "negative association",
-        "percent decrease",
-        "causation"
+        "no association",
+        "correlation",
+        "causation",
+        "same slope"
       ],
       "correctText": "causation",
       "explanation": "Causation requires more than correlation. Worked example: ice cream sales and drowning rates correlate (both rise in summer) but neither causes the other — temperature is a confounding variable. NY S-ID.9 explicitly distinguishes correlation and causation. Regents items present strong correlations and ask whether causation can be inferred — the answer is typically no without an experimental design ruling out confounders."
@@ -4132,10 +4132,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A pattern in bivariate data where larger x-values tend to come with larger y-values, producing an upward-sloping scatter pattern.",
       "choices": [
-        "no association",
+        "multiplicative rate",
         "positive association",
-        "correlation",
-        "maximum value"
+        "no association",
+        "negative association"
       ],
       "correctText": "positive association",
       "explanation": "Positive association means both increase together. Worked example: height vs weight in adults shows positive association — taller people tend to be heavier. NY S-ID.6 covers this terminology. Confirmed by a positive correlation coefficient and an upward-trending line of best fit. Regents items show scatterplots and ask for the type of association — look at the overall direction (upper-left to lower-right is negative, lower-left to upper-right is positive)."
@@ -4154,10 +4154,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A pattern in bivariate data where larger x-values tend to come with smaller y-values, producing a downward-sloping scatter pattern.",
       "choices": [
-        "positive association",
-        "correlation",
-        "square root method",
-        "negative association"
+        "no association",
+        "negative association",
+        "exponent denominator",
+        "correlation"
       ],
       "correctText": "negative association",
       "explanation": "Negative association means one rises as the other falls. Worked example: hours of TV vs test scores often shows negative association — more TV correlates with lower scores. NY S-ID.6 covers this. A negative correlation coefficient and a downward-trending line of best fit confirm it. Regents items present a scatterplot and ask students to identify direction; downward = negative."
@@ -4176,10 +4176,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The absence of a pattern in bivariate data, where x and y appear randomly distributed with no consistent direction.",
       "choices": [
-        "positive association",
         "no association",
         "causation",
-        "term number"
+        "turning point",
+        "positive association"
       ],
       "correctText": "no association",
       "explanation": "No association means r near zero. Worked example: shoe size vs intelligence shows no association — scatterplot is a random cloud. NY S-ID.6 covers this case. Correlation coefficient is close to 0. Regents items contrast random clouds (no association) with patterned scatter (some association). Be careful: nonlinear patterns (like quadratic) can have r near 0 — no LINEAR association does not mean no relationship at all."
@@ -4198,10 +4198,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A line drawn through a scatter plot to model the linear relationship between x and y, computed via least-squares regression on a calculator.",
       "choices": [
-        "exponential factor",
-        "least squares regression",
-        "correlation coefficient",
-        "line of best fit"
+        "prediction",
+        "line of best fit",
+        "common binomial factor",
+        "least squares regression"
       ],
       "correctText": "line of best fit",
       "explanation": "Line of best fit summarizes a scatter. Worked example: for data (1,3), (2,5), (3,6), (4,8), the calculator's LinReg returns y about 1.6x+1.5. NY S-ID.6 covers this. The line minimizes the sum of squared residuals (vertical distances from points to line). Regents items provide bivariate data and ask students to compute and interpret the line — slope and y-intercept have context-specific meanings (per-unit change and starting value)."
@@ -4220,10 +4220,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The vertical distance from an observed data point to the line of best fit, computed as observed minus predicted (y - y_hat).",
       "choices": [
+        "polynomial subtraction",
+        "residual",
         "prediction",
-        "population",
-        "line of best fit",
-        "residual"
+        "correlation coefficient"
       ],
       "correctText": "residual",
       "explanation": "Residuals measure prediction error. Worked example: observed point (3, 7) with predicted y=6.5 from the line yields residual 7-6.5 = +0.5 (point is above the line). NY S-ID.6b covers residuals. A residual plot (residuals vs x) should appear random for a good linear fit; patterns indicate the model is wrong. Regents items compute residuals and use residual plots to assess model fit."
@@ -4242,10 +4242,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The value r between -1 and 1 reporting the strength and direction of a linear relationship, with |r| close to 1 indicating strong linear association.",
       "choices": [
-        "residual",
+        "total cost model",
+        "correlation coefficient",
         "line of best fit",
-        "difference of squares",
-        "correlation coefficient"
+        "prediction"
       ],
       "correctText": "correlation coefficient",
       "explanation": "Correlation coefficient r reports linear strength. Worked example: r=0.92 is a strong positive linear correlation; r=-0.78 is a moderately strong negative correlation. NY S-ID.8 requires computing r via calculator and interpreting it. The closer to plus or minus 1, the better a line fits the data. Regents items present r values and ask for interpretations — be careful: high r does NOT mean the linear model is the best one, only that it fits decently."
@@ -4264,10 +4264,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The mathematical procedure for finding the line that minimizes the sum of squared vertical distances from data points to the line.",
       "choices": [
-        "prediction",
-        "product rule",
         "line of best fit",
-        "least squares regression"
+        "least squares regression",
+        "x-intercept",
+        "correlation coefficient"
       ],
       "correctText": "least squares regression",
       "explanation": "Least squares produces the best-fit line. Worked example: the TI-84 LinReg command computes the slope and y-intercept that minimize the sum of (y - y_hat)^2 across all data points. NY S-ID.6 covers this method conceptually. Regents items rely on calculator computation; students use LinReg or STAT-CALC to get the regression line, then report slope and y-intercept with context interpretation."
@@ -4286,8 +4286,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The use of a regression equation to estimate a y-value for a given x within the range of the original data (interpolation).",
       "choices": [
-        "zero exponent",
-        "residual",
+        "line of best fit",
+        "break-even point",
         "correlation coefficient",
         "prediction"
       ],
@@ -4308,10 +4308,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A subset of a population from which data are collected, used to make inferences about the larger population.",
       "choices": [
-        "checking a solution",
+        "maximum value",
+        "survey bias",
         "population",
-        "sample",
-        "data distribution"
+        "sample"
       ],
       "correctText": "sample",
       "explanation": "Samples represent populations. Worked example: surveying 200 high school students about study habits estimates behavior of all high school students. NY S-IC.1 covers sampling. A sample must be representative (random and large enough) to support valid inference. Regents items distinguish sample from population and ask whether a sampling method is biased — convenience samples (friends, classmates) typically are biased."
@@ -4331,9 +4331,9 @@
       "prompt": "The complete group of subjects or items about which conclusions are drawn from sample data.",
       "choices": [
         "interpretive statement",
-        "survey bias",
-        "reasonable solution",
-        "population"
+        "population",
+        "difference of squares",
+        "sample"
       ],
       "correctText": "population",
       "explanation": "Population is the target group. Worked example: all registered voters in New York is a population; a 1000-voter poll is a sample from it. NY S-IC.1 covers this distinction. Inference moves from sample (computed statistics) to population (unknown parameters). Regents items state a question (e.g., 'What percent of all 11th graders study at least 2 hours?') and assess whether a sample is appropriate to answer it."
@@ -4352,10 +4352,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A systematic distortion in collected data caused by flawed sampling, wording, or response patterns, undermining the validity of conclusions.",
       "choices": [
+        "interpretive statement",
+        "same slope",
         "survey bias",
-        "data distribution",
-        "factored form",
-        "interpretive statement"
+        "population"
       ],
       "correctText": "survey bias",
       "explanation": "Bias skews survey results. Worked example: asking only honor-roll students about study habits biases the result toward longer study times. NY S-IC.3 covers bias types: selection (non-random sample), non-response (only certain people respond), response (leading questions). Regents items present a sampling scenario and ask 'What bias is present?' or 'Is this survey representative?'"
@@ -4374,10 +4374,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The overall pattern of how values are spread in a data set, described by shape, center, and spread.",
       "choices": [
-        "interpretive statement",
-        "inequality graph",
+        "survey bias",
+        "literal rearrangement",
         "data distribution",
-        "survey bias"
+        "interpretive statement"
       ],
       "correctText": "data distribution",
       "explanation": "Distribution describes data shape. Worked example: a test score distribution may be symmetric (bell-shaped), skewed right (long tail toward high scores), or skewed left (long tail toward low). NY S-ID.1-3 covers distributions. Center (mean or median) reports typical value, spread (IQR, SD, range) reports variability, shape reports asymmetry. Regents items use this vocabulary to describe histograms and box plots."
@@ -4396,9 +4396,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A written sentence connecting a statistical result (slope, intercept, correlation, prediction) to the real-world context, required for full credit on constructed-response items.",
       "choices": [
-        "population",
-        "contradiction equation",
+        "data distribution",
         "interpretive statement",
+        "discriminant",
         "survey bias"
       ],
       "correctText": "interpretive statement",
@@ -4418,10 +4418,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The end-to-end process of using Properties of Equality and inverse operations to isolate the variable in a linear or quadratic equation.",
       "choices": [
-        "equation solving",
+        "factoring choice",
+        "exponential function",
         "inequality graph",
-        "inequality symbol",
-        "factoring choice"
+        "equation solving"
       ],
       "correctText": "equation solving",
       "explanation": "Equation solving is the bread-and-butter of Algebra 1. Worked linear example: 3(x-4) = 2x+5 distributes to 3x-12 = 2x+5; subtract 2x to get x-12=5; add 12 for x=17. Worked quadratic example: x^2-7x+10=0 factors to (x-2)(x-5)=0, so x=2 or x=5. NY A-REI.1-4 covers this entire process. Regents Parts I-IV test solving across all equation types — linear, quadratic, literal, systems."
@@ -4441,9 +4441,9 @@
       "prompt": "A number-line representation of a one-variable inequality solution set, using open/closed circles and arrows to indicate excluded/included endpoints and direction.",
       "choices": [
         "polynomial operation",
-        "inequality graph",
-        "fractional exponent",
-        "factoring choice"
+        "factoring choice",
+        "x-intercept",
+        "inequality graph"
       ],
       "correctText": "inequality graph",
       "explanation": "Inequality graphs show solution sets visually. Worked example: solution x>2 graphs as an open circle at 2 with an arrow extending right. x is less-than-or-equal -1 graphs as a closed circle at -1 with an arrow extending left. NY A-REI.3 and A-REI.12 cover inequality graphing. Regents items ask students to graph the solution to an inequality they solve and to interpret graphs given by the problem."
@@ -4462,10 +4462,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Solving a formula for a different specified variable using the same Properties of Equality applied to a single-variable equation.",
       "choices": [
+        "fractional exponent",
         "inequality graph",
-        "equation solving",
         "literal rearrangement",
-        "extraneous solution"
+        "equation solving"
       ],
       "correctText": "literal rearrangement",
       "explanation": "Literal rearrangement isolates a chosen letter. Worked example: solve d=rt for t — divide both sides by r to get t=d/r. Solve A=(1/2)bh for h — multiply by 2 to get 2A=bh, then divide by b to get h=2A/b. NY A-CED.4 covers this skill. Regents items routinely ask students to solve formulas for variables they don't usually solve for; the inverse operations are the same as for one-variable equations, just treating other letters as constants."
@@ -4484,10 +4484,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Adding, subtracting, or multiplying two or more polynomials using distribution and combining like terms.",
       "choices": [
+        "initial value",
         "polynomial operation",
-        "equation solving",
-        "minimum value",
-        "factoring choice"
+        "factoring choice",
+        "literal rearrangement"
       ],
       "correctText": "polynomial operation",
       "explanation": "Polynomial operations follow distribution and like-term rules. Worked example: (x^2+3x-5) + (2x^2-x+4) = 3x^2+2x-1 (combine like terms). (2x-3)(x+5) = 2x^2+10x-3x-15 = 2x^2+7x-15 (FOIL). NY A-APR.1 covers polynomial arithmetic. Regents items mix operations across Unit 5 content with multi-step problems requiring more than one operation; always work term-by-term carefully."
@@ -4506,10 +4506,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Selecting the appropriate factoring strategy — GCF first, then difference of squares, perfect-square trinomial, or trinomial factoring — based on polynomial structure.",
       "choices": [
-        "factoring choice",
-        "area model",
-        "literal rearrangement",
-        "polynomial operation"
+        "equation solving",
+        "polynomial operation",
+        "compound inequality",
+        "factoring choice"
       ],
       "correctText": "factoring choice",
       "explanation": "Factoring choice is strategy selection. Worked example: 12x^3-3x — start with GCF 3x to get 3x(4x^2-1), then factor difference of squares to get 3x(2x-1)(2x+1). NY A-SSE.2 requires this. Strategy hierarchy: GCF first ALWAYS; then check special patterns (difference of squares for two-term, perfect-square trinomial for three-term); finally try factor pairs for general trinomials. Regents items penalize incomplete factoring."
@@ -4528,8 +4528,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The constant slope m of a linear function f(x)=mx+b, representing change in output per unit input.",
       "choices": [
-        "quadratic feature",
-        "prediction",
+        "exponential factor",
+        "constant rate",
         "linear rate",
         "function notation value"
       ],
@@ -4550,10 +4550,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A key visual or numerical property of a parabola — vertex, axis of symmetry, x-intercepts, y-intercept, or direction of opening.",
       "choices": [
-        "inverse operation",
+        "infinitely many solutions",
+        "domain statement",
         "function notation value",
-        "quadratic feature",
-        "domain statement"
+        "quadratic feature"
       ],
       "correctText": "quadratic feature",
       "explanation": "Quadratic features describe the parabola. Worked example: for y=x^2-4x+3, the y-intercept is 3, the axis is x=2, the vertex is (2, -1), the x-intercepts are x=1 and x=3 (from factoring), and the parabola opens up. NY F-IF.4 and F-IF.7 require identification. Regents items present a quadratic in any form and ask for one or more features. Convert to the form that exposes the requested feature (factored for zeros, vertex for vertex, standard for y-intercept)."
@@ -4572,9 +4572,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The base b in an exponential function y=a*b^x, interpreted as per-period growth (b>1) or decay (0<b<1) factor.",
       "choices": [
-        "function notation value",
         "exponential factor",
-        "elimination method",
+        "FOIL method",
+        "quadratic feature",
         "linear rate"
       ],
       "correctText": "exponential factor",
@@ -4594,10 +4594,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The output f(c) of a function f evaluated at a specific input c, found by substituting c for the variable and computing.",
       "choices": [
-        "base",
-        "exponential factor",
+        "function notation value",
         "quadratic feature",
-        "function notation value"
+        "projectile height model",
+        "domain statement"
       ],
       "correctText": "function notation value",
       "explanation": "Function notation evaluation is substitution. Worked example: if f(x)=2x^2-5x+1, then f(3) = 2(9)-15+1 = 4. If f(x)=4x+7, then f(-2)=4(-2)+7=-1. NY F-IF.2 requires this fluency. Regents items use function notation throughout — solve f(x)=10 (find inputs producing output 10), evaluate f(5) (compute output at input 5), or interpret f(3)=8 in context. Always substitute carefully and follow order of operations."
@@ -4616,10 +4616,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An explicit written description of the set of allowable input values, often a real-number interval or a set of integers in modeling contexts.",
       "choices": [
+        "completing the square",
         "exponential factor",
         "domain statement",
-        "quadratic feature",
-        "intersection point"
+        "quadratic feature"
       ],
       "correctText": "domain statement",
       "explanation": "Domain statements bound the inputs. Worked example: for a height function h(t)=-16t^2+64t+5 modeling a projectile, the domain is 0 less-than-or-equal t less-than-or-equal time-when-h=0 (about 4.07 s). For counting situations, the domain is non-negative integers. NY F-IF.5 requires domain interpretation. Regents items often award credit for a correctly bounded domain with reasoning — 'cannot be negative because time is non-negative' or 'must be a whole number because the variable counts items.'"
@@ -4638,10 +4638,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A regular relationship visible in a two-column table — constant first differences signal linear, constant second differences signal quadratic, constant ratios signal exponential.",
       "choices": [
-        "symbolic expression",
-        "correlation coefficient",
+        "term number",
         "table pattern",
-        "context parameter"
+        "context parameter",
+        "verbal model"
       ],
       "correctText": "table pattern",
       "explanation": "Table patterns reveal function type. Worked example: table (1,3), (2,5), (3,7), (4,9) has first differences 2, 2, 2 — linear y=2x+1. Table (1,3), (2,6), (3,11), (4,18) has first differences 3, 5, 7 (not constant) but second differences 2, 2 (constant) — quadratic. Table (1,3), (2,6), (3,12), (4,24) has ratios 2, 2, 2 — exponential y=3*2^(x-1). NY F-LE.1 requires this distinction. Regents items routinely test it."
@@ -4660,10 +4660,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reading key features (intercepts, slope, vertex, asymptote, increasing/decreasing intervals) from a function's graph to describe its behavior in context.",
       "choices": [
+        "extraneous answer",
         "context parameter",
-        "increasing function",
-        "symbolic expression",
-        "graph interpretation"
+        "graph interpretation",
+        "verbal model"
       ],
       "correctText": "graph interpretation",
       "explanation": "Graph interpretation maps visuals to behavior. Worked example: a quadratic peaking at (3, 50) and crossing the x-axis at 0 and 6 might represent a projectile launched at t=0 from height 0, reaching max height 50 at t=3 seconds, and landing at t=6. NY F-IF.4 covers interpretation. Regents items present a graph and ask 'When is the value maximized?' or 'What does the y-intercept represent in context?' — answer with context-specific units."
@@ -4682,10 +4682,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A written-paragraph description of a real-world relationship that students translate into an algebraic equation, table, or graph.",
       "choices": [
-        "table pattern",
-        "context parameter",
-        "constant term",
-        "verbal model"
+        "verbal model",
+        "symbolic expression",
+        "time at ground level",
+        "context parameter"
       ],
       "correctText": "verbal model",
       "explanation": "Verbal models bridge English and algebra. Worked example: 'A car starts at 50 mph and slows by 2 mph each second' translates to v(t)=50-2t. NY A-CED.1-2 covers this translation. Regents items provide a paragraph context and ask students to (a) write an equation, (b) compute a specific value, (c) interpret a parameter, and (d) state appropriate domain. Identify rate words (per, each), initial value words (starts, begins), and units."
@@ -4704,10 +4704,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An algebraic representation of a quantity using variables and operations, equivalent to but more compact than a table, graph, or verbal description.",
       "choices": [
-        "total cost model",
-        "context parameter",
+        "survey bias",
         "symbolic expression",
-        "graph interpretation"
+        "graph interpretation",
+        "table pattern"
       ],
       "correctText": "symbolic expression",
       "explanation": "Symbolic expressions condense information. Worked example: 'twice a number plus seven' is 2x+7. 'Five less than the square of a number' is x^2-5. NY A-SSE.1 covers writing expressions. Regents items convert between verbal and symbolic forms. Pay attention to word order: 'five less than x' is x-5, not 5-x. Use grouping when needed: 'three times the sum of x and 4' is 3(x+4), not 3x+4."
@@ -4726,10 +4726,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A specific numerical value in an equation (slope, intercept, base, initial value) that carries meaning in the real-world situation being modeled.",
       "choices": [
+        "context parameter",
+        "growth factor",
         "graph interpretation",
-        "verbal model",
-        "doubling time",
-        "context parameter"
+        "symbolic expression"
       ],
       "correctText": "context parameter",
       "explanation": "Context parameters connect equation to situation. Worked example: in C(m) = 0.15m + 25, the parameter 0.15 is the per-mile rate ($0.15 per mile) and the parameter 25 is the fixed daily fee ($25/day). NY F-LE.5 requires interpretation of parameters. Regents items ask students to interpret slope, y-intercept, base, or initial value in context, including units. Generic answers like 'slope is 0.15' lose the interpretation point."
@@ -4748,9 +4748,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "The ordered pair (or pairs) of values satisfying all equations or inequalities in a system simultaneously, representing a context where multiple conditions coincide.",
       "choices": [
-        "intersection point",
         "regression prediction",
-        "break-even comparison",
+        "constraint interpretation",
+        "polynomial addition",
         "system solution"
       ],
       "correctText": "system solution",
@@ -4770,10 +4770,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reading a real-world inequality and stating in plain language what limit it imposes on the situation.",
       "choices": [
-        "break-even comparison",
         "constraint interpretation",
-        "regression prediction",
-        "test point"
+        "system solution",
+        "reasonable answer",
+        "discriminant"
       ],
       "correctText": "constraint interpretation",
       "explanation": "Constraint interpretation translates inequalities. Worked example: in 2a+3c is less-than-or-equal 60, where a is apples and c is cucumbers, the constraint means 'total cost cannot exceed $60 if apples are $2 and cucumbers are $3.' NY A-CED.3 covers this. Regents items present a constraint inequality and ask 'What does this mean in context?' or vice versa — describe a limit and ask for the inequality. Include units in both directions."
@@ -4792,10 +4792,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Setting two cost or revenue functions equal to find the input level at which both produce the same output, used in business modeling.",
       "choices": [
-        "break-even comparison",
         "system solution",
-        "positive association",
-        "constraint interpretation"
+        "break-even comparison",
+        "reasonable answer",
+        "revenue model"
       ],
       "correctText": "break-even comparison",
       "explanation": "Break-even is where two functions match. Worked example: company A charges 5x+200; company B charges 7x+100 — set equal: 5x+200 = 7x+100, so 2x=100, x=50. At 50 units, both cost $450. Below 50 units, B is cheaper; above 50, A is cheaper. NY A-REI.6 supports this. Regents items embed break-even in business and pricing contexts; always state the answer with units (months, units, hours)."
@@ -4814,10 +4814,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Using a calculator-derived line of best fit (or other regression model) to estimate a y-value for a given x within the data range.",
       "choices": [
-        "area model",
-        "break-even comparison",
+        "system solution",
         "regression prediction",
-        "system solution"
+        "reasonable answer",
+        "difference of squares"
       ],
       "correctText": "regression prediction",
       "explanation": "Regression prediction is interpolation. Worked example: from LinReg y=1.3x+2.5 (modeling study hours vs test score), predict the score for 5 hours of study: y=1.3(5)+2.5=9. NY S-ID.6 covers prediction. Regents items present bivariate data, ask students to use the calculator for regression, then make a prediction at a specified x. Use the equation, not the original points. Extrapolation beyond data range is risky."
@@ -4836,10 +4836,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "An algebraic solution that satisfies all real-world constraints (non-negative, integer when counting, within stated bounds) and matches contextual common sense.",
       "choices": [
-        "system solution",
+        "constraint interpretation",
+        "reasonable answer",
         "clearing fractions",
-        "regression prediction",
-        "reasonable answer"
+        "regression prediction"
       ],
       "correctText": "reasonable answer",
       "explanation": "Reasonable answers respect context. Worked example: a quadratic projectile equation yields t=-1 and t=5; only t=5 is reasonable (time cannot be negative). For 'how many tickets sold?' an algebraic answer of 4.7 is not reasonable — tickets must be whole numbers. NY A-CED.3 and A-REI.4 cover this. Regents items deliberately produce reasonable AND unreasonable algebraic answers; identifying which to keep and explaining why earns full credit."
@@ -4858,10 +4858,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A common mistake of flipping or omitting a negative sign during distribution, factoring, or solving, leading to incorrect signs in the final answer.",
       "choices": [
-        "extraneous solution",
+        "unsupported claim",
+        "compound inequality",
         "sign error",
-        "fractional exponent",
-        "rounding instruction"
+        "slope-intercept swap"
       ],
       "correctText": "sign error",
       "explanation": "Sign errors are the most common Algebra 1 mistake. Worked example: -2(x-3) should distribute to -2x+6, not -2x-6 (flipping the inside negative). NY A-SSE.2 and A-REI.1 require careful sign tracking. Regents items often include traps where students miss the sign change — always rewrite subtraction as adding a negative if confusion arises. Check work by substituting a value back into the original."
@@ -4882,8 +4882,8 @@
       "choices": [
         "rounding instruction",
         "slope-intercept swap",
-        "maximum value",
-        "sign error"
+        "unsupported claim",
+        "unit rate"
       ],
       "correctText": "slope-intercept swap",
       "explanation": "Slope-intercept swap mistakes m and b. Worked example: a student writes y=3x+2 thinking the slope is 2 and the intercept is 3, then graphs incorrectly. NY F-IF.7 and F-LE.5 require correct identification. The coefficient of x is the slope; the constant term is the y-intercept. Regents items use this distinction in graph-to-equation and equation-to-graph problems. Double-check by plugging in x=0 to confirm the y-intercept."
@@ -4903,9 +4903,9 @@
       "prompt": "A value that satisfies a derived equation (after squaring or multiplying by a variable expression) but fails to satisfy the original equation, requiring removal.",
       "choices": [
         "extraneous solution",
-        "slope-intercept swap",
-        "test point",
-        "rounding instruction"
+        "half-life",
+        "rounding instruction",
+        "sign error"
       ],
       "correctText": "extraneous solution",
       "explanation": "Extraneous solutions arise from non-reversible operations. Worked example: solving sqrt(x)=x-2 by squaring gives x=x^2-4x+4, so x^2-5x+4=0, factoring (x-1)(x-4)=0, giving x=1 or x=4. Checking: x=1 fails (sqrt(1) not equal -1), so x=1 is extraneous. Only x=4 is valid. NY A-REI.2 explicitly addresses this. Regents radical and rational items require students to check final answers and discard extraneous ones."
@@ -4924,10 +4924,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A directive in a Regents problem specifying the precision required for the final answer, like 'to the nearest tenth' or 'to the nearest hundredth.'",
       "choices": [
+        "unsupported claim",
+        "percent increase",
         "rounding instruction",
-        "causation",
-        "sign error",
-        "unsupported claim"
+        "sign error"
       ],
       "correctText": "rounding instruction",
       "explanation": "Rounding instructions are mandatory. Worked example: if the answer is 3.4567 and the instruction is 'to the nearest hundredth', report 3.46. Rounding to a different precision loses the precision point. NY embeds rounding into problems requiring real-world answers (money to the nearest cent, distances to the nearest tenth of a mile). Regents items lose points for both wrong rounding AND for forgetting to round. Read the question's last sentence carefully for the precision."
@@ -4946,10 +4946,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "A constructed-response answer that states a result without showing algebraic work, calculator output, or contextual reasoning, often costing full credit on Parts II-IV.",
       "choices": [
-        "unsupported claim",
-        "extraneous solution",
-        "principal root",
-        "slope-intercept swap"
+        "sign error",
+        "contradiction equation",
+        "slope-intercept swap",
+        "unsupported claim"
       ],
       "correctText": "unsupported claim",
       "explanation": "Unsupported claims lose points. Worked example: a Part II item asks 'How many adults attended?' Answer '120' alone earns the answer point only; showing the system, the solving steps, and the verification earns the full work point too. NY Regents rubrics consistently award points for both correctness AND justification. Show every step explicitly: write the equation, substitute, isolate, solve, check, interpret. Empty answers — even correct ones — leave points on the table."

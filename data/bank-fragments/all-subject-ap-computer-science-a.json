@@ -19,7 +19,7 @@
       "prompt": "Java integer type using 32 bits.",
       "choices": [
         "boolean",
-        "Casting",
+        "Jagged array",
         "int",
         "double"
       ],
@@ -40,10 +40,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java floating-point type using 64 bits.",
       "choices": [
-        "boolean",
+        "indexOf()",
+        "int",
         "double",
-        "Pipe pipe",
-        "char"
+        "boolean"
       ],
       "correctText": "double",
       "explanation": "AP CSA Unit 1."
@@ -63,9 +63,9 @@
       "prompt": "Java boolean type.",
       "choices": [
         "char",
-        "int",
         "boolean",
-        "for loop with size"
+        "Objects only",
+        "double"
       ],
       "correctText": "boolean",
       "explanation": "AP CSA Unit 1."
@@ -84,10 +84,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java single-character type.",
       "choices": [
-        "boolean",
+        "double",
         "char",
-        "boolean",
-        "null"
+        "int",
+        "NullPointerException"
       ],
       "correctText": "char",
       "explanation": "AP CSA Unit 1."
@@ -106,10 +106,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java type for 'true' or 'false' values.",
       "choices": [
-        "boolean",
-        "int",
+        "Zero to length minus 1",
         "double",
-        "false"
+        "int",
+        "boolean"
       ],
       "correctText": "boolean",
       "explanation": "AP CSA Unit 1."
@@ -128,10 +128,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Naming a variable.",
       "choices": [
-        "Declaration",
+        "Integer",
         "camelCase",
-        "True",
-        "final"
+        "Initialization",
+        "Declaration"
       ],
       "correctText": "Declaration",
       "explanation": "AP CSA Unit 1."
@@ -150,10 +150,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Setting variable's initial value.",
       "choices": [
-        "Linear search",
-        "Declaration",
-        "ALL_CAPS",
-        "Initialization"
+        "Initialization",
+        "final",
+        "extends",
+        "camelCase"
       ],
       "correctText": "Initialization",
       "explanation": "AP CSA Unit 1."
@@ -172,10 +172,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java keyword for unchangeable value.",
       "choices": [
-        "Reference",
-        "final",
         "ALL_CAPS",
-        "Declaration"
+        "Initialization",
+        "isEmpty()",
+        "final"
       ],
       "correctText": "final",
       "explanation": "AP CSA Unit 1."
@@ -194,10 +194,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java variable naming convention.",
       "choices": [
-        "final",
-        "Iterate backwards",
-        "camelCase",
-        "Declaration"
+        "Initialization",
+        "private",
+        "ALL_CAPS",
+        "camelCase"
       ],
       "correctText": "camelCase",
       "explanation": "AP CSA Unit 1."
@@ -216,10 +216,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Constants written in this format.",
       "choices": [
+        "Static",
         "ALL_CAPS",
-        "final",
-        "Subclass",
-        "Initialization"
+        "camelCase",
+        "Declaration"
       ],
       "correctText": "ALL_CAPS",
       "explanation": "AP CSA Unit 1."
@@ -238,10 +238,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java division of two ints gives.",
       "choices": [
-        "Wraps around",
-        "Percent",
+        "Plus equals",
         "Integer",
-        "super dot method"
+        "Percent",
+        "Linear nested search"
       ],
       "correctText": "Integer",
       "explanation": "7/2 equals 3. AP CSA Unit 1."
@@ -260,10 +260,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java modulus operator symbol.",
       "choices": [
-        "Wraps around",
-        "Plus plus",
         "Percent",
-        "Setter or mutator"
+        "2D structures",
+        "Wraps around",
+        "Plus plus"
       ],
       "correctText": "Percent",
       "explanation": "AP CSA Unit 1."
@@ -283,9 +283,9 @@
       "prompt": "Integer overflow result in Java.",
       "choices": [
         "Wraps around",
-        "Percent",
-        "while loop",
-        "Plus equals"
+        "Plus plus",
+        "Plus equals",
+        "isEmpty()"
       ],
       "correctText": "Wraps around",
       "explanation": "AP CSA Unit 1."
@@ -305,9 +305,9 @@
       "prompt": "Increment operator.",
       "choices": [
         "Plus plus",
-        "Wraps around",
         "Percent",
-        "for-each loop"
+        "Integer",
+        "First plus sum of rest"
       ],
       "correctText": "Plus plus",
       "explanation": "AP CSA Unit 1."
@@ -327,9 +327,9 @@
       "prompt": "Compound assignment for addition.",
       "choices": [
         "Percent",
-        "Plus plus",
         "Plus equals",
-        "private"
+        "Wraps around",
+        "NOT (A OR B) equals NOT A AND NOT B"
       ],
       "correctText": "Plus equals",
       "explanation": "AP CSA Unit 1."
@@ -349,9 +349,9 @@
       "prompt": "Converting between types.",
       "choices": [
         "Casting",
-        "charAt()",
-        "Seven",
-        "Widening conversion"
+        "Widening conversion",
+        "Narrowing conversion",
+        "Avoid NullPointerException"
       ],
       "correctText": "Casting",
       "explanation": "AP CSA Unit 1."
@@ -370,10 +370,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Implicit conversion to larger type.",
       "choices": [
-        "Narrowing conversion",
+        "Widening conversion",
+        "Seven",
         "False",
-        "Casting",
-        "Widening conversion"
+        "Narrowing conversion"
       ],
       "correctText": "Widening conversion",
       "explanation": "AP CSA Unit 1."
@@ -392,10 +392,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Explicit conversion to smaller type.",
       "choices": [
-        "Big-O notation",
-        "Parenthesis int",
+        "Object",
+        "Casting",
         "Narrowing conversion",
-        "Seven"
+        "Widening conversion"
       ],
       "correctText": "Narrowing conversion",
       "explanation": "AP CSA Unit 1."
@@ -415,9 +415,9 @@
       "prompt": "Cast double to int syntax.",
       "choices": [
         "Narrowing conversion",
-        "Parenthesis int",
-        "Swap rows and cols",
-        "Widening conversion"
+        "camelCase",
+        "Seven",
+        "Parenthesis int"
       ],
       "correctText": "Parenthesis int",
       "explanation": "AP CSA Unit 1."
@@ -436,10 +436,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Result of (int) 7.9.",
       "choices": [
-        "Casting",
-        "Immutable",
-        "Narrowing conversion",
-        "Seven"
+        "Parenthesis int",
+        "Widening conversion",
+        "Seven",
+        "Nested if"
       ],
       "correctText": "Seven",
       "explanation": "Truncates. AP CSA Unit 1."
@@ -458,10 +458,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equality operator.",
       "choices": [
-        "Pipe pipe",
-        "Ampersand ampersand",
+        "Bang",
         "Double equals",
-        "Nearest unmatched if"
+        "i plus plus",
+        "Ampersand ampersand"
       ],
       "correctText": "Double equals",
       "explanation": "AP CSA Unit 1."
@@ -480,10 +480,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical AND operator.",
       "choices": [
+        "Upcasting",
+        "Bang",
         "Pipe pipe",
-        "Autoboxing",
-        "Ampersand ampersand",
-        "Multiplication first"
+        "Ampersand ampersand"
       ],
       "correctText": "Ampersand ampersand",
       "explanation": "AP CSA Unit 1."
@@ -503,9 +503,9 @@
       "prompt": "Logical OR operator.",
       "choices": [
         "Pipe pipe",
-        "Ampersand ampersand",
         "Double equals",
-        "Binary search"
+        "One",
+        "Bang"
       ],
       "correctText": "Pipe pipe",
       "explanation": "AP CSA Unit 1."
@@ -524,9 +524,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical NOT operator.",
       "choices": [
-        "Ampersand ampersand",
         "Initialization",
         "Double equals",
+        "Pipe pipe",
         "Bang"
       ],
       "correctText": "Bang",
@@ -547,9 +547,9 @@
       "prompt": "Operator precedence: multiplication vs addition.",
       "choices": [
         "Multiplication first",
-        "Pipe pipe",
-        "Double equals",
-        "Rows times columns"
+        "Bang",
+        "Braces",
+        "Double equals"
       ],
       "correctText": "Multiplication first",
       "explanation": "AP CSA Unit 1."
@@ -568,10 +568,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "String method returning character count.",
       "choices": [
-        "charAt()",
-        "indexOf()",
-        "Reference equality",
-        "length()"
+        "Enhanced for loop",
+        "length()",
+        "equalsIgnoreCase()",
+        "substring()"
       ],
       "correctText": "length()",
       "explanation": "AP CSA Unit 2."
@@ -590,10 +590,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "String method extracting substring.",
       "choices": [
-        "length()",
-        "substring()",
         "charAt()",
-        "this"
+        "Assigns to instance variable",
+        "length()",
+        "substring()"
       ],
       "correctText": "substring()",
       "explanation": "AP CSA Unit 2."
@@ -612,10 +612,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "String method comparing case-insensitively.",
       "choices": [
-        "length",
-        "indexOf()",
-        "substring()",
-        "equalsIgnoreCase()"
+        "equalsIgnoreCase()",
+        "length()",
+        "Array",
+        "substring()"
       ],
       "correctText": "equalsIgnoreCase()",
       "explanation": "AP CSA Unit 2."
@@ -636,7 +636,7 @@
       "choices": [
         "charAt()",
         "substring()",
-        "Parenthesis int",
+        "F(n) equals F(n-1) plus F(n-2)",
         "indexOf()"
       ],
       "correctText": "charAt()",
@@ -656,10 +656,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "String method finding index of substring.",
       "choices": [
-        "for loop with size",
+        "Compare-then-insert",
+        "equalsIgnoreCase()",
         "indexOf()",
-        "length()",
-        "equalsIgnoreCase()"
+        "charAt()"
       ],
       "correctText": "indexOf()",
       "explanation": "AP CSA Unit 2."
@@ -678,10 +678,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Static Math class method for absolute value.",
       "choices": [
+        "Zero to one exclusive",
         "Math.abs()",
-        "Math.pow()",
-        "Loop counter",
-        "Zero to one exclusive"
+        "Traversal with max variable",
+        "Math.sqrt()"
       ],
       "correctText": "Math.abs()",
       "explanation": "AP CSA Unit 2."
@@ -700,10 +700,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for square root.",
       "choices": [
+        "break",
         "Math.random()",
         "Math.sqrt()",
-        "Math.abs()",
-        "Use braces"
+        "Zero to one exclusive"
       ],
       "correctText": "Math.sqrt()",
       "explanation": "AP CSA Unit 2."
@@ -722,9 +722,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for x to a power.",
       "choices": [
-        "false",
-        "Math.random()",
-        "Math.sqrt()",
+        "Math.abs()",
+        "extends",
+        "Zero to one exclusive",
         "Math.pow()"
       ],
       "correctText": "Math.pow()",
@@ -744,10 +744,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for random number.",
       "choices": [
-        "Rows",
-        "Math.pow()",
-        "Math.sqrt()",
-        "Math.random()"
+        "char",
+        "Zero to one exclusive",
+        "Math.random()",
+        "Math.abs()"
       ],
       "correctText": "Math.random()",
       "explanation": "AP CSA Unit 2."
@@ -766,9 +766,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range of Math.random output.",
       "choices": [
-        "length",
+        "Linear search",
+        "Math.abs()",
         "Math.random()",
-        "Math.pow()",
         "Zero to one exclusive"
       ],
       "correctText": "Zero to one exclusive",
@@ -788,10 +788,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wrapper class for int.",
       "choices": [
-        "Autoboxing",
-        "Double",
+        "Integer.parseInt()",
         "Integer",
-        "Instance variables"
+        "Boolean",
+        "Double"
       ],
       "correctText": "Integer",
       "explanation": "AP CSA Unit 2."
@@ -811,9 +811,9 @@
       "prompt": "Wrapper class for double.",
       "choices": [
         "Double",
-        "Arrays.copyOf",
-        "Integer",
-        "Unboxing"
+        "Unboxing",
+        "Boolean",
+        "Multiplication first"
       ],
       "correctText": "Double",
       "explanation": "AP CSA Unit 2."
@@ -832,10 +832,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wrapper class for boolean.",
       "choices": [
+        "Boolean",
         "Integer",
-        "Double",
-        "StringBuilder",
-        "Boolean"
+        "Zero to length minus 1",
+        "Unboxing"
       ],
       "correctText": "Boolean",
       "explanation": "AP CSA Unit 2."
@@ -854,10 +854,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from primitive to wrapper.",
       "choices": [
+        "Downcasting",
         "Autoboxing",
         "Integer",
-        "Arrays.fill",
-        "Double"
+        "Unboxing"
       ],
       "correctText": "Autoboxing",
       "explanation": "AP CSA Unit 2."
@@ -876,10 +876,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from wrapper to primitive.",
       "choices": [
-        "Unboxing",
-        "isEmpty()",
+        "Double",
         "Autoboxing",
-        "Integer"
+        "Unboxing",
+        "Postorder"
       ],
       "correctText": "Unboxing",
       "explanation": "AP CSA Unit 2."
@@ -898,10 +898,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variable referring to object.",
       "choices": [
+        "Equality check with null",
+        "new",
         "Reference",
-        "NullPointerException",
-        "null",
-        "Check head then recurse on tail"
+        "ArrayList"
       ],
       "correctText": "Reference",
       "explanation": "AP CSA Unit 2."
@@ -920,10 +920,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java value for missing reference.",
       "choices": [
-        "Reference",
         "null",
-        "NullPointerException",
-        "Loop with counter"
+        "Math.abs()",
+        "new",
+        "Reference"
       ],
       "correctText": "null",
       "explanation": "AP CSA Unit 2."
@@ -942,10 +942,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Error when null reference is used.",
       "choices": [
+        "NullPointerException",
         "Reference",
-        "new",
-        "Each row separately",
-        "NullPointerException"
+        "null",
+        "Character iteration"
       ],
       "correctText": "NullPointerException",
       "explanation": "AP CSA Unit 2."
@@ -964,10 +964,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method to test if reference is null.",
       "choices": [
-        "new",
-        "null",
-        "Object",
-        "Equality check with null"
+        "Equality check with null",
+        "Reference",
+        "Enhanced for",
+        "NullPointerException"
       ],
       "correctText": "Equality check with null",
       "explanation": "AP CSA Unit 2."
@@ -986,9 +986,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java keyword to create object.",
       "choices": [
-        "Constructor",
         "NullPointerException",
-        "Equality check with null",
+        "Reference",
+        "Recursive",
         "new"
       ],
       "correctText": "new",
@@ -1008,10 +1008,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java type representing text.",
       "choices": [
-        "Track i, j during traversal",
+        "Zero",
         "Integer.parseInt()",
         "String",
-        "Plus"
+        "Immutable"
       ],
       "correctText": "String",
       "explanation": "AP CSA Unit 2."
@@ -1030,10 +1030,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Strings are this type.",
       "choices": [
-        "Integer.parseInt()",
-        "StringBuilder",
-        "Stack memory",
-        "Immutable"
+        "Plus",
+        "Immutable",
+        "Character iteration",
+        "Integer.parseInt()"
       ],
       "correctText": "Immutable",
       "explanation": "AP CSA Unit 2."
@@ -1052,10 +1052,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Concatenation operator.",
       "choices": [
-        "Immutable",
         "String",
-        "static method",
-        "Plus"
+        "Plus",
+        "Immutable",
+        "Overloaded plus"
       ],
       "correctText": "Plus",
       "explanation": "AP CSA Unit 2."
@@ -1074,10 +1074,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mutable string class.",
       "choices": [
-        "Integer.parseInt()",
-        "Plus",
         "StringBuilder",
-        "Unboxing"
+        "arr.length",
+        "Immutable",
+        "Plus"
       ],
       "correctText": "StringBuilder",
       "explanation": "AP CSA Unit 2."
@@ -1096,10 +1096,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java method for string-int conversion.",
       "choices": [
-        "StringBuilder",
-        "Immutable",
-        "Array literal",
-        "Integer.parseInt()"
+        "String",
+        "Casting",
+        "Integer.parseInt()",
+        "Plus"
       ],
       "correctText": "Integer.parseInt()",
       "explanation": "AP CSA Unit 2."
@@ -1118,9 +1118,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Truth value of true AND true.",
       "choices": [
-        "True",
-        "Enhanced for",
+        "Percent",
         "NOT (A AND B) equals NOT A OR NOT B",
+        "True",
         "NOT (A OR B) equals NOT A AND NOT B"
       ],
       "correctText": "True",
@@ -1140,10 +1140,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Truth value of true OR false.",
       "choices": [
+        "NOT (A AND B) equals NOT A OR NOT B",
         "False",
-        "Braces",
-        "NOT (A OR B) equals NOT A AND NOT B",
-        "True"
+        "True",
+        "No"
       ],
       "correctText": "True",
       "explanation": "AP CSA Unit 3."
@@ -1162,10 +1162,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Truth value of NOT true.",
       "choices": [
+        "remove()",
         "True",
         "False",
-        "NOT (A AND B) equals NOT A OR NOT B",
-        "Math.pow()"
+        "NOT (A OR B) equals NOT A AND NOT B"
       ],
       "correctText": "False",
       "explanation": "AP CSA Unit 3."
@@ -1184,10 +1184,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "De Morgan's first law.",
       "choices": [
+        "ArrayList",
         "True",
-        "References",
         "NOT (A AND B) equals NOT A OR NOT B",
-        "True"
+        "False"
       ],
       "correctText": "NOT (A AND B) equals NOT A OR NOT B",
       "explanation": "De Morgan 1860. AP CSA Unit 3."
@@ -1206,10 +1206,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "De Morgan's second law.",
       "choices": [
-        "NOT (A OR B) equals NOT A AND NOT B",
-        "False",
         "True",
-        "Nested loop"
+        "True",
+        "Arrays.asList",
+        "NOT (A OR B) equals NOT A AND NOT B"
       ],
       "correctText": "NOT (A OR B) equals NOT A AND NOT B",
       "explanation": "AP CSA Unit 3."
@@ -1228,10 +1228,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conditional statement keyword.",
       "choices": [
-        "Double",
-        "else if",
+        "else",
+        "Array",
         "if",
-        "Curly braces"
+        "else if"
       ],
       "correctText": "if",
       "explanation": "AP CSA Unit 3."
@@ -1250,10 +1250,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Branch for false condition.",
       "choices": [
-        "else",
-        "Loop counter",
+        "Curly braces",
         "switch statement",
-        "Curly braces"
+        "else",
+        "Preorder"
       ],
       "correctText": "else",
       "explanation": "AP CSA Unit 3."
@@ -1272,8 +1272,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multiple conditions chained.",
       "choices": [
-        "else",
-        "Breadth-first",
+        "do-while loop",
+        "Curly braces",
         "else if",
         "if"
       ],
@@ -1294,10 +1294,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java braces around if body.",
       "choices": [
+        "Object",
+        "switch statement",
         "Curly braces",
-        "else if",
-        "ArrayList",
-        "switch statement"
+        "if"
       ],
       "correctText": "Curly braces",
       "explanation": "AP CSA Unit 3."
@@ -1316,10 +1316,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multi-branch alternative to many else-ifs.",
       "choices": [
-        "else",
-        "if",
-        "No",
-        "switch statement"
+        "switch statement",
+        "Curly braces",
+        "First plus sum of rest",
+        "if"
       ],
       "correctText": "switch statement",
       "explanation": "AP CSA Unit 3."
@@ -1338,10 +1338,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equality operator in Java.",
       "choices": [
-        "References",
         "Double equals",
-        "Bang equals",
-        "equals method"
+        "Less than symbol",
+        "Greater than equals",
+        "Downcasting"
       ],
       "correctText": "Double equals",
       "explanation": "AP CSA Unit 3."
@@ -1360,10 +1360,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inequality operator.",
       "choices": [
-        "Less than symbol",
-        "Abstract method",
+        "equals method",
         "Bang equals",
-        "Greater than equals"
+        "Dynamic versus fixed",
+        "Less than symbol"
       ],
       "correctText": "Bang equals",
       "explanation": "AP CSA Unit 3."
@@ -1382,10 +1382,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Less than operator.",
       "choices": [
+        "Double equals",
         "Less than symbol",
-        "Bang equals",
-        "equals method",
-        "Static"
+        "Greater than equals",
+        "j"
       ],
       "correctText": "Less than symbol",
       "explanation": "AP CSA Unit 3."
@@ -1404,10 +1404,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Greater than or equal operator.",
       "choices": [
+        "Arrays.asList",
         "Greater than equals",
-        "Double equals",
-        "equals method",
-        "ClassCastException"
+        "Bang equals",
+        "equals method"
       ],
       "correctText": "Greater than equals",
       "explanation": "AP CSA Unit 3."
@@ -1426,10 +1426,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Comparing strings.",
       "choices": [
-        "equals method",
-        "Less than symbol",
         "Double equals",
-        "Base case"
+        "Mutator method",
+        "equals method",
+        "Less than symbol"
       ],
       "correctText": "equals method",
       "explanation": "== checks reference. AP CSA Unit 3."
@@ -1450,8 +1450,8 @@
       "choices": [
         "Short-circuit",
         "Left to right",
-        "True",
-        "i plus plus"
+        "False",
+        "Linear search"
       ],
       "correctText": "Short-circuit",
       "explanation": "AP CSA Unit 3."
@@ -1470,9 +1470,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "OR operator stops if left is.",
       "choices": [
-        "Base case",
+        "Jagged array",
         "Left to right",
-        "Avoid NullPointerException",
+        "False",
         "True"
       ],
       "correctText": "True",
@@ -1492,10 +1492,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "AND operator stops if left is.",
       "choices": [
+        "length",
         "False",
         "Short-circuit",
-        "Bang equals",
-        "True"
+        "Avoid NullPointerException"
       ],
       "correctText": "False",
       "explanation": "AP CSA Unit 3."
@@ -1515,9 +1515,9 @@
       "prompt": "Use of short-circuit with null check.",
       "choices": [
         "Left to right",
-        "super",
         "Short-circuit",
-        "Avoid NullPointerException"
+        "Avoid NullPointerException",
+        "Math.sqrt()"
       ],
       "correctText": "Avoid NullPointerException",
       "explanation": "AP CSA Unit 3."
@@ -1538,8 +1538,8 @@
       "choices": [
         "Avoid NullPointerException",
         "Left to right",
-        "Short-circuit",
-        "Override abstract methods"
+        "False",
+        "Class"
       ],
       "correctText": "Left to right",
       "explanation": "AP CSA Unit 3."
@@ -1558,10 +1558,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If inside another if.",
       "choices": [
-        "null",
-        "Nearest unmatched if",
         "Nested if",
-        "Braces"
+        "Dangling else",
+        "Braces",
+        "extends"
       ],
       "correctText": "Nested if",
       "explanation": "AP CSA Unit 3."
@@ -1580,10 +1580,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Common error in if-else chain.",
       "choices": [
+        "Overloaded plus",
+        "Use braces",
         "Nested if",
-        "Dangling else",
-        "Check head then recurse on tail",
-        "Nearest unmatched if"
+        "Dangling else"
       ],
       "correctText": "Dangling else",
       "explanation": "AP CSA Unit 3."
@@ -1602,10 +1602,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Else binds to this if.",
       "choices": [
-        "Math.random()",
-        "Braces",
-        "Dangling else",
-        "Nearest unmatched if"
+        "length()",
+        "Use braces",
+        "Nearest unmatched if",
+        "Braces"
       ],
       "correctText": "Nearest unmatched if",
       "explanation": "AP CSA Unit 3."
@@ -1625,9 +1625,9 @@
       "prompt": "Way to disambiguate else.",
       "choices": [
         "Use braces",
-        "Braces",
-        "Dangling else",
-        "for loop"
+        "Nested if",
+        "indexOf()",
+        "Braces"
       ],
       "correctText": "Braces",
       "explanation": "AP CSA Unit 3."
@@ -1646,8 +1646,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Best practice in conditional chains.",
       "choices": [
-        "remove()",
-        "Braces",
+        "ClassCastException",
+        "Nested if",
         "Dangling else",
         "Use braces"
       ],
@@ -1668,10 +1668,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop checking condition before each iteration.",
       "choices": [
-        "Traversal with max variable",
-        "while loop",
         "Loop counter",
-        "do-while loop"
+        "Infinite loop",
+        "while loop",
+        "Instance variables"
       ],
       "correctText": "while loop",
       "explanation": "AP CSA Unit 4."
@@ -1690,9 +1690,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop checking condition after first iteration.",
       "choices": [
-        "break",
         "do-while loop",
-        "Nearest unmatched if",
+        "Widening conversion",
+        "while loop",
         "Infinite loop"
       ],
       "correctText": "do-while loop",
@@ -1713,9 +1713,9 @@
       "prompt": "Variable controlling loop iteration.",
       "choices": [
         "Loop counter",
-        "do-while loop",
         "while loop",
-        "reverse(s[1:]) plus s[0]"
+        "do-while loop",
+        "Columns"
       ],
       "correctText": "Loop counter",
       "explanation": "AP CSA Unit 4."
@@ -1734,10 +1734,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop that never terminates.",
       "choices": [
+        "do-while loop",
         "Loop counter",
-        "break",
-        "Infinite loop",
-        "Declaration"
+        "Method overriding",
+        "Infinite loop"
       ],
       "correctText": "Infinite loop",
       "explanation": "AP CSA Unit 4."
@@ -1756,10 +1756,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Statement breaking out of loop.",
       "choices": [
-        "break",
         "Loop counter",
-        "Cache subproblem results",
-        "while loop"
+        "s.length()",
+        "Infinite loop",
+        "break"
       ],
       "correctText": "break",
       "explanation": "AP CSA Unit 4."
@@ -1778,10 +1778,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop with three-part header.",
       "choices": [
-        "i plus plus",
-        "Arrays.copyOf",
         "for loop",
-        "continue"
+        "Enhanced for loop",
+        "Short-circuit",
+        "Init, condition, update"
       ],
       "correctText": "for loop",
       "explanation": "AP CSA Unit 4."
@@ -1800,10 +1800,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Three parts of for loop header.",
       "choices": [
-        "Array",
-        "Init, condition, update",
-        "Enhanced for loop",
-        "for loop"
+        "for loop",
+        "Array literal",
+        "continue",
+        "Init, condition, update"
       ],
       "correctText": "Init, condition, update",
       "explanation": "AP CSA Unit 4."
@@ -1822,10 +1822,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating over collection.",
       "choices": [
-        "if",
-        "Init, condition, update",
-        "continue",
-        "Enhanced for loop"
+        "toString()",
+        "i plus plus",
+        "Enhanced for loop",
+        "for loop"
       ],
       "correctText": "Enhanced for loop",
       "explanation": "AP CSA Unit 4."
@@ -1844,10 +1844,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Statement skipping rest of iteration.",
       "choices": [
+        "Init, condition, update",
+        "Class",
         "i plus plus",
-        "reverse(s[1:]) plus s[0]",
-        "continue",
-        "Init, condition, update"
+        "continue"
       ],
       "correctText": "continue",
       "explanation": "AP CSA Unit 4."
@@ -1866,10 +1866,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Counter modification pattern.",
       "choices": [
-        "i plus plus",
-        "Assigns to instance variable",
+        "abstract",
         "continue",
-        "for loop"
+        "Enhanced for loop",
+        "i plus plus"
       ],
       "correctText": "i plus plus",
       "explanation": "AP CSA Unit 4."
@@ -1888,10 +1888,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop inside another loop.",
       "choices": [
-        "j",
-        "Abstract method",
-        "i",
-        "Nested loop"
+        "Nested loop",
+        "Pipe pipe",
+        "O(n squared)",
+        "2D structures"
       ],
       "correctText": "Nested loop",
       "explanation": "AP CSA Unit 4."
@@ -1910,9 +1910,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Use of nested loops.",
       "choices": [
-        "Traversal with max variable",
-        "i",
         "Nested loop",
+        "O(n squared)",
+        "Recursion",
         "2D structures"
       ],
       "correctText": "2D structures",
@@ -1932,10 +1932,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of nested loop.",
       "choices": [
+        "2D structures",
         "j",
-        "size()",
-        "i",
-        "O(n squared)"
+        "O(n squared)",
+        "for-each loop"
       ],
       "correctText": "O(n squared)",
       "explanation": "AP CSA Unit 4."
@@ -1955,7 +1955,7 @@
       "prompt": "Outer loop variable in nested pattern.",
       "choices": [
         "2D structures",
-        "null",
+        "Two-pointer swap",
         "O(n squared)",
         "i"
       ],
@@ -1976,10 +1976,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inner loop variable in nested pattern.",
       "choices": [
-        "Nested loop",
+        "2D structures",
+        "Math.pow()",
         "i",
-        "j",
-        "get()"
+        "j"
       ],
       "correctText": "j",
       "explanation": "AP CSA Unit 4."
@@ -1998,9 +1998,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method counting operations.",
       "choices": [
-        "int",
-        "O(1)",
         "O(n)",
+        "O(1)",
+        "n minus 1",
         "Big-O notation"
       ],
       "correctText": "Big-O notation",
@@ -2020,10 +2020,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Linear search complexity.",
       "choices": [
-        "Subclass",
         "O(n squared)",
-        "O(n)",
-        "Big-O notation"
+        "Rows",
+        "O(log n)",
+        "O(n)"
       ],
       "correctText": "O(n)",
       "explanation": "AP CSA Unit 4."
@@ -2042,10 +2042,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Binary search complexity.",
       "choices": [
-        "O(1)",
-        "False",
-        "O(n)",
-        "O(log n)"
+        "O(n squared)",
+        "O(log n)",
+        "Use braces",
+        "Big-O notation"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 4."
@@ -2064,9 +2064,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Bubble sort complexity.",
       "choices": [
-        "equals method",
-        "O(n squared)",
         "O(n)",
+        "Iterate backwards",
+        "O(n squared)",
         "O(1)"
       ],
       "correctText": "O(n squared)",
@@ -2086,9 +2086,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Best case for binary search.",
       "choices": [
-        "Double",
+        "Array",
         "O(1)",
-        "O(n)",
+        "O(n squared)",
         "Big-O notation"
       ],
       "correctText": "O(1)",
@@ -2108,10 +2108,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating each character.",
       "choices": [
-        "Build new from end",
+        "clear()",
+        "s.length()",
         "Character iteration",
-        "False",
-        "String traversal loop"
+        "Build new from end"
       ],
       "correctText": "Character iteration",
       "explanation": "AP CSA Unit 4."
@@ -2130,10 +2130,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method counting occurrences.",
       "choices": [
-        "s.length()",
-        "Multiplication first",
+        "Character iteration",
+        "Build new from end",
         "Loop with counter",
-        "Build new from end"
+        "char"
       ],
       "correctText": "Loop with counter",
       "explanation": "AP CSA Unit 4."
@@ -2153,8 +2153,8 @@
       "prompt": "Reversing a string approach.",
       "choices": [
         "String traversal loop",
+        "Fixed size",
         "Loop with counter",
-        "Narrowing conversion",
         "Build new from end"
       ],
       "correctText": "Build new from end",
@@ -2175,7 +2175,7 @@
       "prompt": "Common pattern testing all characters.",
       "choices": [
         "Character iteration",
-        "size()",
+        "Cannot modify array",
         "s.length()",
         "String traversal loop"
       ],
@@ -2196,9 +2196,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop counter limit for String s.",
       "choices": [
+        "String traversal loop",
         "s.length()",
-        "Tree traversal",
-        "Character iteration",
+        "boolean",
         "Loop with counter"
       ],
       "correctText": "s.length()",
@@ -2218,10 +2218,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Blueprint for objects.",
       "choices": [
-        "Class",
-        "at Override",
-        "Constructor",
-        "Object"
+        "Object",
+        "Nested traversal sum",
+        "private",
+        "Class"
       ],
       "correctText": "Class",
       "explanation": "AP CSA Unit 5."
@@ -2240,10 +2240,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Instance of a class.",
       "choices": [
-        "Constructor",
-        "Arrays.asList",
+        "Array literal",
         "Object",
-        "private"
+        "Instance variables",
+        "Class"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 5."
@@ -2262,10 +2262,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method initializing object.",
       "choices": [
+        "Nested loop max",
         "Constructor",
-        "Instance variables",
-        "Big-O notation",
-        "Object"
+        "Class",
+        "private"
       ],
       "correctText": "Constructor",
       "explanation": "AP CSA Unit 5."
@@ -2284,10 +2284,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variables in object's state.",
       "choices": [
-        "private",
+        "Instance variables",
+        "Constructor",
         "Object",
-        "True",
-        "Instance variables"
+        "Polymorphism"
       ],
       "correctText": "Instance variables",
       "explanation": "AP CSA Unit 5."
@@ -2306,10 +2306,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Access modifier for instance variables.",
       "choices": [
-        "private",
         "Constructor",
-        "Instance variables",
-        "No"
+        "Overloaded plus",
+        "Object",
+        "private"
       ],
       "correctText": "private",
       "explanation": "AP CSA Unit 5."
@@ -2329,9 +2329,9 @@
       "prompt": "Function inside class.",
       "choices": [
         "Method",
+        "void method",
         "Accessor method",
-        "Compare-then-insert",
-        "Mutator method"
+        "2D array"
       ],
       "correctText": "Method",
       "explanation": "AP CSA Unit 5."
@@ -2350,10 +2350,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying object state.",
       "choices": [
-        "Nested traversal sum",
-        "Constructor",
         "Mutator method",
-        "Mutator"
+        "false",
+        "Accessor method",
+        "Method"
       ],
       "correctText": "Mutator method",
       "explanation": "AP CSA Unit 5."
@@ -2372,10 +2372,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method retrieving object state.",
       "choices": [
-        "String",
-        "Accessor method",
-        "Static",
-        "void method"
+        "Optimized to iteration",
+        "Constructor",
+        "Mutator method",
+        "Accessor method"
       ],
       "correctText": "Accessor method",
       "explanation": "AP CSA Unit 5."
@@ -2394,9 +2394,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method belonging to class itself.",
       "choices": [
-        "Accessor method",
-        "Constructor",
-        "Base case",
+        "Static",
+        "void method",
+        "Zero to length minus 1",
         "static method"
       ],
       "correctText": "static method",
@@ -2416,8 +2416,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning nothing.",
       "choices": [
-        "True",
-        "Constructor",
+        "Static",
+        "Nested loop",
         "static method",
         "void method"
       ],
@@ -2438,10 +2438,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hiding implementation behind interface.",
       "choices": [
+        "True",
         "Encapsulation",
-        "Getter or accessor",
-        "private",
-        "j"
+        "Setter or mutator",
+        "private"
       ],
       "correctText": "Encapsulation",
       "explanation": "AP CSA Unit 5."
@@ -2460,10 +2460,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Access modifier hiding from outside.",
       "choices": [
+        "Getter or accessor",
         "Encapsulation",
-        "length()",
         "private",
-        "Setter or mutator"
+        "Upcasting"
       ],
       "correctText": "private",
       "explanation": "AP CSA Unit 5."
@@ -2483,7 +2483,7 @@
       "prompt": "Access modifier allowing access everywhere.",
       "choices": [
         "Encapsulation",
-        "Instance variables",
+        "Inheritance",
         "Getter or accessor",
         "public"
       ],
@@ -2504,10 +2504,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying private variable.",
       "choices": [
-        "Getter or accessor",
-        "hashCode()",
+        "Encapsulation",
         "Setter or mutator",
-        "Encapsulation"
+        "private",
+        "Class"
       ],
       "correctText": "Setter or mutator",
       "explanation": "AP CSA Unit 5."
@@ -2526,10 +2526,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method reading private variable.",
       "choices": [
-        "public",
-        "Getter or accessor",
-        "Setter or mutator",
-        "Math.abs()"
+        "private",
+        "Encapsulation",
+        "Plus equals",
+        "Getter or accessor"
       ],
       "correctText": "Getter or accessor",
       "explanation": "AP CSA Unit 5."
@@ -2549,8 +2549,8 @@
       "prompt": "Reference to current object.",
       "choices": [
         "this",
-        "No",
-        "Double equals",
+        "Disambiguate parameter from field",
+        "O(n)",
         "Assigns to instance variable"
       ],
       "correctText": "this",
@@ -2570,10 +2570,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Use of this in constructor.",
       "choices": [
-        "The class type",
+        "ArrayList",
         "Disambiguate parameter from field",
-        "Inheritance",
-        "Assigns to instance variable"
+        "Assigns to instance variable",
+        "The class type"
       ],
       "correctText": "Disambiguate parameter from field",
       "explanation": "AP CSA Unit 5."
@@ -2592,10 +2592,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "this.field assignment.",
       "choices": [
-        "No",
-        "Assigns to instance variable",
-        "this",
-        "size()"
+        "Disambiguate parameter from field",
+        "The class type",
+        "1 on diagonal, 0 elsewhere",
+        "Assigns to instance variable"
       ],
       "correctText": "Assigns to instance variable",
       "explanation": "AP CSA Unit 5."
@@ -2614,9 +2614,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Static methods can use this?",
       "choices": [
-        "Assigns to instance variable",
         "No",
-        "Short-circuit",
+        "The class type",
+        "continue",
         "this"
       ],
       "correctText": "No",
@@ -2636,10 +2636,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "this as method parameter type.",
       "choices": [
-        "this",
-        "Assigns to instance variable",
         "The class type",
-        "Nearest unmatched if"
+        "No",
+        "Upcasting",
+        "Disambiguate parameter from field"
       ],
       "correctText": "The class type",
       "explanation": "AP CSA Unit 5."
@@ -2658,10 +2658,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multiple methods with same name.",
       "choices": [
-        "Breadth-first",
-        "Method overloading",
         "Unlimited",
-        "Overloaded plus"
+        "Parameter list",
+        "Method overloading",
+        "Zero"
       ],
       "correctText": "Method overloading",
       "explanation": "AP CSA Unit 5."
@@ -2680,10 +2680,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Constructors overloaded by these.",
       "choices": [
-        "Object",
-        "Overloaded plus",
+        "Unlimited",
         "Parameter list",
-        "Return type"
+        "Method overloading",
+        "Loop with counter"
       ],
       "correctText": "Parameter list",
       "explanation": "AP CSA Unit 5."
@@ -2702,10 +2702,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cannot overload by changing this only.",
       "choices": [
-        "Method overloading",
         "Return type",
-        "Superclass",
-        "Overloaded plus"
+        "Method overloading",
+        "Overloaded plus",
+        "super dot method"
       ],
       "correctText": "Return type",
       "explanation": "AP CSA Unit 5."
@@ -2724,10 +2724,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java's String concatenation.",
       "choices": [
-        "Overloaded plus",
-        "Method overloading",
-        "Double equals",
-        "Unlimited"
+        "Unboxing",
+        "Unlimited",
+        "Parameter list",
+        "Overloaded plus"
       ],
       "correctText": "Overloaded plus",
       "explanation": "AP CSA Unit 5."
@@ -2748,8 +2748,8 @@
       "choices": [
         "Unlimited",
         "Method overloading",
-        "Overloaded plus",
-        "Initialization"
+        "Narrowing conversion",
+        "Parameter list"
       ],
       "correctText": "Unlimited",
       "explanation": "AP CSA Unit 5."
@@ -2768,10 +2768,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fixed-size container of elements.",
       "choices": [
-        "ArrayIndexOutOfBoundsException",
-        "length",
+        "Swap rows and cols",
+        "Zero to length minus 1",
         "Array",
-        "StringBuilder"
+        "length"
       ],
       "correctText": "Array",
       "explanation": "AP CSA Unit 6."
@@ -2790,10 +2790,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array length property.",
       "choices": [
-        "switch statement",
-        "Zero to length minus 1",
+        "ArrayIndexOutOfBoundsException",
         "length",
-        "Array"
+        "Zero to length minus 1",
+        "Cannot modify array"
       ],
       "correctText": "length",
       "explanation": "AP CSA Unit 6."
@@ -2812,10 +2812,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array index range.",
       "choices": [
-        "ArrayIndexOutOfBoundsException",
+        "length",
         "Zero to length minus 1",
-        "Array",
-        "this"
+        "Pipe pipe",
+        "Array"
       ],
       "correctText": "Zero to length minus 1",
       "explanation": "AP CSA Unit 6."
@@ -2835,8 +2835,8 @@
       "prompt": "Error when index out of range.",
       "choices": [
         "ArrayIndexOutOfBoundsException",
-        "Nested loop",
-        "new int[n]",
+        "Zero to length minus 1",
+        "References",
         "length"
       ],
       "correctText": "ArrayIndexOutOfBoundsException",
@@ -2856,10 +2856,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Creating array of size n syntax.",
       "choices": [
-        "ArrayIndexOutOfBoundsException",
-        "Rectangular versus jagged",
-        "length",
-        "new int[n]"
+        "Array",
+        "Zero to length minus 1",
+        "new int[n]",
+        "Recursive case"
       ],
       "correctText": "new int[n]",
       "explanation": "AP CSA Unit 6."
@@ -2878,10 +2878,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating over array indices.",
       "choices": [
-        "n minus 1",
-        "No index access",
         "for loop",
-        "n times factorial of n minus 1"
+        "Cannot modify array",
+        "Build new from end",
+        "No index access"
       ],
       "correctText": "for loop",
       "explanation": "AP CSA Unit 6."
@@ -2900,10 +2900,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating elements directly.",
       "choices": [
-        "n minus 1",
-        "Unlimited",
+        "No index access",
         "Enhanced for loop",
-        "Cannot modify array"
+        "for loop",
+        "O(rows times cols)"
       ],
       "correctText": "Enhanced for loop",
       "explanation": "AP CSA Unit 6."
@@ -2922,10 +2922,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limitation of enhanced for.",
       "choices": [
-        "No index access",
-        "n minus 1",
         "Cannot modify array",
-        "Initialization"
+        "n minus 1",
+        "No index access",
+        "Less than symbol"
       ],
       "correctText": "No index access",
       "explanation": "AP CSA Unit 6."
@@ -2944,10 +2944,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limitation of enhanced for modifying.",
       "choices": [
-        "Cannot modify array",
+        "n minus 1",
+        "Cache subproblem results",
         "No index access",
-        "Enhanced for loop",
-        "public"
+        "Cannot modify array"
       ],
       "correctText": "Cannot modify array",
       "explanation": "AP CSA Unit 6."
@@ -2968,8 +2968,8 @@
       "choices": [
         "for loop",
         "Cannot modify array",
-        "n minus 1",
-        "Column 0, Column 1, etc."
+        "Method overriding",
+        "n minus 1"
       ],
       "correctText": "n minus 1",
       "explanation": "AP CSA Unit 6."
@@ -2988,10 +2988,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding maximum in array.",
       "choices": [
+        "Mutator",
         "Linear traversal",
-        "Selection or insertion sort",
         "Binary search",
-        "Parenthesis int"
+        "Linear search"
       ],
       "correctText": "Linear traversal",
       "explanation": "AP CSA Unit 6."
@@ -3010,10 +3010,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching element in unsorted array.",
       "choices": [
-        "Cannot be changed",
-        "Linear traversal",
         "Binary search",
-        "Linear search"
+        "O(log n)",
+        "Linear search",
+        "Recursive"
       ],
       "correctText": "Linear search",
       "explanation": "AP CSA Unit 6."
@@ -3032,10 +3032,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching element in sorted array.",
       "choices": [
-        "do-while loop",
         "Binary search",
         "Linear search",
-        "Linear traversal"
+        "Linear traversal",
+        "super"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 6."
@@ -3054,10 +3054,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of binary search.",
       "choices": [
-        "Linear traversal",
-        "Pipe pipe",
+        "Binary search",
+        "Nested if",
         "O(log n)",
-        "Linear search"
+        "Selection or insertion sort"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 6."
@@ -3077,9 +3077,9 @@
       "prompt": "Sorting algorithm tested on AP CSA.",
       "choices": [
         "Selection or insertion sort",
+        "indexOf()",
         "Linear search",
-        "No",
-        "Linear traversal"
+        "Binary search"
       ],
       "correctText": "Selection or insertion sort",
       "explanation": "AP CSA Unit 6."
@@ -3098,10 +3098,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Initialize with curly braces.",
       "choices": [
-        "Zero",
+        "References",
         "Array literal",
         "null",
-        "Wraps around"
+        "continue"
       ],
       "correctText": "Array literal",
       "explanation": "AP CSA Unit 6."
@@ -3120,10 +3120,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Default value for new int array.",
       "choices": [
-        "false",
-        "Array literal",
         "Zero",
-        "Linear search"
+        "false",
+        "Binary search",
+        "null"
       ],
       "correctText": "Zero",
       "explanation": "AP CSA Unit 6."
@@ -3143,9 +3143,9 @@
       "prompt": "Default value for new boolean array.",
       "choices": [
         "false",
-        "charAt()",
-        "Zero",
-        "null"
+        "Array literal",
+        "Array",
+        "Zero"
       ],
       "correctText": "false",
       "explanation": "AP CSA Unit 6."
@@ -3164,8 +3164,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Default value for new String array.",
       "choices": [
-        "Array literal",
-        "Nearest unmatched if",
+        "getClass()",
+        "false",
         "null",
         "Zero"
       ],
@@ -3186,10 +3186,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of objects holds these.",
       "choices": [
-        "Superclass",
+        "Abstract class",
         "Array literal",
-        "null",
-        "References"
+        "References",
+        "Zero"
       ],
       "correctText": "References",
       "explanation": "AP CSA Unit 6."
@@ -3210,8 +3210,8 @@
       "choices": [
         "Arrays.copyOf",
         "Two-pointer swap",
-        "Arrays.fill",
-        "super"
+        "Cache subproblem results",
+        "Fixed size"
       ],
       "correctText": "Arrays.copyOf",
       "explanation": "AP CSA Unit 6."
@@ -3233,7 +3233,7 @@
         "Arrays.fill",
         "Two-pointer swap",
         "Fixed size",
-        "Enhanced for loop"
+        "Math.random()"
       ],
       "correctText": "Arrays.fill",
       "explanation": "AP CSA Unit 6."
@@ -3252,10 +3252,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cannot resize Java array.",
       "choices": [
-        "ArrayIndexOutOfBoundsException",
-        "Two-pointer swap",
+        "Arrays.copyOf",
+        "Arrays.fill",
         "Fixed size",
-        "ArrayList"
+        "Linear search"
       ],
       "correctText": "Fixed size",
       "explanation": "AP CSA Unit 6."
@@ -3274,10 +3274,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Alternative to fixed array.",
       "choices": [
-        "ArrayList",
+        "Arrays.copyOf",
+        "Class",
         "Fixed size",
-        "First plus sum of rest",
-        "Arrays.fill"
+        "ArrayList"
       ],
       "correctText": "ArrayList",
       "explanation": "AP CSA Unit 6."
@@ -3296,10 +3296,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reversing array in place.",
       "choices": [
-        "getClass()",
+        "Fixed size",
+        "Two-pointer swap",
         "Arrays.fill",
-        "ArrayList",
-        "Two-pointer swap"
+        "Plus"
       ],
       "correctText": "Two-pointer swap",
       "explanation": "AP CSA Unit 6."
@@ -3320,8 +3320,8 @@
       "choices": [
         "ArrayList",
         "size()",
-        "ArrayList of Integer",
-        "Overloaded plus"
+        "Math.abs()",
+        "ArrayList of Integer"
       ],
       "correctText": "ArrayList",
       "explanation": "AP CSA Unit 7."
@@ -3340,10 +3340,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Package containing ArrayList.",
       "choices": [
+        "ArrayList of Integer",
         "java.util",
-        "add()",
-        "Dangling else",
-        "ArrayList of Integer"
+        "True",
+        "size()"
       ],
       "correctText": "java.util",
       "explanation": "AP CSA Unit 7."
@@ -3362,10 +3362,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Generic type for ArrayList of integers.",
       "choices": [
+        "Inheritance",
         "java.util",
-        "Recursion",
         "ArrayList of Integer",
-        "ArrayList"
+        "add()"
       ],
       "correctText": "ArrayList of Integer",
       "explanation": "AP CSA Unit 7."
@@ -3384,10 +3384,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting size.",
       "choices": [
+        "ArrayList",
         "size()",
-        "ArrayList of Integer",
-        "Linear traversal",
-        "ArrayList"
+        "java.util",
+        "Unboxing"
       ],
       "correctText": "size()",
       "explanation": "AP CSA Unit 7."
@@ -3406,10 +3406,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method adding element.",
       "choices": [
-        "java.util",
         "add()",
-        "Nested loop max",
-        "ArrayList"
+        "isEmpty()",
+        "ArrayList",
+        "java.util"
       ],
       "correctText": "add()",
       "explanation": "AP CSA Unit 7."
@@ -3428,10 +3428,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting element at index.",
       "choices": [
-        "set()",
+        "Ampersand ampersand",
+        "isEmpty()",
         "clear()",
-        "get()",
-        "hashCode()"
+        "get()"
       ],
       "correctText": "get()",
       "explanation": "AP CSA Unit 7."
@@ -3450,10 +3450,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method setting element at index.",
       "choices": [
-        "set()",
-        "Greater than equals",
+        "Double equals",
         "get()",
-        "clear()"
+        "set()",
+        "remove()"
       ],
       "correctText": "set()",
       "explanation": "AP CSA Unit 7."
@@ -3474,8 +3474,8 @@
       "choices": [
         "set()",
         "remove()",
-        "ArrayList",
-        "isEmpty()"
+        "clear()",
+        "x times power of (n minus 1)"
       ],
       "correctText": "remove()",
       "explanation": "AP CSA Unit 7."
@@ -3494,10 +3494,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method checking if empty.",
       "choices": [
-        "while loop",
-        "get()",
         "isEmpty()",
-        "clear()"
+        "set()",
+        "remove()",
+        "Accessor method"
       ],
       "correctText": "isEmpty()",
       "explanation": "AP CSA Unit 7."
@@ -3516,10 +3516,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method clearing all elements.",
       "choices": [
-        "clear()",
-        "remove()",
+        "Recursive case",
         "get()",
-        "length()"
+        "clear()",
+        "remove()"
       ],
       "correctText": "clear()",
       "explanation": "AP CSA Unit 7."
@@ -3538,10 +3538,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList versus array: size.",
       "choices": [
-        "Objects only",
-        "Double",
-        "Cannot modify array",
-        "Dynamic versus fixed"
+        "Linear nested search",
+        "Arrays.asList",
+        "Dynamic versus fixed",
+        "Double"
       ],
       "correctText": "Dynamic versus fixed",
       "explanation": "AP CSA Unit 7."
@@ -3560,10 +3560,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList holds these types.",
       "choices": [
-        "size()",
+        "Arrays.asList",
         "Objects only",
-        "ArrayList",
-        "Dynamic versus fixed"
+        "Double",
+        "equals()"
       ],
       "correctText": "Objects only",
       "explanation": "AP CSA Unit 7."
@@ -3582,10 +3582,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type parameter for ArrayList of doubles.",
       "choices": [
-        "indexOf()",
+        "Linear nested search",
         "Double",
         "Objects only",
-        "size()"
+        "Arrays.asList"
       ],
       "correctText": "Double",
       "explanation": "AP CSA Unit 7."
@@ -3605,9 +3605,9 @@
       "prompt": "ArrayList method for length.",
       "choices": [
         "Objects only",
-        "Arrays.asList",
         "size()",
-        "Nested for-each"
+        "Dynamic versus fixed",
+        "Reference"
       ],
       "correctText": "size()",
       "explanation": "Array uses length, ArrayList uses size. AP CSA Unit 7."
@@ -3626,10 +3626,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from array to ArrayList.",
       "choices": [
-        "Dynamic versus fixed",
         "Arrays.asList",
-        "Parenthesis int",
-        "Double"
+        "Objects only",
+        "Base case",
+        "Dynamic versus fixed"
       ],
       "correctText": "Arrays.asList",
       "explanation": "AP CSA Unit 7."
@@ -3648,10 +3648,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Enhanced for loop on ArrayList.",
       "choices": [
-        "Iterator",
+        "Iterate backwards",
+        "for loop with size",
         "for-each loop",
-        "Big-O",
-        "Concurrent modification"
+        "Object"
       ],
       "correctText": "for-each loop",
       "explanation": "AP CSA Unit 7."
@@ -3670,10 +3670,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Indexed loop on ArrayList.",
       "choices": [
-        "Abstract class",
-        "Iterator",
-        "for loop with size",
-        "Iterate backwards"
+        "Nearest unmatched if",
+        "Concurrent modification",
+        "Iterate backwards",
+        "for loop with size"
       ],
       "correctText": "for loop with size",
       "explanation": "AP CSA Unit 7."
@@ -3692,10 +3692,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Removing during traversal pitfall.",
       "choices": [
-        "Short-circuit",
+        "Iterator",
+        "Breadth-first",
         "Concurrent modification",
-        "Iterate backwards",
-        "Iterator"
+        "for-each loop"
       ],
       "correctText": "Concurrent modification",
       "explanation": "AP CSA Unit 7."
@@ -3714,10 +3714,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Safe way to remove during traversal.",
       "choices": [
-        "Double equals",
-        "for loop with size",
         "Iterate backwards",
-        "Iterator"
+        "Recursion",
+        "for loop with size",
+        "Concurrent modification"
       ],
       "correctText": "Iterate backwards",
       "explanation": "AP CSA Unit 7."
@@ -3736,10 +3736,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Iterator class for traversal.",
       "choices": [
-        "else if",
+        "for-each loop",
+        "Parenthesis int",
         "Iterator",
-        "Iterate backwards",
-        "for loop with size"
+        "Iterate backwards"
       ],
       "correctText": "Iterator",
       "explanation": "AP CSA Unit 7."
@@ -3758,10 +3758,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching ArrayList.",
       "choices": [
-        "Linear search",
-        "O(log n)",
+        "Boolean",
         "Traversal with max variable",
-        "Compare-then-insert"
+        "Linear search",
+        "Two-pointer swap"
       ],
       "correctText": "Linear search",
       "explanation": "AP CSA Unit 7."
@@ -3780,10 +3780,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding maximum.",
       "choices": [
-        "Zero",
         "Linear search",
+        "Compare-then-insert",
         "Traversal with max variable",
-        "Loop with remove"
+        "Greater than equals"
       ],
       "correctText": "Traversal with max variable",
       "explanation": "AP CSA Unit 7."
@@ -3802,9 +3802,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Removing all instances of a value.",
       "choices": [
+        "Two-pointer swap",
         "Loop with remove",
-        "Assigns to instance variable",
-        "Linear search",
+        "Abstract method",
         "Compare-then-insert"
       ],
       "correctText": "Loop with remove",
@@ -3824,10 +3824,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inserting in sorted order.",
       "choices": [
+        "Compare-then-insert",
         "Loop with remove",
-        "Integer",
-        "Two-pointer swap",
-        "Compare-then-insert"
+        "Traversal with max variable",
+        "s.length()"
       ],
       "correctText": "Compare-then-insert",
       "explanation": "AP CSA Unit 7."
@@ -3846,10 +3846,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reversing ArrayList.",
       "choices": [
-        "Linear search",
+        "j",
+        "Traversal with max variable",
         "Two-pointer swap",
-        "Compare-then-insert",
-        "Immutable"
+        "Linear search"
       ],
       "correctText": "Two-pointer swap",
       "explanation": "AP CSA Unit 7."
@@ -3868,10 +3868,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of arrays.",
       "choices": [
-        "Iterate backwards",
-        "Rows times columns",
-        "2D array",
-        "arr[0].length"
+        "else",
+        "arr[0].length",
+        "arr.length",
+        "2D array"
       ],
       "correctText": "2D array",
       "explanation": "AP CSA Unit 8."
@@ -3890,10 +3890,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of rows.",
       "choices": [
-        "arr[i][j]",
-        "getClass()",
         "arr.length",
-        "2D array"
+        "Rows times columns",
+        "Preorder",
+        "arr[i][j]"
       ],
       "correctText": "arr.length",
       "explanation": "AP CSA Unit 8."
@@ -3912,10 +3912,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of columns.",
       "choices": [
-        "Parameter list",
-        "arr[0].length",
-        "2D array",
-        "arr.length"
+        "Rows times columns",
+        "arr[i][j]",
+        "boolean",
+        "arr[0].length"
       ],
       "correctText": "arr[0].length",
       "explanation": "AP CSA Unit 8."
@@ -3934,10 +3934,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Accessing element at row i, column j.",
       "choices": [
-        "O(n squared)",
-        "Rows times columns",
+        "Math.abs()",
         "arr[i][j]",
-        "2D array"
+        "Rows times columns",
+        "arr.length"
       ],
       "correctText": "arr[i][j]",
       "explanation": "AP CSA Unit 8."
@@ -3956,9 +3956,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total elements in 2D array.",
       "choices": [
-        "add()",
         "arr[i][j]",
-        "2D array",
+        "O(rows times cols)",
+        "arr[0].length",
         "Rows times columns"
       ],
       "correctText": "Rows times columns",
@@ -3978,10 +3978,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Outer loop iterates over.",
       "choices": [
-        "Columns",
-        "Column 0, Column 1, etc.",
-        "Big-O notation",
-        "Rows"
+        "Superclass",
+        "Rows",
+        "Nested for-each",
+        "Column 0, Column 1, etc."
       ],
       "correctText": "Rows",
       "explanation": "AP CSA Unit 8."
@@ -4000,10 +4000,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inner loop iterates over.",
       "choices": [
+        "Base case",
         "Columns",
         "Column 0, Column 1, etc.",
-        "Bang",
-        "Rows"
+        "Nested for-each"
       ],
       "correctText": "Columns",
       "explanation": "AP CSA Unit 8."
@@ -4022,10 +4022,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Row-major order.",
       "choices": [
-        "Row 0, Row 1, etc.",
+        "charAt()",
         "Column 0, Column 1, etc.",
         "Nested for-each",
-        "public"
+        "Row 0, Row 1, etc."
       ],
       "correctText": "Row 0, Row 1, etc.",
       "explanation": "AP CSA Unit 8."
@@ -4044,10 +4044,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Column-major order.",
       "choices": [
+        "Nested traversal sum",
         "Rows",
-        "Dynamic versus fixed",
-        "Column 0, Column 1, etc.",
-        "Row 0, Row 1, etc."
+        "Columns",
+        "Column 0, Column 1, etc."
       ],
       "correctText": "Column 0, Column 1, etc.",
       "explanation": "AP CSA Unit 8."
@@ -4066,9 +4066,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Enhanced for on 2D array.",
       "choices": [
-        "extends",
+        "Rectangular versus jagged",
         "Columns",
-        "Column 0, Column 1, etc.",
+        "Rows",
         "Nested for-each"
       ],
       "correctText": "Nested for-each",
@@ -4088,10 +4088,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding max in 2D array.",
       "choices": [
-        "super",
-        "Linear nested search",
+        "Mid then halve",
         "Nested loop max",
-        "O(rows times cols)"
+        "Nested traversal sum",
+        "Nested traversal counter"
       ],
       "correctText": "Nested loop max",
       "explanation": "AP CSA Unit 8."
@@ -4110,10 +4110,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching in 2D unsorted.",
       "choices": [
+        "O(rows times cols)",
         "Linear nested search",
-        "Nested traversal sum",
-        "Disambiguate parameter from field",
-        "O(rows times cols)"
+        "Nested traversal counter",
+        "Equality check with null"
       ],
       "correctText": "Linear nested search",
       "explanation": "AP CSA Unit 8."
@@ -4132,10 +4132,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of 2D linear search.",
       "choices": [
-        "O(rows times cols)",
-        "ArrayList",
         "Nested traversal sum",
-        "Linear nested search"
+        "super dot method",
+        "O(rows times cols)",
+        "Nested traversal counter"
       ],
       "correctText": "O(rows times cols)",
       "explanation": "AP CSA Unit 8."
@@ -4154,10 +4154,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Summing 2D array.",
       "choices": [
-        "Big-O",
-        "Linear nested search",
         "O(rows times cols)",
-        "Nested traversal sum"
+        "Nested traversal sum",
+        "Upcasting",
+        "Nested traversal counter"
       ],
       "correctText": "Nested traversal sum",
       "explanation": "AP CSA Unit 8."
@@ -4176,10 +4176,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Counting matches in 2D.",
       "choices": [
-        "O(rows times cols)",
         "Nested traversal counter",
+        "Linear nested search",
         "Nested loop max",
-        "Wraps around"
+        "Array literal"
       ],
       "correctText": "Nested traversal counter",
       "explanation": "AP CSA Unit 8."
@@ -4198,10 +4198,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "2D array with rows of different lengths.",
       "choices": [
-        "Unlimited",
-        "Row's length property",
+        "Character iteration",
         "Jagged array",
-        "Each row separately"
+        "Arrays of arrays",
+        "Row's length property"
       ],
       "correctText": "Jagged array",
       "explanation": "AP CSA Unit 8."
@@ -4220,10 +4220,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Accessing row length in jagged.",
       "choices": [
-        "Nested if",
-        "Row's length property",
-        "Jagged array",
-        "Each row separately"
+        "Each row separately",
+        "instanceof",
+        "Arrays of arrays",
+        "Row's length property"
       ],
       "correctText": "Row's length property",
       "explanation": "AP CSA Unit 8."
@@ -4242,9 +4242,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java arrays are array of these.",
       "choices": [
-        "Each row separately",
+        "s.length()",
         "Row's length property",
-        "Integer.parseInt()",
+        "Each row separately",
         "Arrays of arrays"
       ],
       "correctText": "Arrays of arrays",
@@ -4264,10 +4264,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Initialize jagged 2D.",
       "choices": [
-        "Jagged array",
-        "One",
-        "Arrays of arrays",
-        "Each row separately"
+        "Rectangular versus jagged",
+        "Each row separately",
+        "Row's length property",
+        "remove()"
       ],
       "correctText": "Each row separately",
       "explanation": "AP CSA Unit 8."
@@ -4287,9 +4287,9 @@
       "prompt": "Symmetric versus jagged.",
       "choices": [
         "Rectangular versus jagged",
-        "Each row separately",
-        "this",
-        "Jagged array"
+        "Arrays of arrays",
+        "Jagged array",
+        "Integer"
       ],
       "correctText": "Rectangular versus jagged",
       "explanation": "AP CSA Unit 8."
@@ -4308,10 +4308,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Transposing 2D array.",
       "choices": [
-        "Swap rows and cols",
-        "Binary search",
         "Layer-by-layer",
-        "1 on diagonal, 0 elsewhere"
+        "Columns",
+        "Swap rows and cols",
+        "i equals j elements"
       ],
       "correctText": "Swap rows and cols",
       "explanation": "AP CSA Unit 8."
@@ -4330,10 +4330,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Spiral traversal.",
       "choices": [
-        "Layer-by-layer",
-        "Swap rows and cols",
-        "Recursion",
-        "Track i, j during traversal"
+        "i equals j elements",
+        "1 on diagonal, 0 elsewhere",
+        "Stack memory",
+        "Layer-by-layer"
       ],
       "correctText": "Layer-by-layer",
       "explanation": "AP CSA Unit 8."
@@ -4352,10 +4352,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Summing diagonal.",
       "choices": [
+        "Swap rows and cols",
         "i equals j elements",
-        "Layer-by-layer",
-        "References",
-        "Track i, j during traversal"
+        "Narrowing conversion",
+        "1 on diagonal, 0 elsewhere"
       ],
       "correctText": "i equals j elements",
       "explanation": "AP CSA Unit 8."
@@ -4374,10 +4374,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Identity matrix.",
       "choices": [
-        "i equals j elements",
-        "False",
+        "Track i, j during traversal",
         "1 on diagonal, 0 elsewhere",
-        "Layer-by-layer"
+        "i equals j elements",
+        "Interfaces"
       ],
       "correctText": "1 on diagonal, 0 elsewhere",
       "explanation": "AP CSA Unit 8."
@@ -4397,9 +4397,9 @@
       "prompt": "Largest element location.",
       "choices": [
         "Track i, j during traversal",
-        "final",
+        "1 on diagonal, 0 elsewhere",
         "Swap rows and cols",
-        "1 on diagonal, 0 elsewhere"
+        "Overloaded plus"
       ],
       "correctText": "Track i, j during traversal",
       "explanation": "AP CSA Unit 8."
@@ -4418,10 +4418,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class extending another class.",
       "choices": [
+        "Subclass",
         "Object",
-        "Infinite loop",
-        "extends",
-        "Subclass"
+        "One",
+        "indexOf()"
       ],
       "correctText": "Subclass",
       "explanation": "AP CSA Unit 9."
@@ -4440,10 +4440,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class being extended.",
       "choices": [
-        "One",
-        "Object",
         "Superclass",
-        "instanceof"
+        "Object",
+        "One",
+        "i equals j elements"
       ],
       "correctText": "Superclass",
       "explanation": "AP CSA Unit 9."
@@ -4462,10 +4462,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java keyword for inheritance.",
       "choices": [
-        "Recursion",
-        "Object",
+        "Superclass",
+        "extends",
         "Subclass",
-        "extends"
+        "Linear search"
       ],
       "correctText": "extends",
       "explanation": "AP CSA Unit 9."
@@ -4484,10 +4484,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Root class of all Java classes.",
       "choices": [
+        "Subclass",
+        "Binary search",
         "Object",
-        "extends",
-        "One",
-        "Big-O notation"
+        "extends"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 9."
@@ -4506,10 +4506,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of classes a Java class can extend.",
       "choices": [
-        "Array",
-        "extends",
         "One",
-        "Object"
+        "Subclass",
+        "Object",
+        "No index access"
       ],
       "correctText": "One",
       "explanation": "Java single inheritance. AP CSA Unit 9."
@@ -4528,10 +4528,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method invocation based on object type.",
       "choices": [
+        "O(log n)",
+        "super",
         "Polymorphism",
-        "Inorder",
-        "super dot method",
-        "super"
+        "super dot method"
       ],
       "correctText": "Polymorphism",
       "explanation": "AP CSA Unit 9."
@@ -4550,10 +4550,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subclass method replacing superclass.",
       "choices": [
-        "Polymorphism",
-        "O(n squared)",
-        "Method overriding",
-        "super"
+        "super dot method",
+        "super",
+        "Array literal",
+        "Method overriding"
       ],
       "correctText": "Method overriding",
       "explanation": "AP CSA Unit 9."
@@ -4572,10 +4572,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Annotation for override.",
       "choices": [
-        "Parenthesis int",
+        "super",
+        "at Override",
         "super dot method",
-        "Method overriding",
-        "at Override"
+        "Class"
       ],
       "correctText": "at Override",
       "explanation": "AP CSA Unit 9."
@@ -4594,10 +4594,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Call to parent constructor.",
       "choices": [
-        "Nested traversal sum",
         "super",
+        "ALL_CAPS",
         "Polymorphism",
-        "Method overriding"
+        "at Override"
       ],
       "correctText": "super",
       "explanation": "AP CSA Unit 9."
@@ -4616,10 +4616,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Calling parent method.",
       "choices": [
-        "public",
+        "Init, condition, update",
         "Polymorphism",
-        "super",
-        "super dot method"
+        "super dot method",
+        "super"
       ],
       "correctText": "super dot method",
       "explanation": "AP CSA Unit 9."
@@ -4638,10 +4638,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class that cannot be instantiated.",
       "choices": [
-        "Abstract class",
-        "abstract",
-        "Getter or accessor",
-        "Interfaces"
+        "get()",
+        "Interfaces",
+        "Override abstract methods",
+        "Abstract class"
       ],
       "correctText": "Abstract class",
       "explanation": "AP CSA Unit 9."
@@ -4660,9 +4660,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method declared without body.",
       "choices": [
-        "Unboxing",
         "abstract",
         "Abstract class",
+        "boolean",
         "Abstract method"
       ],
       "correctText": "Abstract method",
@@ -4682,10 +4682,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Keyword for abstract.",
       "choices": [
+        "abstract",
         "Interfaces",
-        "Abstract method",
-        "Accessor method",
-        "abstract"
+        "toString()",
+        "Override abstract methods"
       ],
       "correctText": "abstract",
       "explanation": "AP CSA Unit 9."
@@ -4704,10 +4704,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subclass of abstract must do this.",
       "choices": [
-        "Abstract class",
         "Override abstract methods",
-        "Math.abs()",
-        "abstract"
+        "Interfaces",
+        "Abstract class",
+        "size()"
       ],
       "correctText": "Override abstract methods",
       "explanation": "AP CSA Unit 9."
@@ -4726,10 +4726,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java alternative for multiple inheritance.",
       "choices": [
-        "Abstract class",
-        "Big-O",
-        "Interfaces",
-        "abstract"
+        "Double",
+        "Override abstract methods",
+        "abstract",
+        "Interfaces"
       ],
       "correctText": "Interfaces",
       "explanation": "AP CSA Unit 9."
@@ -4748,10 +4748,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning string representation.",
       "choices": [
-        "No index access",
-        "equals()",
+        "arr[i][j]",
         "Reference equality",
-        "toString()"
+        "toString()",
+        "hashCode()"
       ],
       "correctText": "toString()",
       "explanation": "AP CSA Unit 9."
@@ -4771,9 +4771,9 @@
       "prompt": "Method comparing objects.",
       "choices": [
         "equals()",
-        "hashCode()",
-        "Avoid NullPointerException",
-        "getClass()"
+        "toString()",
+        "getClass()",
+        "ArrayList"
       ],
       "correctText": "equals()",
       "explanation": "AP CSA Unit 9."
@@ -4795,7 +4795,7 @@
         "toString()",
         "Reference equality",
         "equals()",
-        "Ampersand ampersand"
+        "char"
       ],
       "correctText": "Reference equality",
       "explanation": "AP CSA Unit 9."
@@ -4814,10 +4814,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning hash code.",
       "choices": [
-        "getClass()",
         "hashCode()",
-        "Override abstract methods",
-        "Reference equality"
+        "equals()",
+        "getClass()",
+        "Zero to length minus 1"
       ],
       "correctText": "hashCode()",
       "explanation": "AP CSA Unit 9."
@@ -4836,10 +4836,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting class type.",
       "choices": [
+        "equals()",
         "getClass()",
-        "Reference equality",
-        "Base case",
-        "hashCode()"
+        "hashCode()",
+        "Recursive case"
       ],
       "correctText": "getClass()",
       "explanation": "AP CSA Unit 9."
@@ -4859,9 +4859,9 @@
       "prompt": "Casting subclass to superclass.",
       "choices": [
         "Downcasting",
-        "instanceof",
-        "F(n) equals F(n-1) plus F(n-2)",
-        "Upcasting"
+        "ClassCastException",
+        "Upcasting",
+        "Math.pow()"
       ],
       "correctText": "Upcasting",
       "explanation": "AP CSA Unit 9."
@@ -4880,10 +4880,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Casting superclass to subclass.",
       "choices": [
+        "instanceof",
         "Upcasting",
-        "Upcasting",
-        "Downcasting",
-        "charAt()"
+        "Rows",
+        "Downcasting"
       ],
       "correctText": "Downcasting",
       "explanation": "AP CSA Unit 9."
@@ -4902,10 +4902,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Implicit casting allowed.",
       "choices": [
-        "instanceof",
-        "Object",
         "Upcasting",
-        "Downcasting"
+        "Downcasting",
+        "Left to right",
+        "instanceof"
       ],
       "correctText": "Upcasting",
       "explanation": "AP CSA Unit 9."
@@ -4924,10 +4924,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Operator to check object type.",
       "choices": [
-        "instanceof",
-        "Narrowing conversion",
         "Downcasting",
-        "Upcasting"
+        "ClassCastException",
+        "instanceof",
+        "Curly braces"
       ],
       "correctText": "instanceof",
       "explanation": "AP CSA Unit 9."
@@ -4946,9 +4946,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Error from invalid downcast.",
       "choices": [
-        "ClassCastException",
+        "Instance variables",
         "Upcasting",
-        "O(n squared)",
+        "ClassCastException",
         "instanceof"
       ],
       "correctText": "ClassCastException",
@@ -4969,9 +4969,9 @@
       "prompt": "Method calling itself.",
       "choices": [
         "Recursion",
-        "Braces",
-        "StackOverflowError",
-        "Recursive case"
+        "Stack memory",
+        "Recursive case",
+        "Exponential"
       ],
       "correctText": "Recursion",
       "explanation": "AP CSA Unit 10."
@@ -4990,10 +4990,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Condition stopping recursion.",
       "choices": [
-        "StackOverflowError",
         "Base case",
         "Recursion",
-        "Array"
+        "Stack memory",
+        "instanceof"
       ],
       "correctText": "Base case",
       "explanation": "AP CSA Unit 10."
@@ -5012,10 +5012,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive method call.",
       "choices": [
-        "Stack memory",
         "Recursion",
         "Recursive case",
-        "camelCase"
+        "Base case",
+        "References"
       ],
       "correctText": "Recursive case",
       "explanation": "AP CSA Unit 10."
@@ -5034,10 +5034,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Error from missing base case.",
       "choices": [
-        "Object",
+        "Base case",
         "StackOverflowError",
         "Recursion",
-        "Recursive case"
+        "for loop with size"
       ],
       "correctText": "StackOverflowError",
       "explanation": "AP CSA Unit 10."
@@ -5056,10 +5056,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursion versus iteration trade-off.",
       "choices": [
-        "Stack memory",
-        "StackOverflowError",
         "Base case",
-        "Use braces"
+        "Stack memory",
+        "i plus plus",
+        "StackOverflowError"
       ],
       "correctText": "Stack memory",
       "explanation": "AP CSA Unit 10."
@@ -5081,7 +5081,7 @@
         "x times power of (n minus 1)",
         "n times factorial of n minus 1",
         "reverse(s[1:]) plus s[0]",
-        "O(n squared)"
+        "indexOf()"
       ],
       "correctText": "n times factorial of n minus 1",
       "explanation": "AP CSA Unit 10."
@@ -5100,10 +5100,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fibonacci recursive definition.",
       "choices": [
-        "reverse(s[1:]) plus s[0]",
-        "Percent",
-        "F(n) equals F(n-1) plus F(n-2)",
-        "First plus sum of rest"
+        "Array",
+        "x times power of (n minus 1)",
+        "n times factorial of n minus 1",
+        "F(n) equals F(n-1) plus F(n-2)"
       ],
       "correctText": "F(n) equals F(n-1) plus F(n-2)",
       "explanation": "AP CSA Unit 10."
@@ -5123,9 +5123,9 @@
       "prompt": "Power recursive definition.",
       "choices": [
         "First plus sum of rest",
-        "x times power of (n minus 1)",
-        "null",
-        "reverse(s[1:]) plus s[0]"
+        "n times factorial of n minus 1",
+        "O(log n)",
+        "x times power of (n minus 1)"
       ],
       "correctText": "x times power of (n minus 1)",
       "explanation": "AP CSA Unit 10."
@@ -5144,10 +5144,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive sum of list.",
       "choices": [
-        "reverse(s[1:]) plus s[0]",
-        "n times factorial of n minus 1",
         "First plus sum of rest",
-        "ArrayIndexOutOfBoundsException"
+        "n times factorial of n minus 1",
+        "Narrowing conversion",
+        "F(n) equals F(n-1) plus F(n-2)"
       ],
       "correctText": "First plus sum of rest",
       "explanation": "AP CSA Unit 10."
@@ -5166,9 +5166,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive reverse of string.",
       "choices": [
+        "Layer-by-layer",
+        "First plus sum of rest",
         "reverse(s[1:]) plus s[0]",
-        "F(n) equals F(n-1) plus F(n-2)",
-        "Column 0, Column 1, etc.",
         "n times factorial of n minus 1"
       ],
       "correctText": "reverse(s[1:]) plus s[0]",
@@ -5189,9 +5189,9 @@
       "prompt": "Recursive binary search structure.",
       "choices": [
         "Mid then halve",
-        "O(log n)",
         "Check head then recurse on tail",
-        "java.util"
+        "Parenthesis int",
+        "O(log n)"
       ],
       "correctText": "Mid then halve",
       "explanation": "AP CSA Unit 10."
@@ -5210,10 +5210,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of recursive binary search.",
       "choices": [
-        "Init, condition, update",
-        "Exponential",
-        "O(log n)",
-        "Cache subproblem results"
+        "Plus plus",
+        "Check head then recurse on tail",
+        "Cache subproblem results",
+        "O(log n)"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 10."
@@ -5232,10 +5232,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive linear search.",
       "choices": [
-        "Cache subproblem results",
-        "Inorder",
         "Check head then recurse on tail",
-        "Exponential"
+        "O(log n)",
+        "Cache subproblem results",
+        "break"
       ],
       "correctText": "Check head then recurse on tail",
       "explanation": "AP CSA Unit 10."
@@ -5254,10 +5254,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Memoization technique.",
       "choices": [
-        "Mid then halve",
-        "Cache subproblem results",
         "O(log n)",
-        "Curly braces"
+        "Base case",
+        "Mid then halve",
+        "Cache subproblem results"
       ],
       "correctText": "Cache subproblem results",
       "explanation": "AP CSA Unit 10."
@@ -5277,9 +5277,9 @@
       "prompt": "Recursive Fibonacci complexity.",
       "choices": [
         "Cache subproblem results",
-        "Mid then halve",
         "Exponential",
-        "length()"
+        "Mid then halve",
+        "Row's length property"
       ],
       "correctText": "Exponential",
       "explanation": "Without memoization. AP CSA Unit 10."
@@ -5298,10 +5298,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Visiting all nodes in tree.",
       "choices": [
-        "Inorder",
-        "Breadth-first",
+        "new int[n]",
+        "Preorder",
         "Tree traversal",
-        "Binary search"
+        "Breadth-first"
       ],
       "correctText": "Tree traversal",
       "explanation": "AP CSA Unit 10."
@@ -5320,9 +5320,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tree traversal type: node before children.",
       "choices": [
-        "Breadth-first",
+        "continue",
         "Postorder",
-        "True",
+        "Inorder",
         "Preorder"
       ],
       "correctText": "Preorder",
@@ -5343,9 +5343,9 @@
       "prompt": "Tree traversal type: left, node, right.",
       "choices": [
         "Breadth-first",
+        "Preorder",
         "Inorder",
-        "Postorder",
-        "while loop"
+        "j"
       ],
       "correctText": "Inorder",
       "explanation": "AP CSA Unit 10."
@@ -5365,9 +5365,9 @@
       "prompt": "Tree traversal type: children before node.",
       "choices": [
         "Postorder",
+        "Breadth-first",
         "Preorder",
-        "Multiplication first",
-        "Tree traversal"
+        "double"
       ],
       "correctText": "Postorder",
       "explanation": "AP CSA Unit 10."
@@ -5388,8 +5388,8 @@
       "choices": [
         "Breadth-first",
         "Preorder",
-        "Method overloading",
-        "Postorder"
+        "Tree traversal",
+        "Immutable"
       ],
       "correctText": "Breadth-first",
       "explanation": "AP CSA Unit 10."
@@ -5408,9 +5408,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive sorting algorithm.",
       "choices": [
+        "Optimized to iteration",
+        "false",
         "Binary search",
-        "Count plus recurse n minus 2",
-        "O(n)",
         "Merge sort or quicksort"
       ],
       "correctText": "Merge sort or quicksort",
@@ -5430,10 +5430,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive math example.",
       "choices": [
+        "Greatest common divisor",
         "Optimized to iteration",
-        "Compare-then-insert",
         "Count plus recurse n minus 2",
-        "Greatest common divisor"
+        "Nested loop"
       ],
       "correctText": "Greatest common divisor",
       "explanation": "Euclid c. 300 BCE. AP CSA Unit 10."
@@ -5452,10 +5452,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive search example.",
       "choices": [
-        "Count plus recurse n minus 2",
-        "Binary search",
-        "Arrays.copyOf",
-        "Merge sort or quicksort"
+        "Cache subproblem results",
+        "Greatest common divisor",
+        "Optimized to iteration",
+        "Binary search"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 10."
@@ -5474,10 +5474,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive count: even integers from 1 to n.",
       "choices": [
-        "Binary search",
-        "arr[i][j]",
         "Count plus recurse n minus 2",
-        "Greatest common divisor"
+        "Optimized to iteration",
+        "Merge sort or quicksort",
+        "ArrayList of Integer"
       ],
       "correctText": "Count plus recurse n minus 2",
       "explanation": "AP CSA Unit 10."
@@ -5496,10 +5496,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method type tail-recursive optimized.",
       "choices": [
-        "Optimized to iteration",
-        "Double equals",
+        "Nested traversal counter",
         "Greatest common divisor",
-        "Merge sort or quicksort"
+        "Binary search",
+        "Optimized to iteration"
       ],
       "correctText": "Optimized to iteration",
       "explanation": "AP CSA Unit 10."
@@ -5518,10 +5518,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java integer type.",
       "choices": [
+        "Instance variables",
         "Cannot be changed",
-        "Object",
-        "Polymorphism",
-        "int"
+        "int",
+        "Double equals"
       ],
       "correctText": "int",
       "explanation": "AP CSA Unit 1."
@@ -5540,9 +5540,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equality operator.",
       "choices": [
-        "Polymorphism",
-        "Cannot be changed",
+        "int",
         "Double equals",
+        "Return type",
         "Object"
       ],
       "correctText": "Double equals",
@@ -5562,9 +5562,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java for-each loop.",
       "choices": [
-        "int",
         "Cannot be changed",
-        "Math.random()",
+        "Class",
+        "Double equals",
         "Enhanced for"
       ],
       "correctText": "Enhanced for",
@@ -5584,10 +5584,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class blueprint instance.",
       "choices": [
-        "instanceof",
-        "Enhanced for",
         "Object",
-        "Double equals"
+        "Cannot be changed",
+        "Enhanced for",
+        "static method"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 5."
@@ -5606,9 +5606,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java string immutability.",
       "choices": [
+        "abstract",
         "Cannot be changed",
-        "Polymorphism",
-        "int",
+        "Enhanced for",
         "Double equals"
       ],
       "correctText": "Cannot be changed",
@@ -5628,10 +5628,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Search algorithm O(log n).",
       "choices": [
-        "Inheritance",
-        "O(n squared)",
-        "O(n)",
-        "Binary search"
+        "Integer",
+        "Binary search",
+        "Big-O",
+        "O(n)"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 6."
@@ -5650,10 +5650,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Linear search complexity.",
       "choices": [
+        "Binary search",
         "O(n)",
-        "Base case",
-        "O(n squared)",
-        "Narrowing conversion"
+        "Count plus recurse n minus 2",
+        "O(n squared)"
       ],
       "correctText": "O(n)",
       "explanation": "AP CSA Unit 4."
@@ -5672,10 +5672,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Bubble sort complexity.",
       "choices": [
-        "this",
-        "O(n)",
-        "Big-O",
-        "O(n squared)"
+        "Object",
+        "O(n squared)",
+        "Base case",
+        "Big-O"
       ],
       "correctText": "O(n squared)",
       "explanation": "AP CSA Unit 4."
@@ -5694,8 +5694,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation for algorithm analysis.",
       "choices": [
+        "Use braces",
         "Big-O",
-        "NOT (A AND B) equals NOT A OR NOT B",
         "Binary search",
         "O(n)"
       ],
@@ -5716,10 +5716,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive method requires this.",
       "choices": [
-        "Enhanced for loop",
+        "Base case",
         "Big-O",
-        "O(n)",
-        "Base case"
+        "Nested traversal sum",
+        "O(n squared)"
       ],
       "correctText": "Base case",
       "explanation": "AP CSA Unit 10."
@@ -5739,9 +5739,9 @@
       "prompt": "Hiding fields with getters/setters.",
       "choices": [
         "Polymorphism",
-        "Encapsulation",
-        "Inheritance",
-        "s.length()"
+        "equalsIgnoreCase()",
+        "instanceof",
+        "Encapsulation"
       ],
       "correctText": "Encapsulation",
       "explanation": "AP CSA Unit 5."
@@ -5760,10 +5760,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class extending another.",
       "choices": [
-        "Double",
-        "instanceof",
         "Inheritance",
-        "Polymorphism"
+        "Binary search",
+        "Object",
+        "Encapsulation"
       ],
       "correctText": "Inheritance",
       "explanation": "AP CSA Unit 9."
@@ -5782,10 +5782,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method dispatch by object type.",
       "choices": [
-        "Object",
-        "instanceof",
         "Polymorphism",
-        "Disambiguate parameter from field"
+        "Nested traversal sum",
+        "Object",
+        "Encapsulation"
       ],
       "correctText": "Polymorphism",
       "explanation": "AP CSA Unit 9."
@@ -5804,10 +5804,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java root class.",
       "choices": [
-        "Mid then halve",
+        "False",
+        "Encapsulation",
         "Inheritance",
-        "Object",
-        "instanceof"
+        "Object"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 9."
@@ -5826,10 +5826,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Operator checking object type.",
       "choices": [
-        "Integer",
-        "instanceof",
+        "Zero",
+        "Object",
         "Inheritance",
-        "Encapsulation"
+        "instanceof"
       ],
       "correctText": "instanceof",
       "explanation": "AP CSA Unit 9."
@@ -5848,10 +5848,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fixed-size container.",
       "choices": [
+        "size()",
+        "Binary search",
         "2D array",
-        "ArrayList of Integer",
-        "Array",
-        "size()"
+        "Array"
       ],
       "correctText": "Array",
       "explanation": "AP CSA Unit 6."
@@ -5870,9 +5870,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Resizable list.",
       "choices": [
-        "length()",
-        "2D array",
-        "Zero",
+        "int",
+        "size()",
+        "Array",
         "ArrayList"
       ],
       "correctText": "ArrayList",
@@ -5892,10 +5892,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of arrays.",
       "choices": [
-        "size()",
-        "Nested loop max",
+        "Zero",
         "2D array",
-        "Array"
+        "Array",
+        "Nested for-each"
       ],
       "correctText": "2D array",
       "explanation": "AP CSA Unit 8."
@@ -5914,10 +5914,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array indexing starts at.",
       "choices": [
-        "2D array",
+        "Array",
         "Zero",
-        "Concurrent modification",
-        "Array"
+        "Dangling else",
+        "2D array"
       ],
       "correctText": "Zero",
       "explanation": "AP CSA Unit 6."
@@ -5936,10 +5936,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList size method.",
       "choices": [
+        "Array",
         "size()",
         "Zero",
-        "ArrayList",
-        "Nested traversal sum"
+        "Plus"
       ],
       "correctText": "size()",
       "explanation": "AP CSA Unit 7."
@@ -5958,10 +5958,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method that initializes object.",
       "choices": [
-        "Dangling else",
-        "Accessor",
-        "Accessor method",
-        "Constructor"
+        "Constructor",
+        "Mutator",
+        "Static",
+        "size()"
       ],
       "correctText": "Constructor",
       "explanation": "AP CSA Unit 5."
@@ -5980,10 +5980,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying object state.",
       "choices": [
-        "Recursive",
+        "Constructor",
         "Mutator",
-        "Accessor method",
-        "Integer"
+        "Method overloading",
+        "Method"
       ],
       "correctText": "Mutator",
       "explanation": "AP CSA Unit 5."
@@ -6002,9 +6002,9 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method reading object state.",
       "choices": [
-        "charAt()",
-        "void method",
-        "Static",
+        "Accessor method",
+        "Column 0, Column 1, etc.",
+        "Recursive",
         "Accessor"
       ],
       "correctText": "Accessor",
@@ -6024,10 +6024,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method belonging to class.",
       "choices": [
-        "Mutator",
         "Static",
-        "NOT (A OR B) equals NOT A AND NOT B",
-        "void method"
+        "Recursive",
+        "Nested loop max",
+        "Method"
       ],
       "correctText": "Static",
       "explanation": "AP CSA Unit 5."
@@ -6046,10 +6046,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method calling itself.",
       "choices": [
-        "Static",
-        "substring()",
-        "Method",
-        "Recursive"
+        "Recursive",
+        "Mutator method",
+        "void method",
+        "Loop with remove"
       ],
       "correctText": "Recursive",
       "explanation": "AP CSA Unit 10."
