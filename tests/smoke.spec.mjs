@@ -101,7 +101,8 @@ async function loadModuleHarness(page, scripts) {
 test.beforeAll(async () => {
   // Use python3 -m http.server in the repo root
   server = spawn("python3", ["-m", "http.server", String(PORT)], {
-    cwd: REPO, stdio: "pipe"
+    cwd: REPO,
+    stdio: "ignore"
   });
   // Wait for port to bind
   for (let i = 0; i < 30; i++) {
