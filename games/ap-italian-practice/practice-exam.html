@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>AP Precalculus Practice Exam — Mr. Mac's Review Arcade</title>
+<title>NYS Global History II Practice Exam — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>AP Precalculus</span></div>
-      <h1>AP Precalculus Practice Exam</h1>
-      <p class="subtitle">40-question practice test covering all 4 units, modeled on Section I MCQ format with function families, trig, and matrix items.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
+      <h1>NYS Global History II Practice Exam</h1>
+      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,441 +1524,441 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 AP-modeled questions across 4 units</span>
-    <span class="pill" id="topicStatus">Polynomials, exponentials, trig + polar, and parametrics/vectors/matrices included</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
+    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
   {
-    id: "appc-001",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "What is the average rate of change of f(x) = x^2 + 3x on the interval [1, 4]?",
+    id: "ghii-001",
+    topic: "Unit 1: World in 1750",
+    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
-      "8",
-      "11",
-      "5",
-      "20/3",
+      "All three had embraced parliamentary democracy.",
+      "All three were multiethnic land-based empires governed by hereditary rulers.",
+      "All three had abolished traditional religious practices.",
+      "All three controlled overseas colonies in the Americas.",
     ],
-    correctText: "8",
-    explanation: "Average rate of change = (f(4) - f(1)) / (4 - 1) = (28 - 4) / 3 = 24 / 3 = 8."
+    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
+    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
   },
   {
-    id: "appc-002",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "Which best describes the end behavior of f(x) = -2x^5 + 7x^3 - x?",
+    id: "ghii-002",
+    topic: "Unit 1: World in 1750",
+    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
     choices: [
-      "As x -> infinity, f(x) -> infinity; as x -> -infinity, f(x) -> -infinity.",
-      "As x -> infinity, f(x) -> -infinity; as x -> -infinity, f(x) -> infinity.",
-      "As x -> infinity, f(x) -> infinity; as x -> -infinity, f(x) -> infinity.",
-      "As x -> infinity, f(x) -> -infinity; as x -> -infinity, f(x) -> -infinity.",
+      "Promote global trade with European powers.",
+      "Spread Christianity across East Asia.",
+      "Preserve internal stability by limiting foreign contact.",
+      "Expand Japanese colonies in the Americas.",
     ],
-    correctText: "As x -> infinity, f(x) -> -infinity; as x -> -infinity, f(x) -> infinity.",
-    explanation: "The leading term -2x^5 has odd degree and negative coefficient, so the graph falls to the right and rises to the left."
+    correctText: "Preserve internal stability by limiting foreign contact.",
+    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
   },
   {
-    id: "appc-003",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "How many real zeros (counting multiplicity) does f(x) = (x - 2)^3 (x + 1)(x^2 + 4) have?",
+    id: "ghii-003",
+    topic: "Unit 1: World in 1750",
+    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
     choices: [
-      "6",
-      "4",
-      "3",
-      "2",
+      "Laissez-faire capitalism",
+      "Mercantilism",
+      "Socialism",
+      "Command economy",
     ],
-    correctText: "4",
-    explanation: "The factor (x - 2)^3 gives a triple real zero at x = 2, and (x + 1) gives one real zero at x = -1, for 4 real zeros. The factor x^2 + 4 contributes two complex (non-real) zeros."
+    correctText: "Mercantilism",
+    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
   },
   {
-    id: "appc-004",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "What are the vertical asymptotes of f(x) = (x^2 - 9) / (x^2 - x - 6)?",
+    id: "ghii-004",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
     choices: [
-      "x = 3 only",
-      "x = -2 only",
-      "x = -2 and x = 3",
-      "x = -3 and x = 2",
+      "Thomas Hobbes",
+      "John Locke",
+      "Niccolò Machiavelli",
+      "Karl Marx",
     ],
-    correctText: "x = -2 only",
-    explanation: "Factor: (x - 3)(x + 3) / ((x - 3)(x + 2)). The (x - 3) cancels, producing a hole at x = 3 and leaving only x = -2 as a vertical asymptote."
+    correctText: "John Locke",
+    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
   },
   {
-    id: "appc-005",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "What is the horizontal or slant asymptote of f(x) = (2x^2 + 5) / (x - 1)?",
+    id: "ghii-005",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
     choices: [
-      "Horizontal asymptote y = 0",
-      "Horizontal asymptote y = 2",
-      "Slant asymptote y = 2x + 2",
-      "No horizontal or slant asymptote",
+      "Free public education",
+      "Separation of powers among three branches",
+      "Universal suffrage",
+      "Direct election of judges",
     ],
-    correctText: "Slant asymptote y = 2x + 2",
-    explanation: "Numerator degree exceeds denominator by exactly one, so polynomial long division gives 2x^2 + 5 divided by x - 1 = 2x + 2 with remainder 7, yielding the slant asymptote y = 2x + 2."
+    correctText: "Separation of powers among three branches",
+    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
   },
   {
-    id: "appc-006",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "If g(x) is obtained from f(x) = x^2 by shifting right 3 units, reflecting over the x-axis, and shifting up 5 units, what is g(x)?",
+    id: "ghii-006",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
     choices: [
-      "g(x) = -(x - 3)^2 + 5",
-      "g(x) = -(x + 3)^2 + 5",
-      "g(x) = (x - 3)^2 - 5",
-      "g(x) = -(x - 3)^2 - 5",
+      "It restored a monarchy after a brief republican experiment.",
+      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+      "It ended without significant political change.",
+      "It established a constitutional monarchy under European supervision.",
     ],
-    correctText: "g(x) = -(x - 3)^2 + 5",
-    explanation: "Right shift 3: (x - 3)^2. Reflect over x-axis: -(x - 3)^2. Up shift 5: -(x - 3)^2 + 5. Order matters only between inside and outside transformations."
+    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
   },
   {
-    id: "appc-007",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "For f(x) = (x - 1)^2 (x + 2), which statement about behavior near x = 1 is correct?",
+    id: "ghii-007",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
     choices: [
-      "The graph crosses the x-axis at x = 1.",
-      "The graph touches but does not cross the x-axis at x = 1.",
-      "The graph has a vertical asymptote at x = 1.",
-      "The graph is undefined at x = 1.",
+      "Britain had the most extensive colonial empire in Asia.",
+      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+      "Britain was the only European country with a literate workforce.",
+      "Britain was the first nation to outlaw all forms of forced labor.",
     ],
-    correctText: "The graph touches but does not cross the x-axis at x = 1.",
-    explanation: "A real zero with even multiplicity (here multiplicity 2) produces a touch-and-turn behavior. The graph reaches the axis at x = 1 and bounces back without changing sign."
+    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
   },
   {
-    id: "appc-008",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "Estimate the instantaneous rate of change of f(x) = x^3 at x = 2 using a small symmetric interval.",
+    id: "ghii-008",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
     choices: [
-      "6",
-      "8",
-      "12",
-      "4",
+      "Workers gained shorter hours and immediate political rights.",
+      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+      "Workers transitioned from factories back to small craft workshops.",
+      "Workers were guaranteed employment by national governments.",
     ],
-    correctText: "12",
-    explanation: "Using the symmetric difference quotient near x = 2: (f(2.01) - f(1.99)) / 0.02 is approximately 12. (The derivative of x^3 evaluated at 2 equals 3 * 2^2 = 12.)"
+    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
   },
   {
-    id: "appc-009",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "What is the end-behavior model for f(x) = (3x^4 - x) / (x^2 + 1)?",
+    id: "ghii-009",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
     choices: [
-      "y = 3",
-      "y = 3x",
-      "y = 3x^2",
-      "y = 0",
+      "Religious revival across industrial societies",
+      "A class struggle leading to revolution by the proletariat",
+      "Voluntary government regulation of industries",
+      "A return to feudal economic relationships",
     ],
-    correctText: "y = 3x^2",
-    explanation: "For large |x|, the dominant terms dominate: 3x^4 / x^2 = 3x^2. The end-behavior model captures the long-run shape of the graph as x grows large."
+    correctText: "A class struggle leading to revolution by the proletariat",
+    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
   },
   {
-    id: "appc-010",
-    topic: "Unit 1: Polynomial + Rational Functions",
-    prompt: "Identify the hole(s) in the graph of f(x) = (x^2 - 4) / (x - 2).",
+    id: "ghii-010",
+    topic: "Unit 4: Imperialism",
+    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
     choices: [
-      "Hole at (2, 4)",
-      "Hole at (2, 0)",
-      "Hole at (-2, 0)",
-      "No holes; vertical asymptote at x = 2",
+      "African leaders would have veto power over all colonial boundaries.",
+      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+      "African colonies would gain independence within 25 years.",
+      "All European nations would withdraw from the African continent.",
     ],
-    correctText: "Hole at (2, 4)",
-    explanation: "Factor: (x - 2)(x + 2) / (x - 2) = x + 2 with x not equal to 2. The cancellation creates a removable discontinuity at x = 2 where y = 2 + 2 = 4."
+    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
   },
   {
-    id: "appc-011",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "Simplify (2^5 * 2^-3) / 2^-1 using exponent properties.",
+    id: "ghii-011",
+    topic: "Unit 4: Imperialism",
+    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
     choices: [
-      "8",
-      "4",
-      "16",
-      "2",
+      "Indian soldiers refused to fight against the Ottoman Empire.",
+      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+      "Sepoys demanded equal pay with British officers.",
+      "British missionaries had been expelled from India.",
     ],
-    correctText: "8",
-    explanation: "Combine exponents: 5 + (-3) - (-1) = 3. So 2^3 = 8. Same-base multiplication adds exponents; division subtracts them."
+    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
   },
   {
-    id: "appc-012",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "Express log_3(50) using the change-of-base formula in terms of natural logs.",
+    id: "ghii-012",
+    topic: "Unit 4: Imperialism",
+    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
     choices: [
-      "ln(50) / ln(3)",
-      "ln(3) / ln(50)",
-      "ln(50) - ln(3)",
-      "ln(50 / 3)",
+      "China had invaded British India.",
+      "China refused to allow British ships into the Mediterranean.",
+      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+      "China demanded that Britain abolish slavery in its colonies.",
     ],
-    correctText: "ln(50) / ln(3)",
-    explanation: "Change of base: log_b(x) = ln(x) / ln(b). Here b = 3 and x = 50, giving ln(50) / ln(3)."
+    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
   },
   {
-    id: "appc-013",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "Solve for x: 3^(x + 1) = 81.",
+    id: "ghii-013",
+    topic: "Unit 4: Imperialism",
+    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
     choices: [
-      "x = 3",
-      "x = 4",
-      "x = 27",
-      "x = 80",
+      "Embraced Western technology, industry, and military methods while preserving its emperor.",
+      "Permanently closed its borders to all foreign contact.",
+      "Was conquered and ruled directly by Western powers until 1945.",
+      "Refused to make any changes to its traditional samurai society.",
     ],
-    correctText: "x = 3",
-    explanation: "Rewrite 81 as 3^4. Then 3^(x + 1) = 3^4 implies x + 1 = 4, so x = 3."
+    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
+    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
   },
   {
-    id: "appc-014",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "Solve for x: log_2(x) + log_2(x - 2) = 3.",
+    id: "ghii-014",
+    topic: "Unit 5: World War I",
+    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
     choices: [
-      "x = 4",
-      "x = -2",
-      "x = 4 or x = -2",
-      "x = 8",
+      "Marxism, agriculture, isolationism, neutrality",
+      "Militarism, alliances, imperialism, nationalism",
+      "Monarchy, anarchism, industry, navy",
+      "Modernization, autocracy, individualism, neocolonialism",
     ],
-    correctText: "x = 4",
-    explanation: "Combine logs: log_2(x(x - 2)) = 3, so x(x - 2) = 8. Then x^2 - 2x - 8 = 0, giving x = 4 or x = -2. Reject x = -2 because log requires positive argument."
+    correctText: "Militarism, alliances, imperialism, nationalism",
+    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
   },
   {
-    id: "appc-015",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "A population starts at 200 and grows continuously at 4 percent per year. Which function models the population P(t) after t years?",
+    id: "ghii-015",
+    topic: "Unit 5: World War I",
+    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
     choices: [
-      "P(t) = 200 * (1.04)^t",
-      "P(t) = 200 * e^(0.04 t)",
-      "P(t) = 200 + 0.04 t",
-      "P(t) = 200 * (0.96)^t",
+      "Russia won early victories in WWI that inspired political reform.",
+      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+      "Western powers sent armies to depose Nicholas II.",
+      "The Tsar voluntarily turned over power to the peasantry.",
     ],
-    correctText: "P(t) = 200 * e^(0.04 t)",
-    explanation: "Continuous growth uses P(t) = P_0 * e^(rt), where r is the continuous rate. Discrete annual growth would use 200 * (1.04)^t instead."
+    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
   },
   {
-    id: "appc-016",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "A radioactive sample decays so 80 percent remains after 5 years. Which expression gives the decay constant k for A(t) = A_0 * e^(-kt)?",
+    id: "ghii-016",
+    topic: "Unit 5: World War I",
+    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
     choices: [
-      "k = ln(0.8) / 5",
-      "k = -ln(0.8) / 5",
-      "k = ln(5) / 0.8",
-      "k = 0.8 / 5",
+      "Germany's loss of its colonies in Africa",
+      "The 'war guilt' clause (Article 231) and crushing reparations payments",
+      "The reduction of the German navy",
+      "The redrawing of borders in the Middle East",
     ],
-    correctText: "k = -ln(0.8) / 5",
-    explanation: "Set 0.8 = e^(-5k). Take ln of both sides: ln(0.8) = -5k. Solve: k = -ln(0.8) / 5, which is positive since ln(0.8) is negative."
+    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
+    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
   },
   {
-    id: "appc-017",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "$1,000 is invested at 6 percent annual interest, compounded monthly. What is the balance after 2 years? Use A = P(1 + r/n)^(nt).",
+    id: "ghii-017",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
     choices: [
-      "approximately $1,120.00",
-      "approximately $1,127.16",
-      "approximately $1,123.60",
-      "approximately $1,132.42",
+      "All world currencies were physically stored in U.S. banks.",
+      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+      "Only the United States used a banking system in 1929.",
+      "European nations were forced to convert to communism in response.",
     ],
-    correctText: "approximately $1,127.16",
-    explanation: "A = 1000 * (1 + 0.06/12)^(12 * 2) = 1000 * (1.005)^24, which is approximately 1127.16."
+    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
   },
   {
-    id: "appc-018",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "Which best contrasts exponential and logistic growth models?",
+    id: "ghii-018",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
     choices: [
-      "Exponential growth keeps accelerating; logistic growth slows and approaches a carrying-capacity asymptote.",
-      "Both models approach the same horizontal asymptote.",
-      "Logistic grows faster than exponential at all times.",
-      "Exponential growth eventually reverses direction; logistic does not.",
+      "Demilitarize the Soviet Union",
+      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+      "Restore private property to peasants",
+      "Establish democratic elections",
     ],
-    correctText: "Exponential growth keeps accelerating; logistic growth slows and approaches a carrying-capacity asymptote.",
-    explanation: "Unbounded exponential models y = a * b^t grow without limit. Logistic models include a carrying capacity L; growth slows as the population approaches L, producing an S-shaped curve."
+    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
   },
   {
-    id: "appc-019",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "If exponential regression on data yields y = 5 * (1.2)^x, what is the predicted percent change in y per unit increase in x?",
+    id: "ghii-019",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
     choices: [
-      "5 percent increase",
-      "20 percent increase",
-      "120 percent increase",
-      "12 percent increase",
+      "Free press and competitive elections",
+      "A one-party state, suppression of dissent, and a personality cult around the leader",
+      "Decentralized economic decision-making",
+      "Voluntary collective decision-making by citizens' councils",
     ],
-    correctText: "20 percent increase",
-    explanation: "Multiplying by 1.2 each step is equivalent to a 20 percent increase per unit of x. The base 1.2 = 1 + 0.20 encodes the growth rate."
+    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
+    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
   },
   {
-    id: "appc-020",
-    topic: "Unit 2: Exponential + Logarithmic Functions",
-    prompt: "The graph of f(x) = log_2(x) passes through which of these points?",
+    id: "ghii-020",
+    topic: "Unit 7: World War II",
+    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
     choices: [
-      "(0, 1)",
-      "(1, 0)",
-      "(2, 0)",
-      "(0, 2)",
+      "France and Britain went to war with Hitler over Czechoslovakia.",
+      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+      "Hitler returned previously seized territory to Czechoslovakia.",
+      "The League of Nations sanctioned Germany for aggression.",
     ],
-    correctText: "(1, 0)",
-    explanation: "log_b(1) = 0 for any base b, since b^0 = 1. The graph of any logarithm has an x-intercept at (1, 0) and a vertical asymptote at x = 0."
+    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
   },
   {
-    id: "appc-021",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Convert 135 degrees to radians.",
+    id: "ghii-021",
+    topic: "Unit 7: World War II",
+    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
     choices: [
-      "(3 * pi) / 4",
-      "(2 * pi) / 3",
-      "(5 * pi) / 4",
-      "(3 * pi) / 2",
+      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
+      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+      "The United States had declared war on Japan one week earlier.",
+      "Japan was honoring a defensive treaty with China.",
     ],
-    correctText: "(3 * pi) / 4",
-    explanation: "Multiply by pi/180: 135 * (pi/180) = 135 pi / 180 = 3 pi / 4."
+    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
   },
   {
-    id: "appc-022",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "What is the exact value of sin(pi / 3)?",
+    id: "ghii-022",
+    topic: "Unit 7: World War II",
+    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
     choices: [
-      "1/2",
-      "sqrt(2) / 2",
-      "sqrt(3) / 2",
-      "1",
+      "100,000 people, primarily Polish soldiers",
+      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+      "Only Jewish residents of Germany",
+      "Twelve million ethnic Germans",
     ],
-    correctText: "sqrt(3) / 2",
-    explanation: "pi/3 = 60 degrees. From the 30-60-90 triangle, sin(60 deg) = sqrt(3) / 2."
+    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
   },
   {
-    id: "appc-023",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Evaluate sec(pi / 4) exactly.",
+    id: "ghii-023",
+    topic: "Unit 7: World War II",
+    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
     choices: [
-      "1",
-      "sqrt(2)",
-      "sqrt(2) / 2",
-      "2",
+      "A test of the new weapon under combat conditions",
+      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+      "Retaliation for the Holocaust in Europe",
+      "A response to a Japanese atomic weapons program",
     ],
-    correctText: "sqrt(2)",
-    explanation: "sec(theta) = 1 / cos(theta). cos(pi/4) = sqrt(2)/2, so sec(pi/4) = 2 / sqrt(2) = sqrt(2)."
+    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
   },
   {
-    id: "appc-024",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Which expression is equivalent to sin^2(x) + cos^2(x) - tan^2(x)?",
+    id: "ghii-024",
+    topic: "Unit 8: Cold War",
+    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
     choices: [
-      "sec^2(x)",
-      "2 - sec^2(x)",
-      "1 - sec^2(x)",
-      "csc^2(x)",
+      "Returning to isolationism",
+      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+      "Direct military conquest of the Soviet Union",
+      "Sharing nuclear technology with all U.S. allies",
     ],
-    correctText: "2 - sec^2(x)",
-    explanation: "Use sin^2 + cos^2 = 1, so the expression becomes 1 - tan^2(x). Then 1 - tan^2(x) = 1 - (sec^2(x) - 1) = 2 - sec^2(x), via the identity 1 + tan^2(x) = sec^2(x)."
+    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
   },
   {
-    id: "appc-025",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Which value equals sin(2x) when sin(x) = 3/5 and cos(x) = 4/5?",
+    id: "ghii-025",
+    topic: "Unit 8: Cold War",
+    prompt: "Which Cold War event came closest to triggering nuclear war?",
     choices: [
-      "7/25",
-      "24/25",
-      "12/25",
-      "-7/25",
+      "The 1948 Berlin Blockade",
+      "The 1962 Cuban Missile Crisis",
+      "The 1953 Korean armistice",
+      "The 1957 Sputnik launch",
     ],
-    correctText: "24/25",
-    explanation: "Double-angle: sin(2x) = 2 sin(x) cos(x) = 2 * (3/5) * (4/5) = 24/25."
+    correctText: "The 1962 Cuban Missile Crisis",
+    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
   },
   {
-    id: "appc-026",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "For y = 3 sin(2(x - pi/4)) + 1, identify the amplitude, period, phase shift, and midline.",
+    id: "ghii-026",
+    topic: "Unit 8: Cold War",
+    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
     choices: [
-      "Amplitude 3, period pi, phase shift pi/4 right, midline y = 1",
-      "Amplitude 3, period 2 pi, phase shift pi/4 left, midline y = 1",
-      "Amplitude 2, period pi, phase shift pi/4 right, midline y = 3",
-      "Amplitude 3, period pi/2, phase shift pi/2 right, midline y = 0",
+      "Promote free trade across Europe",
+      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+      "Coordinate scientific space programs",
+      "Govern post-war reconstruction in Asia",
     ],
-    correctText: "Amplitude 3, period pi, phase shift pi/4 right, midline y = 1",
-    explanation: "For y = A sin(B(x - C)) + D: amplitude |A| = 3, period 2 pi / |B| = pi, phase shift C = pi/4 to the right, midline y = D = 1."
+    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
   },
   {
-    id: "appc-027",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Evaluate arccos(-1/2) for the principal value (range [0, pi]).",
+    id: "ghii-027",
+    topic: "Unit 8: Cold War",
+    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
     choices: [
-      "pi / 3",
-      "(2 * pi) / 3",
-      "(5 * pi) / 6",
-      "-pi / 3",
+      "The U.S. sought to annex Vietnam as a territory.",
+      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+      "The Vietnamese government formally requested annexation.",
+      "Vietnam had attacked the United States directly in 1960.",
     ],
-    correctText: "(2 * pi) / 3",
-    explanation: "arccos returns values in [0, pi]. cos(2 pi / 3) = -1/2, so arccos(-1/2) = 2 pi / 3."
+    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
   },
   {
-    id: "appc-028",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "In triangle ABC, side a = 8, side b = 11, and angle C = 60 deg. Use the Law of Cosines to find side c.",
+    id: "ghii-028",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
     choices: [
-      "c = sqrt(185)",
-      "c = sqrt(97)",
-      "c = sqrt(105)",
-      "c = sqrt(76)",
+      "Through armed military rebellion against British troops",
+      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+      "By accepting all British demands without protest",
+      "By forming a violent partnership with Japan during WWII",
     ],
-    correctText: "c = sqrt(97)",
-    explanation: "c^2 = a^2 + b^2 - 2 a b cos(C) = 64 + 121 - 2(8)(11)(1/2) = 185 - 88 = 97. So c = sqrt(97)."
+    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
   },
   {
-    id: "appc-029",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Convert the polar point (4, 5 pi / 6) to rectangular coordinates.",
+    id: "ghii-029",
+    topic: "Unit 9: Decolonization",
+    prompt: "What was the immediate result of the 1947 Partition of British India?",
     choices: [
-      "(-2 sqrt(3), 2)",
-      "(2 sqrt(3), -2)",
-      "(-2, 2 sqrt(3))",
-      "(2, -2 sqrt(3))",
+      "India and Pakistan formed a single unified democracy.",
+      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+      "India remained a British colony until 1960.",
+      "The partition created peace across South Asia.",
     ],
-    correctText: "(-2 sqrt(3), 2)",
-    explanation: "x = r cos(theta) = 4 cos(5 pi / 6) = 4 * (-sqrt(3)/2) = -2 sqrt(3). y = r sin(theta) = 4 sin(5 pi / 6) = 4 * (1/2) = 2."
+    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
   },
   {
-    id: "appc-030",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "Which polar equation describes a four-petaled rose curve?",
+    id: "ghii-030",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
     choices: [
-      "r = 3 cos(2 theta)",
-      "r = 3 cos(3 theta)",
-      "r = 3 + 3 cos(theta)",
-      "r = 3",
+      "He led a foreign army that invaded South Africa.",
+      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+      "He restored a system of racial segregation under a new name.",
+      "He oversaw the colonization of South Africa by a European power.",
     ],
-    correctText: "r = 3 cos(2 theta)",
-    explanation: "For r = a cos(n theta) or r = a sin(n theta), an even n yields 2n petals; here n = 2 produces 4 petals. (An odd n produces n petals.)"
+    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
   },
   {
-    id: "appc-031",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "What type of polar curve is r = 2 + 2 cos(theta)?",
+    id: "ghii-031",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "What is the European Union (EU)?",
     choices: [
-      "Limaçon with inner loop",
-      "Cardioid",
-      "Three-petaled rose",
-      "Circle through the origin",
+      "A military alliance to replace NATO",
+      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+      "An international religious organization",
+      "A short-lived 19th-century trade league",
     ],
-    correctText: "Cardioid",
-    explanation: "For r = a + b cos(theta) with |a| = |b|, the curve is a cardioid (heart-shaped, with a single cusp at the origin). When |a| < |b|, an inner loop appears; when |a| > |b|, the limaçon is dimpled."
+    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
   },
   {
-    id: "appc-032",
-    topic: "Unit 3: Trigonometric + Polar Functions",
-    prompt: "What is the reference angle for theta = 7 pi / 6?",
+    id: "ghii-032",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
     choices: [
-      "pi / 6",
-      "pi / 3",
-      "5 pi / 6",
-      "pi / 4",
+      "It granted multi-party democracy.",
+      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+      "It abolished the Communist Party.",
+      "It allowed the protests to continue indefinitely.",
     ],
-    correctText: "pi / 6",
-    explanation: "7 pi / 6 lies in Quadrant III. The reference angle equals 7 pi / 6 - pi = pi / 6 (the acute angle to the x-axis)."
+    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
   },
   {
-    id: "appc-033",
-    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
-    prompt: "A particle moves along the path x(t) = 2t + 1, y(t) = t^2 - 3. Eliminate the parameter to find y in terms of x.",
+    id: "ghii-033",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
     choices: [
-      "y = ((x - 1)/2)^2 - 3",
-      "y = (x - 1)^2 - 3",
-      "y = ((x + 1)/2)^2 - 3",
-      "y = x^2 - 3",
+      "French colonial troops",
+      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+      "United Nations peacekeepers",
+      "American military forces",
     ],
-    correctText: "y = ((x - 1)/2)^2 - 3",
-    explanation: "Solve x = 2t + 1 for t: t = (x - 1)/2. Substitute into y = t^2 - 3: y = ((x - 1)/2)^2 - 3."
+    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
   },
   {
     id: "ghii-034",
@@ -2039,21 +2039,22 @@ const QUESTIONS = [
     explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
   },
   {
-    id: "appc-040",
-    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
-    prompt: "Which transformation is a linear transformation of the plane?",
+    id: "ghii-040",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "Which sequence of 20th-century events is in correct chronological order?",
     choices: [
-      "T(x, y) = (x + 1, y - 2)",
-      "T(x, y) = (2x, 3y)",
-      "T(x, y) = (x^2, y)",
-      "T(x, y) = (sin(x), cos(y))",
+      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
+      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
+      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
     ],
-    correctText: "T(x, y) = (2x, 3y)",
-    explanation: "A linear transformation must satisfy T(u + v) = T(u) + T(v) and T(c u) = c T(u), and must send the origin to itself. Scaling each coordinate (2x, 3y) qualifies; translation, squaring, and trig functions do not."
+    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
+  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "ap-precalc-practice-exam-state-v1";
+const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2167,14 +2168,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">AP Precalculus Practice · 40 Items</div>
+      <div class="exam-topic">Regents Practice · 40 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 4 units of the AP Precalculus curriculum —
-        polynomial and rational functions, exponentials and logarithms, trigonometry and polar coordinates,
-        and parametric/vector/matrix topics. Each question gives instant feedback with a short explanation.
-        At the end, you'll see your overall score plus a per-topic mastery breakdown so you know exactly which
-        unit to drill before the May AP exam.
+        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
+        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
+        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
+        know exactly where to focus your review for the June Regents.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,13 +2311,13 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · AP Precalculus</div>
+      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a solid AP Precalculus score. The breakdown below shows where to push higher."
+          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
           : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
       </p>
 
@@ -2397,7 +2397,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/ap-precalc-practice/ → root index.html
+  // Walk up the path: games/regents-global-2/ → root index.html
   window.location.href = "../../index.html";
 }
 
