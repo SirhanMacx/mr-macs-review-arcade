@@ -1524,8 +1524,8 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
-    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 interpretive questions across 6 AP themes</span>
+    <span class="pill" id="topicStatus">Reading comprehension · vocabulary · culture · grammar in DACH context</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
@@ -2054,7 +2054,7 @@ const QUESTIONS = [
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+const STORAGE_KEY = "ap-german-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2168,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
+      <div class="exam-topic">AP German Practice · 40 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 40 multiple-choice questions covering all 6 AP German themes — Familie + Gemeinschaft,
+        Wissenschaft + Technologie, Zeitgenössisches Leben, Persönliche + öffentliche Identität,
+        Schönheit + Ästhetik, and Globale Herausforderungen — plus targeted grammar and vocabulary in DACH
+        cultural context. Each question gives instant feedback with a short explanation. At the end, you'll see
+        your overall score plus a per-theme mastery breakdown so you know exactly where to focus your review.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,14 +2312,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Exam Complete · AP German Language</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a competitive AP score. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which themes to drill before exam day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2397,7 +2398,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/ap-german-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

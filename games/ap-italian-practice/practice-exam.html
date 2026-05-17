@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>NYS Global History II Practice Exam — Mr. Mac's Review Arcade</title>
+<title>AP Italian Language Practice Exam — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
-      <h1>NYS Global History II Practice Exam</h1>
-      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
+      <div class="kicker"><span>Practice Exam</span><span>AP Italian Language and Culture</span></div>
+      <h1>AP Italian Language Practice Exam</h1>
+      <p class="subtitle">40-question practice test covering all 6 themes, modeled on Section I reading + interpretive items.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,9 +1524,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
-    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
-    <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 AP-modeled questions across all 6 themes</span>
+    <span class="pill" id="topicStatus">Reading comprehension · vocabolario · cultura · grammatica</span>
+    <span class="pill">Choices randomize each attempt · Per-theme mastery shown at the end</span>
   </section>
 </main>
 <script>
@@ -2054,7 +2054,7 @@ const QUESTIONS = [
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+const STORAGE_KEY = "ap-italian-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2168,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
-      <p class="exam-prompt">Ready to take the practice exam?</p>
+      <div class="exam-topic">AP Italian Practice · 40 Items</div>
+      <p class="exam-prompt">Pronto per l'esame di pratica?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 40 multiple-choice questions drawn from all 6 AP Italian themes — Le famiglie e le comunità,
+        La scienza e la tecnologia, La vita contemporanea, Le identità personali e pubbliche, La bellezza e
+        l'estetica, and Le sfide globali. Each item gives instant feedback with a short explanation in English.
+        At the end, you'll see your overall score plus a per-theme mastery breakdown so you know exactly where
+        to focus your review.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,14 +2312,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Exam Complete · AP Italian Language</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Bravissimo — solid AP-level performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which themes to drill before exam day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2397,7 +2398,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/ap-italian-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

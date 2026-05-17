@@ -1961,82 +1961,82 @@ const QUESTIONS = [
     explanation: "Solve x = 2t + 1 for t: t = (x - 1)/2. Substitute into y = t^2 - 3: y = ((x - 1)/2)^2 - 3."
   },
   {
-    id: "ghii-034",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "Which statement best describes the scientific consensus on climate change?",
+    id: "appc-034",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "Find the magnitude of the vector v = <3, -4>.",
     choices: [
-      "Earth's climate has not changed in recorded history.",
-      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-      "Climate change affects only the polar regions.",
-      "Climate change is caused exclusively by natural solar cycles.",
+      "1",
+      "5",
+      "7",
+      "25",
     ],
-    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
+    correctText: "5",
+    explanation: "Magnitude of <a, b> equals sqrt(a^2 + b^2) = sqrt(9 + 16) = sqrt(25) = 5."
   },
   {
-    id: "ghii-035",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
+    id: "appc-035",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "Compute the dot product of u = <2, -1> and v = <3, 4>.",
     choices: [
-      "Tokugawa daimyo system and South African apartheid",
-      "The printing press and the steam engine",
-      "Monsoon winds and the Nile River",
-      "Pasta and pizza",
+      "2",
+      "10",
+      "-2",
+      "11",
     ],
-    correctText: "Tokugawa daimyo system and South African apartheid",
-    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
+    correctText: "2",
+    explanation: "Dot product: u . v = (2)(3) + (-1)(4) = 6 - 4 = 2."
   },
   {
-    id: "ghii-036",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
+    id: "appc-036",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "What is the determinant of the matrix [[2, 5], [1, 3]]?",
     choices: [
-      "Gutenberg's printing press and the Industrial Revolution's steam engine",
-      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
-      "Confucian filial piety and feudal serfdom",
-      "The Treaty of Westphalia and the Truman Doctrine",
+      "11",
+      "1",
+      "6",
+      "-1",
     ],
-    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
-    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
+    correctText: "1",
+    explanation: "For a 2x2 matrix [[a, b], [c, d]], the determinant equals ad - bc = (2)(3) - (5)(1) = 6 - 5 = 1."
   },
   {
-    id: "ghii-037",
-    topic: "Enduring Issues",
-    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
+    id: "appc-037",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "Find the inverse of A = [[1, 2], [3, 4]].",
     choices: [
-      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-      "The Code of Hammurabi and the Treaty of Versailles",
-      "The Edict of Nantes and the Smoot-Hawley Tariff",
-      "The Edict of Worms and the Cuban Missile Crisis briefings",
+      "[[-2, 1], [3/2, -1/2]]",
+      "[[4, -2], [-3, 1]]",
+      "[[-1/2, 1], [3/2, -2]]",
+      "Matrix is not invertible.",
     ],
-    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
+    correctText: "[[-2, 1], [3/2, -1/2]]",
+    explanation: "det(A) = (1)(4) - (2)(3) = -2. Inverse = (1/det) * [[d, -b], [-c, a]] = (1/-2) * [[4, -2], [-3, 1]] = [[-2, 1], [3/2, -1/2]]."
   },
   {
-    id: "ghii-038",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
+    id: "appc-038",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "Which matrix represents a counterclockwise rotation of 90 degrees about the origin?",
     choices: [
-      "Ancient African kingdoms and ethnic boundaries",
-      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-      "Geographic features like rivers and mountains",
-      "Borders established by the Ottoman Empire",
+      "[[0, -1], [1, 0]]",
+      "[[0, 1], [-1, 0]]",
+      "[[1, 0], [0, -1]]",
+      "[[-1, 0], [0, 1]]",
     ],
-    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
+    correctText: "[[0, -1], [1, 0]]",
+    explanation: "The standard 2D rotation matrix is [[cos(theta), -sin(theta)], [sin(theta), cos(theta)]]. For theta = 90 deg this becomes [[0, -1], [1, 0]]."
   },
   {
-    id: "ghii-039",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
+    id: "appc-039",
+    topic: "Unit 4: Functions, Parameters, Vectors, Matrices",
+    prompt: "Solve the system 2x + y = 7, x - y = 2 using matrices.",
     choices: [
-      "Confucian philosophy",
-      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-      "Medieval feudal contracts",
-      "Mercantilist economic theory",
+      "x = 3, y = 1",
+      "x = 1, y = 3",
+      "x = 2, y = 3",
+      "No unique solution",
     ],
-    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
+    correctText: "x = 3, y = 1",
+    explanation: "Add the equations to eliminate y: 3x = 9, so x = 3. Then y = x - 2 = 1. Equivalent to solving A * [x; y] = b with A = [[2, 1], [1, -1]] and b = [7; 2]."
   },
   {
     id: "appc-040",
@@ -2052,6 +2052,8 @@ const QUESTIONS = [
     explanation: "A linear transformation must satisfy T(u + v) = T(u) + T(v) and T(c u) = c T(u), and must send the origin to itself. Scaling each coordinate (2x, 3y) qualifies; translation, squaring, and trig functions do not."
   },
 ];
+
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
 const STORAGE_KEY = "ap-precalc-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
