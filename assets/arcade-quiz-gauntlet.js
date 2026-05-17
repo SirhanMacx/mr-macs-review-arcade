@@ -382,7 +382,8 @@
     btns.forEach(function (btn) {
       if (btn.__mmqWired) return;
       btn.__mmqWired = true;
-      btn.addEventListener("click", function () {
+      btn.addEventListener("click", function (event) {
+        if (event && typeof event.preventDefault === "function") event.preventDefault();
         open({
           courseId: btn.dataset.course || "",
           courseLabel: btn.dataset.courseLabel || btn.dataset.course || "Gauntlet",
