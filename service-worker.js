@@ -1,4 +1,4 @@
-const CACHE_NAME = "v72-52-practice-exams-grade-8-ela-science-complete";
+const CACHE_NAME = "v73-9-new-jeopardy-boards-grade-6-ela-cumulatives";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
