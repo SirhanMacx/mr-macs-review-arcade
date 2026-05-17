@@ -1,0 +1,2136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Unit 2 - Banking, Saving, and Investing Review Game</title>
+<script id="MRMAC_PERF_LITE_BOOT">
+(function(){
+  try {
+    if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+  } catch (error) {
+    document.documentElement.classList.add("perf-lite");
+  }
+}());
+</script>
+<style>
+:root {
+  --bg0: #080a13;
+  --bg1: #111827;
+  --panel: rgba(12, 18, 33, .82);
+  --line: rgba(255,255,255,.16);
+  --text: #f8fbff;
+  --muted: #aebad1;
+  --accent: #ffd166;
+  --accent2: #2ec4b6;
+  --accent3: #ef476f;
+  --glow: rgba(255,209,102,.30);
+  --tile: #12315f;
+  --tile2: #4a1f56;
+  --danger: #ff5f65;
+  --ok: #36e6a4;
+  --arena: url("../../assets/jeopardy/arena.jpg");
+  --tile-art: url("../../assets/jeopardy/tile-art.jpg");
+  --panel-art: url("../../assets/jeopardy/panel-art.jpg");
+  --board-frame: url("../../assets/jeopardy/board-frame.jpg");
+  --daily-art: url("../../assets/jeopardy/daily-art.jpg");
+  --final-art: url("../../assets/jeopardy/final-art.jpg");
+  --clue-art: url("../../assets/jeopardy/clue-art.jpg");
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --spot-x: 50%;
+  --spot-y: 42%;
+  --scene-x: 0px;
+  --scene-y: 0px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050812;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+button, input, textarea { font: inherit; }
+button {
+  border: 0;
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+#arenaBg {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.22), rgba(4,8,18,.58) 44%, rgba(4,8,18,.88)),
+    radial-gradient(circle at 50% 18%, rgba(255,209,102,.16), transparent 24%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.16) contrast(1.08);
+  transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(1.032);
+  transition: transform 90ms linear;
+}
+#arenaBg::before,
+#arenaBg::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+}
+#arenaBg::before {
+  background:
+    conic-gradient(from 120deg at 50% 30%, transparent 0deg, rgba(255,209,102,.16) 18deg, transparent 42deg, transparent 112deg, rgba(0,212,255,.13) 135deg, transparent 164deg, transparent 360deg);
+  mix-blend-mode: screen;
+  animation: lightSweep 16s linear infinite;
+}
+#arenaBg::after {
+  background:
+    radial-gradient(circle at 50% 55%, transparent 0 20%, rgba(0,0,0,.26) 52%, rgba(0,0,0,.72) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.6), transparent 22%, transparent 78%, rgba(0,0,0,.6));
+}
+@keyframes lightSweep {
+  from { transform: rotate(0deg) scale(1.1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+#space {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.035), rgba(255,255,255,.035) 1px, transparent 1px, transparent 6px);
+  mix-blend-mode: overlay;
+  opacity: .4;
+}
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  padding: 20px clamp(12px, 2.5vw, 34px) 38px;
+  animation: appBoot .78s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes appBoot {
+  from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.stage-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 34%, rgba(255,255,255,.32) 46%, rgba(255,209,102,.36) 50%, rgba(0,212,255,.22) 55%, transparent 70%),
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.18), transparent 28%);
+  mix-blend-mode: screen;
+  animation: stageWipe 1.35s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes stageWipe {
+  0% { opacity: 0; transform: translateX(-60%) skewX(-10deg); }
+  18% { opacity: .85; }
+  100% { opacity: 0; transform: translateX(60%) skewX(-10deg); }
+}
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: start;
+  margin: 0 auto 16px;
+  max-width: 1480px;
+  animation: hudDrop .75s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes hudDrop {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.titleblock {
+  position: relative;
+  min-height: 132px;
+  padding: 20px 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(12,17,29,.40), rgba(8,12,24,.76)),
+    radial-gradient(circle at 18% 0%, var(--glow), transparent 44%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 70px rgba(0,0,0,.48), inset 0 0 90px rgba(255,255,255,.04), 0 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter: blur(16px) saturate(1.3);
+  overflow: hidden;
+}
+.titleblock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.22) 38%, transparent 45%),
+    repeating-linear-gradient(90deg, transparent 0 62px, rgba(255,255,255,.04) 63px, transparent 66px);
+  mix-blend-mode: screen;
+  opacity: .62;
+}
+.titleblock > * { position: relative; z-index: 1; }
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 8px 0 4px;
+  font-size: clamp(31px, 5.4vw, 82px);
+  line-height: .94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px var(--glow), 0 10px 30px rgba(0,0,0,.62);
+}
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: clamp(14px, 1.7vw, 20px);
+  max-width: 920px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 520px;
+  position: relative;
+  z-index: 5;
+}
+.btn {
+  min-height: 46px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.07)),
+    linear-gradient(135deg, rgba(8,14,28,.38), rgba(8,14,28,.78)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 14px 28px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.22);
+  font-weight: 900;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+.btn:hover, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 36px rgba(0,0,0,.42), 0 0 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.24);
+}
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn.primary {
+  color: #121212;
+  background: linear-gradient(135deg, var(--accent), #fff1a6 52%, #ffffff);
+  box-shadow: 0 15px 30px rgba(0,0,0,.36), 0 0 24px var(--glow), inset 0 1px 0 rgba(255,255,255,.52);
+}
+.btn.warn {
+  color: #191102;
+  background: linear-gradient(135deg, #ffbf69, var(--accent3));
+}
+.btn.ghost {
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+}
+.scorebar {
+  max-width: 1480px;
+  margin: 0 auto 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: stretch;
+  animation: hudRise .82s cubic-bezier(.16, 1, .3, 1) .12s both;
+}
+@keyframes hudRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.team {
+  position: relative;
+  min-height: 92px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.11), rgba(5,9,18,.68)),
+    radial-gradient(circle at 82% 0%, var(--glow), transparent 34%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 16px 35px rgba(0,0,0,.36), inset 0 0 55px rgba(255,255,255,.035);
+  backdrop-filter: blur(13px) saturate(1.25);
+}
+.team.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 28px var(--glow), inset 0 0 50px rgba(255,255,255,.04);
+  animation: activePulse 1.9s ease-in-out infinite;
+}
+.team.solo {
+  border-color: var(--accent2);
+  box-shadow: 0 0 30px rgba(77,213,255,.22), inset 0 0 50px rgba(255,255,255,.04);
+}
+@keyframes activePulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.12); }
+}
+.team input {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px;
+  padding: 7px 9px;
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  font-weight: 800;
+}
+.score {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+.score strong {
+  color: var(--accent);
+  font-size: 32px;
+  line-height: 1;
+  text-shadow: 0 0 16px var(--glow);
+}
+.score-actions {
+  display: flex;
+  gap: 6px;
+}
+.score-actions button {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.12);
+  font-weight: 900;
+}
+.soundbox {
+  width: 184px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.1), rgba(6,10,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  padding: 10px;
+  box-shadow: 0 16px 35px rgba(0,0,0,.34), inset 0 0 50px rgba(255,255,255,.03);
+  backdrop-filter: blur(13px);
+}
+.equalizer {
+  height: 42px;
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  margin-top: 8px;
+}
+.equalizer span {
+  flex: 1;
+  min-width: 8px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  transform-origin: bottom;
+  animation: bars 900ms ease-in-out infinite;
+  animation-play-state: paused;
+}
+.music-on .equalizer span { animation-play-state: running; }
+.equalizer span:nth-child(2) { animation-delay: 120ms; }
+.equalizer span:nth-child(3) { animation-delay: 240ms; }
+.equalizer span:nth-child(4) { animation-delay: 80ms; }
+.equalizer span:nth-child(5) { animation-delay: 180ms; }
+@keyframes bars {
+  0%, 100% { height: 15%; }
+  45% { height: 95%; }
+}
+.board-wrap {
+  max-width: 1480px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: clamp(38px, 5.2vw, 80px) clamp(28px, 6.4vw, 98px) clamp(48px, 6.4vw, 92px);
+  perspective: 1700px;
+  border-radius: 8px;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.12), rgba(1,4,12,.44)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.10), transparent 28%),
+    var(--board-frame) center / cover no-repeat;
+  border: 1px solid rgba(255,255,255,.11);
+  box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 42px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03);
+  backdrop-filter: blur(8px);
+  animation: boardStageBoot 1.05s cubic-bezier(.16, 1, .3, 1) both, boardPower 6s ease-in-out 1.1s infinite;
+}
+.board-wrap::before,
+.board-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.board-wrap::before {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.22) 45%, transparent 55%),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,209,102,.18), transparent 24%);
+  mix-blend-mode: screen;
+  opacity: .78;
+  animation: boardSweep 4.6s ease-in-out infinite;
+}
+.board-wrap::after {
+  box-shadow: inset 0 0 70px rgba(0,0,0,.55), inset 0 0 34px rgba(255,209,102,.10);
+}
+@keyframes boardStageBoot {
+  from { opacity: 0; transform: perspective(1200px) rotateX(12deg) translateY(54px) scale(.94); filter: blur(10px) brightness(.82); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes boardPower {
+  0%, 100% { box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 38px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03); }
+  50% { box-shadow: 0 38px 110px rgba(0,0,0,.68), 0 0 58px rgba(255,209,102,.18), inset 0 0 105px rgba(255,255,255,.05); }
+}
+@keyframes boardSweep {
+  0%, 54%, 100% { transform: translateX(-45%); opacity: .18; }
+  70% { transform: translateX(42%); opacity: .82; }
+}
+.board {
+  width: 100%;
+  min-width: min(940px, 100%);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  transform: rotateX(calc(2.6deg + var(--tilt-y))) rotateY(var(--tilt-x)) translateZ(0);
+  transform-style: preserve-3d;
+  transform-origin: center top;
+  transition: transform 110ms linear;
+  will-change: transform;
+}
+.cat, .tile {
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.16);
+  text-align: center;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  will-change: transform, filter;
+}
+body:not(.game-booted) .cat,
+body:not(.game-booted) .tile {
+  opacity: 0;
+  animation: tileBoot .72s cubic-bezier(.16, 1, .3, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 34ms + 260ms);
+}
+body.game-booted .cat,
+body.game-booted .tile:not(.used) {
+  animation: tileLive calc(5.2s + var(--i, 0) * 70ms) ease-in-out infinite;
+}
+@keyframes tileBoot {
+  from { opacity: 0; transform: translateY(32px) rotateX(18deg) scale(.86); filter: blur(8px) brightness(.7); }
+  66% { opacity: 1; filter: blur(0) brightness(1.16); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes tileLive {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08) saturate(1.1); }
+}
+.cat {
+  min-height: 82px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.24), rgba(4,10,26,.48)),
+    linear-gradient(135deg, color-mix(in srgb, var(--tile), transparent 12%), color-mix(in srgb, var(--tile2), transparent 20%)),
+    var(--tile-art) center / cover no-repeat;
+  text-transform: uppercase;
+  font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: 950;
+  line-height: 1.08;
+  color: #fff8d8;
+  text-shadow: 0 2px 0 rgba(0,0,0,.35);
+  box-shadow: inset 0 0 28px rgba(255,255,255,.08), 0 12px 24px rgba(0,0,0,.32);
+}
+.tile {
+  min-height: 88px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.04) 40%, rgba(0,0,0,.18)),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.28), transparent 28%),
+    linear-gradient(145deg, color-mix(in srgb, var(--tile), transparent 40%), color-mix(in srgb, var(--tile2), transparent 52%)),
+    var(--tile-art) center / cover no-repeat;
+  color: var(--accent);
+  font-size: clamp(26px, 4.2vw, 48px);
+  font-weight: 1000;
+  text-shadow: 0 0 12px var(--glow), 0 2px 0 rgba(0,0,0,.55);
+  box-shadow: 0 14px 22px rgba(0,0,0,.32), inset 0 0 42px rgba(255,255,255,.045);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+  isolation: isolate;
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.28) 43%, transparent 51%),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.38), transparent 22%);
+  transform: translateX(-36%) rotate(8deg);
+  transition: transform 350ms ease;
+}
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg, transparent 0 38%, rgba(255,255,255,.30) 48%, transparent 58%),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.22), transparent 34%);
+  mix-blend-mode: screen;
+  opacity: .18;
+  transform: translateX(-110%);
+  animation: tileScan 3.7s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+@keyframes tileScan {
+  0%, 58%, 100% { transform: translateX(-115%); opacity: 0; }
+  68% { opacity: .45; }
+  86% { transform: translateX(115%); opacity: 0; }
+}
+.tile:hover {
+  transform: translateY(-4px) translateZ(34px) rotateX(-7deg);
+  filter: brightness(1.15);
+  box-shadow: 0 18px 34px rgba(0,0,0,.44), 0 0 30px var(--glow), inset 0 0 46px rgba(255,255,255,.07);
+}
+.tile:hover::before { transform: translateX(28%) rotate(8deg); }
+.tile.selected {
+  z-index: 5;
+  animation: tileSelect .38s cubic-bezier(.16, 1, .3, 1) both !important;
+}
+@keyframes tileSelect {
+  0% { transform: scale(1) translateZ(0); filter: brightness(1); }
+  42% { transform: scale(1.1) translateZ(80px) rotateX(-10deg); filter: brightness(1.45); box-shadow: 0 0 44px var(--glow), 0 20px 50px rgba(0,0,0,.5); }
+  100% { transform: scale(1.03) translateZ(16px); filter: brightness(1.2); }
+}
+.tile.used {
+  color: rgba(255,255,255,.24);
+  background:
+    linear-gradient(135deg, rgba(0,0,0,.72), rgba(255,255,255,.035)),
+    var(--tile-art) center / cover no-repeat;
+  transform: none;
+  box-shadow: inset 0 0 32px rgba(0,0,0,.35);
+  cursor: not-allowed;
+  animation: tileOff .42s ease-out both;
+}
+.tile.used::before { opacity: .08; }
+.tile.used::after { opacity: 0; animation: none; }
+@keyframes tileOff {
+  from { filter: brightness(1.6); }
+  to { filter: brightness(.72); }
+}
+.tile.daily::after {
+  content: "DD";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-size: 12px;
+  color: #111;
+  background: var(--accent3);
+  border-radius: 4px;
+  padding: 2px 5px;
+  opacity: .9;
+}
+.statusline {
+  max-width: 1480px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.pill {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.1), transparent 34%),
+    rgba(2, 4, 10, .78);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+.modal.show { display: flex; }
+.dialog {
+  width: min(980px, 100%);
+  max-height: min(92vh, 880px);
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255,255,255,.14), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,0) 32%),
+    linear-gradient(145deg, rgba(6,10,22,.82), rgba(11,13,27,.95)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.72), 0 0 55px var(--glow), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: perspective(1200px) rotateX(4deg);
+  animation: modalIn 220ms ease-out;
+}
+.modal[data-mode="daily"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.18), rgba(6,9,18,.58)),
+    var(--daily-art) center / cover no-repeat;
+}
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.16), rgba(6,9,18,.62)),
+    var(--final-art) center / cover no-repeat;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: perspective(1200px) rotateX(18deg) scale(.92); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(4deg) scale(1); }
+}
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+}
+.dialog-head h2 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 38px);
+  text-transform: uppercase;
+}
+.dialog-body { padding: 20px; }
+.clue-text {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 38px);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--glow), transparent 42%),
+    linear-gradient(145deg, rgba(255,255,255,.14), rgba(2,7,20,.56)),
+    var(--clue-art) center / cover no-repeat;
+  font-size: clamp(23px, 4vw, 48px);
+  line-height: 1.08;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(255,255,255,.1);
+  box-shadow: inset 0 0 80px rgba(255,255,255,.04), 0 20px 45px rgba(0,0,0,.28);
+}
+.modal[data-mode="daily"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42)),
+    var(--daily-art) center / cover no-repeat;
+  min-height: 260px;
+}
+.modal[data-mode="final"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.46)),
+    var(--final-art) center / cover no-repeat;
+  min-height: 280px;
+}
+.answer-box {
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.09), rgba(5,9,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  border-radius: 8px;
+}
+.answer-box.good { border-left-color: var(--ok); }
+.answer-box.bad { border-left-color: var(--danger); }
+.answer-box.judge { border-left-color: var(--accent); }
+.answer-box h3 {
+  margin: 0 0 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.answer-box p { margin: 7px 0; color: #eef5ff; line-height: 1.45; }
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.wager-grid, .final-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.wager-card {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.08), rgba(4,8,18,.70)),
+    var(--panel-art) center / cover no-repeat;
+}
+.wager-card label {
+  display: block;
+  color: var(--muted);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.wager-card input, .final-grid textarea, .quick-answer {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(0,0,0,.22);
+  padding: 10px;
+}
+.quick-answer {
+  min-height: 50px;
+  font-size: 18px;
+  box-shadow: inset 0 0 22px rgba(0,0,0,.25);
+}
+.quick-answer:focus, .wager-card input:focus, .final-grid textarea:focus, .team input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+.final-grid textarea { min-height: 92px; resize: vertical; }
+.score-result {
+  display: grid;
+  grid-template-columns: minmax(120px, .8fr) minmax(180px, 1.2fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.score-result strong { color: var(--accent); }
+.auto-meter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+.meter-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--danger), var(--accent), var(--ok));
+  box-shadow: 0 0 18px var(--glow);
+}
+.flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.58), transparent 36%);
+}
+.flash.good { background: radial-gradient(circle at 50% 45%, rgba(54,230,164,.62), transparent 36%); }
+.flash.bad { background: radial-gradient(circle at 50% 45%, rgba(255,95,101,.58), transparent 36%); }
+.flash.final { background: radial-gradient(circle at 50% 45%, rgba(255,209,102,.68), transparent 40%); }
+.flash.play { animation: flashHit 480ms ease-out; }
+@keyframes flashHit {
+  0% { opacity: 0; transform: scale(.86); }
+  24% { opacity: .55; }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+.hidden { display: none !important; }
+.tiny { color: var(--muted); font-size: 13px; line-height: 1.35; }
+@media (max-width: 860px) {
+  .topbar, .scorebar { grid-template-columns: 1fr; }
+  .controls { justify-content: stretch; max-width: none; }
+  .btn { flex: 1 1 auto; }
+  .soundbox { width: auto; }
+  h1, .subtitle { max-width: none; }
+  .titleblock { min-height: auto; }
+  .board-wrap { padding: 16px 8px 20px; background-position: center; overflow-x: hidden; }
+  .board { min-width: 0; width: 100%; gap: clamp(5px, 1.2vw, 9px); }
+  .cat { min-height: 72px; padding: 7px 5px; font-size: clamp(10px, 2.35vw, 14px); line-height: 1.02; }
+  .tile { min-height: 76px; padding: 6px 4px; font-size: clamp(20px, 6vw, 34px); }
+  .app { padding-left: 10px; padding-right: 10px; }
+}
+
+/* MRMAC_JEOPARDY_POLISH_V2 */
+:root {
+  --panel: rgba(3, 8, 20, .88);
+  --line: rgba(255,255,255,.22);
+  --text: #fbfdff;
+  --muted: #d4e0f6;
+}
+body {
+  font-family: "Trebuchet MS", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #030712;
+}
+#arenaBg {
+  background:
+    linear-gradient(180deg, rgba(2,5,12,.08), rgba(2,5,12,.52) 48%, rgba(2,5,12,.9)),
+    radial-gradient(circle at 50% 22%, rgba(255,209,102,.14), transparent 28%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.18) contrast(1.11) brightness(.92);
+}
+.scanlines {
+  opacity: .26;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 5px);
+}
+.topbar {
+  gap: clamp(10px, 1.8vw, 18px);
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+}
+.titleblock,
+.team,
+.soundbox,
+.dialog,
+.answer-box,
+.wager-card {
+  border-color: rgba(255,255,255,.22);
+  background-blend-mode: normal, screen, normal;
+}
+.titleblock {
+  min-height: 116px;
+  padding: clamp(15px, 2vw, 22px);
+  background:
+    linear-gradient(135deg, rgba(2,7,17,.78), rgba(3,8,22,.92)),
+    radial-gradient(circle at 18% 0%, rgba(255,209,102,.18), transparent 38%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 72px rgba(0,0,0,.58), inset 0 0 90px rgba(255,255,255,.045), 0 0 0 1px rgba(255,255,255,.08);
+}
+.titleblock::before { opacity: .42; }
+.kicker {
+  letter-spacing: .06em;
+  color: #ffe59b;
+}
+h1 {
+  font-size: clamp(30px, 4.8vw, 70px);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.subtitle {
+  color: #d8e4fa;
+  line-height: 1.35;
+}
+.controls { gap: 9px; }
+.btn {
+  min-height: 44px;
+  border-radius: 7px;
+  color: #f9fcff;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+    linear-gradient(135deg, rgba(5,12,28,.72), rgba(7,10,24,.92)),
+    var(--panel-art) center / cover no-repeat;
+}
+.btn.ghost { color: #dce7fa; background: rgba(255,255,255,.075); }
+.btn.primary { color: #101319; }
+.team {
+  min-height: 82px;
+  background:
+    linear-gradient(135deg, rgba(2,8,19,.82), rgba(3,7,18,.92)),
+    radial-gradient(circle at 82% 0%, rgba(255,209,102,.13), transparent 32%),
+    var(--panel-art) center / cover no-repeat;
+}
+.team input,
+.wager-card input,
+.final-grid textarea,
+.quick-answer {
+  color: #fbfdff;
+  background: rgba(0,0,0,.42);
+  border-color: rgba(255,255,255,.24);
+}
+.score strong { font-size: clamp(24px, 2.4vw, 34px); }
+.board-wrap {
+  padding: clamp(30px, 4.8vw, 72px) clamp(20px, 5.5vw, 86px) clamp(38px, 5.6vw, 82px);
+  border-color: rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.10), rgba(1,4,12,.48)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.11), transparent 25%),
+    var(--board-frame) center / cover no-repeat;
+  box-shadow: 0 34px 100px rgba(0,0,0,.70), 0 0 45px rgba(0,180,255,.14), inset 0 0 90px rgba(255,255,255,.035);
+  overflow-x: hidden;
+}
+.board { gap: clamp(7px, 1vw, 13px); }
+.cat,
+.tile {
+  border-color: rgba(255,255,255,.22);
+  border-radius: 7px;
+}
+.cat {
+  min-height: clamp(70px, 6.3vw, 92px);
+  padding: 9px 8px;
+  color: #fff4bf;
+  font-size: clamp(13px, 1.35vw, 19px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 46%, rgba(0,0,0,.34)),
+    linear-gradient(145deg, rgba(5,22,58,.86), rgba(20,12,58,.88)),
+    var(--tile-art) center / cover no-repeat;
+}
+.tile {
+  min-height: clamp(78px, 7.3vw, 106px);
+  color: #ffdc6a;
+  font-size: clamp(25px, 3.6vw, 46px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.23), rgba(255,255,255,.035) 42%, rgba(0,0,0,.26)),
+    radial-gradient(circle at 50% 16%, rgba(255,255,255,.26), transparent 26%),
+    linear-gradient(145deg, rgba(6,32,84,.88), rgba(28,13,72,.90)),
+    var(--tile-art) center / cover no-repeat;
+  box-shadow: 0 14px 22px rgba(0,0,0,.38), inset 0 0 42px rgba(255,255,255,.05), inset 0 -14px 32px rgba(0,0,0,.20);
+}
+.tile:hover,
+.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.statusline { color: #d7e3f7; }
+.pill { background: rgba(0,0,0,.34); border-color: rgba(255,255,255,.18); }
+.modal {
+  padding: clamp(10px, 2vw, 22px);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.12), transparent 34%),
+    rgba(0, 2, 8, .86);
+}
+.dialog {
+  width: min(1040px, calc(100vw - 22px));
+  max-height: min(94vh, 900px);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.72), rgba(4,8,18,.94)),
+    radial-gradient(circle at 12% 6%, rgba(255,255,255,.10), transparent 22%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.78), 0 0 60px rgba(255,209,102,.20), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.modal[data-mode="daily"] .dialog,
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(3,6,16,.62), rgba(3,6,16,.94)),
+    var(--final-art) center / cover no-repeat;
+}
+.dialog-head {
+  padding: clamp(12px, 2vw, 18px) clamp(14px, 2.4vw, 22px);
+  align-items: center;
+}
+.dialog-head h2 {
+  font-size: clamp(19px, 2.5vw, 32px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.dialog-body { padding: clamp(13px, 2.2vw, 22px); }
+.clue-text {
+  min-height: clamp(190px, 31vh, 315px);
+  border-color: rgba(255,255,255,.20);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(2,6,17,.50), rgba(2,6,17,.78)),
+    radial-gradient(circle at 50% 0%, rgba(255,209,102,.13), transparent 38%),
+    var(--clue-art) center / cover no-repeat;
+  color: #fbfdff;
+  font-size: clamp(22px, 3.1vw, 42px);
+  line-height: 1.16;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0,0,0,.82), 0 0 20px rgba(255,255,255,.10);
+}
+.modal[data-mode="daily"] .clue-text,
+.modal[data-mode="final"] .clue-text {
+  min-height: clamp(210px, 35vh, 335px);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.48), rgba(1,4,12,.82)),
+    var(--clue-art) center / cover no-repeat;
+}
+.answer-box,
+.wager-card {
+  background:
+    linear-gradient(135deg, rgba(3,8,19,.84), rgba(3,6,16,.95)),
+    var(--panel-art) center / cover no-repeat;
+}
+.answer-box p { color: #f1f7ff; }
+.wager-grid,
+.final-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.score-result {
+  grid-template-columns: minmax(120px, .75fr) minmax(220px, 1.4fr) auto auto;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(0,0,0,.24);
+}
+@media (max-width: 860px) {
+  .app { padding: 10px 7px 22px; }
+  .topbar, .scorebar { gap: 9px; margin-bottom: 9px; }
+  .titleblock { padding: 13px; min-height: auto; }
+  .kicker { font-size: 10px; gap: 6px; }
+  h1 { font-size: clamp(27px, 8.6vw, 43px); line-height: 1; }
+  .subtitle { font-size: 13px; }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .btn { min-height: 41px; padding: 8px 9px; font-size: 13px; }
+  .teams { grid-template-columns: repeat(auto-fit, minmax(142px, 1fr)); gap: 7px; }
+  .team { min-height: 70px; padding: 8px; }
+  .score strong { font-size: 24px; }
+  .score-actions button { width: 30px; height: 30px; }
+  .soundbox { display: none; }
+  .board-wrap {
+    padding: 12px 6px 16px;
+    border-radius: 10px;
+    overflow-x: hidden;
+  }
+  .board {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+    transform: none;
+    scroll-snap-align: start;
+  }
+  .cat { min-height: 68px; padding: 7px 5px; font-size: 12px; line-height: 1.06; }
+  .tile { min-height: 72px; padding: 6px 3px; font-size: 29px; }
+  .tile.daily::after { right: 4px; top: 4px; font-size: 9px; padding: 1px 3px; }
+  .dialog { width: calc(100vw - 12px); max-height: 96vh; border-radius: 10px; }
+  .dialog-head { padding: 11px 12px; gap: 8px; }
+  .dialog-head h2 { font-size: clamp(18px, 5vw, 24px); }
+  .dialog-body { padding: 11px; }
+  .clue-text { min-height: 190px; padding: 16px 12px; font-size: clamp(19px, 5.4vw, 29px); line-height: 1.18; }
+  .modal[data-mode="daily"] .clue-text,
+  .modal[data-mode="final"] .clue-text { min-height: 205px; }
+  .wager-grid,
+  .final-grid { grid-template-columns: 1fr; }
+  .score-result { grid-template-columns: 1fr; align-items: stretch; }
+  .score-result .btn { width: 100%; }
+}
+@media (max-width: 430px) {
+  .board { width: 100%; min-width: 0; gap: 5px; }
+  .cat { min-height: 58px; font-size: 10px; }
+  .tile { min-height: 58px; font-size: 23px; }
+  .controls { grid-template-columns: 1fr 1fr; }
+}
+
+/* MRMAC_PERF_LITE_CSS */
+html.perf-lite #space,
+html.perf-lite .stage-wipe,
+html.perf-lite #arenaBg::before {
+  display: none !important;
+}
+html.perf-lite #arenaBg {
+  transform: none !important;
+  transition: none !important;
+  filter: saturate(1.03) contrast(1.01) !important;
+}
+html.perf-lite .scanlines { opacity: .16 !important; mix-blend-mode: normal !important; }
+html.perf-lite .board,
+html.perf-lite .board::before,
+html.perf-lite .tile:not(.selected):not(.revealed),
+html.perf-lite .tile::after,
+html.perf-lite .active,
+html.perf-lite .bars i {
+  animation: none !important;
+}
+html.perf-lite .titleblock,
+html.perf-lite .scoreboard,
+html.perf-lite .team-card,
+html.perf-lite .board,
+html.perf-lite .modal-card,
+html.perf-lite .final-card,
+html.perf-lite .control-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.38) !important;
+}
+/* MRMAC_DETAIL_PATCH_V1 */
+.answer-box .accepted-answers { margin: 8px 0 14px; color: var(--muted); font-size: 0.92em; line-height: 1.55; letter-spacing: 0.005em; }
+.answer-box .accepted-answers strong { color: var(--accent); font-weight: 600; }
+.answer-box .accepted-answers .alias-chip { display: inline-block; padding: 2px 9px; margin: 2px 4px 2px 0; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.04); color: var(--text); font-size: 0.92em; }
+.answer-box h3 + p strong { color: var(--accent); }
+
+
+
+/* ── MRMAC_POLISH_2026_05_09 — editorial polish layer ───────────────
+   Brings every standalone review board into the Mr. Mac's Arcade editorial
+   system: Fraunces / Inter / JetBrains Mono ladder, monoline icons via
+   .ic, tabular-nums on every live numeric, focus rings, ambient pulse on
+   the primary CTA only, ≥44px coarse-pointer touch targets, reduced-
+   motion respected. */
+.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.16em; flex-shrink: 0; color: currentColor; fill: none; }
+.ic path, .ic line, .ic polyline, .ic polygon, .ic rect, .ic circle, .ic ellipse { vector-effect: non-scaling-stroke; }
+.score, #score, .timer, #timer, .points, [data-points], #total, [data-stat], [data-numeric] { font-variant-numeric: tabular-nums; font-feature-settings: "tnum","lnum"; }
+button, select, input, .btn { font-family: "Inter", system-ui, sans-serif; }
+h1, h2, h3, .title, .heading, .display { font-family: "Fraunces", Georgia, serif; font-style: italic; }
+.eyebrow, .label, .meta, .pill, .chip, .tag { font-family: "JetBrains Mono", "SFMono-Regular", monospace; }
+button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid rgba(122, 240, 255, .65);
+  outline-offset: 2px;
+}
+@keyframes mrmacBreath {
+  0%, 100% { box-shadow: 0 14px 32px rgba(245,196,81,.18), 0 0 0 0 rgba(245,196,81,0); }
+  50%      { box-shadow: 0 18px 40px rgba(245,196,81,.30), 0 0 22px rgba(245,196,81,.20); }
+}
+.btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+  animation: mrmacBreath 4.6s ease-in-out infinite;
+}
+.btn.primary:hover, button.primary:hover, [data-cta="primary"]:hover,
+.btn.primary:focus-visible, button.primary:focus-visible, [data-cta="primary"]:focus-visible {
+  animation: none;
+}
+@media (pointer: coarse) {
+  button, .btn, select, input, [role="button"] { min-height: 44px; }
+  .tile, .clue, .answer, .choice { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+    animation: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="arenaBg" aria-hidden="true"></div>
+<div class="stage-wipe" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<main class="app">
+  <section class="topbar">
+    <div class="titleblock">
+      <div class="kicker"><span>Unit 2</span><span>AP Business with Personal Finance Exam Review</span></div>
+      <h1>Banking, Saving, and Investing</h1>
+      <p class="subtitle">A full Jeopardy-style practice game for AP Business with Personal Finance Unit 2, covering banking accounts, FDIC insurance, retirement vehicles, and diversification strategy.</p>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="finalBtn">Final Jeopardy</button>
+      <button class="btn" id="soloBtn">Solo Play</button>
+      <button class="btn" id="addTeamBtn">Add Team</button>
+      <button class="btn ghost" id="resetBtn">Reset</button>
+      <button class="btn" id="musicBtn">Sound On</button>
+    </div>
+  </section>
+  <section class="scorebar">
+    <div class="teams" id="teams"></div>
+    <aside class="soundbox" id="soundbox">
+      <div class="tiny">Audio-reactive review arena</div>
+      <div class="equalizer" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    </aside>
+  </section>
+  <section class="board-wrap" aria-label="Review board">
+    <div class="board" id="board"></div>
+  </section>
+  <section class="statusline">
+    <span class="pill" id="activeStatus">Active team: Team 1</span>
+    <span class="pill" id="progressStatus">0 of 0 clues complete</span>
+    <span class="pill">Type a response and use Auto Score, with teacher override available.</span>
+  </section>
+</main>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="dialog">
+    <div class="dialog-head">
+      <div>
+        <h2 id="modalTitle">Clue</h2>
+        <div class="tiny" id="modalMeta"></div>
+      </div>
+      <button class="btn ghost" id="closeModal">Close</button>
+    </div>
+    <div class="dialog-body" id="modalBody"></div>
+  </div>
+</div>
+<script>
+const GAME = {"slug":"ap-bus-finance-02-banking-saving-investing","file":"02 - Banking, Saving, Investing Jeopardy Review.html","day":"Unit 2","title":"Banking, Saving, and Investing","subtitle":"A full Jeopardy-style practice game for AP Business with Personal Finance Unit 2, covering banking accounts, FDIC insurance, retirement vehicles, and diversification strategy.","exam":"AP Business with Personal Finance Exam Review","palette":{"accent":"#ffd166","accent2":"#2ec4b6","accent3":"#ef476f","glow":"rgba(255,209,102,.30)","tile":"#12315f","tile2":"#4a1f56"},"assetSet":"global","tokens":["FDIC $250,000 coverage","Roth IRA vs. 401(k)","S&P 500 index fund"],"categories":[{"name":"Bank Accounts","clues":[{"value":100,"clue":"Bank account designed for frequent transactions, usually with a debit card and check-writing privileges and low or no interest.","answer":"checking account","aliases":["checking account","checking","demand deposit account","DDA","transactional account"],"explanation":"A checking account (technically a 'demand deposit account' or DDA) holds funds for everyday spending—debit-card purchases, online bill pay, paper checks, ATM withdrawals. Most pay zero or near-zero interest because the bank assumes high transaction volume. Common fees include monthly maintenance ($5–$15, often waived by direct deposit or a minimum balance), overdraft fees (averaging $35 per item), and out-of-network ATM fees. Online-only banks like Ally, Chime, and SoFi typically eliminate the maintenance fee and overdraft fee, putting pressure on legacy banks to follow suit.","sourceClue":"Bank account designed for frequent transactions, usually with a debit card and check-writing privileges and low or no interest.","sourceExplanation":"checking account: Bank account designed for frequent transactions, usually with a debit card and check-writing privileges and low or no interest.","rigor":{"value":100,"skill":"identify a key personal-finance or business concept","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Account that pays modest interest in exchange for limited monthly transactions (formerly capped at 6 by Regulation D before April 2020).","answer":"savings account","aliases":["savings account","savings","passbook savings","regular savings","savings deposit account"],"explanation":"A traditional savings account pays interest (national average about 0.46 percent APY in 2024 at brick-and-mortar banks; high-yield online accounts pay 4–5 percent) in exchange for limits on withdrawals. Federal Reserve Regulation D historically capped 'convenient' withdrawals at 6 per month; the Fed suspended this cap in April 2020, though individual banks can still impose limits. Savings accounts are FDIC-insured up to $250,000 per depositor per bank per ownership category and are the primary parking spot for emergency funds because they're liquid and principal-stable.","sourceClue":"Account that pays modest interest in exchange for limited monthly transactions (formerly capped at 6 by Regulation D before April 2020).","sourceExplanation":"savings account: Account that pays modest interest in exchange for limited monthly transactions (formerly capped at 6 by Regulation D before April 2020).","rigor":{"value":200,"skill":"match a definition or formula to its term","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Federal insurance maximum that protects deposits at FDIC-insured banks—per depositor, per bank, per ownership category.","answer":"$250,000","aliases":["$250,000","250000","250,000","two hundred fifty thousand dollars","250k","$250k","$250 thousand"],"explanation":"The Federal Deposit Insurance Corporation (FDIC, created in 1933 after thousands of bank failures during the Great Depression) insures deposits up to $250,000 per depositor, per insured bank, per ownership category—a limit raised from $100,000 by the 2008 Emergency Economic Stabilization Act in response to the financial crisis. 'Ownership categories' include individual, joint, retirement, and revocable trust accounts, so a couple at one bank can effectively cover $1 million by combining categories. Credit unions get equivalent coverage through the NCUSIF (National Credit Union Share Insurance Fund). After the 2023 Silicon Valley Bank collapse, the FDIC invoked the 'systemic risk exception' to guarantee uninsured deposits.","sourceClue":"Federal insurance maximum that protects deposits at FDIC-insured banks—per depositor, per bank, per ownership category.","sourceExplanation":"$250,000: Federal insurance maximum that protects deposits at FDIC-insured banks—per depositor, per bank, per ownership category.","rigor":{"value":300,"skill":"explain cause, effect, or consequence in finance or business","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Time deposit that locks money for a fixed term (3 months to 5+ years) in exchange for a higher rate—charges an early-withdrawal penalty if broken.","answer":"certificate of deposit","aliases":["certificate of deposit","CD","CDs","certificates of deposit","time deposit","bank CD"],"explanation":"A certificate of deposit (CD) is a time deposit: you commit to leave funds with the bank for a set term (commonly 3 months, 6 months, 1 year, 2 years, 5 years) at a guaranteed APY. The trade-off is liquidity—withdrawing early triggers a penalty (typically 3 months of interest on short CDs, 6 months on long CDs). 'CD laddering' is a strategy: split funds across multiple CDs maturing in staggered years so liquidity is preserved while still capturing the higher long-term rates. FDIC insurance covers CDs up to $250,000 like any other deposit.","sourceClue":"Time deposit that locks money for a fixed term (3 months to 5+ years) in exchange for a higher rate—charges an early-withdrawal penalty if broken.","sourceExplanation":"certificate of deposit: Time deposit that locks money for a fixed term (3 months to 5+ years) in exchange for a higher rate—charges an early-withdrawal penalty if broken.","rigor":{"value":400,"skill":"connect a concept to a realistic scenario","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"Hybrid deposit account that often pays higher interest than savings but allows check-writing and a debit card with tiered minimum balances.","answer":"money market account","aliases":["money market account","MMA","money market deposit account","MMDA","money market"],"explanation":"A money market deposit account (MMDA) blends features of checking (limited check-writing and debit-card access) with features of savings (higher interest, balance tiers). Confusingly, banks also offer 'money market mutual funds' through brokerages—those invest in short-term commercial paper and Treasury bills, are NOT FDIC-insured, but typically pay slightly higher yields. The 2008 'breaking the buck' incident with the Reserve Primary Fund (a money-market mutual fund that fell below $1 NAV) led to the Treasury's temporary money-market guarantee program. AP Business exams often test the MMDA vs MMMF distinction because the FDIC coverage question is non-obvious.","sourceClue":"Hybrid deposit account that often pays higher interest than savings but allows check-writing and a debit card with tiered minimum balances.","sourceExplanation":"money market account: Hybrid deposit account that often pays higher interest than savings but allows check-writing and a debit card with tiered minimum balances.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}}]},{"name":"Stocks and Bonds","clues":[{"value":100,"clue":"Security that represents ownership in a corporation, giving the holder a claim on profits and voting rights.","answer":"stock","aliases":["stock","stocks","equity","share","shares","common stock"],"explanation":"A share of common stock is a fractional ownership in a corporation. Shareholders are residual claimants—they receive what is left after creditors, bondholders, and preferred shareholders are paid—so equity is the riskiest and historically highest-returning asset class (about 10 percent average annual return for the S&P 500 over the past 90 years). Common shareholders typically get one vote per share on corporate matters: directors, mergers, major changes to the corporate charter. Preferred stock pays a fixed dividend and stands ahead of common but behind bonds in bankruptcy.","sourceClue":"Security that represents ownership in a corporation, giving the holder a claim on profits and voting rights.","sourceExplanation":"stock: Security that represents ownership in a corporation, giving the holder a claim on profits and voting rights.","rigor":{"value":100,"skill":"identify a key personal-finance or business concept","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Debt security where the issuer (corporation or government) promises to pay periodic interest plus return principal at this future date.","answer":"maturity","aliases":["maturity","maturity date","redemption date","bond maturity"],"explanation":"A bond is a loan from the investor to the issuer (a corporation, the US Treasury, a state, a city). Key features: face value (typically $1,000), coupon rate (annual interest, usually paid semiannually), and maturity date (when face value is returned). Treasury bonds (10–30 year) are considered risk-free; corporate investment-grade and high-yield (junk) bonds offer higher coupons for higher default risk. Bond prices move inversely with interest rates: when rates rise, existing low-coupon bonds fall in price. Maturity is the bond-fundamental equivalent of 'expiration.'","sourceClue":"Debt security where the issuer (corporation or government) promises to pay periodic interest plus return principal at this future date.","sourceExplanation":"maturity: Debt security where the issuer (corporation or government) promises to pay periodic interest plus return principal at this future date.","rigor":{"value":200,"skill":"match a definition or formula to its term","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Pooled investment vehicle that holds a diversified basket of stocks, bonds, or both—professionally managed and priced once daily at market close.","answer":"mutual fund","aliases":["mutual fund","mutual funds","open-end fund","investment fund"],"explanation":"A mutual fund pools money from thousands of investors to buy a diversified portfolio—a single $100 mutual fund purchase can give exposure to hundreds of stocks. Two key flavors: actively managed (a portfolio manager picks holdings, charging 0.5–1.5 percent expense ratio) and index funds (passively tracks an index like the S&P 500, charging as little as 0.03 percent). The first index fund, Vanguard's First Index Investment Trust, launched in 1976 under Jack Bogle's leadership; it now tracks $1+ trillion. Mutual funds are priced once per day at market close (4 PM ET) at the day's NAV—you don't know your trade price until after market close.","sourceClue":"Pooled investment vehicle that holds a diversified basket of stocks, bonds, or both—professionally managed and priced once daily at market close.","sourceExplanation":"mutual fund: Pooled investment vehicle that holds a diversified basket of stocks, bonds, or both—professionally managed and priced once daily at market close.","rigor":{"value":300,"skill":"explain cause, effect, or consequence in finance or business","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Exchange-traded fund—similar to a mutual fund but trades on a stock exchange like a single stock with intraday pricing.","answer":"ETF","aliases":["ETF","ETFs","exchange-traded fund","exchange traded fund","exchange-traded funds"],"explanation":"An exchange-traded fund (ETF) is a pooled investment that trades on an exchange like a stock—buy and sell anytime the market is open at the current price. ETFs typically track an index (S&P 500, total bond market, emerging markets, semiconductors) and charge lower expense ratios than equivalent active mutual funds (often 0.03–0.20 percent). The largest US ETF, SPDR S&P 500 (SPY), launched in January 1993 and holds about $500 billion. Tax efficiency is a major ETF advantage: in-kind redemption avoids triggering capital-gains distributions that mutual funds force on shareholders each December.","sourceClue":"Exchange-traded fund—similar to a mutual fund but trades on a stock exchange like a single stock with intraday pricing.","sourceExplanation":"ETF: Exchange-traded fund—similar to a mutual fund but trades on a stock exchange like a single stock with intraday pricing.","rigor":{"value":400,"skill":"connect a concept to a realistic scenario","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"This index of 500 large US companies, weighted by market capitalization, is the most widely tracked benchmark for the US stock market.","answer":"S&P 500","aliases":["S&P 500","S and P 500","SP500","Standard and Poor's 500","Standard & Poor's 500","S&P 500 Index"],"explanation":"The S&P 500 Index, launched in 1957, tracks 500 of the largest US-listed companies weighted by market capitalization (so Apple, Microsoft, and Nvidia individually account for more of the index than the bottom 100 companies combined). It represents about 80 percent of US stock-market value and is the benchmark for most US large-cap mutual funds and ETFs. The Dow Jones Industrial Average is older (1896, 30 stocks, price-weighted) and more famous but a worse benchmark because of the small sample and price-weighting quirks. AP Business commonly asks students to identify the S&P 500 as the practical answer to 'invest in the US stock market.'","sourceClue":"This index of 500 large US companies, weighted by market capitalization, is the most widely tracked benchmark for the US stock market.","sourceExplanation":"S&P 500: This index of 500 large US companies, weighted by market capitalization, is the most widely tracked benchmark for the US stock market.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}}]},{"name":"Retirement Accounts","clues":[{"value":100,"clue":"Employer-sponsored retirement plan (1978 Revenue Act section) into which workers can defer pre-tax salary; many employers match a percentage.","answer":"401(k)","aliases":["401(k)","401k","401 k","four oh one k","401k plan"],"explanation":"Named after Internal Revenue Code section 401(k) added by the Revenue Act of 1978, the 401(k) lets employees contribute pre-tax salary (lowering taxable income now) which then grows tax-deferred until withdrawal in retirement (when withdrawals are taxed as ordinary income). 2024 employee contribution limit: $23,000 ($30,500 with the age-50+ catch-up). Employer matches are common—a popular formula is 100 percent of the first 3 percent plus 50 percent of the next 2 percent. Failing to capture a full employer match is the single most expensive mistake in personal finance because it leaves a 100 percent immediate return on the table. 403(b) is the public-school / nonprofit equivalent.","sourceClue":"Employer-sponsored retirement plan (1978 Revenue Act section) into which workers can defer pre-tax salary; many employers match a percentage.","sourceExplanation":"401(k): Employer-sponsored retirement plan (1978 Revenue Act section) into which workers can defer pre-tax salary; many employers match a percentage.","rigor":{"value":100,"skill":"identify a key personal-finance or business concept","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Tax-advantaged retirement account that any worker with earned income can open at a brokerage—maximum 2024 contribution $7,000 (or $8,000 if 50+).","answer":"IRA","aliases":["IRA","Individual Retirement Account","individual retirement account","traditional IRA","Roth IRA"],"explanation":"An Individual Retirement Account (IRA) was authorized by the Employee Retirement Income Security Act (ERISA) of 1974. Traditional IRA contributions are tax-deductible (subject to income limits if covered by an employer plan), grow tax-deferred, and are taxed at withdrawal. Roth IRA contributions (named for Senator William Roth, added in 1997) are post-tax, grow tax-free, and have tax-free qualified withdrawals after age 59½. 2024 contribution limit: $7,000 for under-50, $8,000 for 50+. Roth IRA income limits phase out for high earners ($146,000–$161,000 single, $230,000–$240,000 joint in 2024).","sourceClue":"Tax-advantaged retirement account that any worker with earned income can open at a brokerage—maximum 2024 contribution $7,000 (or $8,000 if 50+).","sourceExplanation":"IRA: Tax-advantaged retirement account that any worker with earned income can open at a brokerage—maximum 2024 contribution $7,000 (or $8,000 if 50+).","rigor":{"value":200,"skill":"match a definition or formula to its term","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Roth-versus-traditional rule of thumb: choose the Roth when you expect this to be higher in retirement than it is today.","answer":"your tax rate","aliases":["your tax rate","tax rate","marginal tax rate","income tax rate","tax bracket"],"explanation":"Roth contributions pay tax now at today's rate; traditional contributions pay tax later at the future rate. The math: if rates stay the same, the two are identical (commutative property of multiplication). If your future rate is higher (you expect to earn more, or you expect federal tax rates to rise from current lows), Roth wins. If your future rate is lower (you're at peak earnings, expect to retire to a low-tax state, or expect federal rates to fall), traditional wins. Most young workers in low-income years should default to Roth; high earners near retirement should default to traditional. Many savers use both to hedge—'tax diversification.'","sourceClue":"Roth-versus-traditional rule of thumb: choose the Roth when you expect this to be higher in retirement than it is today.","sourceExplanation":"your tax rate: Roth-versus-traditional rule of thumb: choose the Roth when you expect this to be higher in retirement than it is today.","rigor":{"value":300,"skill":"explain cause, effect, or consequence in finance or business","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Common employer-match formula: this percentage on the first 3 percent contributed plus 50 percent on the next 2 percent.","answer":"100 percent","aliases":["100 percent","100%","dollar for dollar","one hundred percent","full match"],"explanation":"A '100 percent of the first 3 percent plus 50 percent of the next 2 percent' match means: if you contribute 5 percent of salary, your employer contributes 4 percent of salary on top (3 percent dollar-for-dollar plus 1 percent on the next 2 percent). On a $60,000 salary, contributing $3,000 (5 percent) earns you $2,400 in free employer money. Match is typically vested over 3–5 years on a graded schedule; if you leave before fully vesting, you forfeit the unvested portion. The match is the closest thing to free money in finance and is the standard reason advisors say 'contribute at least up to the match before paying off any debt below 7 percent.'","sourceClue":"Common employer-match formula: this percentage on the first 3 percent contributed plus 50 percent on the next 2 percent.","sourceExplanation":"100 percent: Common employer-match formula: this percentage on the first 3 percent contributed plus 50 percent on the next 2 percent.","rigor":{"value":400,"skill":"connect a concept to a realistic scenario","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"IRS rule that traditional 401(k) and IRA holders must begin taking these mandatory withdrawals at this age (raised by SECURE Act 2.0).","answer":"73","aliases":["73","age 73","seventy-three","73 RMD age"],"explanation":"Required Minimum Distributions (RMDs) force tax-deferred account holders to start drawing down (and paying tax on) their accounts so the government eventually collects revenue. The RMD age has shifted: originally 70½, raised to 72 by the SECURE Act of 2019, and raised to 73 by SECURE 2.0 in 2022 (and scheduled to rise to 75 by 2033). Missing an RMD triggered a 50 percent excise tax until SECURE 2.0 reduced it to 25 percent (10 percent if corrected within 2 years). Roth IRAs have no RMDs for the original owner; Roth 401(k) RMDs were eliminated by SECURE 2.0 starting 2024. AP Business commonly tests this on the synthesis side as the headline reason Roth flexibility matters.","sourceClue":"IRS rule that traditional 401(k) and IRA holders must begin taking these mandatory withdrawals at this age (raised by SECURE Act 2.0).","sourceExplanation":"73: IRS rule that traditional 401(k) and IRA holders must begin taking these mandatory withdrawals at this age (raised by SECURE Act 2.0).","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"},"daily":true}]},{"name":"Risk and Return","clues":[{"value":100,"clue":"Spreading investments across many securities and asset classes to reduce risk—Don't put all your eggs in one of these.","answer":"diversification","aliases":["diversification","diversify","diversified portfolio","asset diversification"],"explanation":"Diversification reduces idiosyncratic (company-specific) risk by holding many securities so that any single failure has limited portfolio impact. Markowitz's 1952 Modern Portfolio Theory formalized this—an investor can earn the same expected return with less variance by combining uncorrelated assets. A simple three-fund portfolio (US total stock, international stock, US total bond) is diversified across thousands of securities and most asset classes. Diversification does NOT eliminate systematic (market) risk: in a 2008-style global crash, almost everything falls together. Enron's 2001 collapse, in which employees lost both their jobs and their 401(k) retirement savings (concentrated in Enron stock), is the canonical case study for AP Business.","sourceClue":"Spreading investments across many securities and asset classes to reduce risk—Don't put all your eggs in one of these.","sourceExplanation":"diversification: Spreading investments across many securities and asset classes to reduce risk—Don't put all your eggs in one of these.","rigor":{"value":100,"skill":"identify a key personal-finance or business concept","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Strategy of investing equal dollar amounts at regular intervals regardless of market price—buys more shares when the market is down.","answer":"dollar-cost averaging","aliases":["dollar-cost averaging","DCA","dollar cost averaging","dollar-cost average","systematic investing"],"explanation":"Dollar-cost averaging (DCA) means investing a fixed dollar amount on a regular schedule (e.g., $500 per month into an S&P 500 index fund) regardless of market conditions. When prices are low, the fixed dollar buys more shares; when prices are high, it buys fewer. Over time this naturally averages out and removes the impossibility of timing the market. Every paycheck contribution to a 401(k) is dollar-cost averaging in action. Note: academic research (e.g., Vanguard 2012) consistently shows lump-sum investing beats DCA about two-thirds of the time because the market trends up, but DCA wins the behavioral war by reducing the regret risk of investing everything right before a crash.","sourceClue":"Strategy of investing equal dollar amounts at regular intervals regardless of market price—buys more shares when the market is down.","sourceExplanation":"dollar-cost averaging: Strategy of investing equal dollar amounts at regular intervals regardless of market price—buys more shares when the market is down.","rigor":{"value":200,"skill":"match a definition or formula to its term","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"The general investing rule that higher expected returns come paired with higher exposure to this.","answer":"risk","aliases":["risk","investment risk","volatility","variance","loss risk"],"explanation":"The risk-return trade-off is finance's most fundamental rule: investors demand higher expected returns to compensate for higher risk (variance of returns). T-bills (essentially risk-free) yield 4–5 percent; investment-grade corporate bonds yield slightly more; junk bonds yield 7–9 percent; S&P 500 stocks have averaged 10 percent; small-cap and emerging-market stocks have averaged 11–13 percent. The premium for taking equity risk over T-bills (the 'equity risk premium') has historically been about 5–6 percent. Promises of 'high return with no risk' are the universal hallmark of fraud—from Bernie Madoff's Ponzi scheme to most crypto scams.","sourceClue":"The general investing rule that higher expected returns come paired with higher exposure to this.","sourceExplanation":"risk: The general investing rule that higher expected returns come paired with higher exposure to this.","rigor":{"value":300,"skill":"explain cause, effect, or consequence in finance or business","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Behavioral finance term for the tendency to sell winning investments too soon and hold losing investments too long.","answer":"disposition effect","aliases":["disposition effect","the disposition effect","loss aversion in selling"],"explanation":"The disposition effect, documented by Hersh Shefrin and Meir Statman in 1985 (and tied to Kahneman and Tversky's Prospect Theory), is the tendency to realize gains too quickly and hold losses too long—the opposite of the textbook 'cut your losers, let your winners run.' Investors do this because realizing a loss feels worse than realizing an equivalent gain feels good (loss aversion). The result is portfolio drag—taxable accounts especially suffer because short-term gains taxed at ordinary rates outweigh long-term-capital-gains rates that would apply if losers were held a year. AP Business commonly tests behavioral biases as the human reason why financial planning matters.","sourceClue":"Behavioral finance term for the tendency to sell winning investments too soon and hold losing investments too long.","sourceExplanation":"disposition effect: Behavioral finance term for the tendency to sell winning investments too soon and hold losing investments too long.","rigor":{"value":400,"skill":"connect a concept to a realistic scenario","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"Term for an investment portfolio's long-term mix of stocks, bonds, and cash—often described as the single biggest determinant of portfolio risk.","answer":"asset allocation","aliases":["asset allocation","portfolio allocation","stock bond mix","investment allocation","strategic asset allocation"],"explanation":"Asset allocation is the proportional mix of stocks, bonds, real estate, cash, and alternatives in a portfolio. Brinson, Hood, and Beebower's classic 1986 study claimed asset allocation explains over 90 percent of return variability for institutional portfolios (subsequent research refined this, but the central insight stands). Age-based rules: '100 minus age in stocks' (a 30-year-old: 70 percent stocks); 'target-date funds' automate the glidepath, gradually shifting from stock-heavy in your 20s to bond-heavy near retirement. Rebalancing (selling appreciated assets and buying lagging ones) brings the portfolio back to target and enforces 'buy low, sell high' discipline.","sourceClue":"Term for an investment portfolio's long-term mix of stocks, bonds, and cash—often described as the single biggest determinant of portfolio risk.","sourceExplanation":"asset allocation: Term for an investment portfolio's long-term mix of stocks, bonds, and cash—often described as the single biggest determinant of portfolio risk.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}}]},{"name":"Investing Strategies","clues":[{"value":100,"clue":"Investing style that aims to beat a benchmark through stock-picking and timing, charging higher expense ratios.","answer":"active investing","aliases":["active investing","active management","actively managed","active funds","stock picking"],"explanation":"Active investing tries to beat a market index by selecting individual securities or by timing exposure. Active mutual funds typically charge 0.5–1.5 percent expense ratios and 1–2 percent advisor fees. The S&P SPIVA scorecards show that over 15-year horizons roughly 90 percent of active US large-cap funds underperform the S&P 500 after fees. The reason: markets are reasonably efficient (Eugene Fama's Efficient Markets Hypothesis), and high fees are an almost-unbeatable headwind. AP Business contrasts active versus passive as the central debate in modern investing—and the empirical evidence overwhelmingly favors low-cost passive.","sourceClue":"Investing style that aims to beat a benchmark through stock-picking and timing, charging higher expense ratios.","sourceExplanation":"active investing: Investing style that aims to beat a benchmark through stock-picking and timing, charging higher expense ratios.","rigor":{"value":100,"skill":"identify a key personal-finance or business concept","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":200,"clue":"Investing style that tracks a market index, accepting market returns at minimal cost—Jack Bogle's contribution to the world.","answer":"passive investing","aliases":["passive investing","passive management","index investing","indexing","index funds"],"explanation":"Passive investing accepts market returns by holding all (or a representative sample) of the securities in an index. Vanguard's Jack Bogle founded the first retail index fund in 1976—it was widely mocked as 'Bogle's folly' and 'guaranteed mediocrity' but is now the dominant US investing approach (over 50 percent of US fund assets are now passive). Modern index ETFs charge 0.03–0.10 percent expense ratios—roughly 1/30 of typical active funds. The argument: if 90 percent of active managers underperform, paying high fees to guess which 10 percent will win is a losing proposition for most investors.","sourceClue":"Investing style that tracks a market index, accepting market returns at minimal cost—Jack Bogle's contribution to the world.","sourceExplanation":"passive investing: Investing style that tracks a market index, accepting market returns at minimal cost—Jack Bogle's contribution to the world.","rigor":{"value":200,"skill":"match a definition or formula to its term","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":300,"clue":"Term for the year-over-year increase in prices that erodes the purchasing power of savings—central reason cash alone is a long-term loser.","answer":"inflation","aliases":["inflation","price inflation","consumer price inflation","CPI inflation"],"explanation":"Inflation is the year-over-year increase in the general price level, measured most commonly by the Consumer Price Index (CPI) computed by the Bureau of Labor Statistics. Long-term US inflation has averaged about 3 percent; the early 1980s spiked to 13 percent; 2022 hit 9.1 percent year-over-year before falling back. Cash savings earning 0.4 percent in a passbook account lose 2.5 percent in real value every year. The Federal Reserve targets 2 percent inflation through its dual mandate (price stability + maximum employment). Inflation-protected securities (TIPS) adjust principal with CPI, providing a real return.","sourceClue":"Term for the year-over-year increase in prices that erodes the purchasing power of savings—central reason cash alone is a long-term loser.","sourceExplanation":"inflation: Term for the year-over-year increase in prices that erodes the purchasing power of savings—central reason cash alone is a long-term loser.","rigor":{"value":300,"skill":"explain cause, effect, or consequence in finance or business","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":400,"clue":"Generic rule of thumb that approximates years to double an investment at a given annual rate by dividing this number by the rate.","answer":"72","aliases":["72","seventy-two","Rule of 72","rule of seventy-two"],"explanation":"The Rule of 72 says doubling time ≈ 72/rate. At 6 percent annual return: 72/6 = 12 years. At 8 percent: 9 years. At 12 percent: 6 years. The constant 72 is mathematically convenient (its factors include 2, 3, 4, 6, 8, 9, 12) and most accurate for rates between 6 and 10 percent (truer constant is 69.3). The rule also applies in reverse: 3 percent inflation halves real purchasing power in 24 years. AP Business commonly tests this as a mental-math shortcut—and as a powerful illustration of why a 6 percent return matters: from age 25 to age 73 (48 years, four doublings) $10,000 grows to $160,000 with no further contributions.","sourceClue":"Generic rule of thumb that approximates years to double an investment at a given annual rate by dividing this number by the rate.","sourceExplanation":"72: Generic rule of thumb that approximates years to double an investment at a given annual rate by dividing this number by the rate.","rigor":{"value":400,"skill":"connect a concept to a realistic scenario","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}},{"value":500,"clue":"Term for the investing principle that betting against this assumption—that markets reflect all available information—is the basis of all active strategies.","answer":"market efficiency","aliases":["market efficiency","efficient markets","Efficient Markets Hypothesis","EMH","efficient market hypothesis"],"explanation":"The Efficient Markets Hypothesis (EMH), formalized by Eugene Fama in 1970, holds that asset prices fully reflect all available information. Three forms: weak (past prices already in current price; technical analysis fails), semi-strong (all public info; fundamental analysis on public data fails), strong (all info including private; insider trading is the only winning edge—but it's illegal). EMH is not literally true—the 2008 housing bubble proves it—but it is approximately true enough that most active traders cannot consistently exploit inefficiencies after costs. The 2013 Nobel Prize split between Fama (efficient markets) and Robert Shiller (behavioral finance challenges) captures the unresolved debate. AP Business uses EMH as the academic foundation for why low-cost index investing wins.","sourceClue":"Term for the investing principle that betting against this assumption—that markets reflect all available information—is the basis of all active strategies.","sourceExplanation":"market efficiency: Term for the investing principle that betting against this assumption—that markets reflect all available information—is the basis of all active strategies.","rigor":{"value":500,"skill":"synthesize a high-value exam pattern","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","categoryQuality":"board-specific-category-v1"}}]}],"final":{"category":"Match the Match","clue":"If your salary is $50,000 and your employer matches 100 percent of the first 3 percent and 50 percent of the next 2 percent, this is the maximum dollar amount of free employer money you can earn by contributing 5 percent of salary.","answer":"$2,000","aliases":["$2,000","2000","2,000","2000 dollars","$2000","two thousand dollars"],"explanation":"Salary $50,000. You contribute 5 percent of salary: $2,500. Employer match: 100 percent of first 3 percent = 3 percent × $50,000 = $1,500. Then 50 percent of next 2 percent = 50 percent × 2 percent × $50,000 = $500. Total match $2,000. To capture the full match you must contribute at least 5 percent of salary—any less and you leave dollars on the table. AP Business uses this as the cleanest example of why match-capture is the highest-priority retirement-savings move: it's an immediate 100 percent return (in the 3 percent zone) and 50 percent return (in the 2 percent zone)—nothing else in personal finance delivers anything close.","rigor":{"value":"Final","skill":"answer one difficult course concept with one correct response","alignment":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations"}},"alignment":{"course":"AP Business with Personal Finance","standardSet":"AP Business with Personal Finance / Jump$tart National Standards for Personal Financial Literacy / NYS Financial Literacy graduation requirement","examTarget":"AP Business with Personal Finance exam: budgeting, banking, credit, investing, insurance, business structure, marketing, and macroeconomic foundations","shortCode":"AP Bus + PF skill","finalFrame":"Answer one difficult AP Business with Personal Finance concept clue with one correct response","hardeningVersion":"jeopardy-hardening-v4-natural-clues","boardShape":"5 categories x 5 clues, values 100-500, Final Jeopardy as one difficult concept-answer clue","difficultyLadder":{"100":"identify a key personal-finance or business concept","200":"match a definition or formula to its term","300":"explain cause, effect, or consequence in finance or business","400":"connect a concept to a realistic scenario","500":"synthesize a high-value exam pattern"}},"hardeningVersion":"jeopardy-hardening-v4-natural-clues","categoryHardeningVersion":"board-specific-categories-v1"};
+const TOTAL_CLUES = (GAME.categories || []).reduce((n, c) => n + ((c.clues || []).length), 0);
+const STORAGE_KEY = "curriculum_unit_review_game_" + GAME.slug;
+const values = [100, 200, 300, 400, 500];
+let state = loadState();
+let pending = null;
+let audio = { ctx: null, master: null, musicTimer: null, musicOn: false, step: 0 };
+let transitionLock = false;
+
+function defaultState(mode = "teams") {
+  const solo = mode === "solo";
+  return {
+    mode: solo ? "solo" : "teams",
+    names: solo ? ["Solo Player"] : ["Team 1", "Team 2"],
+    scores: solo ? [0] : [0, 0],
+    active: 0,
+    used: [],
+    finalPlayed: false
+  };
+}
+
+function loadState() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && Array.isArray(saved.names) && Array.isArray(saved.scores)) {
+      saved.mode = saved.mode || (saved.names.length === 1 ? "solo" : "teams");
+      if (!saved.names.length) saved.names = saved.mode === "solo" ? ["Solo Player"] : ["Team 1", "Team 2"];
+      while (saved.scores.length < saved.names.length) saved.scores.push(0);
+      saved.active = Math.min(Math.max(Number(saved.active) || 0, 0), saved.names.length - 1);
+      return saved;
+    }
+  } catch (error) {}
+  return defaultState();
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function clampNumber(value, min, max) {
+  const n = Number(value);
+  if (!Number.isFinite(n)) return min;
+  return Math.max(min, Math.min(max, Math.round(n)));
+}
+
+function normalizeText(value) {
+  return String(value || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/&/g, " and ")
+    .replace(/\b(vs\.?|v\.)\b/g, " v ")
+    .replace(/\bfirst\b/g, "1")
+    .replace(/\bsecond\b/g, "2")
+    .replace(/\bthird\b/g, "3")
+    .replace(/\bfourth\b/g, "4")
+    .replace(/\bfifth\b/g, "5")
+    .replace(/\bsixth\b/g, "6")
+    .replace(/\bseventh\b/g, "7")
+    .replace(/\beighth\b/g, "8")
+    .replace(/\bninth\b/g, "9")
+    .replace(/\btenth\b/g, "10")
+    .replace(/\beleventh\b/g, "11")
+    .replace(/\btwelfth\b/g, "12")
+    .replace(/\bthirteenth\b/g, "13")
+    .replace(/\bfourteenth\b/g, "14")
+    .replace(/\bfifteenth\b/g, "15")
+    .replace(/\bsixteenth\b/g, "16")
+    .replace(/\bseventeenth\b/g, "17")
+    .replace(/\beighteenth\b/g, "18")
+    .replace(/\bnineteenth\b/g, "19")
+    .replace(/\btwenty[- ]?fourth\b/g, "24")
+    .replace(/\btwenty[- ]?sixth\b/g, "26")
+    .replace(/\b(\d+)(st|nd|rd|th)\b/g, "$1")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\b(the|a|an|of|and|to|for|in|on|by|with|jr|sr)\b/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function compactText(value) {
+  return normalizeText(value).replace(/\s+/g, "");
+}
+
+function unique(values) {
+  return [...new Set(values.map(normalizeText).filter(Boolean))];
+}
+
+function answerVariants(answer, extra) {
+  const raw = String(answer || "");
+  const variants = [raw, ...(extra || [])];
+  raw.split(/\s*(?:->|\/|;)\s*/).forEach((part) => variants.push(part));
+  variants.push(raw.replace(/\bact\b/ig, ""));
+  variants.push(raw.replace(/\bamendment(s)?\b/ig, ""));
+  variants.push(raw.replace(/\bdoctrine\b/ig, ""));
+  variants.push(raw.replace(/\bmovement\b/ig, ""));
+  variants.push(raw.replace(/\bv\.?\b/ig, " versus "));
+  variants.push(raw.replace(/\bversus\b/ig, " v "));
+  if (/v\.?/i.test(raw)) {
+    const pieces = raw.split(/\bv\.?\b/i).map((part) => part.trim());
+    variants.push(...pieces);
+    variants.push(pieces.join(" "));
+  }
+  const n = normalizeText(raw);
+  if (n.includes("13") && n.includes("14") && n.includes("15")) variants.push("Reconstruction Amendments", "13 14 15");
+  if (n.includes("16") && n.includes("17") && n.includes("18") && n.includes("19")) variants.push("Progressive Amendments", "16 17 18 19");
+  if (n.includes("civil rights act") && n.includes("voting rights act")) variants.push("Civil Rights Act Voting Rights Act", "CRA VRA");
+  if (n.includes("declaration independence")) variants.push("Declaration");
+  if (n.includes("affordable care act")) variants.push("ACA", "Obamacare");
+  if (n.includes("district columbia heller")) variants.push("DC v Heller", "Heller");
+  if (n.includes("students fair admissions")) variants.push("SFFA", "SFFA v Harvard");
+  if (n.includes("letter birmingham jail")) variants.push("Birmingham Jail", "MLK Letter");
+  if (n.includes("emancipation proclamation")) variants.push("Emancipation");
+  if (n.includes("articles confederation")) variants.push("AOC");
+  if (n.includes("alien sedition")) variants.push("Sedition Act", "Alien Acts");
+  return unique(variants);
+}
+
+function tokenSet(value) {
+  return new Set(normalizeText(value).split(" ").filter((token) => token.length > 1));
+}
+
+function diceSimilarity(a, b) {
+  const aa = compactText(a);
+  const bb = compactText(b);
+  if (!aa || !bb) return 0;
+  if (aa === bb) return 1;
+  if (aa.length < 3 || bb.length < 3) return aa === bb ? 1 : 0;
+  const grams = (text) => {
+    const out = new Map();
+    for (let i = 0; i < text.length - 1; i++) {
+      const gram = text.slice(i, i + 2);
+      out.set(gram, (out.get(gram) || 0) + 1);
+    }
+    return out;
+  };
+  const left = grams(aa);
+  const right = grams(bb);
+  let overlap = 0;
+  left.forEach((count, gram) => {
+    overlap += Math.min(count, right.get(gram) || 0);
+  });
+  return (2 * overlap) / Math.max(1, aa.length + bb.length - 2);
+}
+
+function answerScore(response, clue) {
+  const typed = normalizeText(response);
+  if (!typed) return { score: 0, verdict: "blank", matched: "", confidence: "No answer typed." };
+  const variants = answerVariants(clue.answer, clue.aliases);
+  let best = { score: 0, matched: "" };
+  for (const variant of variants) {
+    const v = normalizeText(variant);
+    if (!v) continue;
+    const typedCompact = compactText(typed);
+    const variantCompact = compactText(v);
+    let score = diceSimilarity(typed, v);
+    if (typedCompact === variantCompact) score = 1;
+    if (typedCompact.length >= 4 && variantCompact.includes(typedCompact)) score = Math.max(score, .9);
+    if (variantCompact.length >= 4 && typedCompact.includes(variantCompact)) score = Math.max(score, .92);
+    const typedTokens = tokenSet(typed);
+    const answerTokens = tokenSet(v);
+    const overlap = [...answerTokens].filter((token) => typedTokens.has(token)).length;
+    const coverage = answerTokens.size ? overlap / answerTokens.size : 0;
+    if (coverage >= .8 && overlap >= 1) score = Math.max(score, .88);
+    if (coverage >= .6 && overlap >= 2) score = Math.max(score, .78);
+    if (score > best.score) best = { score, matched: variant };
+  }
+  let verdict = "manual";
+  if (best.score >= .78) verdict = "correct";
+  else if (best.score <= .38) verdict = "wrong";
+  return {
+    score: best.score,
+    verdict,
+    matched: best.matched,
+    confidence: Math.round(best.score * 100) + "% match"
+  };
+}
+
+function flashScreen(kind) {
+  const flash = document.getElementById("flash");
+  flash.className = "flash " + (kind || "");
+  void flash.offsetWidth;
+  flash.classList.add("play");
+}
+
+function teamName(index) {
+  return state.names[index] || ("Team " + (index + 1));
+}
+
+function isSoloMode() {
+  return state.mode === "solo" || state.names.length === 1;
+}
+
+function renderTeams() {
+  const root = document.getElementById("teams");
+  root.innerHTML = "";
+  state.names.forEach((name, index) => {
+    const card = document.createElement("div");
+    const solo = isSoloMode();
+    card.className = "team" + (index === state.active ? " active" : "") + (solo ? " solo" : "");
+    const activeButton = solo ? "" : '<button title="Make active team" data-active="' + index + '">A</button>';
+    card.innerHTML =
+      '<input aria-label="' + (solo ? "Player name" : "Team name") + '" value="' + escapeHtml(name) + '" data-name="' + index + '">' +
+      '<div class="score">' +
+      '<strong>$' + state.scores[index] + '</strong>' +
+      '<div class="score-actions">' +
+      activeButton +
+      '<button title="Add 100" data-bump="' + index + '" data-delta="100">+</button>' +
+      '<button title="Subtract 100" data-bump="' + index + '" data-delta="-100">-</button>' +
+      '</div></div>';
+    root.appendChild(card);
+  });
+  root.querySelectorAll("[data-name]").forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const index = Number(event.target.dataset.name);
+      state.names[index] = event.target.value || (isSoloMode() ? "Solo Player" : ("Team " + (index + 1)));
+      saveState();
+      updateStatus();
+    });
+  });
+  root.querySelectorAll("[data-active]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.active = Number(button.dataset.active);
+      playSfx("select");
+      saveState();
+      renderAll();
+    });
+  });
+  root.querySelectorAll("[data-bump]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.bump);
+      const delta = Number(button.dataset.delta);
+      state.scores[index] += delta;
+      playSfx(delta > 0 ? "correct" : "wrong");
+      saveState();
+      renderAll();
+    });
+  });
+}
+
+function clueKey(catIndex, clueIndex) {
+  return catIndex + "-" + clueIndex;
+}
+
+function renderBoard() {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+  let index = 0;
+  GAME.categories.forEach((category) => {
+    const cell = document.createElement("div");
+    cell.className = "cat";
+    cell.style.setProperty("--i", index++);
+    cell.textContent = category.name;
+    board.appendChild(cell);
+  });
+  values.forEach((value, row) => {
+    GAME.categories.forEach((category, catIndex) => {
+      const clue = category.clues[row];
+      const key = clueKey(catIndex, row);
+      const tile = document.createElement("button");
+      tile.className = "tile" + (state.used.includes(key) ? " used" : "") + (clue.daily ? " daily" : "");
+      tile.textContent = state.used.includes(key) ? "" : "$" + clue.value;
+      const tileLabel = category.name + ", $" + clue.value + (clue.daily ? ", Daily Double" : "");
+      tile.setAttribute("aria-label", state.used.includes(key) ? tileLabel + ", completed" : tileLabel);
+      tile.disabled = state.used.includes(key);
+      tile.dataset.key = key;
+      tile.style.setProperty("--i", index++);
+      tile.addEventListener("click", () => openClue(catIndex, row));
+      board.appendChild(tile);
+    });
+  });
+}
+
+function updateStatus() {
+  const solo = isSoloMode();
+  document.getElementById("activeStatus").textContent = solo ? "Solo player: " + teamName(0) : "Active team: " + teamName(state.active);
+  document.getElementById("progressStatus").textContent = state.used.length + " of " + TOTAL_CLUES + " clues complete";
+  document.getElementById("finalBtn").disabled = state.finalPlayed;
+  document.getElementById("finalBtn").textContent = state.finalPlayed ? "Final Played" : "Final Jeopardy";
+  document.getElementById("soloBtn").textContent = solo ? "Team Play" : "Solo Play";
+  document.getElementById("addTeamBtn").disabled = solo;
+}
+
+function renderAll() {
+  renderTeams();
+  renderBoard();
+  updateStatus();
+}
+
+function openModal(title, meta, bodyHtml, mode) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalMeta").textContent = meta;
+  document.getElementById("modalBody").innerHTML = bodyHtml;
+  document.getElementById("modal").dataset.mode = mode || "clue";
+  document.getElementById("modal").classList.add("show");
+  transitionLock = false;
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+  document.getElementById("modal").dataset.mode = "";
+  pending = null;
+  transitionLock = false;
+}
+
+function animateTileSelection(key) {
+  const tile = document.querySelector('[data-key="' + key + '"]');
+  if (!tile) return;
+  tile.classList.add("selected");
+  setTimeout(() => tile.classList.remove("selected"), 520);
+}
+
+function openClue(catIndex, clueIndex) {
+  if (transitionLock) return;
+  const clue = GAME.categories[catIndex].clues[clueIndex];
+  const key = clueKey(catIndex, clueIndex);
+  if (state.used.includes(key)) return;
+  transitionLock = true;
+  pending = {
+    type: "clue",
+    key,
+    catIndex,
+    clueIndex,
+    clue,
+    value: clue.value,
+    team: state.active
+  };
+  animateTileSelection(key);
+  if (clue.daily) {
+    playSfx("daily");
+    const max = Math.max(500, Math.abs(state.scores[state.active]));
+    setTimeout(() => {
+      openModal("Daily Double", GAME.categories[catIndex].name + " - " + teamName(state.active),
+        '<div class="clue-text">Daily Double. Enter a wager before the clue.</div>' +
+        '<div class="wager-grid"><div class="wager-card"><label>Wager for ' + escapeHtml(teamName(state.active)) + '</label>' +
+        '<input id="dailyWager" type="number" min="0" max="' + max + '" value="' + Math.min(max, clue.value) + '"></div></div>' +
+        '<div class="action-row"><button class="btn primary" id="startDaily">Reveal Clue</button></div>', "daily");
+      document.getElementById("startDaily").addEventListener("click", () => {
+        pending.value = clampNumber(document.getElementById("dailyWager").value, 0, max);
+        showClue();
+      });
+    }, 320);
+  } else {
+    playSfx("select");
+    setTimeout(showClue, 260);
+  }
+}
+
+function showClue() {
+  const clue = pending.clue;
+  openModal(GAME.categories[pending.catIndex].name, "$" + pending.value + " - " + teamName(pending.team),
+    '<div class="clue-text">' + escapeHtml(clue.clue) + '</div>' +
+    '<div style="margin-top:14px"><input class="quick-answer" id="studentAnswer" autocomplete="off" placeholder="Type the team response, then Auto Score"></div>' +
+    '<div class="auto-meter" id="liveMeter"><div class="meter-track"><div class="meter-fill" id="meterFill"></div></div><span id="meterText">Waiting for response</span></div>' +
+    '<div class="action-row">' +
+    '<button class="btn primary" id="autoScore">Auto Score</button>' +
+    '<button class="btn" id="revealAnswer">Reveal / Teacher Score</button>' +
+    '<button class="btn ghost" id="skipClue">No Score</button>' +
+    '</div>' +
+    '<div id="answerArea" class="hidden"></div>', "clue");
+  document.getElementById("autoScore").addEventListener("click", autoScoreClue);
+  document.getElementById("revealAnswer").addEventListener("click", revealAnswer);
+  document.getElementById("skipClue").addEventListener("click", () => finishClue(0));
+  document.getElementById("studentAnswer").addEventListener("input", previewScore);
+  document.getElementById("studentAnswer").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") autoScoreClue();
+  });
+  setTimeout(() => {
+    const input = document.getElementById("studentAnswer");
+    if (input) input.focus();
+  }, 60);
+}
+
+function previewScore() {
+  if (!pending || !pending.clue) return;
+  const input = document.getElementById("studentAnswer");
+  const fill = document.getElementById("meterFill");
+  const text = document.getElementById("meterText");
+  if (!input || !fill || !text) return;
+  const result = answerScore(input.value, pending.clue);
+  const pct = Math.round(result.score * 100);
+  fill.style.width = pct + "%";
+  text.textContent = result.verdict === "correct" ? "Likely correct" : result.verdict === "wrong" ? "Likely wrong" : result.verdict === "blank" ? "Waiting for response" : "Needs judge";
+}
+
+function autoScoreClue() {
+  if (!pending || !pending.clue) return;
+  const input = document.getElementById("studentAnswer");
+  const response = input ? input.value : "";
+  const result = answerScore(response, pending.clue);
+  if (result.verdict === "manual") {
+    showAnswerResult(0, "judge", result, response, false);
+    playSfx("judge");
+    return;
+  }
+  const delta = result.verdict === "correct" ? pending.value : -pending.value;
+  showAnswerResult(delta, result.verdict === "correct" ? "good" : "bad", result, response, true);
+  flashScreen(result.verdict === "correct" ? "good" : "bad");
+}
+
+function revealAnswer() {
+  playSfx("reveal");
+  const input = document.getElementById("studentAnswer");
+  const response = input ? input.value : "";
+  const result = answerScore(response, pending.clue);
+  showAnswerResult(0, "judge", result, response, false);
+}
+
+function showAnswerResult(delta, mode, result, response, autoApply) {
+  const clue = pending.clue;
+  const area = document.getElementById("answerArea");
+  area.className = "answer-box " + mode;
+  const verdictLabel = mode === "good" ? "Auto Scored Correct" : mode === "bad" ? "Auto Scored Wrong" : "Teacher Review";
+  const deltaText = delta > 0 ? "+" + delta : delta < 0 ? String(delta) : "0";
+  const responseLine = response ? '<p><strong>Typed response:</strong> ' + escapeHtml(response) + '</p>' : '<p><strong>Typed response:</strong> blank</p>';
+  const matchLine = result && result.matched ? '<p><strong>Closest match:</strong> ' + escapeHtml(result.matched) + ' · ' + escapeHtml(result.confidence) + '</p>' : '<p><strong>Auto confidence:</strong> ' + escapeHtml(result ? result.confidence : "not checked") + '</p>';
+  area.innerHTML =
+    '<h3>' + verdictLabel + '</h3>' +
+    '<p><strong>Score change:</strong> ' + deltaText + '</p>' +
+    responseLine +
+    matchLine +
+    '<h3>Correct Response</h3>' +
+    '<p><strong>' + escapeHtml(clue.answer) + '</strong></p>' +
+    '<h3>Why It Matters</h3>' +
+    '<p>' + escapeHtml(clue.explanation) + '</p>' +
+    ((clue.aliases && clue.aliases.length) ? '<div class="accepted-answers"><strong>Also accepted:</strong> ' + clue.aliases.map(function(a){return '<span class="alias-chip">' + escapeHtml(a) + '</span>';}).join('') + '</div>' : '') +
+    '<div class="action-row">' +
+    (autoApply ? '<button class="btn primary" id="keepAutoScore">Keep Score / Continue</button>' : '') +
+    '<button class="btn primary" id="markCorrect">Override Correct: +' + pending.value + '</button>' +
+    '<button class="btn warn" id="markWrong">Override Wrong: -' + pending.value + '</button>' +
+    '<button class="btn ghost" id="markNoScore">No Score</button>' +
+    '</div>';
+  if (autoApply) {
+    applyClueScore(delta);
+    document.getElementById("keepAutoScore").addEventListener("click", closeModal);
+    document.getElementById("markCorrect").addEventListener("click", () => adjustAppliedScore(pending.value));
+    document.getElementById("markWrong").addEventListener("click", () => adjustAppliedScore(-pending.value));
+    document.getElementById("markNoScore").addEventListener("click", () => adjustAppliedScore(0));
+  } else {
+    document.getElementById("markCorrect").addEventListener("click", () => finishClue(pending.value));
+    document.getElementById("markWrong").addEventListener("click", () => finishClue(-pending.value));
+    document.getElementById("markNoScore").addEventListener("click", () => finishClue(0));
+  }
+}
+
+function applyClueScore(delta) {
+  if (!pending) return;
+  if (pending.scored) return;
+  if (!state.used.includes(pending.key)) state.used.push(pending.key);
+  state.scores[pending.team] += delta;
+  pending.scored = true;
+  pending.appliedDelta = delta;
+  if (delta > 0) playSfx("correct");
+  if (delta < 0) playSfx("wrong");
+  if (state.names.length > 1) state.active = (pending.team + 1) % state.names.length;
+  saveState();
+  renderAll();
+}
+
+function adjustAppliedScore(newDelta) {
+  if (!pending || !pending.scored) return;
+  state.scores[pending.team] += newDelta - (pending.appliedDelta || 0);
+  pending.appliedDelta = newDelta;
+  if (newDelta > 0) playSfx("correct");
+  if (newDelta < 0) playSfx("wrong");
+  saveState();
+  closeModal();
+  renderAll();
+}
+
+function finishClue(delta) {
+  applyClueScore(delta);
+  closeModal();
+}
+
+function openFinal() {
+  if (state.finalPlayed) return;
+  playSfx("final");
+  const cards = state.names.map((name, index) => {
+    const cap = Math.max(500, state.scores[index]);
+    return '<div class="wager-card"><label>' + escapeHtml(name) + ' wager (max $' + cap + ')</label>' +
+      '<input type="number" min="0" max="' + cap + '" value="0" data-final-wager="' + index + '"></div>';
+  }).join("");
+  openModal("Final Jeopardy", GAME.final.category,
+    '<div class="clue-text">' + (isSoloMode() ? "Lock your wager. Then reveal the final clue." : "Lock each team wager. Then reveal the final clue.") + '</div>' +
+    '<div class="wager-grid">' + cards + '</div>' +
+    '<div class="action-row"><button class="btn primary" id="lockFinal">Reveal Final Clue</button></div>', "final");
+  document.getElementById("lockFinal").addEventListener("click", lockFinal);
+}
+
+function lockFinal() {
+  const wagers = [];
+  document.querySelectorAll("[data-final-wager]").forEach((input) => {
+    const index = Number(input.dataset.finalWager);
+    const cap = Math.max(500, state.scores[index]);
+    wagers[index] = clampNumber(input.value, 0, cap);
+  });
+  pending = { type: "final", wagers, marks: Array(state.names.length).fill(null) };
+  const answers = state.names.map((name, index) =>
+    '<div class="wager-card"><label>' + escapeHtml(name) + ' response</label><textarea data-final-answer="' + index + '"></textarea></div>'
+  ).join("");
+  openModal("Final Jeopardy", GAME.final.category,
+    '<div class="clue-text">' + escapeHtml(GAME.final.clue) + '</div>' +
+    '<div class="final-grid">' + answers + '</div>' +
+    '<div class="action-row"><button class="btn primary" id="revealFinalAnswer">Reveal Final Answer</button></div>' +
+    '<div id="finalAnswerArea" class="hidden"></div>', "final");
+  document.getElementById("revealFinalAnswer").addEventListener("click", revealFinalAnswer);
+}
+
+function revealFinalAnswer() {
+  playSfx("reveal");
+  const finalChecks = state.names.map((name, index) => {
+    const answerBox = document.querySelector('[data-final-answer="' + index + '"]');
+    const response = answerBox ? answerBox.value : "";
+    const result = answerScore(response, GAME.final);
+    pending.marks[index] = result.verdict === "correct" ? true : result.verdict === "wrong" ? false : null;
+    return { response, result };
+  });
+  const rows = state.names.map((name, index) => {
+    const check = finalChecks[index];
+    const guess = check.response ? escapeHtml(check.response) : "blank";
+    const auto = pending.marks[index] === true ? "auto: correct" : pending.marks[index] === false ? "auto: wrong" : "auto: needs judge";
+    return '<div class="score-result" data-final-row="' + index + '"><strong>' + escapeHtml(name) + '</strong><span class="tiny">' + auto + ' · ' + escapeHtml(check.result.confidence) + '<br>Response: ' + guess + '</span><button class="btn primary" data-final-mark="' + index + '" data-ok="1">Correct</button><button class="btn warn" data-final-mark="' + index + '" data-ok="0">Wrong</button></div>';
+  }).join("");
+  const area = document.getElementById("finalAnswerArea");
+  area.className = "answer-box";
+  area.innerHTML =
+    '<h3>Correct Response</h3><p><strong>' + escapeHtml(GAME.final.answer) + '</strong></p>' +
+    '<h3>Why It Matters</h3><p>' + escapeHtml(GAME.final.explanation) + '</p>' +
+    ((GAME.final.aliases && GAME.final.aliases.length) ? '<div class="accepted-answers"><strong>Also accepted:</strong> ' + GAME.final.aliases.map(function(a){return '<span class="alias-chip">' + escapeHtml(a) + '</span>';}).join('') + '</div>' : '') +
+    rows +
+    '<div class="action-row"><button class="btn primary" id="applyFinal">Apply Final Scores</button></div>';
+  area.querySelectorAll("[data-final-mark]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const index = Number(button.dataset.finalMark);
+      pending.marks[index] = button.dataset.ok === "1";
+      button.parentElement.querySelectorAll("button").forEach((b) => b.style.outline = "none");
+      button.style.outline = "2px solid var(--accent)";
+      playSfx(button.dataset.ok === "1" ? "correct" : "wrong");
+    });
+    const index = Number(button.dataset.finalMark);
+    if ((pending.marks[index] === true && button.dataset.ok === "1") || (pending.marks[index] === false && button.dataset.ok === "0")) {
+      button.style.outline = "2px solid var(--accent)";
+    }
+  });
+  document.getElementById("applyFinal").addEventListener("click", applyFinal);
+}
+
+function applyFinal() {
+  if (!pending || pending.type !== "final") return;
+  state.names.forEach((name, index) => {
+    if (pending.marks[index] === true) state.scores[index] += pending.wagers[index] || 0;
+    if (pending.marks[index] === false) state.scores[index] -= pending.wagers[index] || 0;
+  });
+  state.finalPlayed = true;
+  playSfx("final");
+  saveState();
+  closeModal();
+  renderAll();
+}
+
+function addTeam() {
+  if (isSoloMode()) return;
+  if (state.names.length >= 4) return;
+  state.names.push("Team " + (state.names.length + 1));
+  state.scores.push(0);
+  saveState();
+  renderAll();
+}
+
+function toggleSoloMode() {
+  const nextMode = isSoloMode() ? "teams" : "solo";
+  const hasProgress = state.used.length || state.finalPlayed || state.scores.some((score) => score !== 0);
+  if (hasProgress && !confirm("Switch play modes and reset this game's board and scores?")) return;
+  state = defaultState(nextMode);
+  saveState();
+  playSfx("select");
+  renderAll();
+}
+
+function resetGame() {
+  if (!confirm("Reset this game's board and scores?")) return;
+  state = defaultState(isSoloMode() ? "solo" : "teams");
+  saveState();
+  playSfx("reset");
+  renderAll();
+}
+
+function ensureAudio() {
+  if (audio.ctx) return;
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) return;
+  audio.ctx = new Ctx();
+  audio.compressor = audio.ctx.createDynamicsCompressor();
+  audio.compressor.threshold.value = -20;
+  audio.compressor.knee.value = 18;
+  audio.compressor.ratio.value = 7;
+  audio.compressor.attack.value = .006;
+  audio.compressor.release.value = .2;
+  audio.master = audio.ctx.createGain();
+  audio.master.gain.value = .16;
+  audio.master.connect(audio.compressor);
+  audio.compressor.connect(audio.ctx.destination);
+}
+
+function tone(freq, duration, type, gainValue, delay, bendTo) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const osc = audio.ctx.createOscillator();
+  const gain = audio.ctx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.setValueAtTime(freq, now);
+  if (bendTo) osc.frequency.exponentialRampToValueAtTime(Math.max(20, bendTo), now + duration);
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(gainValue || .12, now + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+  osc.connect(gain);
+  gain.connect(audio.master);
+  osc.start(now);
+  osc.stop(now + duration);
+}
+
+function pluck(freq, delay, gainValue, duration) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const end = now + (duration || .48);
+  const osc = audio.ctx.createOscillator();
+  const overtone = audio.ctx.createOscillator();
+  const filter = audio.ctx.createBiquadFilter();
+  const gain = audio.ctx.createGain();
+  osc.type = "triangle";
+  overtone.type = "sine";
+  osc.frequency.setValueAtTime(freq, now);
+  overtone.frequency.setValueAtTime(freq * 2.01, now);
+  filter.type = "lowpass";
+  filter.frequency.setValueAtTime(2600, now);
+  filter.frequency.exponentialRampToValueAtTime(520, end);
+  gain.gain.setValueAtTime(.0001, now);
+  gain.gain.exponentialRampToValueAtTime(gainValue || .04, now + .012);
+  gain.gain.exponentialRampToValueAtTime(.0001, end);
+  osc.connect(filter);
+  overtone.connect(filter);
+  filter.connect(gain);
+  gain.connect(audio.master);
+  osc.start(now);
+  overtone.start(now);
+  osc.stop(end);
+  overtone.stop(end);
+}
+
+function sweep(from, to, duration, gainValue, delay, type) {
+  tone(from, duration, type || "sine", gainValue || .045, delay || 0, to);
+}
+
+function noise(duration, gainValue, delay, filterFreq, filterType) {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  const now = audio.ctx.currentTime + (delay || 0);
+  const length = Math.max(1, Math.floor(audio.ctx.sampleRate * duration));
+  const buffer = audio.ctx.createBuffer(1, length, audio.ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 1.2);
+  const source = audio.ctx.createBufferSource();
+  const filter = audio.ctx.createBiquadFilter();
+  const gain = audio.ctx.createGain();
+  source.buffer = buffer;
+  filter.type = filterType || "bandpass";
+  filter.frequency.value = filterFreq || 900;
+  filter.Q.value = .9;
+  gain.gain.setValueAtTime(gainValue || .06, now);
+  gain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(audio.master);
+  source.start(now);
+  source.stop(now + duration);
+}
+
+function chord(notes, duration, type, gain, delay) {
+  notes.forEach((note, i) => tone(note, duration, type || "triangle", (gain || .05) / Math.max(1, notes.length * .7), (delay || 0) + i * .012));
+}
+
+function playSfx(kind) {
+  if (kind === "select") {
+    pluck(523.25, 0, .035, .18);
+    pluck(783.99, .045, .022, .18);
+  }
+  if (kind === "reveal") {
+    noise(.28, .034, 0, 2200, "highpass");
+    sweep(140, 520, .42, .04, 0, "sine");
+    chord([261.63, 392, 523.25, 659.25], .42, "triangle", .11, .15);
+  }
+  if (kind === "correct") {
+    [523.25, 659.25, 783.99, 1046.5].forEach((note, i) => pluck(note, i * .07, .052, .35));
+    chord([659.25, 783.99, 987.77, 1318.51], .36, "triangle", .14, .25);
+    noise(.16, .022, .04, 3200, "highpass");
+  }
+  if (kind === "wrong") {
+    sweep(220, 82, .48, .065, 0, "sawtooth");
+    tone(110, .44, "triangle", .035, .06, 74);
+    noise(.24, .035, .02, 220, "lowpass");
+  }
+  if (kind === "judge") {
+    pluck(349.23, 0, .035, .22);
+    pluck(466.16, .18, .032, .22);
+    tone(196, .46, "sine", .018, .04);
+  }
+  if (kind === "daily") {
+    noise(.42, .05, 0, 1700, "bandpass");
+    sweep(98, 784, .7, .05, 0, "sine");
+    [196, 293.66, 392, 587.33, 783.99, 1174.66].forEach((n, i) => pluck(n, i * .08, .048, .32));
+  }
+  if (kind === "final") {
+    noise(.5, .04, 0, 900, "bandpass");
+    sweep(73, 294, .85, .052, 0, "sine");
+    [196, 261.63, 329.63, 392, 523.25, 659.25, 783.99].forEach((n, i) => pluck(n, .1 + i * .105, .046, .44));
+  }
+  if (kind === "intro") {
+    noise(.34, .03, 0, 2300, "highpass");
+    [196, 246.94, 329.63, 392, 523.25].forEach((n, i) => pluck(n, .08 + i * .09, .038, .42));
+  }
+  if (kind === "reset") {
+    tone(180, .12, "sine", .045);
+    tone(120, .16, "sine", .04, .09);
+  }
+}
+
+function stopMusic() {
+  clearTimeout(audio.musicTimer);
+  audio.musicTimer = null;
+}
+
+function scheduleMusicPhrase(first) {
+  if (!audio.musicOn) return;
+  const motifs = [
+    [392, 523.25, 659.25, null, 587.33, 493.88, 440, null],
+    [329.63, 392, null, 523.25, 587.33, 523.25, 440, null],
+    [392, null, 493.88, 587.33, 659.25, null, 523.25, 392],
+    [293.66, 369.99, 440, null, 523.25, 493.88, 392, null]
+  ];
+  const motif = motifs[audio.step % motifs.length];
+  const startDelay = first ? .72 : .22;
+  motif.forEach((note, i) => {
+    if (!note) return;
+    const delay = startDelay + i * .42;
+    pluck(note, delay, .024, .5);
+    tone(note * 2, .16, "sine", .006, delay + .012);
+  });
+  const root = [98, 110, 130.81, 146.83][audio.step % 4];
+  tone(root, .9, "sine", .017, startDelay + .05);
+  tone(root * 1.5, .72, "triangle", .011, startDelay + 1.72);
+  audio.step += 1;
+  const pause = audio.step % 2 ? 2800 : 4300;
+  audio.musicTimer = setTimeout(() => scheduleMusicPhrase(false), startDelay * 1000 + motif.length * 420 + pause);
+}
+
+function toggleMusic() {
+  ensureAudio();
+  if (!audio.ctx) return;
+  if (audio.ctx.state === "suspended") audio.ctx.resume();
+  audio.musicOn = !audio.musicOn;
+  document.body.classList.toggle("music-on", audio.musicOn);
+  document.getElementById("musicBtn").textContent = audio.musicOn ? "Sound Off" : "Sound On";
+  if (audio.musicOn) {
+    stopMusic();
+    audio.step = 0;
+    playSfx("intro");
+    scheduleMusicPhrase(true);
+  } else {
+    stopMusic();
+  }
+}
+
+function initStageMotion() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const root = document.documentElement;
+  let tx = 0;
+  let ty = 0;
+  let cx = 0;
+  let cy = 0;
+  window.addEventListener("pointermove", (event) => {
+    if (window.innerWidth < 760) return;
+    tx = (event.clientX / window.innerWidth) - .5;
+    ty = (event.clientY / window.innerHeight) - .5;
+    root.style.setProperty("--spot-x", Math.round(event.clientX / window.innerWidth * 100) + "%");
+    root.style.setProperty("--spot-y", Math.round(event.clientY / window.innerHeight * 100) + "%");
+  }, { passive: true });
+  function tick() {
+    cx += (tx - cx) * .08;
+    cy += (ty - cy) * .08;
+    root.style.setProperty("--tilt-x", (cx * 2.4).toFixed(3) + "deg");
+    root.style.setProperty("--tilt-y", (cy * -1.2).toFixed(3) + "deg");
+    root.style.setProperty("--scene-x", (cx * -18).toFixed(2) + "px");
+    root.style.setProperty("--scene-y", (cy * -10).toFixed(2) + "px");
+    requestAnimationFrame(tick);
+  }
+  tick();
+}
+
+function initCanvas() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 900) {
+    const canvas = document.getElementById("space");
+    if (canvas) canvas.style.display = "none";
+    return;
+  }
+  const canvas = document.getElementById("space");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let frameSkip = false;
+  function resize() {
+    const scale = Math.min(devicePixelRatio || 1, 1.25);
+    canvas.width = Math.floor(window.innerWidth * scale);
+    canvas.height = Math.floor(window.innerHeight * scale);
+    particles = Array.from({ length: Math.min(55, Math.floor(window.innerWidth / 28)) }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      z: .25 + Math.random() * 1.4,
+      r: .5 + Math.random() * 2.5,
+      hue: Math.random()
+    }));
+  }
+  function draw() {
+    frameSkip = !frameSkip;
+    if (frameSkip) {
+      requestAnimationFrame(draw);
+      return;
+    }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const raw = performance.now();
+    const t = raw * .00018;
+    const dpr = Math.min(devicePixelRatio || 1, 1.25);
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    grad.addColorStop(0, "rgba(255,255,255,.04)");
+    grad.addColorStop(.5, "rgba(0,212,255,.05)");
+    grad.addColorStop(1, "rgba(255,95,101,.05)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    const beamAlpha = .07 + Math.sin(raw * .0012) * .025;
+    for (let b = 0; b < 3; b++) {
+      const anchor = canvas.width * (.12 + b * .19);
+      const sweep = Math.sin(raw * .00045 + b) * canvas.width * .08;
+      const beam = ctx.createLinearGradient(anchor, 0, canvas.width / 2 + sweep, canvas.height);
+      beam.addColorStop(0, "rgba(255,209,102," + beamAlpha + ")");
+      beam.addColorStop(.45, "rgba(0,212,255," + (beamAlpha * .45) + ")");
+      beam.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = beam;
+      ctx.beginPath();
+      ctx.moveTo(anchor - canvas.width * .025, 0);
+      ctx.lineTo(anchor + canvas.width * .025, 0);
+      ctx.lineTo(canvas.width / 2 + sweep + canvas.width * .18, canvas.height);
+      ctx.lineTo(canvas.width / 2 + sweep - canvas.width * .18, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    }
+    const horizon = canvas.height * .68;
+    ctx.strokeStyle = "rgba(0,212,255,.13)";
+    ctx.lineWidth = dpr;
+    for (let i = 0; i < 9; i++) {
+      const y = horizon + Math.pow(i / 8, 1.75) * canvas.height * .33;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width * .08, y);
+      ctx.lineTo(canvas.width * .92, y);
+      ctx.stroke();
+    }
+    for (let i = -5; i <= 5; i++) {
+      const x = canvas.width / 2 + i * canvas.width * .09;
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2, horizon);
+      ctx.lineTo(x, canvas.height);
+      ctx.stroke();
+    }
+    ctx.globalAlpha = .55 + Math.sin(raw * .002) * .18;
+    ctx.strokeStyle = "rgba(255,209,102,.18)";
+    ctx.beginPath();
+    ctx.arc(canvas.width * .5, canvas.height * .49, canvas.width * .24, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.restore();
+    particles.forEach((p, i) => {
+      p.y += p.z * dpr * .6;
+      p.x += Math.sin(t * 8 + i) * .16 * dpr;
+      if (p.y > canvas.height + 20) {
+        p.y = -20;
+        p.x = Math.random() * canvas.width;
+      }
+      ctx.beginPath();
+      ctx.fillStyle = p.hue > .66 ? "rgba(255,209,102,.85)" : p.hue > .33 ? "rgba(46,196,182,.72)" : "rgba(255,95,101,.66)";
+      ctx.arc(p.x, p.y, p.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = 0; i < 3; i++) {
+      const y = canvas.height * (.16 + i * .16) + Math.sin(raw * .001 + i) * 18 * dpr;
+      const x0 = (Math.sin(raw * .0006 + i * 1.7) * .5 + .5) * canvas.width;
+      const len = canvas.width * (.12 + (i % 3) * .035);
+      const electric = i % 2 ? "rgba(0,212,255,.16)" : "rgba(255,209,102,.14)";
+      ctx.strokeStyle = electric;
+      ctx.lineWidth = (1.2 + (i % 3)) * dpr;
+      ctx.beginPath();
+      ctx.moveTo(x0 - len, y);
+      ctx.lineTo(x0 + len, y + Math.sin(i + raw * .002) * 10 * dpr);
+      ctx.stroke();
+    }
+    ctx.restore();
+    ctx.save();
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.rotate(t);
+    for (let ring = 0; ring < 4; ring++) {
+      ctx.beginPath();
+      ctx.strokeStyle = ring % 2 ? "rgba(255,209,102,.12)" : "rgba(0,212,255,.12)";
+      ctx.lineWidth = (1 + ring) * dpr;
+      ctx.ellipse(0, 0, (220 + ring * 90) * dpr, (70 + ring * 30) * dpr, ring * .4, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  draw();
+}
+
+document.getElementById("closeModal").addEventListener("click", closeModal);
+document.getElementById("modal").addEventListener("click", (event) => {
+  if (event.target.id === "modal") closeModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeModal();
+});
+document.getElementById("addTeamBtn").addEventListener("click", addTeam);
+document.getElementById("soloBtn").addEventListener("click", toggleSoloMode);
+document.getElementById("resetBtn").addEventListener("click", resetGame);
+document.getElementById("finalBtn").addEventListener("click", openFinal);
+document.getElementById("musicBtn").addEventListener("click", toggleMusic);
+
+initStageMotion();
+initCanvas();
+renderAll();
+setTimeout(() => document.body.classList.add("game-booted"), 1600);
+</script>
+<script src="../../assets/arcade-analytics.js?v=20260428-counter-silent"></script>
+</body>
+</html>
