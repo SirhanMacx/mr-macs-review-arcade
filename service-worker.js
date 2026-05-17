@@ -1,4 +1,4 @@
-const CACHE_NAME = "v91-question-validator-defense-in-depth";
+const CACHE_NAME = "v92-e2e-smoke";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
