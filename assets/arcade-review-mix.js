@@ -38,23 +38,29 @@
   function profile() { return root.MrMacsProfile; }
   function bank()    { return root.DIAG_BANK_BY_COURSE || {}; }
 
-  // Collect candidate distractors. Course preferred; fall back to global.
+  // Collect candidate distractors. STRICT in-course only — never fall through
+  // to global pool. Cross-course distractors produced the user-visible bug
+  // where a US history prompt ("U.S. policy to stop the spread of communism")
+  // showed up with choices like "ClassCastException" (AP CS A), "Speaker"
+  // (AP Gov), and "Sum a over 1 minus r" (AP Calc BC). If the course no
+  // longer exists in the current bank (e.g. queue item from an older bank
+  // version), or has too few sibling answers, we return [] and maybeDue()
+  // skips the card. Better to fall through to a fresh bank pick than to
+  // serve nonsense.
   function gatherDistractors(course, correctAnswer) {
     var b = bank();
+    if (!course || !b[course] || !Array.isArray(b[course])) return [];
+    var seen = Object.create(null);
     var pool = [];
-    if (course && b[course] && Array.isArray(b[course])) {
-      pool = b[course].map(function (q) { return q.correctText; }).filter(Boolean);
+    for (var i = 0; i < b[course].length; i++) {
+      var ct = b[course][i] && b[course][i].correctText;
+      if (!ct) continue;
+      if (ct === correctAnswer) continue;
+      if (seen[ct]) continue;
+      seen[ct] = true;
+      pool.push(ct);
     }
-    if (pool.length < MIN_DISTRACTOR_POOL) {
-      // Pad from global bank
-      Object.keys(b).forEach(function (k) {
-        if (k === course) return;
-        (b[k] || []).forEach(function (q) {
-          if (q.correctText && pool.indexOf(q.correctText) === -1) pool.push(q.correctText);
-        });
-      });
-    }
-    return pool.filter(function (x) { return x !== correctAnswer; });
+    return pool;
   }
 
   function pickN(arr, n) {
