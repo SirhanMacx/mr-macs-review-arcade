@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07080f">
+  <link rel="icon" href="data:,">
+  <title>Source Sorter - Mr. Mac's Review Arcade</title>
+  <link rel="manifest" href="../../manifest.json">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="styles.css?v=20260517-source-sorter">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>MR. MAC'S REVIEW ARCADE</span>
+    <span>SOURCE SORTER</span>
+    <span>INSERT COIN</span>
+  </div>
+
+  <div class="sorter-bg" aria-hidden="true"></div>
+
+  <main class="sorter-shell">
+    <header class="sorter-topbar">
+      <a class="sorter-brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="brand-mark">SS</span>
+        <span><small>Mr. Mac's Arcade</small><strong>Source Sorter</strong></span>
+      </a>
+      <div class="top-stats" id="topStats" aria-live="polite"></div>
+    </header>
+
+    <section class="screen setup-screen" id="setupScreen">
+      <section class="setup-hero">
+        <div class="kicker">Archive Skill Game</div>
+        <h1>Source Sorter</h1>
+        <p>Sort review cards into the right archive shelf before the conveyor runs cold.</p>
+
+        <div class="setup-grid">
+          <label for="modeSelect">
+            Mode
+            <select id="modeSelect">
+              <option value="source-type">Source Type</option>
+              <option value="course-shelf">Course Shelf</option>
+            </select>
+          </label>
+          <label for="roundSelect">
+            Rounds
+            <select id="roundSelect">
+              <option value="12">12 cards</option>
+              <option value="8">8 cards</option>
+              <option value="16">16 cards</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="setup-actions">
+          <button class="btn primary" id="startBtn" type="button" disabled>Loading Bank</button>
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        </div>
+      </section>
+
+      <aside class="setup-panel" aria-label="Source Sorter status">
+        <div class="panel-title">Cabinet Readout</div>
+        <div class="mini-metrics" id="bankMetrics">
+          <div class="metric"><strong>...</strong><span>Loading</span></div>
+        </div>
+        <div class="bank-note" id="bankNote" aria-live="polite"></div>
+      </aside>
+    </section>
+
+    <section class="screen play-screen" id="playScreen" hidden>
+      <header class="hud" aria-label="Run status">
+        <div><span>Score</span><strong id="scoreHud">0</strong></div>
+        <div><span>Streak</span><strong id="streakHud">0</strong></div>
+        <div><span>Card</span><strong id="roundHud">0/0</strong></div>
+        <div><span>Timer</span><strong id="timerHud">20</strong></div>
+      </header>
+
+      <section class="sorter-board" aria-label="Source sorting board">
+        <article class="source-card" id="cardRoot" aria-live="polite"></article>
+        <section class="shelf-grid" id="shelfGrid" aria-label="Archive shelves"></section>
+      </section>
+
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+    </section>
+
+    <section class="screen end-screen" id="endScreen" hidden>
+      <section class="result-card">
+        <div class="kicker">Run Complete</div>
+        <h1 id="resultTitle">Sorted</h1>
+        <div class="mini-metrics" id="resultMetrics"></div>
+        <p class="result-note" id="resultNote"></p>
+        <div class="setup-actions">
+          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../../assets/source-bank.js?v=20260509-polish"></script>
+  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script src="game.js?v=20260517-source-sorter"></script>
+</body>
+</html>

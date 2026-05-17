@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06080f">
+  <link rel="icon" href="data:,">
+  <title>Timeline Stack - Mr. Mac's Review Arcade</title>
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <link rel="stylesheet" href="styles.css?v=20260517-timeline-stack">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>&lt; &lt; &lt;</span>
+    <span>MR. MAC'S REVIEW ARCADE - INSERT COIN</span>
+    <span>&gt; &gt; &gt;</span>
+  </div>
+
+  <main class="timeline-shell" id="app">
+    <header class="top-hud" aria-label="Timeline Stack status">
+      <a class="brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="brand-mark" aria-hidden="true">TS</span>
+        <span><small>Mr. Mac's Arcade</small><strong>Timeline Stack</strong></span>
+      </a>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="hud-cell"><span>Score</span><strong id="hudScore">0</strong></div>
+        <div class="hud-cell"><span>Round</span><strong id="hudRound">0/0</strong></div>
+        <div class="hud-cell"><span>Streak</span><strong id="hudStreak">0</strong></div>
+        <div class="hud-cell"><span>Accuracy</span><strong id="hudAccuracy">--</strong></div>
+      </div>
+    </header>
+
+    <section class="screen setup-screen" id="setupScreen" aria-label="Timeline Stack setup">
+      <section class="setup-card">
+        <a class="setup-back-link" href="../../index.html">Back to Arcade</a>
+        <div class="setup-kicker">Order Review</div>
+        <h1>Timeline Stack</h1>
+        <p class="setup-sub">Build a stack from earliest to latest using date-bearing review cards pulled from the shared course bank.</p>
+
+        <div class="setup-grid" aria-label="Game options">
+          <label>Course
+            <select id="courseSelect"></select>
+          </label>
+          <label>Stack Size
+            <select id="sizeSelect">
+              <option value="4">4 cards</option>
+              <option value="5" selected>5 cards</option>
+              <option value="6">6 cards</option>
+            </select>
+          </label>
+          <label>Rounds
+            <select id="roundSelect">
+              <option value="4">4 rounds</option>
+              <option value="6" selected>6 rounds</option>
+              <option value="8">8 rounds</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="setup-status" id="setupStatus" role="status">Loading timeline cards...</div>
+        <div class="resume-card" id="bestCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+
+        <div class="setup-actions">
+          <button class="btn primary" id="startBtn" type="button" disabled>Start Stack</button>
+          <a class="btn ghost" href="../../index.html">Arcade Home</a>
+        </div>
+      </section>
+    </section>
+
+    <section class="screen play-screen" id="playScreen" aria-label="Timeline Stack play" hidden>
+      <section class="round-panel">
+        <div>
+          <span class="panel-kicker" id="courseLabel">History Mix</span>
+          <h2 id="roundTitle">Round 1</h2>
+        </div>
+        <button class="btn ghost" id="restartBtn" type="button">Restart</button>
+      </section>
+
+      <section class="timeline-work">
+        <div class="timeline-axis" aria-hidden="true">
+          <span>Earliest</span>
+          <i></i>
+          <span>Latest</span>
+        </div>
+        <ol class="stack-list" id="stackList" aria-label="Cards ordered from earliest to latest"></ol>
+      </section>
+
+      <section class="feedback-panel" id="feedback" aria-live="polite">
+        Move cards until the stack runs from earliest at the top to latest at the bottom.
+      </section>
+
+      <div class="play-actions">
+        <button class="btn primary" id="checkBtn" type="button">Check Stack</button>
+        <button class="btn" id="nextBtn" type="button" hidden>Next Stack</button>
+      </div>
+    </section>
+
+    <section class="screen end-screen" id="endScreen" aria-label="Timeline Stack results" hidden>
+      <section class="setup-card compact">
+        <div class="setup-kicker">Run Complete</div>
+        <h2 id="endTitle">Timeline archived</h2>
+        <div class="result-grid" id="resultGrid"></div>
+        <div class="feedback-panel" id="endFeedback"></div>
+        <div class="setup-actions">
+          <button class="btn" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary" id="againBtn" type="button">Play Again</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-review-mix.js?v=20260511-review-mix-v1"></script>
+  <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="game.js?v=20260517-timeline-stack"></script>
+</body>
+</html>

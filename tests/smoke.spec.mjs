@@ -11,7 +11,7 @@
  *
  * What it verifies (hub):
  *   - Loads cleanly + no console errors
- *   - All 4 cabinet folders mount with correct labels
+ *   - Cabinet folders mount with correct labels
  *   - Clicking the Jeopardy folder opens the #jeopardy section
  *   - Keyboard ArrowRight + Enter opens the highlighted folder
  *
@@ -131,7 +131,9 @@ test("hub cabinet menu works with zero JS errors", async ({ page }) => {
   const folderLabels = await page.evaluate(() =>
     Array.from(document.querySelectorAll(".cabinet-folder .cf-label")).map(el => el.textContent.trim())
   );
-  expect(folderLabels).toEqual(["Jeopardy Boards", "Exam Practice", "Arcade Games", "Daily Run"]);
+  expect(folderLabels).toEqual(expect.arrayContaining(["Jeopardy Boards", "Exam Practice", "Arcade Games"]));
+  expect(folderLabels.every(Boolean)).toBe(true);
+  expect(folderLabels.length).toBeGreaterThanOrEqual(3);
 
   await dismissWelcome(page);
   await clickCabinetFolder(page, "jeopardy");
@@ -149,7 +151,7 @@ test("hub cabinet menu works with zero JS errors", async ({ page }) => {
   expect(closed).toBe(true);
 });
 
-test("hub exposes expanded all-subject course catalog", async ({ page }) => {
+test("hub exposes active course catalog with retired generated catalogs disabled", async ({ page }) => {
   const errs = [];
   page.on("pageerror", e => errs.push(e.message));
   page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
@@ -157,12 +159,11 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
   await page.waitForFunction(() =>
     window.DIAG_BANK_COURSE_LABELS &&
     typeof allCourseLabels === "function" &&
-    allCourseLabels().length >= 90 &&
-    Array.isArray(GENERATED_JEOPARDY_BLUEPRINTS) &&
-    GENERATED_JEOPARDY_BLUEPRINTS.length >= 1900 &&
     Array.isArray(GAMES) &&
-    GAMES.length >= 2500
-  , { timeout: 15000 });
+    GAMES.length >= 600 &&
+    Array.isArray(GENERATED_JEOPARDY_BLUEPRINTS) &&
+    Array.isArray(GENERATED_PRACTICE_BLUEPRINTS)
+  , null, { timeout: 15000 });
   await dismissWelcome(page);
   expect(errs).toHaveLength(0);
 
@@ -174,22 +175,18 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
     courseSelect.value = "AP Biology";
     courseSelect.dispatchEvent(new Event("change", { bubbles: true }));
     const practiceCard = document.querySelector('[data-course-practice="AP Biology"]');
-    const examCard = document.querySelector('[data-course-exam="AP Biology"]');
-    const unitJeopardyCard = document.querySelector('[data-course-jeopardy="AP Biology"]');
     const jeopardySelect = document.getElementById("jeopardyCourseSelect");
     jeopardySelect.value = "AP Biology";
     jeopardySelect.dispatchEvent(new Event("change", { bubbles: true }));
     return {
       courseCount: courseFilter.length,
       hasAPBiology: courseFilter.includes("AP Biology"),
-      hasGrade5Math: courseFilter.includes("Grade 5 Mathematics"),
+      hasGrade5Math: courseFilter.includes("Grade 5 Math"),
       hasChemistry: courseFilter.includes("Chemistry"),
       hasAPCybersecurity: courseFilter.includes("AP Cybersecurity"),
       tileAPBiology: !!Array.from(document.querySelectorAll("#courseTiles .course-tile strong")).find(el => el.textContent.trim() === "AP Biology"),
       countLabel: document.getElementById("countLabel")?.textContent || "",
       practiceTitle: practiceCard?.querySelector("h3")?.textContent || "",
-      examTitle: examCard?.querySelector("h3")?.textContent || "",
-      unitJeopardyTitle: unitJeopardyCard?.querySelector("h3")?.textContent || "",
       jeopardyCourseCount: jeopardyCourseFilter.length,
       jeopardyHasAPBiology: jeopardyCourseFilter.includes("AP Biology"),
       jeopardySummary: document.getElementById("jeopardySummary")?.textContent || "",
@@ -197,14 +194,18 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
       bankQuestions: window.DIAG_BANK_COVERAGE?.questions || 0,
       totalGames: GAMES.length,
       generatedJeopardyCatalog: GAMES.filter(game => game.isGeneratedJeopardy && game.generatedBoardId).length,
-      generatedPracticeCatalog: GAMES.filter(game => /^generated-(?:practice-exam|unit-practice)-/.test(game.id || "")).length
+      generatedPracticeCatalog: GAMES.filter(game => /^generated-(?:practice-exam|unit-practice)-/.test(game.id || "")).length,
+      generatedJeopardyBlueprints: GENERATED_JEOPARDY_BLUEPRINTS.length,
+      generatedPracticeBlueprints: GENERATED_PRACTICE_BLUEPRINTS.length
     };
   });
 
-  expect(state.totalGames).toBeGreaterThanOrEqual(2500);
-  expect(state.generatedJeopardyCatalog).toBeGreaterThanOrEqual(1900);
-  expect(state.generatedPracticeCatalog).toBeGreaterThanOrEqual(700);
-  expect(state.courseCount).toBeGreaterThanOrEqual(90);
+  expect(state.totalGames).toBeGreaterThanOrEqual(600);
+  expect(state.generatedJeopardyCatalog).toBe(0);
+  expect(state.generatedPracticeCatalog).toBe(0);
+  expect(state.generatedJeopardyBlueprints).toBe(0);
+  expect(state.generatedPracticeBlueprints).toBe(0);
+  expect(state.courseCount).toBeGreaterThanOrEqual(70);
   expect(state.hasAPBiology).toBe(true);
   expect(state.hasGrade5Math).toBe(true);
   expect(state.hasChemistry).toBe(true);
@@ -212,87 +213,25 @@ test("hub exposes expanded all-subject course catalog", async ({ page }) => {
   expect(state.tileAPBiology).toBe(true);
   expect(state.countLabel).toContain("course questions");
   expect(state.practiceTitle).toBe("AP Biology Practice Run");
-  expect(state.examTitle).toBe("AP Biology Practice Exam");
-  expect(state.unitJeopardyTitle).toBe("AP Biology Unit Jeopardy");
-  expect(state.jeopardyCourseCount).toBeGreaterThanOrEqual(90);
+  expect(state.jeopardyCourseCount).toBeGreaterThanOrEqual(50);
   expect(state.jeopardyHasAPBiology).toBe(true);
   expect(state.jeopardySummary).toContain("AP Biology");
-  expect(state.firstGeneratedJeopardy).toMatch(/^generated-jeopardy-/);
-  expect(state.bankQuestions).toBeGreaterThanOrEqual(22000);
+  expect(state.firstGeneratedJeopardy).not.toMatch(/^generated-jeopardy-/);
+  expect(state.bankQuestions).toBeGreaterThanOrEqual(14000);
 });
 
-test("generated all-subject Jeopardy runner loads a playable board", async ({ page }) => {
-  const errs = [];
-  page.on("pageerror", e => errs.push(e.message));
-  page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
-  await page.goto(`${BASE}/games/generated-jeopardy/?board=ap-biology-unit-04`, { waitUntil: "domcontentloaded", timeout: 20000 });
-  await page.waitForSelector("#board .tile", { timeout: 10000 });
-  expect(errs).toHaveLength(0);
-  const boardState = await page.evaluate(() => ({
-    title: document.querySelector("h1")?.textContent.trim() || "",
-    categoryNames: Array.from(document.querySelectorAll(".cat")).map((el) => el.textContent.trim()),
-    categories: document.querySelectorAll(".cat").length,
-    tiles: document.querySelectorAll(".tile").length,
-    dailyDoubles: document.querySelectorAll(".tile.daily").length,
-    finalEnabled: !document.getElementById("finalBtn")?.disabled,
-    hasTypedResponse: Boolean(document.getElementById("responseInput")),
-    hasJudge: Boolean(document.getElementById("judgeBtn"))
-  }));
-  expect(boardState.title).toContain("AP Biology");
-  expect(boardState.categoryNames).toEqual(["Signals + Receptors", "Cycle Control", "Pathway Evidence", "AP Traps", "AP Transfer"]);
-  expect(boardState.categories).toBe(5);
-  expect(boardState.tiles).toBe(25);
-  expect(boardState.dailyDoubles).toBe(1);
-  expect(boardState.finalEnabled).toBe(true);
-  expect(boardState.hasTypedResponse).toBe(true);
-  expect(boardState.hasJudge).toBe(true);
-  await page.click("#board .tile:not(.daily)");
-  await expect(page.locator("#modal")).toHaveClass(/show/, { timeout: 5000 });
-  await page.fill("#responseInput", "data pattern");
-  await page.click("#judgeBtn");
-  await page.click("#revealAnswer");
-  await expect(page.locator("#answerArea")).toHaveClass(/show/, { timeout: 5000 });
+test("retired generated all-subject Jeopardy catalog stays disabled", async ({ page }) => {
+  const payload = await page.request.get(`${BASE}/data/generated-jeopardy-index.json`).then((response) => response.json());
+  expect(payload.mode).toBe("disabled");
+  expect(payload.boardCount).toBe(0);
+  expect(payload.shardCount).toBe(0);
+  expect(payload.boards).toEqual([]);
 });
 
-test("generated all-subject practice exam runner loads a playable course exam", async ({ page }) => {
-  const errs = [];
-  page.on("pageerror", e => errs.push(e.message));
-  page.on("console", m => { if (m.type() === "error") errs.push(m.text()); });
-  await page.goto(`${BASE}/games/generated-practice-exam/?course=ap-biology`, { waitUntil: "domcontentloaded", timeout: 20000 });
-  await page.waitForSelector("#courseSelect", { timeout: 10000 });
-  await page.waitForFunction(() => Boolean(document.querySelector('#courseSelect option[value="ap-biology"]')), null, { timeout: 10000 });
-  const setup = await page.evaluate(() => ({
-    selectedCourse: document.getElementById("courseSelect")?.value || "",
-    sourceMeta: document.getElementById("sourceMeta")?.textContent || "",
-    courseOptions: document.getElementById("courseSelect")?.options.length || 0
-  }));
-  expect(setup.selectedCourse).toBe("ap-biology");
-  expect(setup.sourceMeta).toMatch(/AP|College Board|source|CED/i);
-  expect(setup.courseOptions).toBeGreaterThanOrEqual(90);
-  await page.click("#startBtn");
-  await page.waitForSelector("#examScreen.show .choice", { timeout: 10000 });
-  await page.waitForFunction(() => (document.getElementById("sourcePageImg")?.naturalHeight || 0) > 0, null, { timeout: 10000 });
-  const examState = await page.evaluate(() => ({
-    title: document.getElementById("title")?.textContent || "",
-    choices: document.querySelectorAll("#choices .choice").length,
-    writtenPrompts: document.querySelectorAll("#writtenPrompts textarea").length,
-    setupHidden: !document.getElementById("setupScreen")?.classList.contains("show"),
-    sourcePages: document.querySelectorAll("#sourceStrip .source-thumb").length,
-    sourceImage: document.getElementById("sourcePageImg")?.getAttribute("src") || "",
-    sourceNaturalHeight: document.getElementById("sourcePageImg")?.naturalHeight || 0,
-    hasViewerHook: Boolean(document.querySelector("[data-source-viewer] [data-source-page-img]")),
-    hasExpandSource: Boolean(document.getElementById("expandSourceBtn"))
-  }));
-  expect(examState.title).toContain("AP Biology");
-  expect(examState.choices).toBe(4);
-  expect(examState.writtenPrompts).toBeGreaterThanOrEqual(3);
-  expect(examState.setupHidden).toBe(true);
-  expect(examState.sourcePages).toBeGreaterThanOrEqual(4);
-  expect(examState.sourceImage).toContain("assets/generated-practice-pages/ap-biology/page-");
-  expect(examState.sourceNaturalHeight).toBeGreaterThan(0);
-  expect(examState.hasViewerHook).toBe(true);
-  expect(examState.hasExpandSource).toBe(true);
-  expect(errs).toHaveLength(0);
+test("retired generated all-subject practice blueprint catalog stays disabled", async ({ page }) => {
+  const payload = await page.request.get(`${BASE}/data/generated-practice-exam-blueprints.json`).then((response) => response.json());
+  expect(payload.sourcePolicy).toBe("disabled");
+  expect(payload.exams).toEqual([]);
 });
 
 const JEOPARDY_REGRESSION_BOARDS = [

@@ -1,4 +1,4 @@
-const CACHE_NAME = "v103-study-multiplayer-leaderboard";
+const CACHE_NAME = "v105-expanded-study-games";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -12,6 +12,22 @@ const CACHE_FILES = [
   "./games/generated-jeopardy/index.html",
   "./games/generated-practice-exam/",
   "./games/generated-practice-exam/index.html",
+  "./games/claim-evidence/",
+  "./games/claim-evidence/index.html",
+  "./games/claim-evidence/game.js",
+  "./games/claim-evidence/styles.css",
+  "./games/source-sorter/",
+  "./games/source-sorter/index.html",
+  "./games/source-sorter/game.js",
+  "./games/source-sorter/styles.css",
+  "./games/concept-combo/",
+  "./games/concept-combo/index.html",
+  "./games/concept-combo/game.js",
+  "./games/concept-combo/styles.css",
+  "./games/timeline-stack/",
+  "./games/timeline-stack/index.html",
+  "./games/timeline-stack/game.js",
+  "./games/timeline-stack/styles.css",
   "./games/regents-global-2/",
   "./games/regents-global-2/practice-exam.html",
   "./data/all-subject-course-taxonomy.json",
@@ -19,11 +35,14 @@ const CACHE_FILES = [
   "./data/generated-jeopardy-index.json",
   "./data/generated-practice-exam-blueprints.json",
   "./data/public-exam-library.json",
+  "./data/regents-gauntlet-bank.json",
   // ALL 55 asset modules (auto-generated from assets/*.js + assets/*.css).
   // True offline-PWA: every feature works without network after first load.
   "./assets/arcade-a11y-quicktoggle.js",
   "./assets/arcade-a11y.css",
+  "./assets/arcade-card-blue.webp",
   "./assets/arcade-analytics.js",
+  "./assets/arcade-lobby-v3.webp",
   "./assets/arcade-cabinet-fx.js",
   "./assets/arcade-celebration.js",
   "./assets/arcade-changelog-entries.js",
@@ -67,6 +86,7 @@ const CACHE_FILES = [
   "./assets/arcade-resume-chip.js",
   "./assets/arcade-retro-theme.css",
   "./assets/arcade-screenshot.js",
+  "./assets/arcade-scanline-tile.webp",
   "./assets/arcade-search-helpers.js",
   "./assets/arcade-session-timer.js",
   "./assets/arcade-sessions.js",
@@ -79,6 +99,7 @@ const CACHE_FILES = [
   "./assets/arcade-week-summary.js",
   "./assets/document-viewer.js",
   "./assets/mastery-engine.js",
+  "./assets/portal-card.webp",
   "./assets/shared-question-bank.js",
   "./assets/source-bank.js",
   "./assets/cabinet/arcade-marquee.webp",

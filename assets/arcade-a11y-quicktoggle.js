@@ -96,6 +96,9 @@
       "  pointer-events:auto!important;",
       "  -webkit-overflow-scrolling:touch!important;",
       "}",
+      ".maqt-modal:hover,.maqt-modal:focus-within{",
+      "  transform:translate(-50%,-50%)!important;",
+      "}",
 
       /* ── Modal header ── */
       ".maqt-header{",

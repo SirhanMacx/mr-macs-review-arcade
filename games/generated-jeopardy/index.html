@@ -616,6 +616,7 @@
       const indexResponse = await fetch("../../data/generated-jeopardy-index.json", { cache: "no-store" });
       if (indexResponse.ok) {
         const indexPayload = await indexResponse.json();
+        if (indexPayload.mode === "disabled") throw new Error("generated Jeopardy catalog retired");
         const summaries = Array.isArray(indexPayload.boards) ? indexPayload.boards : [];
         const selectedSummary = summaries.find((board) => board.id === requestedBoard) || summaries[0];
         if (!selectedSummary) throw new Error("no board summaries");

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <title>Concept Combo - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <link rel="stylesheet" href="styles.css?v=20260517-concept-combo">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>&lt; &lt; &lt;</span>
+    <span>MR. MAC'S REVIEW ARCADE - CONCEPT COMBO</span>
+    <span>&gt; &gt; &gt;</span>
+  </div>
+
+  <main class="combo-shell">
+    <header class="combo-topbar">
+      <a class="combo-brand" href="../../index.html" aria-label="Back to arcade">
+        <span class="combo-brand-mark" aria-hidden="true"></span>
+        <span><small>Mr. Mac's Arcade</small><strong>Concept Combo</strong></span>
+      </a>
+      <div class="combo-status" aria-label="Local best score">
+        <span>Best</span>
+        <strong id="bestScore">0</strong>
+      </div>
+    </header>
+
+    <section class="screen combo-setup" id="setupScreen" aria-label="Concept Combo setup">
+      <div class="setup-panel">
+        <div class="kicker">Concept match chain</div>
+        <h1>Concept Combo</h1>
+        <p>Pair clue cards with the matching concept tiles. Clean matches extend the chain and multiply the score.</p>
+        <div class="setup-grid">
+          <label>
+            <span>Question Bank</span>
+            <select id="courseSelect"></select>
+          </label>
+          <label>
+            <span>Rounds</span>
+            <select id="roundSelect">
+              <option value="4">4 rounds</option>
+              <option value="5" selected>5 rounds</option>
+              <option value="6">6 rounds</option>
+            </select>
+          </label>
+        </div>
+        <div class="setup-metrics" id="setupMetrics" aria-live="polite">
+          <div class="metric"><strong>0</strong><span>ready</span></div>
+        </div>
+        <div class="setup-actions">
+          <button class="btn primary" id="startBtn" type="button" disabled>Loading Bank</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen combo-play" id="playScreen" hidden aria-label="Concept Combo board">
+      <header class="combo-hud">
+        <div class="hud-cell"><span>Score</span><strong id="score" data-score>0</strong></div>
+        <div class="hud-cell"><span>Combo</span><strong id="comboCount">0x</strong></div>
+        <div class="hud-cell"><span>Round</span><strong id="roundCount">1/5</strong></div>
+        <div class="hud-cell"><span>Accuracy</span><strong id="accuracyText">100%</strong></div>
+      </header>
+
+      <section class="combo-board" aria-live="polite">
+        <div class="combo-column">
+          <div class="column-head"><span>Clues</span><strong id="cluesLeft">4 left</strong></div>
+          <div class="card-stack" id="clueDeck"></div>
+        </div>
+        <div class="combo-link" aria-hidden="true">
+          <div id="chainRail" class="chain-rail"></div>
+        </div>
+        <div class="combo-column">
+          <div class="column-head"><span>Concepts</span><strong id="conceptsLeft">4 left</strong></div>
+          <div class="concept-grid" id="conceptDeck"></div>
+        </div>
+      </section>
+
+      <div class="combo-feedback" id="feedback" role="status">Select a clue, then select its matching concept.</div>
+    </section>
+
+    <section class="screen combo-end" id="endScreen" hidden aria-label="Concept Combo results">
+      <div class="results-panel">
+        <div class="kicker">Run complete</div>
+        <h2 id="endTitle">Combo chain logged</h2>
+        <div class="results-grid">
+          <div class="metric"><strong id="finalScore">0</strong><span>score</span></div>
+          <div class="metric"><strong id="finalAccuracy">0%</strong><span>accuracy</span></div>
+          <div class="metric"><strong id="finalCombo">0x</strong><span>best chain</span></div>
+        </div>
+        <div class="miss-list" id="missList"></div>
+        <div class="setup-actions">
+          <button class="btn" id="setupBtn" type="button">Change Bank</button>
+          <button class="btn primary" id="againBtn" type="button">Run Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-profile.js?v=20260511-profile-v2"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script>
+    (function () {
+      "use strict";
+      var gameId = "concept-combo";
+      if (window.MrMacsHelpOverlay) {
+        window.MrMacsHelpOverlay.register(gameId, {
+          title: "How to Play - Concept Combo",
+          goal: "Match every clue card to its correct concept tile before the chain breaks.",
+          controls: [
+            { key: "Click / Tap", action: "Select one clue and one concept" },
+            { key: "Enter", action: "Start a run from setup" },
+            { key: "Esc", action: "Clear the current selection" }
+          ],
+          tips: [
+            "Correct matches raise the combo multiplier.",
+            "A wrong pairing resets the chain and marks that clue for review.",
+            "Each round uses fresh cards from the selected shared bank.",
+            "The best score is stored locally on this device."
+          ],
+          scholar: "Missed concepts feed the local review queue when the arcade profile system is available."
+        });
+        document.addEventListener("DOMContentLoaded", function () {
+          var container = document.querySelector("#setupScreen .setup-actions");
+          if (container) window.MrMacsHelpOverlay.mountButton(container, gameId);
+        });
+      }
+    })();
+  </script>
+  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-review-mix.js?v=20260511-review-mix-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="game.js?v=20260517-concept-combo"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260517-a11y-modal"></script>
+</body>
+</html>

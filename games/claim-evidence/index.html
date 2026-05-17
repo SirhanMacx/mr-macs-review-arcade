@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b10">
+  <title>Claim Evidence Forge - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <link rel="stylesheet" href="styles.css?v=20260517-claim-evidence">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>&lt;&lt;&lt;</span>
+    <span>MR. MAC'S REVIEW ARCADE - CLAIM / EVIDENCE</span>
+    <span>&gt;&gt;&gt;</span>
+  </div>
+
+  <main class="claim-shell" id="app">
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <section class="top-hud" aria-label="Claim Evidence Forge status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span class="brand-prefix">Claim</span><em class="brand-suffix">Evidence</em></strong>
+          <span class="brand-sub" id="brandSub">Match the proof to the point</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Game statistics">
+        <div class="stat-cell">
+          <strong id="hudScore" class="stat-value mono" role="status" aria-live="polite">0</strong>
+          <span class="stat-label">score</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudRound" class="stat-value mono" role="status" aria-live="polite">0/0</strong>
+          <span class="stat-label">round</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudStreak" class="stat-value mono" role="status" aria-live="polite">0</strong>
+          <span class="stat-label">streak</span>
+        </div>
+        <div class="stat-cell">
+          <strong id="hudBest" class="stat-value mono" role="status" aria-live="polite">0</strong>
+          <span class="stat-label">best</span>
+        </div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="hintBtn" type="button">Hint</button>
+        <button class="hud-btn glass-pill" id="resetBtn" type="button">Reset</button>
+      </div>
+    </section>
+
+    <section class="wave-ribbon" aria-label="Current objective">
+      <span class="wave-kicker">Objective</span>
+      <strong class="wave-name" id="objectiveName">Build a claim-evidence chain</strong>
+      <span class="wave-meta" id="objectiveMeta">Select one claim, then its evidence.</span>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Claim Evidence Forge setup" aria-modal="true">
+      <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">Back to Arcade</a>
+        <div class="setup-kicker">Study Match Mode</div>
+        <h1><span class="title-prefix">Claim</span><em class="title-suffix">Evidence Forge</em></h1>
+        <p class="setup-sub">Turn review-bank prompts into evidence cards. Match each evidence card to the claim it proves, then use the explanation to check the reasoning.</p>
+
+        <div class="setup-grid" aria-label="Game setup options">
+          <label class="setup-field" for="courseSelect">
+            <span>Course Bank</span>
+            <select id="courseSelect"></select>
+          </label>
+          <label class="setup-field" for="roundSelect">
+            <span>Rounds</span>
+            <select id="roundSelect">
+              <option value="4">4 rounds</option>
+              <option value="6" selected>6 rounds</option>
+              <option value="8">8 rounds</option>
+              <option value="10">10 rounds</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="bank-status" id="bankStatus" role="status" aria-live="polite">Loading shared bank...</div>
+
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="startBtn" type="button">
+            <span class="btn-coin" aria-hidden="true">&#9678;</span> Insert Coin - Start Matching
+          </button>
+        </div>
+
+        <p class="key-hints"><kbd>Click</kbd> claim + evidence &middot; <kbd>H</kbd> hint &middot; <kbd>R</kbd> reset</p>
+      </div>
+    </section>
+
+    <section class="play-screen" id="playScreen" aria-label="Claim Evidence Forge playfield" hidden>
+      <div class="play-grid">
+        <section class="match-panel" aria-labelledby="claimsTitle">
+          <div class="panel-heading">
+            <span class="panel-kicker">Claims</span>
+            <h2 id="claimsTitle">Choose the point</h2>
+          </div>
+          <div class="claim-grid" id="claimsBoard"></div>
+        </section>
+
+        <section class="match-panel" aria-labelledby="evidenceTitle">
+          <div class="panel-heading">
+            <span class="panel-kicker">Evidence</span>
+            <h2 id="evidenceTitle">Find the proof</h2>
+          </div>
+          <div class="evidence-grid" id="evidenceBoard"></div>
+        </section>
+      </div>
+
+      <section class="reasoning-console" aria-label="Feedback">
+        <div class="console-kicker" id="consoleKicker">Ready</div>
+        <p id="feedbackText">Select a claim and the evidence card that supports it.</p>
+      </section>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Claim Evidence Forge results" aria-modal="true" hidden>
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Complete</div>
+        <h2 id="endTitle">Claim Evidence Forge</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <p class="setup-sub" id="retryHint"></p>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-review-mix.js?v=20260511-review-mix-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script>
+  <script src="game.js?v=20260517-claim-evidence"></script>
+</body>
+</html>

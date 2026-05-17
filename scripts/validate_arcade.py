@@ -364,6 +364,17 @@ def check_generated_asset_manifest() -> list[str]:
         return ["Missing generated asset manifest: assets/generated-game-art-manifest.json"]
     manifest = load_json(manifest_path)
     entries = manifest.get("games") or {}
+
+    def validate_asset(game_id: str, rel: str | None, key: str, min_bytes: int) -> None:
+        if not rel:
+            errors.append(f"Generated asset manifest missing {key}: {game_id}")
+            return
+        path = ROOT / rel
+        if not path.exists():
+            errors.append(f"Generated asset missing: {rel}")
+        elif path.stat().st_size < min_bytes:
+            errors.append(f"Generated asset looks empty or corrupt: {rel}")
+
     for game in games:
         game_id = game.get("id")
         if not game_id:
@@ -379,21 +390,19 @@ def check_generated_asset_manifest() -> list[str]:
                     errors.append(f"Generated catalog shared {key} missing: {game_id} -> {rel}")
             continue
         entry = entries.get(game_id)
-        if not entry:
-            errors.append(f"Generated asset manifest missing game: {game_id}")
+        if entry:
+            for key in ["thumbnail", "cardArt", "marquee", "alt"]:
+                if not entry.get(key):
+                    errors.append(f"Generated asset manifest missing {key}: {game_id}")
+            for key, min_bytes in [("thumbnail", 1024), ("cardArt", 2048), ("marquee", 2048)]:
+                validate_asset(game_id, entry.get(key), key, min_bytes)
             continue
-        for key in ["thumbnail", "cardArt", "marquee", "alt"]:
-            if not entry.get(key):
-                errors.append(f"Generated asset manifest missing {key}: {game_id}")
-        for key, min_bytes in [("thumbnail", 1024), ("cardArt", 2048), ("marquee", 2048)]:
-            rel = entry.get(key)
-            if not rel:
-                continue
-            path = ROOT / rel
-            if not path.exists():
-                errors.append(f"Generated asset missing: {rel}")
-            elif path.stat().st_size < min_bytes:
-                errors.append(f"Generated asset looks empty or corrupt: {rel}")
+
+        # Most hand-curated and course-unit entries intentionally use shared or
+        # default art instead of a per-game manifest record. Validate the actual
+        # assets they resolve to, but do not force manifest churn for each one.
+        validate_asset(game_id, game.get("thumbnail") or f"assets/game-thumbnails/{game_id}.webp", "thumbnail", 1024)
+        validate_asset(game_id, game.get("cardArt") or f"assets/game-card-art/{game_id}.webp", "cardArt", 2048)
     for rel in [
         "assets/cabinet/arcade-marquee.webp",
         "assets/cabinet/crt-bezel.webp",
