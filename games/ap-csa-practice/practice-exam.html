@@ -1525,7 +1525,7 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
-      <button class="btn" type="button" id="downloadPdfBtn" onclick="downloadPDF()" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📄 Download PDF Study Guide</button>
+      <button class="btn" type="button" id="downloadPdfBtn" onclick="window.MrMacPastExams && MrMacPastExams.open('ap-csa-practice')" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📚 View Past Exams (PDFs)</button>
       <button class="btn ghost" id="hubBtn" type="button">Back to Arcade</button>
     </div>
   </section>
@@ -2381,7 +2381,7 @@ function renderResults() {
       <div class="results-actions">
         <button class="btn primary" id="restartBtn" type="button">Restart Exam</button>
         <button class="btn" id="reviewBtn" type="button">Review Wrong Answers</button>
-        <button class="btn" type="button" id="downloadPdfBtnResults" onclick="downloadPDF()" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📄 Download PDF Study Guide</button>
+        <button class="btn" type="button" id="downloadPdfBtnResults" onclick="window.MrMacPastExams && MrMacPastExams.open('ap-csa-practice')" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📚 View Past Exams (PDFs)</button>
         <button class="btn ghost" id="backBtn" type="button">Back to Arcade</button>
       </div>
     </div>
@@ -2577,5 +2577,6 @@ setTimeout(() => document.body.classList.add("game-booted"), 1400);
 </script>
 <script src="../../assets/arcade-analytics.js?v=20260516-practice-exam"></script>
 <section id="printableExam" class="print-only" aria-hidden="true"></section>
+<script src="../../assets/arcade-past-exam-library.js?v=20260516-public-exam-library"></script>
 </body>
 </html>

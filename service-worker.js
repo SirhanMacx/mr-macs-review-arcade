@@ -1,4 +1,4 @@
-const CACHE_NAME = "v93-language-quality-pass";
+const CACHE_NAME = "v94-public-exam-library";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -18,6 +18,7 @@ const CACHE_FILES = [
   "./data/released-assessment-source-catalog.json",
   "./data/generated-jeopardy-index.json",
   "./data/generated-practice-exam-blueprints.json",
+  "./data/public-exam-library.json",
   // ALL 55 asset modules (auto-generated from assets/*.js + assets/*.css).
   // True offline-PWA: every feature works without network after first load.
   "./assets/arcade-a11y-quicktoggle.js",
@@ -50,6 +51,7 @@ const CACHE_FILES = [
   "./assets/arcade-news-ticker.js",
   "./assets/arcade-notification-center.js",
   "./assets/arcade-onboarding-flow.js",
+  "./assets/arcade-past-exam-library.js",
   "./assets/arcade-pedagogy-callout.js",
   "./assets/arcade-perf.js",
   "./assets/arcade-print-mode.js",
