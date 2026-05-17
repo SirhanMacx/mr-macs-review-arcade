@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Grade 5 Math Practice Test — Mr. Mac's Review Arcade</title>
+<title>Grade 6 Math Practice Test — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam · NYS Grade 5 Math State Test</span></div>
-      <h1>Grade 5 Math Practice Test</h1>
-      <p class="subtitle">30-question practice test modeled on NYS Grade 5 Math state test format covering operations, fractions, measurement, geometry, and data.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Grade 6 Math State Test</span></div>
+      <h1>Grade 6 Math Practice Test</h1>
+      <p class="subtitle">30-question practice test modeled on NYS Grade 6 Math state test format covering ratios, expressions, equations, geometry, statistics.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,25 +1524,25 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 30 state-test-modeled questions across 5 strands</span>
-    <span class="pill" id="topicStatus">Operations · Base Ten · Fractions · Measurement & Data · Geometry</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 30 state-test modeled questions across 5 domains</span>
+    <span class="pill" id="topicStatus">Ratios · Number System · Expressions + Equations · Geometry · Statistics</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
   {
-    id: "g5math-001",
-    topic: "Operations and Algebraic Thinking",
-    prompt: "What is the value of the expression 6 + 4 x (8 - 5)?",
+    id: "ghii-001",
+    topic: "Unit 1: World in 1750",
+    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
-      "18",
-      "30",
-      "21",
-      "33",
+      "All three had embraced parliamentary democracy.",
+      "All three were multiethnic land-based empires governed by hereditary rulers.",
+      "All three had abolished traditional religious practices.",
+      "All three controlled overseas colonies in the Americas.",
     ],
-    correctText: "18",
-    explanation: "Use the order of operations. Evaluate inside parentheses first: 8 - 5 = 3. Then multiply: 4 x 3 = 12. Finally add: 6 + 12 = 18."
+    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
+    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
   },
   {
     id: "ghii-002",
@@ -2054,7 +2054,7 @@ const QUESTIONS = [
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "grade-5-math-practice-exam-state-v1";
+const STORAGE_KEY = "grade-6-math-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,14 +2168,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Grade 5 Math Practice · 30 Items</div>
+      <div class="exam-topic">Grade 6 Math Practice · 30 Items</div>
       <p class="exam-prompt">Ready to take the practice test?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 30 multiple-choice questions drawn from all five strands of the NYS Grade 5 Math Next Generation
-        Learning Standards: Operations and Algebraic Thinking, Number and Operations in Base Ten, Number and
-        Operations - Fractions, Measurement and Data, and Geometry. Each question gives instant feedback with a
-        short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review before the state test.
+        You'll see 30 multiple-choice questions drawn from all 5 domains of the NYS Grade 6 Math curriculum:
+        ratios and proportional relationships, the number system, expressions and equations, geometry, and
+        statistics and probability. Each question gives instant feedback with a short explanation. At the end,
+        you'll see your overall score plus a per-topic mastery breakdown so you know exactly where to focus
+        your review before the state test.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2312,14 +2312,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Test Complete · NYS Grade 5 Math</div>
+      <div class="results-eyebrow">Practice Test Complete · NYS Grade 6 Math</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a solid state-test performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which domains to drill before test day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
