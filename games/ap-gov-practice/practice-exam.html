@@ -1,0 +1,2607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>AP US Government Practice Exam — Mr. Mac's Review Arcade</title>
+<script id="MRMAC_PERF_LITE_BOOT">
+(function(){
+  try {
+    if (new URLSearchParams(location.search).get("fx") !== "full") document.documentElement.classList.add("perf-lite");
+  } catch (error) {
+    document.documentElement.classList.add("perf-lite");
+  }
+}());
+</script>
+<style>
+<style>
+:root {
+  --bg0: #080a13;
+  --bg1: #111827;
+  --panel: rgba(12, 18, 33, .82);
+  --line: rgba(255,255,255,.16);
+  --text: #f8fbff;
+  --muted: #aebad1;
+  --accent: #ffd166;
+  --accent2: #2ec4b6;
+  --accent3: #ef476f;
+  --glow: rgba(255,209,102,.30);
+  --tile: #12315f;
+  --tile2: #4a1f56;
+  --danger: #ff5f65;
+  --ok: #36e6a4;
+  --arena: url("../../assets/jeopardy/arena.jpg");
+  --tile-art: url("../../assets/jeopardy/tile-art.jpg");
+  --panel-art: url("../../assets/jeopardy/panel-art.jpg");
+  --board-frame: url("../../assets/jeopardy/board-frame.jpg");
+  --daily-art: url("../../assets/jeopardy/daily-art.jpg");
+  --final-art: url("../../assets/jeopardy/final-art.jpg");
+  --clue-art: url("../../assets/jeopardy/clue-art.jpg");
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --spot-x: 50%;
+  --spot-y: 42%;
+  --scene-x: 0px;
+  --scene-y: 0px;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #050812;
+  overflow-x: hidden;
+  position: relative;
+  isolation: isolate;
+}
+button, input, textarea { font: inherit; }
+button {
+  border: 0;
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+}
+#arenaBg {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.22), rgba(4,8,18,.58) 44%, rgba(4,8,18,.88)),
+    radial-gradient(circle at 50% 18%, rgba(255,209,102,.16), transparent 24%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.16) contrast(1.08);
+  transform: translate3d(var(--scene-x), var(--scene-y), 0) scale(1.032);
+  transition: transform 90ms linear;
+}
+#arenaBg::before,
+#arenaBg::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  pointer-events: none;
+}
+#arenaBg::before {
+  background:
+    conic-gradient(from 120deg at 50% 30%, transparent 0deg, rgba(255,209,102,.16) 18deg, transparent 42deg, transparent 112deg, rgba(0,212,255,.13) 135deg, transparent 164deg, transparent 360deg);
+  mix-blend-mode: screen;
+  animation: lightSweep 16s linear infinite;
+}
+#arenaBg::after {
+  background:
+    radial-gradient(circle at 50% 55%, transparent 0 20%, rgba(0,0,0,.26) 52%, rgba(0,0,0,.72) 100%),
+    linear-gradient(90deg, rgba(0,0,0,.6), transparent 22%, transparent 78%, rgba(0,0,0,.6));
+}
+@keyframes lightSweep {
+  from { transform: rotate(0deg) scale(1.1); }
+  to { transform: rotate(360deg) scale(1.1); }
+}
+#space {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -3;
+}
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.035), rgba(255,255,255,.035) 1px, transparent 1px, transparent 6px);
+  mix-blend-mode: overlay;
+  opacity: .4;
+}
+.app {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  padding: 20px clamp(12px, 2.5vw, 34px) 38px;
+  animation: appBoot .78s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes appBoot {
+  from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+.stage-wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent 0 34%, rgba(255,255,255,.32) 46%, rgba(255,209,102,.36) 50%, rgba(0,212,255,.22) 55%, transparent 70%),
+    radial-gradient(circle at 50% 52%, rgba(255,255,255,.18), transparent 28%);
+  mix-blend-mode: screen;
+  animation: stageWipe 1.35s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes stageWipe {
+  0% { opacity: 0; transform: translateX(-60%) skewX(-10deg); }
+  18% { opacity: .85; }
+  100% { opacity: 0; transform: translateX(60%) skewX(-10deg); }
+}
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  align-items: start;
+  margin: 0 auto 16px;
+  max-width: 1480px;
+  animation: hudDrop .75s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes hudDrop {
+  from { opacity: 0; transform: translateY(-18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.titleblock {
+  position: relative;
+  min-height: 132px;
+  padding: 20px 22px 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(12,17,29,.40), rgba(8,12,24,.76)),
+    radial-gradient(circle at 18% 0%, var(--glow), transparent 44%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 70px rgba(0,0,0,.48), inset 0 0 90px rgba(255,255,255,.04), 0 0 0 1px rgba(255,255,255,.04);
+  backdrop-filter: blur(16px) saturate(1.3);
+  overflow: hidden;
+}
+.titleblock::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 0 32%, rgba(255,255,255,.22) 38%, transparent 45%),
+    repeating-linear-gradient(90deg, transparent 0 62px, rgba(255,255,255,.04) 63px, transparent 66px);
+  mix-blend-mode: screen;
+  opacity: .62;
+}
+.titleblock > * { position: relative; z-index: 1; }
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+h1 {
+  margin: 8px 0 4px;
+  font-size: clamp(31px, 5.4vw, 82px);
+  line-height: .94;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 18px var(--glow), 0 10px 30px rgba(0,0,0,.62);
+}
+.subtitle {
+  color: var(--muted);
+  margin: 0;
+  font-size: clamp(14px, 1.7vw, 20px);
+  max-width: 920px;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+  max-width: 520px;
+  position: relative;
+  z-index: 5;
+}
+.btn {
+  min-height: 46px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.07)),
+    linear-gradient(135deg, rgba(8,14,28,.38), rgba(8,14,28,.78)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 14px 28px rgba(0,0,0,.36), inset 0 1px 0 rgba(255,255,255,.22);
+  font-weight: 900;
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+}
+.btn:hover, .btn:focus-visible {
+  outline: 2px solid var(--accent);
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: 0 18px 36px rgba(0,0,0,.42), 0 0 22px var(--glow), inset 0 1px 0 rgba(255,255,255,.24);
+}
+.btn:active { transform: translateY(1px) scale(.99); }
+.btn.primary {
+  color: #121212;
+  background: linear-gradient(135deg, var(--accent), #fff1a6 52%, #ffffff);
+  box-shadow: 0 15px 30px rgba(0,0,0,.36), 0 0 24px var(--glow), inset 0 1px 0 rgba(255,255,255,.52);
+}
+.btn.warn {
+  color: #191102;
+  background: linear-gradient(135deg, #ffbf69, var(--accent3));
+}
+.btn.ghost {
+  color: var(--muted);
+  background: rgba(255,255,255,.04);
+}
+.scorebar {
+  max-width: 1480px;
+  margin: 0 auto 14px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: stretch;
+  animation: hudRise .82s cubic-bezier(.16, 1, .3, 1) .12s both;
+}
+@keyframes hudRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.teams {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.team {
+  position: relative;
+  min-height: 92px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.11), rgba(5,9,18,.68)),
+    radial-gradient(circle at 82% 0%, var(--glow), transparent 34%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 16px 35px rgba(0,0,0,.36), inset 0 0 55px rgba(255,255,255,.035);
+  backdrop-filter: blur(13px) saturate(1.25);
+}
+.team.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 28px var(--glow), inset 0 0 50px rgba(255,255,255,.04);
+  animation: activePulse 1.9s ease-in-out infinite;
+}
+.team.solo {
+  border-color: var(--accent2);
+  box-shadow: 0 0 30px rgba(77,213,255,.22), inset 0 0 50px rgba(255,255,255,.04);
+}
+@keyframes activePulse {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.12); }
+}
+.team input {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px;
+  padding: 7px 9px;
+  color: var(--text);
+  background: rgba(255,255,255,.07);
+  font-weight: 800;
+}
+.score {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+.score strong {
+  color: var(--accent);
+  font-size: 32px;
+  line-height: 1;
+  text-shadow: 0 0 16px var(--glow);
+}
+.score-actions {
+  display: flex;
+  gap: 6px;
+}
+.score-actions button {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.12);
+  font-weight: 900;
+}
+.soundbox {
+  width: 184px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.1), rgba(6,10,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  padding: 10px;
+  box-shadow: 0 16px 35px rgba(0,0,0,.34), inset 0 0 50px rgba(255,255,255,.03);
+  backdrop-filter: blur(13px);
+}
+.equalizer {
+  height: 42px;
+  display: flex;
+  align-items: end;
+  gap: 5px;
+  margin-top: 8px;
+}
+.equalizer span {
+  flex: 1;
+  min-width: 8px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  transform-origin: bottom;
+  animation: bars 900ms ease-in-out infinite;
+  animation-play-state: paused;
+}
+.music-on .equalizer span { animation-play-state: running; }
+.equalizer span:nth-child(2) { animation-delay: 120ms; }
+.equalizer span:nth-child(3) { animation-delay: 240ms; }
+.equalizer span:nth-child(4) { animation-delay: 80ms; }
+.equalizer span:nth-child(5) { animation-delay: 180ms; }
+@keyframes bars {
+  0%, 100% { height: 15%; }
+  45% { height: 95%; }
+}
+.board-wrap {
+  max-width: 1480px;
+  margin: 0 auto;
+  overflow-x: auto;
+  padding: clamp(38px, 5.2vw, 80px) clamp(28px, 6.4vw, 98px) clamp(48px, 6.4vw, 92px);
+  perspective: 1700px;
+  border-radius: 8px;
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.12), rgba(1,4,12,.44)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.10), transparent 28%),
+    var(--board-frame) center / cover no-repeat;
+  border: 1px solid rgba(255,255,255,.11);
+  box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 42px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03);
+  backdrop-filter: blur(8px);
+  animation: boardStageBoot 1.05s cubic-bezier(.16, 1, .3, 1) both, boardPower 6s ease-in-out 1.1s infinite;
+}
+.board-wrap::before,
+.board-wrap::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.board-wrap::before {
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.22) 45%, transparent 55%),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,209,102,.18), transparent 24%);
+  mix-blend-mode: screen;
+  opacity: .78;
+  animation: boardSweep 4.6s ease-in-out infinite;
+}
+.board-wrap::after {
+  box-shadow: inset 0 0 70px rgba(0,0,0,.55), inset 0 0 34px rgba(255,209,102,.10);
+}
+@keyframes boardStageBoot {
+  from { opacity: 0; transform: perspective(1200px) rotateX(12deg) translateY(54px) scale(.94); filter: blur(10px) brightness(.82); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(0deg) translateY(0) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes boardPower {
+  0%, 100% { box-shadow: 0 34px 95px rgba(0,0,0,.64), 0 0 38px rgba(0,180,255,.12), inset 0 0 90px rgba(255,255,255,.03); }
+  50% { box-shadow: 0 38px 110px rgba(0,0,0,.68), 0 0 58px rgba(255,209,102,.18), inset 0 0 105px rgba(255,255,255,.05); }
+}
+@keyframes boardSweep {
+  0%, 54%, 100% { transform: translateX(-45%); opacity: .18; }
+  70% { transform: translateX(42%); opacity: .82; }
+}
+.board {
+  width: 100%;
+  min-width: min(940px, 100%);
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+  transform: rotateX(calc(2.6deg + var(--tilt-y))) rotateY(var(--tilt-x)) translateZ(0);
+  transform-style: preserve-3d;
+  transform-origin: center top;
+  transition: transform 110ms linear;
+  will-change: transform;
+}
+.cat, .tile {
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.16);
+  text-align: center;
+  transform-style: preserve-3d;
+  position: relative;
+  overflow: hidden;
+  opacity: 1;
+  will-change: transform, filter;
+}
+body:not(.game-booted) .cat,
+body:not(.game-booted) .tile {
+  opacity: 0;
+  animation: tileBoot .72s cubic-bezier(.16, 1, .3, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 34ms + 260ms);
+}
+body.game-booted .cat,
+body.game-booted .tile:not(.used) {
+  animation: tileLive calc(5.2s + var(--i, 0) * 70ms) ease-in-out infinite;
+}
+@keyframes tileBoot {
+  from { opacity: 0; transform: translateY(32px) rotateX(18deg) scale(.86); filter: blur(8px) brightness(.7); }
+  66% { opacity: 1; filter: blur(0) brightness(1.16); }
+  to { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); filter: blur(0) brightness(1); }
+}
+@keyframes tileLive {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.08) saturate(1.1); }
+}
+.cat {
+  min-height: 82px;
+  display: grid;
+  place-items: center;
+  padding: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.24), rgba(4,10,26,.48)),
+    linear-gradient(135deg, color-mix(in srgb, var(--tile), transparent 12%), color-mix(in srgb, var(--tile2), transparent 20%)),
+    var(--tile-art) center / cover no-repeat;
+  text-transform: uppercase;
+  font-size: clamp(14px, 1.5vw, 20px);
+  font-weight: 950;
+  line-height: 1.08;
+  color: #fff8d8;
+  text-shadow: 0 2px 0 rgba(0,0,0,.35);
+  box-shadow: inset 0 0 28px rgba(255,255,255,.08), 0 12px 24px rgba(0,0,0,.32);
+}
+.tile {
+  min-height: 88px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.04) 40%, rgba(0,0,0,.18)),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.28), transparent 28%),
+    linear-gradient(145deg, color-mix(in srgb, var(--tile), transparent 40%), color-mix(in srgb, var(--tile2), transparent 52%)),
+    var(--tile-art) center / cover no-repeat;
+  color: var(--accent);
+  font-size: clamp(26px, 4.2vw, 48px);
+  font-weight: 1000;
+  text-shadow: 0 0 12px var(--glow), 0 2px 0 rgba(0,0,0,.55);
+  box-shadow: 0 14px 22px rgba(0,0,0,.32), inset 0 0 42px rgba(255,255,255,.045);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+  isolation: isolate;
+}
+.tile::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  z-index: -1;
+  background:
+    linear-gradient(115deg, transparent 0 36%, rgba(255,255,255,.28) 43%, transparent 51%),
+    radial-gradient(circle at 50% 18%, rgba(255,255,255,.38), transparent 22%);
+  transform: translateX(-36%) rotate(8deg);
+  transition: transform 350ms ease;
+}
+.tile::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(100deg, transparent 0 38%, rgba(255,255,255,.30) 48%, transparent 58%),
+    radial-gradient(circle at 50% 0%, rgba(255,255,255,.22), transparent 34%);
+  mix-blend-mode: screen;
+  opacity: .18;
+  transform: translateX(-110%);
+  animation: tileScan 3.7s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * 80ms);
+}
+@keyframes tileScan {
+  0%, 58%, 100% { transform: translateX(-115%); opacity: 0; }
+  68% { opacity: .45; }
+  86% { transform: translateX(115%); opacity: 0; }
+}
+.tile:hover {
+  transform: translateY(-4px) translateZ(34px) rotateX(-7deg);
+  filter: brightness(1.15);
+  box-shadow: 0 18px 34px rgba(0,0,0,.44), 0 0 30px var(--glow), inset 0 0 46px rgba(255,255,255,.07);
+}
+.tile:hover::before { transform: translateX(28%) rotate(8deg); }
+.tile.selected {
+  z-index: 5;
+  animation: tileSelect .38s cubic-bezier(.16, 1, .3, 1) both !important;
+}
+@keyframes tileSelect {
+  0% { transform: scale(1) translateZ(0); filter: brightness(1); }
+  42% { transform: scale(1.1) translateZ(80px) rotateX(-10deg); filter: brightness(1.45); box-shadow: 0 0 44px var(--glow), 0 20px 50px rgba(0,0,0,.5); }
+  100% { transform: scale(1.03) translateZ(16px); filter: brightness(1.2); }
+}
+.tile.used {
+  color: rgba(255,255,255,.24);
+  background:
+    linear-gradient(135deg, rgba(0,0,0,.72), rgba(255,255,255,.035)),
+    var(--tile-art) center / cover no-repeat;
+  transform: none;
+  box-shadow: inset 0 0 32px rgba(0,0,0,.35);
+  cursor: not-allowed;
+  animation: tileOff .42s ease-out both;
+}
+.tile.used::before { opacity: .08; }
+.tile.used::after { opacity: 0; animation: none; }
+@keyframes tileOff {
+  from { filter: brightness(1.6); }
+  to { filter: brightness(.72); }
+}
+.tile.daily::after {
+  content: "DD";
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-size: 12px;
+  color: #111;
+  background: var(--accent3);
+  border-radius: 4px;
+  padding: 2px 5px;
+  opacity: .9;
+}
+.statusline {
+  max-width: 1480px;
+  margin: 8px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.pill {
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  border-radius: 999px;
+  padding: 7px 10px;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.1), transparent 34%),
+    rgba(2, 4, 10, .78);
+  backdrop-filter: blur(14px) saturate(1.2);
+}
+.modal.show { display: flex; }
+.dialog {
+  width: min(980px, 100%);
+  max-height: min(92vh, 880px);
+  overflow: auto;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 10px;
+  background:
+    radial-gradient(circle at 14% 6%, rgba(255,255,255,.14), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,0) 32%),
+    linear-gradient(145deg, rgba(6,10,22,.82), rgba(11,13,27,.95)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.72), 0 0 55px var(--glow), inset 0 1px 0 rgba(255,255,255,.12);
+  transform: perspective(1200px) rotateX(4deg);
+  animation: modalIn 220ms ease-out;
+}
+.modal[data-mode="daily"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.18), rgba(6,9,18,.58)),
+    var(--daily-art) center / cover no-repeat;
+}
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(6,9,18,.16), rgba(6,9,18,.62)),
+    var(--final-art) center / cover no-repeat;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: perspective(1200px) rotateX(18deg) scale(.92); }
+  to { opacity: 1; transform: perspective(1200px) rotateX(4deg) scale(1); }
+}
+.dialog-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: start;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+}
+.dialog-head h2 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 38px);
+  text-transform: uppercase;
+}
+.dialog-body { padding: 20px; }
+.clue-text {
+  min-height: 170px;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 38px);
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--glow), transparent 42%),
+    linear-gradient(145deg, rgba(255,255,255,.14), rgba(2,7,20,.56)),
+    var(--clue-art) center / cover no-repeat;
+  font-size: clamp(23px, 4vw, 48px);
+  line-height: 1.08;
+  font-weight: 900;
+  text-align: center;
+  text-shadow: 0 0 18px rgba(255,255,255,.1);
+  box-shadow: inset 0 0 80px rgba(255,255,255,.04), 0 20px 45px rgba(0,0,0,.28);
+}
+.modal[data-mode="daily"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.42)),
+    var(--daily-art) center / cover no-repeat;
+  min-height: 260px;
+}
+.modal[data-mode="final"] .clue-text {
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.46)),
+    var(--final-art) center / cover no-repeat;
+  min-height: 280px;
+}
+.answer-box {
+  margin-top: 14px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.09), rgba(5,9,20,.74)),
+    var(--panel-art) center / cover no-repeat;
+  border-radius: 8px;
+}
+.answer-box.good { border-left-color: var(--ok); }
+.answer-box.bad { border-left-color: var(--danger); }
+.answer-box.judge { border-left-color: var(--accent); }
+.answer-box h3 {
+  margin: 0 0 8px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+.answer-box p { margin: 7px 0; color: #eef5ff; line-height: 1.45; }
+.action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+.wager-grid, .final-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+.wager-card {
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 12px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.08), rgba(4,8,18,.70)),
+    var(--panel-art) center / cover no-repeat;
+}
+.wager-card label {
+  display: block;
+  color: var(--muted);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+.wager-card input, .final-grid textarea, .quick-answer {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 7px;
+  color: var(--text);
+  background: rgba(0,0,0,.22);
+  padding: 10px;
+}
+.quick-answer {
+  min-height: 50px;
+  font-size: 18px;
+  box-shadow: inset 0 0 22px rgba(0,0,0,.25);
+}
+.quick-answer:focus, .wager-card input:focus, .final-grid textarea:focus, .team input:focus {
+  outline: 2px solid var(--accent);
+  border-color: var(--accent);
+}
+.final-grid textarea { min-height: 92px; resize: vertical; }
+.score-result {
+  display: grid;
+  grid-template-columns: minmax(120px, .8fr) minmax(180px, 1.2fr) auto auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+.score-result strong { color: var(--accent); }
+.auto-meter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+.meter-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.09);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--danger), var(--accent), var(--ok));
+  box-shadow: 0 0 18px var(--glow);
+}
+.flash {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 45;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.58), transparent 36%);
+}
+.flash.good { background: radial-gradient(circle at 50% 45%, rgba(54,230,164,.62), transparent 36%); }
+.flash.bad { background: radial-gradient(circle at 50% 45%, rgba(255,95,101,.58), transparent 36%); }
+.flash.final { background: radial-gradient(circle at 50% 45%, rgba(255,209,102,.68), transparent 40%); }
+.flash.play { animation: flashHit 480ms ease-out; }
+@keyframes flashHit {
+  0% { opacity: 0; transform: scale(.86); }
+  24% { opacity: .55; }
+  100% { opacity: 0; transform: scale(1.08); }
+}
+.hidden { display: none !important; }
+.tiny { color: var(--muted); font-size: 13px; line-height: 1.35; }
+@media (max-width: 860px) {
+  .topbar, .scorebar { grid-template-columns: 1fr; }
+  .controls { justify-content: stretch; max-width: none; }
+  .btn { flex: 1 1 auto; }
+  .soundbox { width: auto; }
+  h1, .subtitle { max-width: none; }
+  .titleblock { min-height: auto; }
+  .board-wrap { padding: 16px 8px 20px; background-position: center; overflow-x: hidden; }
+  .board { min-width: 0; width: 100%; gap: clamp(5px, 1.2vw, 9px); }
+  .cat { min-height: 72px; padding: 7px 5px; font-size: clamp(10px, 2.35vw, 14px); line-height: 1.02; }
+  .tile { min-height: 76px; padding: 6px 4px; font-size: clamp(20px, 6vw, 34px); }
+  .app { padding-left: 10px; padding-right: 10px; }
+}
+
+/* MRMAC_JEOPARDY_POLISH_V2 */
+:root {
+  --panel: rgba(3, 8, 20, .88);
+  --line: rgba(255,255,255,.22);
+  --text: #fbfdff;
+  --muted: #d4e0f6;
+}
+body {
+  font-family: "Trebuchet MS", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #030712;
+}
+#arenaBg {
+  background:
+    linear-gradient(180deg, rgba(2,5,12,.08), rgba(2,5,12,.52) 48%, rgba(2,5,12,.9)),
+    radial-gradient(circle at 50% 22%, rgba(255,209,102,.14), transparent 28%),
+    var(--arena) center / cover no-repeat;
+  filter: saturate(1.18) contrast(1.11) brightness(.92);
+}
+.scanlines {
+  opacity: .26;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025), rgba(255,255,255,.025) 1px, transparent 1px, transparent 5px);
+}
+.topbar {
+  gap: clamp(10px, 1.8vw, 18px);
+  margin-bottom: clamp(10px, 1.4vw, 16px);
+}
+.titleblock,
+.team,
+.soundbox,
+.dialog,
+.answer-box,
+.wager-card {
+  border-color: rgba(255,255,255,.22);
+  background-blend-mode: normal, screen, normal;
+}
+.titleblock {
+  min-height: 116px;
+  padding: clamp(15px, 2vw, 22px);
+  background:
+    linear-gradient(135deg, rgba(2,7,17,.78), rgba(3,8,22,.92)),
+    radial-gradient(circle at 18% 0%, rgba(255,209,102,.18), transparent 38%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 24px 72px rgba(0,0,0,.58), inset 0 0 90px rgba(255,255,255,.045), 0 0 0 1px rgba(255,255,255,.08);
+}
+.titleblock::before { opacity: .42; }
+.kicker {
+  letter-spacing: .06em;
+  color: #ffe59b;
+}
+h1 {
+  font-size: clamp(30px, 4.8vw, 70px);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.subtitle {
+  color: #d8e4fa;
+  line-height: 1.35;
+}
+.controls { gap: 9px; }
+.btn {
+  min-height: 44px;
+  border-radius: 7px;
+  color: #f9fcff;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.06)),
+    linear-gradient(135deg, rgba(5,12,28,.72), rgba(7,10,24,.92)),
+    var(--panel-art) center / cover no-repeat;
+}
+.btn.ghost { color: #dce7fa; background: rgba(255,255,255,.075); }
+.btn.primary { color: #101319; }
+.team {
+  min-height: 82px;
+  background:
+    linear-gradient(135deg, rgba(2,8,19,.82), rgba(3,7,18,.92)),
+    radial-gradient(circle at 82% 0%, rgba(255,209,102,.13), transparent 32%),
+    var(--panel-art) center / cover no-repeat;
+}
+.team input,
+.wager-card input,
+.final-grid textarea,
+.quick-answer {
+  color: #fbfdff;
+  background: rgba(0,0,0,.42);
+  border-color: rgba(255,255,255,.24);
+}
+.score strong { font-size: clamp(24px, 2.4vw, 34px); }
+.board-wrap {
+  padding: clamp(30px, 4.8vw, 72px) clamp(20px, 5.5vw, 86px) clamp(38px, 5.6vw, 82px);
+  border-color: rgba(255,255,255,.18);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.10), rgba(1,4,12,.48)),
+    radial-gradient(circle at var(--spot-x) var(--spot-y), rgba(255,255,255,.11), transparent 25%),
+    var(--board-frame) center / cover no-repeat;
+  box-shadow: 0 34px 100px rgba(0,0,0,.70), 0 0 45px rgba(0,180,255,.14), inset 0 0 90px rgba(255,255,255,.035);
+  overflow-x: hidden;
+}
+.board { gap: clamp(7px, 1vw, 13px); }
+.cat,
+.tile {
+  border-color: rgba(255,255,255,.22);
+  border-radius: 7px;
+}
+.cat {
+  min-height: clamp(70px, 6.3vw, 92px);
+  padding: 9px 8px;
+  color: #fff4bf;
+  font-size: clamp(13px, 1.35vw, 19px);
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.04) 46%, rgba(0,0,0,.34)),
+    linear-gradient(145deg, rgba(5,22,58,.86), rgba(20,12,58,.88)),
+    var(--tile-art) center / cover no-repeat;
+}
+.tile {
+  min-height: clamp(78px, 7.3vw, 106px);
+  color: #ffdc6a;
+  font-size: clamp(25px, 3.6vw, 46px);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.23), rgba(255,255,255,.035) 42%, rgba(0,0,0,.26)),
+    radial-gradient(circle at 50% 16%, rgba(255,255,255,.26), transparent 26%),
+    linear-gradient(145deg, rgba(6,32,84,.88), rgba(28,13,72,.90)),
+    var(--tile-art) center / cover no-repeat;
+  box-shadow: 0 14px 22px rgba(0,0,0,.38), inset 0 0 42px rgba(255,255,255,.05), inset 0 -14px 32px rgba(0,0,0,.20);
+}
+.tile:hover,
+.tile:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.statusline { color: #d7e3f7; }
+.pill { background: rgba(0,0,0,.34); border-color: rgba(255,255,255,.18); }
+.modal {
+  padding: clamp(10px, 2vw, 22px);
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,209,102,.12), transparent 34%),
+    rgba(0, 2, 8, .86);
+}
+.dialog {
+  width: min(1040px, calc(100vw - 22px));
+  max-height: min(94vh, 900px);
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(4,8,18,.72), rgba(4,8,18,.94)),
+    radial-gradient(circle at 12% 6%, rgba(255,255,255,.10), transparent 22%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 34px 120px rgba(0,0,0,.78), 0 0 60px rgba(255,209,102,.20), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.modal[data-mode="daily"] .dialog,
+.modal[data-mode="final"] .dialog {
+  background:
+    linear-gradient(180deg, rgba(3,6,16,.62), rgba(3,6,16,.94)),
+    var(--final-art) center / cover no-repeat;
+}
+.dialog-head {
+  padding: clamp(12px, 2vw, 18px) clamp(14px, 2.4vw, 22px);
+  align-items: center;
+}
+.dialog-head h2 {
+  font-size: clamp(19px, 2.5vw, 32px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.dialog-body { padding: clamp(13px, 2.2vw, 22px); }
+.clue-text {
+  min-height: clamp(190px, 31vh, 315px);
+  border-color: rgba(255,255,255,.20);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(2,6,17,.50), rgba(2,6,17,.78)),
+    radial-gradient(circle at 50% 0%, rgba(255,209,102,.13), transparent 38%),
+    var(--clue-art) center / cover no-repeat;
+  color: #fbfdff;
+  font-size: clamp(22px, 3.1vw, 42px);
+  line-height: 1.16;
+  letter-spacing: 0;
+  text-wrap: balance;
+  text-shadow: 0 3px 14px rgba(0,0,0,.82), 0 0 20px rgba(255,255,255,.10);
+}
+.modal[data-mode="daily"] .clue-text,
+.modal[data-mode="final"] .clue-text {
+  min-height: clamp(210px, 35vh, 335px);
+  background:
+    linear-gradient(180deg, rgba(1,4,12,.48), rgba(1,4,12,.82)),
+    var(--clue-art) center / cover no-repeat;
+}
+.answer-box,
+.wager-card {
+  background:
+    linear-gradient(135deg, rgba(3,8,19,.84), rgba(3,6,16,.95)),
+    var(--panel-art) center / cover no-repeat;
+}
+.answer-box p { color: #f1f7ff; }
+.wager-grid,
+.final-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+.score-result {
+  grid-template-columns: minmax(120px, .75fr) minmax(220px, 1.4fr) auto auto;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 8px;
+  padding: 8px;
+  background: rgba(0,0,0,.24);
+}
+@media (max-width: 860px) {
+  .app { padding: 10px 7px 22px; }
+  .topbar, .scorebar { gap: 9px; margin-bottom: 9px; }
+  .titleblock { padding: 13px; min-height: auto; }
+  .kicker { font-size: 10px; gap: 6px; }
+  h1 { font-size: clamp(27px, 8.6vw, 43px); line-height: 1; }
+  .subtitle { font-size: 13px; }
+  .controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .btn { min-height: 41px; padding: 8px 9px; font-size: 13px; }
+  .teams { grid-template-columns: repeat(auto-fit, minmax(142px, 1fr)); gap: 7px; }
+  .team { min-height: 70px; padding: 8px; }
+  .score strong { font-size: 24px; }
+  .score-actions button { width: 30px; height: 30px; }
+  .soundbox { display: none; }
+  .board-wrap {
+    padding: 12px 6px 16px;
+    border-radius: 10px;
+    overflow-x: hidden;
+  }
+  .board {
+    width: 100%;
+    min-width: 0;
+    gap: 7px;
+    transform: none;
+    scroll-snap-align: start;
+  }
+  .cat { min-height: 68px; padding: 7px 5px; font-size: 12px; line-height: 1.06; }
+  .tile { min-height: 72px; padding: 6px 3px; font-size: 29px; }
+  .tile.daily::after { right: 4px; top: 4px; font-size: 9px; padding: 1px 3px; }
+  .dialog { width: calc(100vw - 12px); max-height: 96vh; border-radius: 10px; }
+  .dialog-head { padding: 11px 12px; gap: 8px; }
+  .dialog-head h2 { font-size: clamp(18px, 5vw, 24px); }
+  .dialog-body { padding: 11px; }
+  .clue-text { min-height: 190px; padding: 16px 12px; font-size: clamp(19px, 5.4vw, 29px); line-height: 1.18; }
+  .modal[data-mode="daily"] .clue-text,
+  .modal[data-mode="final"] .clue-text { min-height: 205px; }
+  .wager-grid,
+  .final-grid { grid-template-columns: 1fr; }
+  .score-result { grid-template-columns: 1fr; align-items: stretch; }
+  .score-result .btn { width: 100%; }
+}
+@media (max-width: 430px) {
+  .board { width: 100%; min-width: 0; gap: 5px; }
+  .cat { min-height: 58px; font-size: 10px; }
+  .tile { min-height: 58px; font-size: 23px; }
+  .controls { grid-template-columns: 1fr 1fr; }
+}
+
+/* MRMAC_PERF_LITE_CSS */
+html.perf-lite #space,
+html.perf-lite .stage-wipe,
+html.perf-lite #arenaBg::before {
+  display: none !important;
+}
+html.perf-lite #arenaBg {
+  transform: none !important;
+  transition: none !important;
+  filter: saturate(1.03) contrast(1.01) !important;
+}
+html.perf-lite .scanlines { opacity: .16 !important; mix-blend-mode: normal !important; }
+html.perf-lite .board,
+html.perf-lite .board::before,
+html.perf-lite .tile:not(.selected):not(.revealed),
+html.perf-lite .tile::after,
+html.perf-lite .active,
+html.perf-lite .bars i {
+  animation: none !important;
+}
+html.perf-lite .titleblock,
+html.perf-lite .scoreboard,
+html.perf-lite .team-card,
+html.perf-lite .board,
+html.perf-lite .modal-card,
+html.perf-lite .final-card,
+html.perf-lite .control-card {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: 0 16px 44px rgba(0,0,0,.38) !important;
+}
+/* MRMAC_DETAIL_PATCH_V1 */
+.answer-box .accepted-answers { margin: 8px 0 14px; color: var(--muted); font-size: 0.92em; line-height: 1.55; letter-spacing: 0.005em; }
+.answer-box .accepted-answers strong { color: var(--accent); font-weight: 600; }
+.answer-box .accepted-answers .alias-chip { display: inline-block; padding: 2px 9px; margin: 2px 4px 2px 0; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,0.04); color: var(--text); font-size: 0.92em; }
+.answer-box h3 + p strong { color: var(--accent); }
+
+
+
+/* ── MRMAC_POLISH_2026_05_09 — editorial polish layer ───────────────
+   Brings every standalone review board into the Mr. Mac's Arcade editorial
+   system: Fraunces / Inter / JetBrains Mono ladder, monoline icons via
+   .ic, tabular-nums on every live numeric, focus rings, ambient pulse on
+   the primary CTA only, ≥44px coarse-pointer touch targets, reduced-
+   motion respected. */
+.ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.16em; flex-shrink: 0; color: currentColor; fill: none; }
+.ic path, .ic line, .ic polyline, .ic polygon, .ic rect, .ic circle, .ic ellipse { vector-effect: non-scaling-stroke; }
+.score, #score, .timer, #timer, .points, [data-points], #total, [data-stat], [data-numeric] { font-variant-numeric: tabular-nums; font-feature-settings: "tnum","lnum"; }
+button, select, input, .btn { font-family: "Inter", system-ui, sans-serif; }
+h1, h2, h3, .title, .heading, .display { font-family: "Fraunces", Georgia, serif; font-style: italic; }
+.eyebrow, .label, .meta, .pill, .chip, .tag { font-family: "JetBrains Mono", "SFMono-Regular", monospace; }
+button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+  outline: 2px solid rgba(122, 240, 255, .65);
+  outline-offset: 2px;
+}
+@keyframes mrmacBreath {
+  0%, 100% { box-shadow: 0 14px 32px rgba(245,196,81,.18), 0 0 0 0 rgba(245,196,81,0); }
+  50%      { box-shadow: 0 18px 40px rgba(245,196,81,.30), 0 0 22px rgba(245,196,81,.20); }
+}
+.btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+  animation: mrmacBreath 4.6s ease-in-out infinite;
+}
+.btn.primary:hover, button.primary:hover, [data-cta="primary"]:hover,
+.btn.primary:focus-visible, button.primary:focus-visible, [data-cta="primary"]:focus-visible {
+  animation: none;
+}
+@media (pointer: coarse) {
+  button, .btn, select, input, [role="button"] { min-height: 44px; }
+  .tile, .clue, .answer, .choice { min-height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn.primary:not(:disabled), button.primary:not(:disabled), [data-cta="primary"]:not(:disabled) {
+    animation: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+
+/* MRMAC_PRACTICE_EXAM_LAYER — single-question card flow, results screen */
+.exam-shell { max-width: 980px; margin: 0 auto; }
+.exam-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(10px, 2vw, 18px);
+  margin: 0 auto 14px;
+  padding: 12px clamp(12px, 2vw, 18px);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(2,7,17,.82), rgba(3,8,22,.95)),
+    radial-gradient(circle at 14% 0%, rgba(255,209,102,.14), transparent 32%),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 18px 50px rgba(0,0,0,.5), inset 0 0 50px rgba(255,255,255,.04);
+  backdrop-filter: blur(10px) saturate(1.18);
+}
+.exam-progress .progress-label {
+  color: #ffe59b;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.exam-progress .progress-bar {
+  height: 9px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.42);
+  border: 1px solid rgba(255,255,255,.16);
+  margin-top: 7px;
+  overflow: hidden;
+}
+.exam-progress .progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent), var(--accent3));
+  box-shadow: 0 0 14px var(--glow);
+  transition: width 380ms cubic-bezier(.16, 1, .3, 1);
+}
+.exam-progress .score-pill {
+  font-family: "Inter", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  font-size: clamp(20px, 2.6vw, 30px);
+  font-weight: 900;
+  text-shadow: 0 0 14px var(--glow);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.exam-progress .score-pill .pct { color: #ffe59b; font-size: .68em; margin-left: 6px; }
+.exam-card {
+  position: relative;
+  margin: 0 auto;
+  padding: clamp(18px, 3.4vw, 36px);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--glow), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,.10), rgba(2,7,20,.62)),
+    var(--clue-art) center / cover no-repeat;
+  box-shadow: 0 32px 90px rgba(0,0,0,.6), 0 0 45px rgba(0,180,255,.12), inset 0 0 80px rgba(255,255,255,.045);
+  backdrop-filter: blur(8px);
+  animation: cardIn .55s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(18px) scale(.985); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0) scale(1);   filter: blur(0); }
+}
+.exam-topic {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0,0,0,.42);
+  border: 1px solid rgba(255,209,102,.36);
+  padding: 5px 11px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+.exam-prompt {
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(22px, 3.2vw, 38px);
+  line-height: 1.16;
+  margin: 0 0 22px;
+  color: #fbfdff;
+  text-shadow: 0 2px 14px rgba(0,0,0,.7);
+  text-wrap: balance;
+}
+.exam-choices {
+  display: grid;
+  gap: 10px;
+}
+.exam-choice {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  text-align: left;
+  padding: clamp(11px, 1.5vw, 16px) clamp(13px, 1.8vw, 18px);
+  min-height: 60px;
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 10px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02) 50%, rgba(0,0,0,.20)),
+    linear-gradient(135deg, rgba(7,14,30,.78), rgba(8,11,26,.92)),
+    var(--panel-art) center / cover no-repeat;
+  color: #f9fcff;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(15px, 1.7vw, 19px);
+  font-weight: 600;
+  line-height: 1.34;
+  box-shadow: 0 12px 24px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.10);
+  transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+.exam-choice .letter {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), #fff1a6);
+  color: #121212;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  text-shadow: none;
+  box-shadow: 0 0 14px var(--glow), inset 0 1px 0 rgba(255,255,255,.6);
+}
+.exam-choice:hover:not(:disabled),
+.exam-choice:focus-visible:not(:disabled) {
+  outline: 2px solid var(--accent);
+  transform: translateY(-2px);
+  filter: brightness(1.10);
+  box-shadow: 0 18px 38px rgba(0,0,0,.46), 0 0 22px var(--glow);
+}
+.exam-choice:disabled { cursor: not-allowed; }
+.exam-choice.correct {
+  border-color: var(--ok);
+  background:
+    linear-gradient(180deg, rgba(54,230,164,.28), rgba(54,230,164,.10) 50%, rgba(0,0,0,.20)),
+    linear-gradient(135deg, rgba(7,30,20,.86), rgba(5,20,15,.94)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 0 32px rgba(54,230,164,.42), inset 0 0 40px rgba(54,230,164,.16);
+  animation: rightHit .55s cubic-bezier(.16,1,.3,1) both;
+}
+.exam-choice.correct .letter {
+  background: linear-gradient(135deg, var(--ok), #b6ffe1);
+}
+.exam-choice.wrong {
+  border-color: var(--danger);
+  background:
+    linear-gradient(180deg, rgba(255,95,101,.24), rgba(255,95,101,.08) 50%, rgba(0,0,0,.20)),
+    linear-gradient(135deg, rgba(28,7,12,.86), rgba(20,5,10,.94)),
+    var(--panel-art) center / cover no-repeat;
+  box-shadow: 0 0 28px rgba(255,95,101,.36), inset 0 0 38px rgba(255,95,101,.14);
+  animation: wrongHit .42s cubic-bezier(.16,1,.3,1) both;
+}
+.exam-choice.wrong .letter {
+  background: linear-gradient(135deg, var(--danger), #ffb1b5);
+  color: #1a0303;
+}
+.exam-choice.dim { opacity: .54; }
+@keyframes rightHit {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.025); filter: brightness(1.18); }
+  100% { transform: scale(1); }
+}
+@keyframes wrongHit {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(7px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.exam-explanation {
+  margin-top: 18px;
+  padding: 16px clamp(14px, 2vw, 20px);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.07), rgba(5,9,20,.78)),
+    var(--panel-art) center / cover no-repeat;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(14px, 1.6vw, 17px);
+  line-height: 1.55;
+  color: #f1f7ff;
+  animation: explIn .42s cubic-bezier(.16,1,.3,1) both;
+}
+.exam-explanation.good { border-left-color: var(--ok); }
+.exam-explanation.bad { border-left-color: var(--danger); }
+.exam-explanation .verdict {
+  display: inline-block;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.35);
+}
+.exam-explanation.good .verdict { color: var(--ok); border: 1px solid rgba(54,230,164,.42); }
+.exam-explanation.bad  .verdict { color: var(--danger); border: 1px solid rgba(255,95,101,.42); }
+.exam-explanation strong { color: var(--accent); }
+@keyframes explIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.exam-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+.exam-results {
+  position: relative;
+  margin: 0 auto;
+  padding: clamp(20px, 3.5vw, 38px);
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 50% 0%, var(--glow), transparent 38%),
+    linear-gradient(145deg, rgba(255,255,255,.10), rgba(2,7,20,.62)),
+    var(--final-art) center / cover no-repeat;
+  box-shadow: 0 32px 90px rgba(0,0,0,.6), 0 0 55px rgba(255,209,102,.20), inset 0 0 80px rgba(255,255,255,.045);
+  backdrop-filter: blur(8px);
+  animation: cardIn .65s cubic-bezier(.16, 1, .3, 1) both;
+}
+.exam-results h2 {
+  margin: 0 0 6px;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(28px, 4.4vw, 52px);
+  line-height: 1.04;
+  text-transform: uppercase;
+  text-shadow: 0 0 22px var(--glow), 0 10px 30px rgba(0,0,0,.6);
+}
+.exam-results .results-eyebrow {
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.exam-results .grand-score {
+  margin: 14px 0 22px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(54px, 9vw, 110px);
+  font-weight: 1000;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: var(--accent);
+  text-shadow: 0 0 28px var(--glow);
+}
+.exam-results .grand-score small {
+  font-size: .32em;
+  color: #ffe59b;
+  font-weight: 700;
+  margin-left: 12px;
+}
+.exam-results .grade-banner {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-weight: 900;
+  font-size: clamp(13px, 1.6vw, 16px);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,.45);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--glow);
+  margin-bottom: 16px;
+}
+.results-breakdown {
+  margin-top: 24px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0,0,0,.32);
+}
+.results-breakdown h3 {
+  margin: 0;
+  padding: 12px 16px;
+  font-family: "Fraunces", Georgia, serif;
+  font-style: italic;
+  font-size: clamp(18px, 2.4vw, 24px);
+  color: #ffe59b;
+  border-bottom: 1px solid rgba(255,255,255,.13);
+  background: linear-gradient(135deg, rgba(255,209,102,.12), rgba(0,0,0,.42));
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+.results-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) auto minmax(120px, .9fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(13px, 1.5vw, 15px);
+  color: #f1f7ff;
+}
+.results-row:last-child { border-bottom: none; }
+.results-row .label { font-weight: 600; }
+.results-row .frac {
+  font-variant-numeric: tabular-nums;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  color: #ffe59b;
+  font-weight: 700;
+}
+.results-row .meter {
+  position: relative;
+  height: 9px;
+  background: rgba(255,255,255,.08);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+}
+.results-row .meter > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent2), var(--accent), var(--ok));
+  box-shadow: 0 0 10px var(--glow);
+  border-radius: 999px;
+}
+.results-row .pct {
+  font-variant-numeric: tabular-nums;
+  font-family: "JetBrains Mono", "SFMono-Regular", monospace;
+  font-weight: 800;
+  color: var(--accent);
+  min-width: 50px;
+  text-align: right;
+}
+.results-row.weak .pct { color: var(--danger); }
+.results-row.strong .pct { color: var(--ok); }
+.results-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+  justify-content: center;
+}
+@media (max-width: 720px) {
+  .exam-progress { grid-template-columns: 1fr; }
+  .exam-progress .score-pill { text-align: left; font-size: 22px; }
+  .exam-choice { grid-template-columns: 36px minmax(0, 1fr); gap: 10px; padding: 11px 12px; font-size: 15px; }
+  .exam-choice .letter { width: 32px; height: 32px; font-size: 15px; }
+  .results-row { grid-template-columns: minmax(0, 1.2fr) auto; }
+  .results-row .meter, .results-row .pct { grid-column: 1 / -1; }
+}
+
+</style>
+</head>
+<body>
+<div id="arenaBg" aria-hidden="true"></div>
+<div class="stage-wipe" aria-hidden="true"></div>
+<canvas id="space" aria-hidden="true"></canvas>
+<div class="scanlines" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+<main class="app">
+  <section class="topbar">
+    <div class="titleblock">
+      <div class="kicker"><span>Practice Exam · AP US Government and Politics</span><span>AP US Government and Politics</span></div>
+      <h1>AP US Government Practice Exam</h1>
+      <p class="subtitle">45-question practice test covering all 5 units, modeled on Section I MCQ format with quantitative analysis and SCOTUS comparison items.</p>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="startBtn">Start Exam</button>
+      <button class="btn ghost" id="hubBtn" type="button">Back to Arcade</button>
+    </div>
+  </section>
+  <section class="exam-shell" id="examShell">
+    <div class="exam-progress" id="examProgress" hidden>
+      <div>
+        <div class="progress-label" id="progressLabel">Question 1 of 40</div>
+        <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+      <div class="score-pill" id="scorePill">Score: 0 / 0 <span class="pct">0%</span></div>
+    </div>
+    <div id="examStage"></div>
+  </section>
+  <section class="statusline">
+    <span class="pill" id="examStatus">Press START EXAM to begin · 45 AP-modeled questions across 5 units</span>
+    <span class="pill" id="topicStatus">SCOTUS comparison + foundational document + quantitative analysis items included</span>
+    <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
+  </section>
+</main>
+<script>
+const QUESTIONS = [
+  // ============ UNIT 1: Foundations of American Democracy (9) ============
+  {
+    id: "apgov-001",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "In Federalist No. 10, James Madison argues that the most effective safeguard against the dangers of faction in a large republic is which of the following?",
+    choices: [
+      "A strong, unified national religion that promotes shared values",
+      "The extended sphere of a large republic, which makes any single faction unlikely to form a tyrannical majority",
+      "Restricting voting rights to those who own substantial property in multiple states",
+      "Concentrating legislative power in a single chamber elected by direct popular vote",
+    ],
+    correctText: "The extended sphere of a large republic, which makes any single faction unlikely to form a tyrannical majority",
+    explanation: "Madison's central claim in Federalist No. 10 is that a large republic dilutes factional power: the greater the variety of interests, the less likely any single faction can dominate. Pluralism, not suppression, contains the mischief of faction."
+  },
+  {
+    id: "apgov-002",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "Brutus No. 1 expresses concern about the proposed Constitution primarily because it argues that",
+    choices: [
+      "the Necessary and Proper Clause and Supremacy Clause would allow the national government to absorb state powers",
+      "a strong executive was indispensable to defending against foreign invasion",
+      "the document failed to create a federal judiciary capable of reviewing state laws",
+      "amendment procedures would make it too easy for transient majorities to alter the framework",
+    ],
+    correctText: "the Necessary and Proper Clause and Supremacy Clause would allow the national government to absorb state powers",
+    explanation: "Brutus 1 is the canonical Anti-Federalist warning that a consolidated republic cannot remain free over such a vast territory and that the elastic clauses would let federal power swallow the states."
+  },
+  {
+    id: "apgov-003",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "Which weakness of the Articles of Confederation was most directly addressed by a specific provision of the 1787 Constitution?",
+    choices: [
+      "Congress lacked the power to tax, which was remedied by giving Congress authority to lay and collect taxes",
+      "Congress could not declare war, which was remedied by transferring that power to the president",
+      "States issued their own currency, which was remedied by abolishing all state governments",
+      "There was no Bill of Rights, which was remedied in the original text of the 1787 Constitution",
+    ],
+    correctText: "Congress lacked the power to tax, which was remedied by giving Congress authority to lay and collect taxes",
+    explanation: "Under the Articles, Congress had to requisition funds from the states. Article I, Section 8 of the Constitution explicitly grants Congress the power to lay and collect taxes, fixing the single most crippling weakness of the Articles."
+  },
+  {
+    id: "apgov-004",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "The Great (Connecticut) Compromise resolved a dispute at the Constitutional Convention by",
+    choices: [
+      "counting enslaved persons as three-fifths of a person for representation and taxation",
+      "creating a bicameral legislature with representation by population in the House and equal state representation in the Senate",
+      "guaranteeing that the importation of enslaved persons could not be banned for twenty years",
+      "establishing the Electoral College as the method for selecting the president",
+    ],
+    correctText: "creating a bicameral legislature with representation by population in the House and equal state representation in the Senate",
+    explanation: "The Great Compromise blended the Virginia Plan's proportional representation with the New Jersey Plan's equal-state representation by splitting them across two chambers."
+  },
+  {
+    id: "apgov-005",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "Which scenario best illustrates the constitutional principle of federalism?",
+    choices: [
+      "The Supreme Court strikes down a federal law as unconstitutional",
+      "The president vetoes legislation passed by Congress and Congress overrides the veto",
+      "A state legalizes recreational marijuana even though federal law continues to classify it as a controlled substance",
+      "The Senate confirms a presidential nominee to a cabinet position",
+    ],
+    correctText: "A state legalizes recreational marijuana even though federal law continues to classify it as a controlled substance",
+    explanation: "Federalism is the division of authority between the national and state governments. Conflicting state and federal policy in the same regulatory area is a classic display of the federal structure in action."
+  },
+  {
+    id: "apgov-006",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "In McCulloch v. Maryland (1819), the Supreme Court held that",
+    choices: [
+      "states may tax federal institutions operating within their borders so long as the tax is uniform",
+      "Congress had implied power to charter a national bank and states could not tax that bank",
+      "the Tenth Amendment reserves to the states the power to regulate banking",
+      "the Bill of Rights applies to the states through the Fourteenth Amendment",
+    ],
+    correctText: "Congress had implied power to charter a national bank and states could not tax that bank",
+    explanation: "Chief Justice Marshall read the Necessary and Proper Clause broadly to find an implied power to charter the Bank, and held that under the Supremacy Clause Maryland could not tax a federal instrumentality."
+  },
+  {
+    id: "apgov-007",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "Which of the following statements from the Declaration of Independence best reflects the Enlightenment idea of social contract theory?",
+    choices: [
+      "Governments derive their just powers from the consent of the governed",
+      "All laws repugnant to the Constitution shall be deemed null and void",
+      "The accumulation of all powers in the same hands is the very definition of tyranny",
+      "The Congress shall have power to lay and collect taxes",
+    ],
+    correctText: "Governments derive their just powers from the consent of the governed",
+    explanation: "Social contract theory holds that legitimate government rests on the consent of those it governs — Locke's premise, which Jefferson incorporated directly into the Declaration."
+  },
+  {
+    id: "apgov-008",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "The participatory, pluralist, and elitist models of democracy differ primarily in their views about",
+    choices: [
+      "whether the Constitution should be amended through Article V or by judicial interpretation",
+      "the proper degree and form of citizen involvement in governmental decision making",
+      "the appropriate balance of power between Congress and the president",
+      "whether the United States should remain a federal or unitary system",
+    ],
+    correctText: "the proper degree and form of citizen involvement in governmental decision making",
+    explanation: "The three models compete over how much and through what channels ordinary citizens shape policy: broad direct participation, competition among organized interest groups, or rule by a small group of elites."
+  },
+  {
+    id: "apgov-009",
+    topic: "Unit 1: Foundations of American Democracy",
+    prompt: "A federal grant that comes with detailed conditions specifying how the funds must be used, such as setting a minimum drinking age in order to receive highway funds, is best classified as",
+    choices: [
+      "a block grant that gives states broad discretion within a policy area",
+      "a categorical grant that uses fiscal federalism to influence state policy",
+      "an unfunded mandate prohibited under contemporary federalism doctrine",
+      "a revenue-sharing transfer with no conditions attached",
+    ],
+    correctText: "a categorical grant that uses fiscal federalism to influence state policy",
+    explanation: "Categorical grants come with narrow strings attached and let Congress use its spending power to nudge states toward national policy goals — a defining tool of fiscal federalism."
+  },
+
+  // ============ UNIT 2: Interactions Among Branches (12) ============
+  {
+    id: "apgov-010",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "The constitutional purpose of the Senate filibuster, although not mentioned in the Constitution, is best understood as a procedural practice that",
+    choices: [
+      "allows a simple majority of senators to bring debate to an immediate close",
+      "extends debate and effectively requires a three-fifths supermajority (60 votes) to invoke cloture on most legislation",
+      "requires the vice president to break tie votes on all procedural motions",
+      "limits each senator to one hour of debate on any contested bill",
+    ],
+    correctText: "extends debate and effectively requires a three-fifths supermajority (60 votes) to invoke cloture on most legislation",
+    explanation: "Senate Rule XXII permits unlimited debate unless cloture is invoked by 60 senators, giving the minority leverage that the House — where the Rules Committee controls debate — lacks."
+  },
+  {
+    id: "apgov-011",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Which of the following is the most accurate comparison of the House of Representatives and the Senate?",
+    choices: [
+      "The House has the sole power to ratify treaties; the Senate has the sole power to originate revenue bills",
+      "The House sets terms of two years and originates revenue bills; the Senate sets terms of six years and confirms presidential appointments",
+      "Both chambers must concur in any presidential appointment to the Supreme Court",
+      "The House holds impeachment trials; the Senate brings articles of impeachment",
+    ],
+    correctText: "The House sets terms of two years and originates revenue bills; the Senate sets terms of six years and confirms presidential appointments",
+    explanation: "These are the textbook structural contrasts: the House is the people's chamber with short terms and the origination clause; the Senate is the deliberative chamber with longer terms and the advice-and-consent role."
+  },
+  {
+    id: "apgov-012",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Federalist No. 70 argues for which feature of the executive branch?",
+    choices: [
+      "A plural executive made up of three co-equal officers",
+      "An energetic, unitary executive capable of decisive action and clear accountability",
+      "A presidency limited to a single four-year term to prevent abuses of power",
+      "A presidency elected directly by the people rather than by electors",
+    ],
+    correctText: "An energetic, unitary executive capable of decisive action and clear accountability",
+    explanation: "Hamilton in Federalist 70 maintains that 'energy in the executive' — unity, duration, adequate provision for support, and competent powers — is essential to good government, and that a single executive is more accountable than a board."
+  },
+  {
+    id: "apgov-013",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Which of the following best illustrates the principle of checks and balances?",
+    choices: [
+      "The Speaker of the House sets the legislative agenda for the chamber",
+      "Congress overrides a presidential veto by a two-thirds vote in both chambers",
+      "The president holds weekly cabinet meetings to coordinate executive policy",
+      "A federal agency issues a rule interpreting a statute",
+    ],
+    correctText: "Congress overrides a presidential veto by a two-thirds vote in both chambers",
+    explanation: "A veto override is a paradigmatic check: one branch (Congress) acts to limit another (the president) using a constitutionally specified procedure."
+  },
+  {
+    id: "apgov-014",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Federalist No. 78 argues that the judiciary will be the least dangerous branch primarily because it",
+    choices: [
+      "is composed of elected officials directly accountable to the people",
+      "holds neither the power of the sword nor the purse and depends on the other branches to enforce its judgments",
+      "is constitutionally required to follow majority public opinion in its decisions",
+      "may be removed at any time by a simple majority vote of Congress",
+    ],
+    correctText: "holds neither the power of the sword nor the purse and depends on the other branches to enforce its judgments",
+    explanation: "Hamilton famously calls the judiciary the 'least dangerous' branch because it cannot enforce its own rulings — it must rely on the executive — and so poses the smallest threat to liberty."
+  },
+  {
+    id: "apgov-015",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Marbury v. Madison (1803) is foundational primarily because the Supreme Court",
+    choices: [
+      "ordered President Jefferson to deliver William Marbury's judicial commission",
+      "established the principle of judicial review by holding part of a federal statute unconstitutional",
+      "ruled that state courts could not hear cases involving federal officials",
+      "expanded the original jurisdiction of the Supreme Court beyond what Article III provides",
+    ],
+    correctText: "established the principle of judicial review by holding part of a federal statute unconstitutional",
+    explanation: "Chief Justice Marshall held Section 13 of the Judiciary Act of 1789 unconstitutional, establishing that 'it is emphatically the duty of the judicial department to say what the law is.' This is the origin of judicial review."
+  },
+  {
+    id: "apgov-016",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "The growth of the federal bureaucracy since the New Deal has most directly led to",
+    choices: [
+      "an increase in the number of constitutional amendments ratified each decade",
+      "the delegation of significant rule-making authority to agencies, which then issue regulations with the force of law",
+      "the abolition of state agencies in fields regulated by the federal government",
+      "the elimination of congressional oversight of the executive branch",
+    ],
+    correctText: "the delegation of significant rule-making authority to agencies, which then issue regulations with the force of law",
+    explanation: "Congress frequently writes broad statutes and delegates the details to expert agencies, which then promulgate binding regulations. Rule making is now a primary site of policy creation."
+  },
+  {
+    id: "apgov-017",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "A discharge petition in the House of Representatives is best described as a procedure that",
+    choices: [
+      "allows the Speaker to remove a committee chair who has lost majority support",
+      "permits a majority of members (218) to force a bill out of committee and onto the floor",
+      "ends debate on a bill in the House Rules Committee",
+      "permits the Senate to take up a House-passed bill without referring it to committee",
+    ],
+    correctText: "permits a majority of members (218) to force a bill out of committee and onto the floor",
+    explanation: "When a House committee bottles up a bill, 218 members may sign a discharge petition to bring it directly to the floor — a rare but powerful check on committee gatekeeping."
+  },
+  {
+    id: "apgov-018",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Which of the following is an example of the president's use of informal powers rather than a power explicitly granted in Article II?",
+    choices: [
+      "Negotiating and signing a treaty subject to Senate ratification",
+      "Issuing an executive agreement with a foreign leader that does not require Senate approval",
+      "Granting a pardon for a federal offense",
+      "Nominating a federal district court judge",
+    ],
+    correctText: "Issuing an executive agreement with a foreign leader that does not require Senate approval",
+    explanation: "Executive agreements are not mentioned in the Constitution but have become a standard informal tool that lets presidents reach international understandings without the two-thirds Senate vote treaties require."
+  },
+  {
+    id: "apgov-019",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "In United States v. Lopez (1995), the Supreme Court held that",
+    choices: [
+      "Congress could regulate guns near schools because gun violence substantially affects interstate commerce",
+      "the federal Gun-Free School Zones Act exceeded Congress's authority under the Commerce Clause",
+      "states could not enact gun regulations stricter than federal law",
+      "the Second Amendment is incorporated against the states through the Fourteenth Amendment",
+    ],
+    correctText: "the federal Gun-Free School Zones Act exceeded Congress's authority under the Commerce Clause",
+    explanation: "Lopez was the first time in roughly sixty years the Court struck down a federal law as exceeding the commerce power, holding that possessing a gun near a school was not economic activity substantially affecting interstate commerce."
+  },
+  {
+    id: "apgov-020",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Which of the following best describes the constitutional process for impeachment and removal of a federal officer?",
+    choices: [
+      "The Senate impeaches by majority vote; the House tries the case and removes by two-thirds vote",
+      "The House impeaches by majority vote; the Senate tries the case and removes by two-thirds vote",
+      "Either chamber may impeach by two-thirds vote and the Supreme Court tries the case",
+      "The Supreme Court impeaches by majority vote and Congress removes by two-thirds vote",
+    ],
+    correctText: "The House impeaches by majority vote; the Senate tries the case and removes by two-thirds vote",
+    explanation: "Article I gives the House the 'sole Power of Impeachment' (a charging function, by simple majority) and the Senate the 'sole Power to try all Impeachments' (conviction requires two-thirds)."
+  },
+  {
+    id: "apgov-021",
+    topic: "Unit 2: Interactions Among Branches",
+    prompt: "Which scenario best demonstrates judicial restraint rather than judicial activism?",
+    choices: [
+      "A federal court strikes down a long-standing state law as inconsistent with a new reading of the Equal Protection Clause",
+      "A federal court defers to the legislature's judgment and upholds a contested statute under a rational basis standard",
+      "A federal court reads a constitutional provision more broadly than its text appears to require",
+      "A federal court orders a state to redraw its legislative districts to remedy malapportionment",
+    ],
+    correctText: "A federal court defers to the legislature's judgment and upholds a contested statute under a rational basis standard",
+    explanation: "Restraint refers to courts deferring to the elected branches absent clear constitutional conflict; activism describes courts more willing to strike down or reinterpret laws."
+  },
+
+  // ============ UNIT 3: Civil Liberties + Civil Rights (9) ============
+  {
+    id: "apgov-022",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "Engel v. Vitale (1962) held that",
+    choices: [
+      "a moment of silence during the school day violates the Establishment Clause",
+      "a state-composed nondenominational prayer recited in public schools violates the Establishment Clause",
+      "students may not be required to recite the Pledge of Allegiance",
+      "religious student groups may be barred from meeting on public school grounds after hours",
+    ],
+    correctText: "a state-composed nondenominational prayer recited in public schools violates the Establishment Clause",
+    explanation: "Engel held that an official prayer authored by New York's Board of Regents and recited in public school was unconstitutional regardless of how brief or voluntary it was; government may not compose official prayers."
+  },
+  {
+    id: "apgov-023",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "Tinker v. Des Moines (1969) is most often cited for the principle that",
+    choices: [
+      "students do not shed their constitutional rights to freedom of speech at the schoolhouse gate",
+      "schools may impose any restriction on student speech as long as it is content-neutral",
+      "public schools may search students without any individualized suspicion",
+      "the Establishment Clause prohibits student-led prayer at public school events",
+    ],
+    correctText: "students do not shed their constitutional rights to freedom of speech at the schoolhouse gate",
+    explanation: "The Court protected students wearing black armbands as symbolic anti-war speech, holding that schools may restrict student expression only when it would materially and substantially disrupt school operations."
+  },
+  {
+    id: "apgov-024",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "Schenck v. United States (1919) articulated which standard for limiting freedom of speech?",
+    choices: [
+      "Speech may be punished if it presents a clear and present danger of bringing about substantive evils Congress may prevent",
+      "Speech may be punished only if it constitutes a true threat directed at a specific individual",
+      "Speech may be punished only when it is directed to inciting imminent lawless action and is likely to do so",
+      "Speech may be punished whenever a majority of legislators find it offensive",
+    ],
+    correctText: "Speech may be punished if it presents a clear and present danger of bringing about substantive evils Congress may prevent",
+    explanation: "Justice Holmes's Schenck opinion introduced the clear-and-present-danger test in the context of wartime opposition to the draft. (The standard was later narrowed by Brandenburg's imminent-lawless-action test.)"
+  },
+  {
+    id: "apgov-025",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "New York Times Co. v. United States (1971), the Pentagon Papers case, is best understood as",
+    choices: [
+      "extending the Establishment Clause to cover state-funded newspapers",
+      "holding that the government carries a heavy presumption against the constitutional validity of prior restraints on the press",
+      "permitting the government to prosecute journalists who publish classified information",
+      "establishing that members of Congress may not be sued for statements made on the floor",
+    ],
+    correctText: "holding that the government carries a heavy presumption against the constitutional validity of prior restraints on the press",
+    explanation: "The Court refused the Nixon administration's request to enjoin publication of the Pentagon Papers, reaffirming that prior restraints come to the Court with a strong presumption against their constitutionality."
+  },
+  {
+    id: "apgov-026",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "Wisconsin v. Yoder (1972) is most closely associated with which constitutional provision?",
+    choices: [
+      "The Establishment Clause, because the case banned religious instruction in public schools",
+      "The Free Exercise Clause, because the case excused Amish families from a compulsory school attendance law on religious grounds",
+      "The Equal Protection Clause, because the case prohibited segregated parochial schools",
+      "The Due Process Clause, because the case required notice before removing a child from school",
+    ],
+    correctText: "The Free Exercise Clause, because the case excused Amish families from a compulsory school attendance law on religious grounds",
+    explanation: "The Court held that Wisconsin's compulsory school attendance law violated the Amish families' free exercise of religion by forcing them to send their children to school past 8th grade against their faith."
+  },
+  {
+    id: "apgov-027",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "Brown v. Board of Education (1954) is constitutionally significant because the Supreme Court held that",
+    choices: [
+      "separate but equal had no place in public education and that segregated schools violate the Equal Protection Clause",
+      "racially restrictive housing covenants could not be enforced in state courts",
+      "Congress could prohibit racial discrimination in private restaurants under the Commerce Clause",
+      "literacy tests for voting were prohibited regardless of how they were administered",
+    ],
+    correctText: "separate but equal had no place in public education and that segregated schools violate the Equal Protection Clause",
+    explanation: "Brown overturned Plessy v. Ferguson's separate-but-equal doctrine in public schooling, finding that segregation was inherently unequal and violated the Fourteenth Amendment's Equal Protection Clause."
+  },
+  {
+    id: "apgov-028",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "In Letter from Birmingham Jail, Martin Luther King Jr. justifies civil disobedience by arguing that",
+    choices: [
+      "one has a moral responsibility to disobey unjust laws openly, lovingly, and willingly accepting the penalty",
+      "any law passed by a majority is legitimate and must be obeyed regardless of its content",
+      "violent resistance is preferable to nonviolent protest when peaceful negotiations fail",
+      "civil rights activists should defer to state legislatures rather than petition the federal courts",
+    ],
+    correctText: "one has a moral responsibility to disobey unjust laws openly, lovingly, and willingly accepting the penalty",
+    explanation: "King distinguishes just from unjust laws and argues that breaking an unjust law openly and accepting punishment expresses the highest respect for law — a core defense of nonviolent direct action."
+  },
+  {
+    id: "apgov-029",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "McDonald v. Chicago (2010) is constitutionally significant because the Supreme Court",
+    choices: [
+      "incorporated the Second Amendment's right to keep and bear arms against the states through the Fourteenth Amendment",
+      "held that the Second Amendment protects only members of a well-regulated militia",
+      "permitted Chicago to enforce a city-wide handgun ban as a reasonable regulation",
+      "extended the Fourth Amendment's protections to private security guards",
+    ],
+    correctText: "incorporated the Second Amendment's right to keep and bear arms against the states through the Fourteenth Amendment",
+    explanation: "McDonald used selective incorporation under the Fourteenth Amendment's Due Process Clause to apply the individual-rights reading of the Second Amendment (from Heller) to the states and cities."
+  },
+  {
+    id: "apgov-030",
+    topic: "Unit 3: Civil Liberties + Civil Rights",
+    prompt: "The selective incorporation doctrine refers to the process by which",
+    choices: [
+      "Congress passes statutes that override state laws when the two conflict",
+      "the Supreme Court applies specific protections of the Bill of Rights to the states case by case through the Fourteenth Amendment's Due Process Clause",
+      "state legislatures may opt into federal Bill of Rights protections by passing identical statutes",
+      "federal agencies adopt the policies of cooperating states into their own regulations",
+    ],
+    correctText: "the Supreme Court applies specific protections of the Bill of Rights to the states case by case through the Fourteenth Amendment's Due Process Clause",
+    explanation: "Selective incorporation is the judicial process — running from Gitlow (1925) through Timbs (2019) — of recognizing individual Bill of Rights provisions as applicable to the states one at a time."
+  },
+
+  // ============ UNIT 4: American Political Ideologies + Beliefs (8) ============
+  {
+    id: "apgov-031",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "The single most important agent of political socialization for most Americans is generally considered to be",
+    choices: [
+      "the family",
+      "social media platforms",
+      "membership in interest groups",
+      "religious institutions",
+    ],
+    correctText: "the family",
+    explanation: "Decades of survey research show family is the strongest predictor of early party identification and basic political orientations. School, peers, media, and religion layer on top of that foundation."
+  },
+  {
+    id: "apgov-032",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "A telephone poll surveys 1,000 likely voters and reports 52% support for Candidate A with a margin of error of plus or minus 3 percentage points at a 95% confidence level. Which interpretation is most accurate?",
+    choices: [
+      "Candidate A is certain to receive between 49% and 55% of the vote on election day",
+      "Within the assumed sampling framework, the true level of support among likely voters is most plausibly between 49% and 55%",
+      "If Candidate A's true support is below 50%, the poll must have been intentionally biased",
+      "Repeating the poll would always yield exactly the same result",
+    ],
+    correctText: "Within the assumed sampling framework, the true level of support among likely voters is most plausibly between 49% and 55%",
+    explanation: "Margins of error describe sampling uncertainty, not certainty about future behavior. With 52% and a 3-point margin the confidence interval straddles 50%, so the race is statistically too close to call from this poll alone."
+  },
+  {
+    id: "apgov-033",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "Which of the following statements best characterizes the differences between modern American liberals and conservatives on economic policy?",
+    choices: [
+      "Liberals generally favor a larger government role in regulating the economy and providing a social safety net, while conservatives generally favor lower taxes, less regulation, and a smaller federal role",
+      "Liberals oppose all forms of taxation, while conservatives support universal government health insurance",
+      "Both groups favor identical economic policies but differ only on social issues",
+      "Conservatives generally favor expanding federal entitlement spending, while liberals oppose it",
+    ],
+    correctText: "Liberals generally favor a larger government role in regulating the economy and providing a social safety net, while conservatives generally favor lower taxes, less regulation, and a smaller federal role",
+    explanation: "On economic questions, the liberal–conservative divide tracks the size and scope of government: liberals tend to back redistributive spending and regulation; conservatives tend to back lower taxes and a leaner federal hand."
+  },
+  {
+    id: "apgov-034",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "Which polling method is most likely to produce a representative sample of the American public?",
+    choices: [
+      "An online opt-in survey posted on a single news website's homepage",
+      "A random-digit-dial telephone survey supplemented with cellphone and online panels using weighting",
+      "Interviews conducted with attendees at a single political party's national convention",
+      "Survey responses solicited only from registered members of one political party",
+    ],
+    correctText: "A random-digit-dial telephone survey supplemented with cellphone and online panels using weighting",
+    explanation: "Probability-based samples (random selection plus statistical weighting) generalize to the population. Opt-in samples and convenience samples introduce systematic selection bias."
+  },
+  {
+    id: "apgov-035",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "Suppose a quantitative study reports that voter turnout among adults with a college degree is roughly 75% in a recent presidential election, compared with about 50% among adults with only a high school diploma. Which conclusion is best supported?",
+    choices: [
+      "Educational attainment is one of the strongest demographic predictors of political participation in the United States",
+      "All college-educated adults vote in every election, while no high-school-only adults vote",
+      "Education has no measurable relationship to political participation",
+      "Voter ID laws fully explain the gap in turnout between education groups",
+    ],
+    correctText: "Educational attainment is one of the strongest demographic predictors of political participation in the United States",
+    explanation: "A 25-point gap is large and consistent with decades of turnout research showing education is among the most powerful demographic predictors of voting, alongside age and income."
+  },
+  {
+    id: "apgov-036",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "Keynesian and supply-side economic theories differ primarily in their views about",
+    choices: [
+      "whether the United States should remain on the gold standard",
+      "whether government should stimulate demand through spending and progressive taxation (Keynesian) or stimulate supply through tax cuts and deregulation (supply-side)",
+      "whether the Federal Reserve should be abolished",
+      "whether the federal budget must balance every fiscal year regardless of conditions",
+    ],
+    correctText: "whether government should stimulate demand through spending and progressive taxation (Keynesian) or stimulate supply through tax cuts and deregulation (supply-side)",
+    explanation: "Keynesians emphasize managing aggregate demand through fiscal policy; supply-siders argue that lower marginal tax rates and lighter regulation expand productive capacity. The debate maps onto modern liberal–conservative economic disagreements."
+  },
+  {
+    id: "apgov-037",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "The libertarian ideology in American politics is best characterized by support for",
+    choices: [
+      "expansive federal regulation of both economic and social behavior",
+      "minimal government intervention in both economic markets and personal lifestyle decisions",
+      "a single-party state with little role for elections",
+      "national ownership of major industries and central economic planning",
+    ],
+    correctText: "minimal government intervention in both economic markets and personal lifestyle decisions",
+    explanation: "Libertarians combine economic conservatism (low taxes, light regulation) with social liberalism (broad personal autonomy), distinguishing them from both major-party coalitions on key issues."
+  },
+  {
+    id: "apgov-038",
+    topic: "Unit 4: Political Ideologies + Beliefs",
+    prompt: "The generational replacement and period effects observed in survey data suggest that",
+    choices: [
+      "political opinions are entirely fixed at birth and never change across the lifespan",
+      "cohorts socialized during distinctive historical periods often carry differing political attitudes throughout their adult lives, gradually shifting national opinion as cohorts turn over",
+      "voter turnout is identical across all generational cohorts in every election",
+      "young voters always hold the same opinions as their parents do",
+    ],
+    correctText: "cohorts socialized during distinctive historical periods often carry differing political attitudes throughout their adult lives, gradually shifting national opinion as cohorts turn over",
+    explanation: "Public opinion shifts partly because distinctive cohorts (Depression-era, Boomers, Millennials, etc.) carry the imprint of the political environment in which they came of age."
+  },
+
+  // ============ UNIT 5: Political Participation (7) ============
+  {
+    id: "apgov-039",
+    topic: "Unit 5: Political Participation",
+    prompt: "Citizens United v. Federal Election Commission (2010) is constitutionally significant because the Supreme Court held that",
+    choices: [
+      "Congress may impose any limits on campaign expenditures so long as they are content-neutral",
+      "the First Amendment prohibits the government from restricting independent political expenditures by corporations and unions",
+      "individual contributions to candidates are unlimited under the First Amendment",
+      "political parties may coordinate unlimited spending directly with candidates",
+    ],
+    correctText: "the First Amendment prohibits the government from restricting independent political expenditures by corporations and unions",
+    explanation: "Citizens United struck down limits on independent political spending by corporations and unions, treating such expenditures as protected speech and giving rise to super PACs that may raise and spend unlimited sums independently of candidates."
+  },
+  {
+    id: "apgov-040",
+    topic: "Unit 5: Political Participation",
+    prompt: "Shaw v. Reno (1993) is best understood as a case about",
+    choices: [
+      "racial gerrymandering, in which the Court held that bizarrely shaped majority-minority districts drawn predominantly on the basis of race are subject to strict scrutiny under the Equal Protection Clause",
+      "partisan gerrymandering, in which the Court announced a clear constitutional standard for judging the fairness of district maps",
+      "one-person, one-vote, in which the Court required congressional districts to be of roughly equal population",
+      "voter identification, in which the Court upheld photo ID requirements",
+    ],
+    correctText: "racial gerrymandering, in which the Court held that bizarrely shaped majority-minority districts drawn predominantly on the basis of race are subject to strict scrutiny under the Equal Protection Clause",
+    explanation: "Shaw v. Reno held that when race is the predominant factor in drawing a district, strict scrutiny applies even if the goal is to increase minority representation."
+  },
+  {
+    id: "apgov-041",
+    topic: "Unit 5: Political Participation",
+    prompt: "Baker v. Carr (1962) is constitutionally significant because the Supreme Court held that",
+    choices: [
+      "questions about legislative district apportionment are justiciable under the Equal Protection Clause and not purely political questions",
+      "states may draw legislative districts of dramatically unequal population so long as boundaries follow county lines",
+      "federal courts may not hear redistricting cases under any circumstances",
+      "the Voting Rights Act of 1965 was unconstitutional in its preclearance provisions",
+    ],
+    correctText: "questions about legislative district apportionment are justiciable under the Equal Protection Clause and not purely political questions",
+    explanation: "Baker opened the federal courthouse door to apportionment challenges, paving the way for the 'one person, one vote' principle articulated in subsequent cases such as Reynolds v. Sims."
+  },
+  {
+    id: "apgov-042",
+    topic: "Unit 5: Political Participation",
+    prompt: "Which of the following constitutional amendments most directly expanded the American electorate?",
+    choices: [
+      "The Tenth Amendment, by reserving powers to the states",
+      "The Nineteenth Amendment, by prohibiting denial of the right to vote on account of sex",
+      "The Twenty-Second Amendment, by limiting the president to two terms",
+      "The Twenty-Seventh Amendment, by regulating congressional pay raises",
+    ],
+    correctText: "The Nineteenth Amendment, by prohibiting denial of the right to vote on account of sex",
+    explanation: "Among voting-rights amendments — the 15th, 19th, 24th, and 26th — only the 19th appears among the listed options. It enfranchised women nationwide in 1920."
+  },
+  {
+    id: "apgov-043",
+    topic: "Unit 5: Political Participation",
+    prompt: "Which of the following best describes the function of a political action committee (PAC) under federal campaign finance law?",
+    choices: [
+      "A government agency that administers federal election law and certifies vote totals",
+      "An organization that pools contributions from members and donates to candidates and parties within federal contribution limits",
+      "A judicial body that resolves disputes among congressional candidates",
+      "A branch of the executive office that supervises presidential campaigns",
+    ],
+    correctText: "An organization that pools contributions from members and donates to candidates and parties within federal contribution limits",
+    explanation: "PACs are private organizations that collect contributions from members and channel them to candidates and parties, subject to FEC contribution limits. Super PACs are a distinct category that may raise unlimited sums but only for independent expenditures."
+  },
+  {
+    id: "apgov-044",
+    topic: "Unit 5: Political Participation",
+    prompt: "Linkage institutions in American politics include all of the following EXCEPT",
+    choices: [
+      "political parties",
+      "interest groups",
+      "the news media",
+      "the federal judiciary",
+    ],
+    correctText: "the federal judiciary",
+    explanation: "Linkage institutions — parties, interest groups, media, and elections — are the channels that connect citizens to government. The federal judiciary is a branch of government, not a linkage institution."
+  },
+  {
+    id: "apgov-045",
+    topic: "Unit 5: Political Participation",
+    prompt: "The Electoral College and a direct national popular vote differ in that",
+    choices: [
+      "the Electoral College distributes electors mostly by population (with two extra per state), and the winner-take-all systems used by most states can produce a president who lost the national popular vote — outcomes a direct popular vote, by design, would not produce",
+      "the Electoral College guarantees that the winner of the national popular vote always becomes president",
+      "a direct popular vote would require an amendment to the Articles of Confederation",
+      "the Electoral College has never produced a president who lost the national popular vote",
+    ],
+    correctText: "the Electoral College distributes electors mostly by population (with two extra per state), and the winner-take-all systems used by most states can produce a president who lost the national popular vote — outcomes a direct popular vote, by design, would not produce",
+    explanation: "Electoral votes equal each state's congressional delegation, and almost all states award their electors winner-take-all. Combined, those features can yield an Electoral College winner who finishes second in the national popular vote — most recently in 2000 and 2016."
+  },
+];
+
+// Normalize correctText → correctIdx so the runtime (which reads q.correctIdx) works.
+QUESTIONS.forEach((q) => {
+  if (typeof q.correctIdx !== "number") {
+    q.correctIdx = q.choices.indexOf(q.correctText);
+  }
+});
+
+const STORAGE_KEY = "ap-gov-practice-exam-state-v1";
+const TOTAL = QUESTIONS.length;
+
+const els = {
+  startBtn: document.getElementById("startBtn"),
+  hubBtn: document.getElementById("hubBtn"),
+  shell: document.getElementById("examShell"),
+  stage: document.getElementById("examStage"),
+  progress: document.getElementById("examProgress"),
+  progressLabel: document.getElementById("progressLabel"),
+  progressFill: document.getElementById("progressFill"),
+  scorePill: document.getElementById("scorePill"),
+  examStatus: document.getElementById("examStatus"),
+  flash: document.getElementById("flash"),
+};
+
+let state = loadState();
+
+function defaultState() {
+  return {
+    order: shuffledIndices(),
+    cursor: 0,
+    correct: 0,
+    answered: 0,
+    perTopic: {},   // topic -> { correct, total }
+    history: [],     // { id, topic, chosen, correctIdx, isCorrect }
+    started: false,
+    finished: false,
+  };
+}
+
+function shuffledIndices() {
+  const arr = QUESTIONS.map((_, i) => i);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed && Array.isArray(parsed.order) && parsed.order.length === TOTAL) {
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  return defaultState();
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function pct(correct, total) {
+  if (!total) return 0;
+  return Math.round((correct / total) * 100);
+}
+
+function gradeBand(percent) {
+  if (percent >= 90) return "MASTERY · A";
+  if (percent >= 80) return "STRONG · B";
+  if (percent >= 70) return "PASSING · C";
+  if (percent >= 60) return "BELOW PASSING · D";
+  return "INTENSIVE REVIEW NEEDED";
+}
+
+function updateProgress() {
+  els.progress.hidden = false;
+  const num = Math.min(state.cursor + 1, TOTAL);
+  els.progressLabel.textContent = `Question ${num} of ${TOTAL}`;
+  const pctVal = (state.cursor / TOTAL) * 100;
+  els.progressFill.style.width = pctVal.toFixed(1) + "%";
+  const p = state.answered ? pct(state.correct, state.answered) : 0;
+  els.scorePill.innerHTML = `Score: ${state.correct} / ${state.answered} <span class="pct">${p}%</span>`;
+}
+
+function flash(kind) {
+  if (!els.flash) return;
+  els.flash.className = "flash " + kind + " play";
+  void els.flash.offsetWidth;
+  setTimeout(() => { els.flash.className = "flash"; }, 520);
+}
+
+function shuffledChoices(question) {
+  // Each choice carries its original index so we can detect correctness.
+  const arr = question.choices.map((text, idx) => ({ text, idx }));
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function renderIntro() {
+  els.progress.hidden = true;
+  els.stage.innerHTML = `
+    <div class="exam-card" role="region" aria-label="Practice exam introduction">
+      <div class="exam-topic">AP Gov Practice · 45 Items</div>
+      <p class="exam-prompt">Ready to take the practice exam?</p>
+      <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
+        You'll see 45 multiple-choice questions drawn from all 5 units of the AP US Government and Politics CED,
+        including SCOTUS-comparison items, foundational-document analysis, and quantitative-stimulus questions
+        modeled on Section I MCQ format. Each question gives instant feedback with a short explanation. At the end,
+        you'll see your overall score plus a per-unit mastery breakdown so you know exactly where to focus your review.
+      </p>
+      <div class="exam-actions">
+        <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
+        <button class="btn primary" id="beginBtn" type="button">Begin Exam</button>
+      </div>
+    </div>
+  `;
+  document.getElementById("beginBtn").addEventListener("click", () => {
+    state.started = true;
+    state.cursor = 0;
+    state.correct = 0;
+    state.answered = 0;
+    state.perTopic = {};
+    state.history = [];
+    state.finished = false;
+    state.order = shuffledIndices();
+    saveState();
+    renderQuestion();
+  });
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (confirm("Reset all saved practice-exam progress?")) {
+      clearState();
+      state = defaultState();
+      renderIntro();
+    }
+  });
+}
+
+function renderQuestion() {
+  if (state.cursor >= TOTAL) {
+    renderResults();
+    return;
+  }
+  updateProgress();
+  const idx = state.order[state.cursor];
+  const q = QUESTIONS[idx];
+  const choices = shuffledChoices(q);
+  const letters = ["A", "B", "C", "D"];
+  let answered = false;
+
+  const choicesHtml = choices.map((ch, i) => `
+    <button class="exam-choice" data-orig="${ch.idx}" data-letter="${letters[i]}" type="button">
+      <span class="letter" aria-hidden="true">${letters[i]}</span>
+      <span class="text">${escapeHtml(ch.text)}</span>
+    </button>
+  `).join("");
+
+  els.stage.innerHTML = `
+    <div class="exam-card" role="region" aria-label="Practice exam question">
+      <div class="exam-topic">${escapeHtml(q.topic)}</div>
+      <p class="exam-prompt">${escapeHtml(q.prompt)}</p>
+      <div class="exam-choices" id="choicesGrid" role="group" aria-label="Answer choices">
+        ${choicesHtml}
+      </div>
+      <div id="feedbackSlot"></div>
+    </div>
+  `;
+
+  const buttons = els.stage.querySelectorAll(".exam-choice");
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (answered) return;
+      answered = true;
+      const chosenOrig = parseInt(btn.dataset.orig, 10);
+      const isCorrect = chosenOrig === q.correctIdx;
+      state.answered += 1;
+      if (isCorrect) state.correct += 1;
+      const topicBucket = state.perTopic[q.topic] || { correct: 0, total: 0 };
+      topicBucket.total += 1;
+      if (isCorrect) topicBucket.correct += 1;
+      state.perTopic[q.topic] = topicBucket;
+      state.history.push({ id: q.id, topic: q.topic, chosen: chosenOrig, correctIdx: q.correctIdx, isCorrect });
+      saveState();
+
+      // Mark up the buttons.
+      buttons.forEach((b) => {
+        b.disabled = true;
+        const bOrig = parseInt(b.dataset.orig, 10);
+        if (bOrig === q.correctIdx) b.classList.add("correct");
+        else if (b === btn) b.classList.add("wrong");
+        else b.classList.add("dim");
+      });
+      flash(isCorrect ? "good" : "bad");
+
+      const correctLetter = letters[choices.findIndex((c) => c.idx === q.correctIdx)];
+      const verdictText = isCorrect ? "Correct" : "Not Quite";
+      const verdictClass = isCorrect ? "good" : "bad";
+      document.getElementById("feedbackSlot").innerHTML = `
+        <div class="exam-explanation ${verdictClass}" role="status" aria-live="polite">
+          <span class="verdict">${verdictText}</span>
+          <p style="margin:0 0 8px;"><strong>Correct answer ${correctLetter}:</strong> ${escapeHtml(q.choices[q.correctIdx])}</p>
+          <p style="margin:0;">${escapeHtml(q.explanation)}</p>
+          <div class="exam-actions" style="margin-top:14px;">
+            <button class="btn primary" id="nextBtn" type="button">${state.cursor + 1 >= TOTAL ? "See Results" : "Next Question"}</button>
+          </div>
+        </div>
+      `;
+      const nextBtn = document.getElementById("nextBtn");
+      nextBtn.focus();
+      nextBtn.addEventListener("click", () => {
+        state.cursor += 1;
+        saveState();
+        renderQuestion();
+      });
+      updateProgress();
+    });
+  });
+}
+
+function renderResults() {
+  state.finished = true;
+  saveState();
+  els.progress.hidden = true;
+  const percent = pct(state.correct, TOTAL);
+  const band = gradeBand(percent);
+  const topics = Object.keys(state.perTopic).sort((a, b) => {
+    const ap = pct(state.perTopic[a].correct, state.perTopic[a].total);
+    const bp = pct(state.perTopic[b].correct, state.perTopic[b].total);
+    return ap - bp; // weakest first
+  });
+  const rowsHtml = topics.map((t) => {
+    const data = state.perTopic[t];
+    const p = pct(data.correct, data.total);
+    const rowClass = p < 60 ? "weak" : p >= 80 ? "strong" : "";
+    return `
+      <div class="results-row ${rowClass}">
+        <div class="label">${escapeHtml(t)}</div>
+        <div class="frac">${data.correct} / ${data.total}</div>
+        <div class="meter" aria-hidden="true"><span style="width:${p}%"></span></div>
+        <div class="pct">${p}%</div>
+      </div>
+    `;
+  }).join("");
+
+  els.stage.innerHTML = `
+    <div class="exam-results" role="region" aria-label="Practice exam results">
+      <div class="results-eyebrow">Practice Exam Complete · AP US Government</div>
+      <h2>Your Score</h2>
+      <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
+      <span class="grade-banner">${band}</span>
+      <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
+        ${percent >= 70
+          ? "Strong work — you're tracking toward a 4 or 5 on the AP Gov exam. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+      </p>
+
+      <div class="results-breakdown" id="resultsBreakdown">
+        <h3>Mastery by Topic · Lowest First</h3>
+        ${rowsHtml}
+      </div>
+
+      <div class="results-actions">
+        <button class="btn primary" id="restartBtn" type="button">Restart Exam</button>
+        <button class="btn" id="reviewBtn" type="button">Review Wrong Answers</button>
+        <button class="btn ghost" id="backBtn" type="button">Back to Arcade</button>
+      </div>
+    </div>
+  `;
+  document.getElementById("restartBtn").addEventListener("click", () => {
+    clearState();
+    state = defaultState();
+    state.started = true;
+    state.order = shuffledIndices();
+    state.cursor = 0;
+    saveState();
+    renderQuestion();
+  });
+  document.getElementById("reviewBtn").addEventListener("click", renderReview);
+  document.getElementById("backBtn").addEventListener("click", goToHub);
+}
+
+function renderReview() {
+  const wrong = state.history.filter((h) => !h.isCorrect);
+  if (!wrong.length) {
+    els.stage.querySelector(".exam-results .results-actions").insertAdjacentHTML("beforebegin",
+      `<div class="exam-explanation good" style="margin-top:20px;"><span class="verdict">Clean Sweep</span><p style="margin:0;">You answered every question correctly. Nothing left to review here.</p></div>`);
+    return;
+  }
+  const reviewHtml = wrong.map((h, i) => {
+    const q = QUESTIONS.find((x) => x.id === h.id);
+    if (!q) return "";
+    const letters = ["A", "B", "C", "D"];
+    return `
+      <div class="exam-card" style="margin-top:16px;">
+        <div class="exam-topic">${escapeHtml(q.topic)} · Item ${i + 1}</div>
+        <p class="exam-prompt" style="font-size:clamp(18px,2.4vw,28px);">${escapeHtml(q.prompt)}</p>
+        <div class="exam-explanation bad">
+          <span class="verdict">Your Pick</span>
+          <p style="margin:0 0 8px;">${escapeHtml(q.choices[h.chosen])}</p>
+        </div>
+        <div class="exam-explanation good" style="margin-top:12px;">
+          <span class="verdict">Correct Answer</span>
+          <p style="margin:0 0 8px;"><strong>${letters[q.correctIdx]}:</strong> ${escapeHtml(q.choices[q.correctIdx])}</p>
+          <p style="margin:0;">${escapeHtml(q.explanation)}</p>
+        </div>
+      </div>
+    `;
+  }).join("");
+  els.stage.innerHTML = `
+    <div class="exam-results">
+      <div class="results-eyebrow">Review · ${wrong.length} Wrong Answer${wrong.length === 1 ? "" : "s"}</div>
+      <h2 style="font-size:clamp(24px,3.6vw,40px);">What to Drill Next</h2>
+    </div>
+    ${reviewHtml}
+    <div class="results-actions" style="margin-top:24px;">
+      <button class="btn primary" id="retryBtn" type="button">Retake Exam</button>
+      <button class="btn ghost" id="backToResultsBtn" type="button">Back to Score Summary</button>
+    </div>
+  `;
+  document.getElementById("retryBtn").addEventListener("click", () => {
+    clearState();
+    state = defaultState();
+    state.started = true;
+    state.order = shuffledIndices();
+    state.cursor = 0;
+    saveState();
+    renderQuestion();
+  });
+  document.getElementById("backToResultsBtn").addEventListener("click", renderResults);
+}
+
+function goToHub() {
+  // Walk up the path: games/ap-gov-practice/ → root index.html
+  window.location.href = "../../index.html";
+}
+
+// Stage-motion + canvas decorations (same chrome as Jeopardy boards).
+function initStageMotion() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const root = document.documentElement;
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  window.addEventListener("pointermove", (event) => {
+    if (window.innerWidth < 760) return;
+    tx = (event.clientX / window.innerWidth) - .5;
+    ty = (event.clientY / window.innerHeight) - .5;
+    root.style.setProperty("--spot-x", Math.round(event.clientX / window.innerWidth * 100) + "%");
+    root.style.setProperty("--spot-y", Math.round(event.clientY / window.innerHeight * 100) + "%");
+  }, { passive: true });
+  (function tick() {
+    cx += (tx - cx) * .08;
+    cy += (ty - cy) * .08;
+    root.style.setProperty("--tilt-x", (cx * 2.4).toFixed(3) + "deg");
+    root.style.setProperty("--tilt-y", (cy * -1.2).toFixed(3) + "deg");
+    root.style.setProperty("--scene-x", (cx * -18).toFixed(2) + "px");
+    root.style.setProperty("--scene-y", (cy * -10).toFixed(2) + "px");
+    requestAnimationFrame(tick);
+  })();
+}
+
+function initCanvas() {
+  if (document.documentElement.classList.contains("perf-lite") || window.matchMedia("(prefers-reduced-motion: reduce)").matches || window.innerWidth < 900) {
+    const canvas = document.getElementById("space");
+    if (canvas) canvas.style.display = "none";
+    return;
+  }
+  const canvas = document.getElementById("space");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let frameSkip = false;
+  function resize() {
+    const scale = Math.min(devicePixelRatio || 1, 1.25);
+    canvas.width = Math.floor(window.innerWidth * scale);
+    canvas.height = Math.floor(window.innerHeight * scale);
+    particles = Array.from({ length: Math.min(55, Math.floor(window.innerWidth / 28)) }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      z: .25 + Math.random() * 1.4,
+      r: .5 + Math.random() * 2.5,
+      hue: Math.random()
+    }));
+  }
+  function draw() {
+    frameSkip = !frameSkip;
+    if (frameSkip) { requestAnimationFrame(draw); return; }
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const raw = performance.now();
+    const dpr = Math.min(devicePixelRatio || 1, 1.25);
+    const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    grad.addColorStop(0, "rgba(255,255,255,.04)");
+    grad.addColorStop(.5, "rgba(0,212,255,.05)");
+    grad.addColorStop(1, "rgba(255,95,101,.05)");
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    const beamAlpha = .07 + Math.sin(raw * .0012) * .025;
+    for (let b = 0; b < 3; b++) {
+      const anchor = canvas.width * (.12 + b * .19);
+      const sweep = Math.sin(raw * .00045 + b) * canvas.width * .08;
+      const beam = ctx.createLinearGradient(anchor, 0, canvas.width / 2 + sweep, canvas.height);
+      beam.addColorStop(0, "rgba(255,209,102," + beamAlpha + ")");
+      beam.addColorStop(.45, "rgba(0,212,255," + (beamAlpha * .45) + ")");
+      beam.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = beam;
+      ctx.beginPath();
+      ctx.moveTo(anchor - canvas.width * .025, 0);
+      ctx.lineTo(anchor + canvas.width * .025, 0);
+      ctx.lineTo(canvas.width / 2 + sweep + canvas.width * .18, canvas.height);
+      ctx.lineTo(canvas.width / 2 + sweep - canvas.width * .18, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+    for (const p of particles) {
+      p.x += p.z * .35;
+      if (p.x > canvas.width + 4) p.x = -4;
+      const hue = 30 + p.hue * 200;
+      ctx.fillStyle = `hsla(${hue}, 92%, 76%, ${.18 + p.z * .15})`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * dpr, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+  draw();
+}
+
+// Register service worker so we participate in the PWA cache.
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("../../service-worker.js", { scope: "../../" }).catch(() => {});
+}
+
+els.startBtn.addEventListener("click", () => {
+  state = defaultState();
+  state.started = true;
+  state.order = shuffledIndices();
+  saveState();
+  renderQuestion();
+});
+els.hubBtn.addEventListener("click", goToHub);
+
+initStageMotion();
+initCanvas();
+
+// Boot routing: if user already had unfinished progress, drop them back into it.
+if (state.started && !state.finished && state.cursor < TOTAL) {
+  renderQuestion();
+} else if (state.finished) {
+  renderResults();
+} else {
+  renderIntro();
+}
+
+setTimeout(() => document.body.classList.add("game-booted"), 1400);
+</script>
+<script src="../../assets/arcade-analytics.js?v=20260516-practice-exam"></script>
+</body>
+</html>
