@@ -1,4 +1,4 @@
-const CACHE_NAME = "v70-49-practice-exams-grade-5-8-state-tests";
+const CACHE_NAME = "v71-50-practice-exams-grade-7-ela-shipped";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to

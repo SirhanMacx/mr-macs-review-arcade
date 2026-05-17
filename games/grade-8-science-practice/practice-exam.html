@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
-      <h1>NYS Global History II Practice Exam</h1>
-      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Grade 8 Science State Test</span></div>
+      <h1>Grade 8 Science Practice Test</h1>
+      <p class="subtitle">35-question practice test modeled on NYS Grade 8 Intermediate-Level Science state test format covering physical, life, and Earth/space sciences.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1516,7 +1516,7 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
   <section class="exam-shell" id="examShell">
     <div class="exam-progress" id="examProgress" hidden>
       <div>
-        <div class="progress-label" id="progressLabel">Question 1 of 40</div>
+        <div class="progress-label" id="progressLabel">Question 1 of 35</div>
         <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
       </div>
       <div class="score-pill" id="scorePill">Score: 0 / 0 <span class="pct">0%</span></div>
@@ -1524,8 +1524,8 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
-    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 35 questions across physical, life, and Earth/space sciences</span>
+    <span class="pill" id="topicStatus">NYS Grade 6-8 Science Learning Standards · Matter, energy, forces, cells, ecology, heredity, geology, weather, astronomy</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
@@ -2054,7 +2054,7 @@ const QUESTIONS = [
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+const STORAGE_KEY = "grade-8-science-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2168,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
-      <p class="exam-prompt">Ready to take the practice exam?</p>
+      <div class="exam-topic">NYS Grade 8 Science Practice · 35 Items</div>
+      <p class="exam-prompt">Ready to take the practice test?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 35 multiple-choice questions drawn from the NYS Grade 6-8 Science Learning Standards: physical
+        science (matter, energy, forces and motion), life science (cells, ecology, heredity), and Earth and space
+        science (geology, weather and climate, astronomy). Each question gives instant feedback with a short
+        explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you know
+        exactly which strand to focus on before the state test.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,14 +2312,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Test Complete · NYS Grade 8 Science</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a solid state-test performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which strands to drill before test day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2397,7 +2398,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/grade-8-science-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

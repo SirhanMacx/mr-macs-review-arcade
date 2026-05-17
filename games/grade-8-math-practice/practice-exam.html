@@ -1537,524 +1537,394 @@ const QUESTIONS = [
     prompt: "Which of the following numbers is irrational?",
     choices: [
       "0.75",
-      "√16",
-      "√10",
+      "the square root of 16",
+      "the square root of 10",
       "4/9",
     ],
-    correctText: "√10",
-    explanation: "An irrational number cannot be written as a fraction of two integers and its decimal neither terminates nor repeats. √16 = 4 (rational), 0.75 = 3/4 (rational), and 4/9 is already a ratio. But 10 is not a perfect square, so √10 ≈ 3.16227... continues without repeating, making it irrational."
+    correctText: "the square root of 10",
+    explanation: "An irrational number cannot be written as a fraction of two integers and its decimal neither terminates nor repeats. sqrt(16) = 4 is rational, 0.75 = 3/4 is rational, and 4/9 is already a ratio. Since 10 is not a perfect square, sqrt(10) is about 3.16227... and continues without repeating, so it is irrational."
   },
   {
-    id: "ghii-002",
-    topic: "Unit 1: World in 1750",
-    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
+    id: "g8math-002",
+    topic: "The Number System",
+    prompt: "Which statement correctly compares the square root of 2 and pi?",
     choices: [
-      "Promote global trade with European powers.",
-      "Spread Christianity across East Asia.",
-      "Preserve internal stability by limiting foreign contact.",
-      "Expand Japanese colonies in the Americas.",
+      "sqrt(2) > pi because sqrt(2) is a square root.",
+      "sqrt(2) < pi because sqrt(2) is about 1.41 and pi is about 3.14.",
+      "sqrt(2) = pi because both are irrational.",
+      "sqrt(2) > pi because both are greater than 1.",
     ],
-    correctText: "Preserve internal stability by limiting foreign contact.",
-    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
+    correctText: "sqrt(2) < pi because sqrt(2) is about 1.41 and pi is about 3.14.",
+    explanation: "To compare two irrationals, use decimal approximations. sqrt(2) is between sqrt(1) = 1 and sqrt(4) = 2, with sqrt(2) about 1.414. pi is about 3.14159. Since 1.414 < 3.14, we conclude sqrt(2) < pi."
   },
   {
-    id: "ghii-003",
-    topic: "Unit 1: World in 1750",
-    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
+    id: "g8math-003",
+    topic: "The Number System",
+    prompt: "Between which two consecutive whole numbers does the square root of 75 lie?",
     choices: [
-      "Laissez-faire capitalism",
-      "Mercantilism",
-      "Socialism",
-      "Command economy",
+      "7 and 8",
+      "8 and 9",
+      "9 and 10",
+      "10 and 11",
     ],
-    correctText: "Mercantilism",
-    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
+    correctText: "8 and 9",
+    explanation: "Find the nearest perfect squares around 75: 64 = 8 squared and 81 = 9 squared. Since 64 < 75 < 81, we have 8 < sqrt(75) < 9. (A check: sqrt(75) is about 8.66.)"
   },
   {
-    id: "ghii-004",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
+    id: "g8math-004",
+    topic: "The Number System",
+    prompt: "What is the value of the cube root of 125?",
     choices: [
-      "Thomas Hobbes",
-      "John Locke",
-      "Niccolò Machiavelli",
-      "Karl Marx",
+      "5",
+      "15",
+      "25",
+      "62.5",
     ],
-    correctText: "John Locke",
-    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
+    correctText: "5",
+    explanation: "The cube root of a number n is the value that when cubed gives n. Since 5 x 5 x 5 = 125, the cube root of 125 is 5."
   },
   {
-    id: "ghii-005",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
+    id: "g8math-005",
+    topic: "The Number System",
+    prompt: "Light travels about 3 x 10^8 meters per second. Approximately how far does it travel in 2 x 10^2 seconds?",
     choices: [
-      "Free public education",
-      "Separation of powers among three branches",
-      "Universal suffrage",
-      "Direct election of judges",
+      "6 x 10^10 meters",
+      "5 x 10^10 meters",
+      "6 x 10^6 meters",
+      "1.5 x 10^6 meters",
     ],
-    correctText: "Separation of powers among three branches",
-    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
+    correctText: "6 x 10^10 meters",
+    explanation: "Multiply the coefficients and add the exponents: (3 x 10^8)(2 x 10^2) = (3 x 2) x 10^(8+2) = 6 x 10^10 meters. This is how scientific-notation multiplication works."
   },
   {
-    id: "ghii-006",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
+    id: "g8math-006",
+    topic: "Expressions and Equations",
+    prompt: "Which expression is equivalent to (2^4)(2^3)?",
     choices: [
-      "It restored a monarchy after a brief republican experiment.",
-      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-      "It ended without significant political change.",
-      "It established a constitutional monarchy under European supervision.",
+      "2^7",
+      "2^12",
+      "4^7",
+      "4^12",
     ],
-    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
+    correctText: "2^7",
+    explanation: "The product-of-powers rule says that when multiplying powers with the same base, you add the exponents: 2^4 times 2^3 = 2^(4+3) = 2^7. The base stays the same."
   },
   {
-    id: "ghii-007",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
+    id: "g8math-007",
+    topic: "Expressions and Equations",
+    prompt: "Simplify: 5^9 divided by 5^4.",
     choices: [
-      "Britain had the most extensive colonial empire in Asia.",
-      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-      "Britain was the only European country with a literate workforce.",
-      "Britain was the first nation to outlaw all forms of forced labor.",
+      "5^5",
+      "5^13",
+      "1^5",
+      "5^36",
     ],
-    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
+    correctText: "5^5",
+    explanation: "The quotient-of-powers rule says that when dividing powers with the same base, you subtract the exponents: 5^9 / 5^4 = 5^(9-4) = 5^5."
   },
   {
-    id: "ghii-008",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
+    id: "g8math-008",
+    topic: "Expressions and Equations",
+    prompt: "Which expression is equivalent to (3^2)^4?",
     choices: [
-      "Workers gained shorter hours and immediate political rights.",
-      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-      "Workers transitioned from factories back to small craft workshops.",
-      "Workers were guaranteed employment by national governments.",
+      "3^6",
+      "3^8",
+      "9^4",
+      "12^2",
     ],
-    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
+    correctText: "3^8",
+    explanation: "The power-of-a-power rule says you multiply exponents: (3^2)^4 = 3^(2 x 4) = 3^8. (Note that 9^4 is numerically equal but uses base 9, not 3, so it is not the equivalent form being asked for among 3-power answers.)"
   },
   {
-    id: "ghii-009",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
+    id: "g8math-009",
+    topic: "Expressions and Equations",
+    prompt: "The population of a small town is about 4.5 x 10^4 people, and the population of a nearby city is about 9 x 10^6 people. About how many times larger is the city's population than the town's?",
     choices: [
-      "Religious revival across industrial societies",
-      "A class struggle leading to revolution by the proletariat",
-      "Voluntary government regulation of industries",
-      "A return to feudal economic relationships",
+      "20 times",
+      "200 times",
+      "2,000 times",
+      "20,000 times",
     ],
-    correctText: "A class struggle leading to revolution by the proletariat",
-    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
+    correctText: "200 times",
+    explanation: "Divide: (9 x 10^6) / (4.5 x 10^4) = (9 / 4.5) x 10^(6-4) = 2 x 10^2 = 200. The city has about 200 times as many people as the town."
   },
   {
-    id: "ghii-010",
-    topic: "Unit 4: Imperialism",
-    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
+    id: "g8math-010",
+    topic: "Expressions and Equations",
+    prompt: "Solve for x: 3(x - 4) = 2x + 5.",
     choices: [
-      "African leaders would have veto power over all colonial boundaries.",
-      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-      "African colonies would gain independence within 25 years.",
-      "All European nations would withdraw from the African continent.",
+      "x = 7",
+      "x = 17",
+      "x = -7",
+      "x = 1",
     ],
-    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
+    correctText: "x = 17",
+    explanation: "Distribute on the left: 3x - 12 = 2x + 5. Subtract 2x from both sides: x - 12 = 5. Add 12 to both sides: x = 17. Check: 3(17 - 4) = 3(13) = 39 and 2(17) + 5 = 39. Confirmed."
   },
   {
-    id: "ghii-011",
-    topic: "Unit 4: Imperialism",
-    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
+    id: "g8math-011",
+    topic: "Expressions and Equations",
+    prompt: "What is the slope of the line that passes through the points (1, 2) and (5, 14)?",
     choices: [
-      "Indian soldiers refused to fight against the Ottoman Empire.",
-      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-      "Sepoys demanded equal pay with British officers.",
-      "British missionaries had been expelled from India.",
+      "1/3",
+      "3",
+      "4",
+      "12",
     ],
-    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
+    correctText: "3",
+    explanation: "Slope = (change in y) / (change in x) = (14 - 2) / (5 - 1) = 12 / 4 = 3. The line rises 3 units for every 1 unit it runs to the right."
   },
   {
-    id: "ghii-012",
-    topic: "Unit 4: Imperialism",
-    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
+    id: "g8math-012",
+    topic: "Expressions and Equations",
+    prompt: "Solve the system: y = 2x + 1 and y = -x + 7.",
     choices: [
-      "China had invaded British India.",
-      "China refused to allow British ships into the Mediterranean.",
-      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-      "China demanded that Britain abolish slavery in its colonies.",
+      "(2, 5)",
+      "(3, 4)",
+      "(1, 3)",
+      "(2, 4)",
     ],
-    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
+    correctText: "(2, 5)",
+    explanation: "By substitution, set the right sides equal: 2x + 1 = -x + 7. Add x: 3x + 1 = 7. Subtract 1: 3x = 6, so x = 2. Then y = 2(2) + 1 = 5. The solution is (2, 5), which satisfies both equations."
   },
   {
-    id: "ghii-013",
-    topic: "Unit 4: Imperialism",
-    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
+    id: "g8math-013",
+    topic: "Expressions and Equations",
+    prompt: "A right triangle has legs of length 9 cm and 12 cm. What is the length of the hypotenuse?",
     choices: [
-      "Embraced Western technology, industry, and military methods while preserving its emperor.",
-      "Permanently closed its borders to all foreign contact.",
-      "Was conquered and ruled directly by Western powers until 1945.",
-      "Refused to make any changes to its traditional samurai society.",
+      "15 cm",
+      "21 cm",
+      "11 cm",
+      "27 cm",
     ],
-    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
-    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
+    correctText: "15 cm",
+    explanation: "Use the Pythagorean Theorem: a^2 + b^2 = c^2. So 9^2 + 12^2 = c^2 gives 81 + 144 = 225 = c^2, and c = sqrt(225) = 15 cm. The 9-12-15 triple is a 3-4-5 multiple."
   },
   {
-    id: "ghii-014",
-    topic: "Unit 5: World War I",
-    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
+    id: "g8math-014",
+    topic: "Functions",
+    prompt: "Which of the following relations is NOT a function?",
     choices: [
-      "Marxism, agriculture, isolationism, neutrality",
-      "Militarism, alliances, imperialism, nationalism",
-      "Monarchy, anarchism, industry, navy",
-      "Modernization, autocracy, individualism, neocolonialism",
+      "{(1, 2), (2, 4), (3, 6), (4, 8)}",
+      "{(0, 5), (1, 5), (2, 5), (3, 5)}",
+      "{(2, 3), (4, 6), (2, 7), (5, 9)}",
+      "{(-1, 1), (0, 0), (1, 1), (2, 4)}",
     ],
-    correctText: "Militarism, alliances, imperialism, nationalism",
-    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
+    correctText: "{(2, 3), (4, 6), (2, 7), (5, 9)}",
+    explanation: "A relation is a function if every input has exactly one output. The set {(2,3),(4,6),(2,7),(5,9)} pairs the input 2 with two different outputs (3 and 7), so it is not a function. The others all give each input exactly one output."
   },
   {
-    id: "ghii-015",
-    topic: "Unit 5: World War I",
-    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
+    id: "g8math-015",
+    topic: "Functions",
+    prompt: "Which equation represents a LINEAR function?",
     choices: [
-      "Russia won early victories in WWI that inspired political reform.",
-      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-      "Western powers sent armies to depose Nicholas II.",
-      "The Tsar voluntarily turned over power to the peasantry.",
+      "y = x^2 + 1",
+      "y = 4x - 7",
+      "y = 5 / x",
+      "y = 2^x",
     ],
-    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
+    correctText: "y = 4x - 7",
+    explanation: "A linear function has the form y = mx + b, where the variable x has exponent 1 and is not in a denominator. Only y = 4x - 7 fits that form. The others are quadratic, rational, and exponential, respectively."
   },
   {
-    id: "ghii-016",
-    topic: "Unit 5: World War I",
-    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
+    id: "g8math-016",
+    topic: "Functions",
+    prompt: "Function A is given by y = 3x + 2. Function B passes through the points (0, 5) and (1, 9). Which statement is true?",
     choices: [
-      "Germany's loss of its colonies in Africa",
-      "The 'war guilt' clause (Article 231) and crushing reparations payments",
-      "The reduction of the German navy",
-      "The redrawing of borders in the Middle East",
+      "Function A has the greater rate of change.",
+      "Function B has the greater rate of change.",
+      "Both functions have the same rate of change.",
+      "Neither function is linear.",
     ],
-    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
-    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
+    correctText: "Function B has the greater rate of change.",
+    explanation: "Function A has slope 3. Function B's slope is (9 - 5) / (1 - 0) = 4. Since 4 > 3, Function B changes faster."
   },
   {
-    id: "ghii-017",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
+    id: "g8math-017",
+    topic: "Functions",
+    prompt: "A pool is being drained. The volume V, in gallons, after t minutes is given by V = 1200 - 25t. What does the slope -25 represent in this context?",
     choices: [
-      "All world currencies were physically stored in U.S. banks.",
-      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-      "Only the United States used a banking system in 1929.",
-      "European nations were forced to convert to communism in response.",
+      "The pool starts with 25 gallons of water.",
+      "The pool drains 25 gallons every minute.",
+      "The pool is empty after 25 minutes.",
+      "The pool holds 25 gallons total.",
     ],
-    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
+    correctText: "The pool drains 25 gallons every minute.",
+    explanation: "In y = mx + b form, the slope m is the rate of change. Here -25 means the volume decreases by 25 gallons each minute. The starting volume (the y-intercept) is 1200 gallons."
   },
   {
-    id: "ghii-018",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
+    id: "g8math-018",
+    topic: "Functions",
+    prompt: "A bike rental costs a flat fee of $6 plus $3 per hour. Which function gives the total cost C for h hours?",
     choices: [
-      "Demilitarize the Soviet Union",
-      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-      "Restore private property to peasants",
-      "Establish democratic elections",
+      "C = 3h",
+      "C = 6h + 3",
+      "C = 3h + 6",
+      "C = 9h",
     ],
-    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
+    correctText: "C = 3h + 6",
+    explanation: "Per-hour rates are slopes (coefficient of the variable hours), and fixed fees are y-intercepts. So C = (rate per hour) x (hours) + (flat fee) = 3h + 6."
   },
   {
-    id: "ghii-019",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
+    id: "g8math-019",
+    topic: "Geometry",
+    prompt: "Two figures are congruent if and only if one can be mapped to the other by a sequence of which transformations?",
     choices: [
-      "Free press and competitive elections",
-      "A one-party state, suppression of dissent, and a personality cult around the leader",
-      "Decentralized economic decision-making",
-      "Voluntary collective decision-making by citizens' councils",
+      "Translations, rotations, and reflections only",
+      "Dilations only",
+      "Any combination of translations, rotations, reflections, and dilations",
+      "Rotations and dilations only",
     ],
-    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
-    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
+    correctText: "Translations, rotations, and reflections only",
+    explanation: "Translations, rotations, and reflections are called rigid motions because they preserve both size and shape. Two figures are congruent exactly when a sequence of rigid motions maps one onto the other. Dilations change size, so they produce similar (not congruent) figures."
   },
   {
-    id: "ghii-020",
-    topic: "Unit 7: World War II",
-    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
+    id: "g8math-020",
+    topic: "Geometry",
+    prompt: "Triangle ABC is dilated by a scale factor of 3, centered at the origin, to form triangle A'B'C'. If AB = 4, what is the length of A'B'?",
     choices: [
-      "France and Britain went to war with Hitler over Czechoslovakia.",
-      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-      "Hitler returned previously seized territory to Czechoslovakia.",
-      "The League of Nations sanctioned Germany for aggression.",
+      "1.3",
+      "4",
+      "7",
+      "12",
     ],
-    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
+    correctText: "12",
+    explanation: "A dilation multiplies every length by the scale factor. So A'B' = 3 x AB = 3 x 4 = 12. A dilation composed with rigid motions also produces similar triangles, but here the question asks only about the new side length."
   },
   {
-    id: "ghii-021",
-    topic: "Unit 7: World War II",
-    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
+    id: "g8math-021",
+    topic: "Geometry",
+    prompt: "In a triangle, two angles measure 50 degrees and 65 degrees. Which other triangle must be similar to it?",
     choices: [
-      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
-      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-      "The United States had declared war on Japan one week earlier.",
-      "Japan was honoring a defensive treaty with China.",
+      "A triangle with angles 50 degrees and 55 degrees",
+      "A triangle with angles 65 degrees and 65 degrees",
+      "A triangle with angles 50 degrees and 65 degrees",
+      "A triangle with angles 90 degrees and 50 degrees",
     ],
-    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
+    correctText: "A triangle with angles 50 degrees and 65 degrees",
+    explanation: "By the Angle-Angle (AA) similarity criterion, two triangles are similar if two pairs of corresponding angles are equal. A triangle with two angles of 50 and 65 degrees must have a third angle of 180 - 50 - 65 = 65 degrees, matching the original."
   },
   {
-    id: "ghii-022",
-    topic: "Unit 7: World War II",
-    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
+    id: "g8math-022",
+    topic: "Geometry",
+    prompt: "In a triangle, the two remote interior angles measure 35 degrees and 70 degrees. What is the measure of the exterior angle that is not adjacent to either of them?",
     choices: [
-      "100,000 people, primarily Polish soldiers",
-      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-      "Only Jewish residents of Germany",
-      "Twelve million ethnic Germans",
+      "35 degrees",
+      "70 degrees",
+      "105 degrees",
+      "75 degrees",
     ],
-    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
+    correctText: "105 degrees",
+    explanation: "The Exterior Angle Theorem says the measure of an exterior angle of a triangle equals the sum of the two remote (non-adjacent) interior angles: 35 + 70 = 105 degrees."
   },
   {
-    id: "ghii-023",
-    topic: "Unit 7: World War II",
-    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
+    id: "g8math-023",
+    topic: "Geometry",
+    prompt: "Two parallel lines are cut by a transversal. One of the eight angles formed measures 110 degrees. What is the measure of its corresponding angle?",
     choices: [
-      "A test of the new weapon under combat conditions",
-      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-      "Retaliation for the Holocaust in Europe",
-      "A response to a Japanese atomic weapons program",
+      "70 degrees",
+      "90 degrees",
+      "110 degrees",
+      "220 degrees",
     ],
-    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
+    correctText: "110 degrees",
+    explanation: "When parallel lines are cut by a transversal, corresponding angles are congruent (they sit in the same position at each intersection). So the corresponding angle also measures 110 degrees."
   },
   {
-    id: "ghii-024",
-    topic: "Unit 8: Cold War",
-    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
+    id: "g8math-024",
+    topic: "Geometry",
+    prompt: "A right triangle has a leg of length 6 and a hypotenuse of length 10. What is the length of the other leg?",
     choices: [
-      "Returning to isolationism",
-      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-      "Direct military conquest of the Soviet Union",
-      "Sharing nuclear technology with all U.S. allies",
+      "4",
+      "8",
+      "12",
+      "16",
     ],
-    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
+    correctText: "8",
+    explanation: "Use the Pythagorean Theorem solved for the missing leg: b^2 = c^2 - a^2 = 10^2 - 6^2 = 100 - 36 = 64, so b = sqrt(64) = 8. This is the classic 6-8-10 right triangle (a 3-4-5 scaled by 2)."
   },
   {
-    id: "ghii-025",
-    topic: "Unit 8: Cold War",
-    prompt: "Which Cold War event came closest to triggering nuclear war?",
+    id: "g8math-025",
+    topic: "Geometry",
+    prompt: "What is the distance between the points (1, 2) and (4, 6) on the coordinate plane?",
     choices: [
-      "The 1948 Berlin Blockade",
-      "The 1962 Cuban Missile Crisis",
-      "The 1953 Korean armistice",
-      "The 1957 Sputnik launch",
+      "3",
+      "4",
+      "5",
+      "7",
     ],
-    correctText: "The 1962 Cuban Missile Crisis",
-    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
+    correctText: "5",
+    explanation: "Use the distance formula (Pythagorean Theorem on the coordinate plane): d = sqrt((4 - 1)^2 + (6 - 2)^2) = sqrt(9 + 16) = sqrt(25) = 5."
   },
   {
-    id: "ghii-026",
-    topic: "Unit 8: Cold War",
-    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
+    id: "g8math-026",
+    topic: "Geometry",
+    prompt: "A cylinder has a radius of 3 cm and a height of 10 cm. What is its volume? (Use V = pi r^2 h.)",
     choices: [
-      "Promote free trade across Europe",
-      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-      "Coordinate scientific space programs",
-      "Govern post-war reconstruction in Asia",
+      "30 pi cubic cm",
+      "60 pi cubic cm",
+      "90 pi cubic cm",
+      "300 pi cubic cm",
     ],
-    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
+    correctText: "90 pi cubic cm",
+    explanation: "V = pi r^2 h = pi (3)^2 (10) = pi (9)(10) = 90 pi cubic cm. (Note: for a cone with the same radius and height, divide by 3 to get 30 pi; for a sphere of radius 3, V = (4/3) pi (27) = 36 pi.)"
   },
   {
-    id: "ghii-027",
-    topic: "Unit 8: Cold War",
-    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
+    id: "g8math-027",
+    topic: "Statistics and Probability",
+    prompt: "A scatter plot shows hours of study versus test score for a class. As study time increases, scores tend to increase. Which type of association does the data show?",
     choices: [
-      "The U.S. sought to annex Vietnam as a territory.",
-      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-      "The Vietnamese government formally requested annexation.",
-      "Vietnam had attacked the United States directly in 1960.",
+      "Negative linear association",
+      "Positive linear association",
+      "No association",
+      "Constant association",
     ],
-    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
+    correctText: "Positive linear association",
+    explanation: "When one variable tends to increase as the other increases, the scatter plot shows a positive association. Because the trend is roughly straight-line, we describe it as a positive linear association."
   },
   {
-    id: "ghii-028",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
+    id: "g8math-028",
+    topic: "Statistics and Probability",
+    prompt: "A line of best fit for a scatter plot of years of experience (x) and salary in thousands of dollars (y) is y = 2x + 30. What is the best interpretation of the slope in context?",
     choices: [
-      "Through armed military rebellion against British troops",
-      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-      "By accepting all British demands without protest",
-      "By forming a violent partnership with Japan during WWII",
+      "Salary starts at $2,000.",
+      "For each additional year of experience, salary increases by about $2,000.",
+      "Salary increases by $30,000 each year.",
+      "After 2 years, salary is $30,000.",
     ],
-    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
+    correctText: "For each additional year of experience, salary increases by about $2,000.",
+    explanation: "In a line of best fit y = mx + b, the slope m gives the predicted change in y per 1-unit change in x. Here m = 2 (thousand dollars per year), so each extra year of experience corresponds to about a $2,000 increase in salary. The y-intercept 30 represents the predicted starting salary at 0 years of experience."
   },
   {
-    id: "ghii-029",
-    topic: "Unit 9: Decolonization",
-    prompt: "What was the immediate result of the 1947 Partition of British India?",
+    id: "g8math-029",
+    topic: "Statistics and Probability",
+    prompt: "A two-way table summarizes 100 students by grade level (7 or 8) and whether they ride the bus. Of the 60 eighth-graders, 45 ride the bus. What is the relative frequency of riding the bus among eighth-graders?",
     choices: [
-      "India and Pakistan formed a single unified democracy.",
-      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-      "India remained a British colony until 1960.",
-      "The partition created peace across South Asia.",
+      "0.45",
+      "0.60",
+      "0.75",
+      "0.80",
     ],
-    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
+    correctText: "0.75",
+    explanation: "A relative frequency within a row is the count divided by the row total. Among eighth-graders: 45 / 60 = 0.75, or 75%. So 75% of eighth-graders ride the bus."
   },
   {
-    id: "ghii-030",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
+    id: "g8math-030",
+    topic: "Statistics and Probability",
+    prompt: "Which scatter plot description is most consistent with NO association between two variables?",
     choices: [
-      "He led a foreign army that invaded South Africa.",
-      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-      "He restored a system of racial segregation under a new name.",
-      "He oversaw the colonization of South Africa by a European power.",
+      "Points form a clear upward straight-line pattern.",
+      "Points form a clear downward straight-line pattern.",
+      "Points are scattered randomly with no apparent pattern.",
+      "Points form a tight cluster along a curve.",
     ],
-    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
-  },
-  {
-    id: "ghii-031",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "What is the European Union (EU)?",
-    choices: [
-      "A military alliance to replace NATO",
-      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-      "An international religious organization",
-      "A short-lived 19th-century trade league",
-    ],
-    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
-  },
-  {
-    id: "ghii-032",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
-    choices: [
-      "It granted multi-party democracy.",
-      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-      "It abolished the Communist Party.",
-      "It allowed the protests to continue indefinitely.",
-    ],
-    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
-  },
-  {
-    id: "ghii-033",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
-    choices: [
-      "French colonial troops",
-      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-      "United Nations peacekeepers",
-      "American military forces",
-    ],
-    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
-  },
-  {
-    id: "ghii-034",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "Which statement best describes the scientific consensus on climate change?",
-    choices: [
-      "Earth's climate has not changed in recorded history.",
-      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-      "Climate change affects only the polar regions.",
-      "Climate change is caused exclusively by natural solar cycles.",
-    ],
-    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
-  },
-  {
-    id: "ghii-035",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
-    choices: [
-      "Tokugawa daimyo system and South African apartheid",
-      "The printing press and the steam engine",
-      "Monsoon winds and the Nile River",
-      "Pasta and pizza",
-    ],
-    correctText: "Tokugawa daimyo system and South African apartheid",
-    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
-  },
-  {
-    id: "ghii-036",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
-    choices: [
-      "Gutenberg's printing press and the Industrial Revolution's steam engine",
-      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
-      "Confucian filial piety and feudal serfdom",
-      "The Treaty of Westphalia and the Truman Doctrine",
-    ],
-    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
-    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
-  },
-  {
-    id: "ghii-037",
-    topic: "Enduring Issues",
-    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
-    choices: [
-      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-      "The Code of Hammurabi and the Treaty of Versailles",
-      "The Edict of Nantes and the Smoot-Hawley Tariff",
-      "The Edict of Worms and the Cuban Missile Crisis briefings",
-    ],
-    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
-  },
-  {
-    id: "ghii-038",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
-    choices: [
-      "Ancient African kingdoms and ethnic boundaries",
-      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-      "Geographic features like rivers and mountains",
-      "Borders established by the Ottoman Empire",
-    ],
-    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
-  },
-  {
-    id: "ghii-039",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
-    choices: [
-      "Confucian philosophy",
-      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-      "Medieval feudal contracts",
-      "Mercantilist economic theory",
-    ],
-    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
-  },
-  {
-    id: "ghii-040",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "Which sequence of 20th-century events is in correct chronological order?",
-    choices: [
-      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
-      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
-      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
-    ],
-    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
+    correctText: "Points are scattered randomly with no apparent pattern.",
+    explanation: "A scatter plot shows no association when the points appear randomly scattered without a clear trend. Upward and downward patterns show positive and negative association; a curved pattern shows a nonlinear association."
   },
 ];
-  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+const STORAGE_KEY = "grade-8-math-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2038,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
-      <p class="exam-prompt">Ready to take the practice exam?</p>
+      <div class="exam-topic">Grade 8 Math Practice · 30 Items</div>
+      <p class="exam-prompt">Ready to take the practice test?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 30 multiple-choice questions drawn from all five NYS Grade 8 Math strands —
+        The Number System, Expressions and Equations, Functions, Geometry, and Statistics and Probability.
+        Each question gives instant feedback with a short explanation. At the end, you'll see your overall
+        score plus a per-strand mastery breakdown so you know exactly where to focus your review for the state test.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
