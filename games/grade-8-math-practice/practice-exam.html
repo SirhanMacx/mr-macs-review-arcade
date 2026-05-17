@@ -2181,14 +2181,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Test Complete · NYS Grade 8 Math</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a passing state-test performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which strands to drill before test day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2267,7 +2267,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/grade-8-math-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 
