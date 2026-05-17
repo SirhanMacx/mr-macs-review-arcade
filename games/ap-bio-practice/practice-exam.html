@@ -1493,6 +1493,21 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
   .results-row .meter, .results-row .pct { grid-column: 1 / -1; }
 }
 
+
+/* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF study guide === */
+@media print {
+  body > *:not(#printableExam) { display: none !important; }
+  #printableExam { display: block !important; padding: 0.5in; font-family: Georgia, "Times New Roman", Times, serif; color: #000; background: #fff; }
+  #printableExam h1 { font-size: 18pt; margin: 0 0 6pt; }
+  #printableExam .pq { page-break-inside: avoid; margin: 0 0 14pt; }
+  #printableExam .pq-prompt { font-size: 11pt; font-weight: 700; }
+  #printableExam .pq-choices { margin: 4pt 0 4pt 16pt; font-size: 10pt; }
+  #printableExam .pq-correct { color: #006400; font-weight: 700; font-size: 10pt; margin: 4pt 0; }
+  #printableExam .pq-expl { font-size: 9pt; font-style: italic; color: #333; margin: 2pt 0 6pt; }
+  #printableExam .pq:nth-child(5n) { page-break-after: always; }
+}
+.print-only { display: none; }
+
 </style>
 </head>
 <body>
@@ -1510,6 +1525,7 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
+      <button class="btn" type="button" id="downloadPdfBtn" onclick="downloadPDF()" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📄 Download PDF Study Guide</button>
       <button class="btn ghost" id="hubBtn" type="button">Back to Arcade</button>
     </div>
   </section>
@@ -2052,6 +2068,40 @@ const QUESTIONS = [
     explanation: "Diverse communities have multiple species performing similar functions (pollination, decomposition, etc.), so disturbance is less likely to collapse a function. Genetic diversity within species also raises the chance that some individuals can survive environmental change."
   },
 ];
+
+/* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF helpers === */
+function buildPrintableExam() {
+  var section = document.getElementById('printableExam');
+  if (!section) return;
+  var title = (document.title || 'Practice Exam').replace(" — Mr. Mac's Review Arcade", '').replace(" - Mr. Mac's Review Arcade", '');
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+  var html = '<h1>' + esc(title) + ' · Study Guide</h1>';
+  html += '<p style="font-size:9pt;color:#555;margin:0 0 18pt;">Study guide · ' + QUESTIONS.length + ' practice questions with answer key + explanations</p>';
+  var letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+  QUESTIONS.forEach(function(q, i) {
+    html += '<div class="pq">';
+    html += '<div class="pq-prompt">' + (i + 1) + '. ' + esc(q.prompt || '') + '</div>';
+    html += '<div class="pq-choices">';
+    (q.choices || []).forEach(function(c, idx) {
+      html += letters[idx] + ') ' + esc(c) + '<br>';
+    });
+    html += '</div>';
+    var correct = q.correctText != null ? q.correctText : ((q.choices && typeof q.correctIdx === 'number') ? q.choices[q.correctIdx] : '');
+    html += '<div class="pq-correct">✓ Correct: ' + esc(correct) + '</div>';
+    if (q.explanation) html += '<div class="pq-expl">' + esc(q.explanation) + '</div>';
+    html += '</div>';
+  });
+  section.innerHTML = html;
+}
+function downloadPDF() {
+  try { buildPrintableExam(); } catch (e) { console.error('printable build failed', e); }
+  try { window.print(); } catch (e) { console.error('window.print failed', e); }
+}
+
 const STORAGE_KEY = "ap-bio-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
@@ -2328,6 +2378,7 @@ function renderResults() {
       <div class="results-actions">
         <button class="btn primary" id="restartBtn" type="button">Restart Exam</button>
         <button class="btn" id="reviewBtn" type="button">Review Wrong Answers</button>
+        <button class="btn" type="button" id="downloadPdfBtnResults" onclick="downloadPDF()" style="background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.15);">📄 Download PDF Study Guide</button>
         <button class="btn ghost" id="backBtn" type="button">Back to Arcade</button>
       </div>
     </div>
@@ -2522,5 +2573,6 @@ if (state.started && !state.finished && state.cursor < TOTAL) {
 setTimeout(() => document.body.classList.add("game-booted"), 1400);
 </script>
 <script src="../../assets/arcade-analytics.js?v=20260516-practice-exam"></script>
+<section id="printableExam" class="print-only" aria-hidden="true"></section>
 </body>
 </html>
