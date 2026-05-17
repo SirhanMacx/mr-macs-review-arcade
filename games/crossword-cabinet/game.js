@@ -2252,10 +2252,29 @@
   } catch (e) {}
   }
 
+  // Sync the HUD's actual rendered height into a CSS var so the play-stage
+  // top offset is always exactly under the HUD — fixes HUD-overlaps-board
+  // bug at intermediate viewport widths when the controls wrap to 2 rows.
+  function syncHudHeight() {
+    var hud = document.querySelector(".top-hud");
+    if (!hud) return;
+    var h = hud.offsetHeight;
+    if (h > 0) document.documentElement.style.setProperty("--hud-h", h + "px");
+  }
+  if (typeof window !== "undefined") {
+    window.addEventListener("load", syncHudHeight);
+    window.addEventListener("resize", syncHudHeight);
+    if (typeof ResizeObserver === "function") {
+      var hudEl = document.querySelector(".top-hud");
+      if (hudEl) { try { new ResizeObserver(syncHudHeight).observe(hudEl); } catch (e) {} }
+    }
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
+    document.addEventListener("DOMContentLoaded", function () { boot(); syncHudHeight(); });
   } else {
     boot();
+    syncHudHeight();
   }
 
   try {

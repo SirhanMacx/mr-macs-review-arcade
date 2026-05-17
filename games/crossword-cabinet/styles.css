@@ -387,10 +387,12 @@ kbd {
   .popup { animation-duration: 0.5s; }
 }
 
-/* Play stage layout */
+/* Play stage layout — top offset uses --hud-h CSS var that game.js syncs
+   to the HUD's actual rendered height on load + resize. Fallback 140px
+   covers HUD wrapping at intermediate viewport widths. */
 .play-stage {
   position: absolute;
-  top: 100px; left: 0; right: 0; bottom: 60px;
+  top: calc(var(--hud-h, 140px) + 8px); left: 0; right: 0; bottom: 60px;
   z-index: 20;
   display: flex;
   flex-direction: row;
