@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>Grade 6 ELA Practice Test — Mr. Mac's Review Arcade</title>
+<title>NYS Grade 8 ELA Practice Test — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>NYS Grade 6 ELA State Test</span></div>
-      <h1>Grade 6 ELA Practice Test</h1>
-      <p class="subtitle">30-question practice test modeled on NYS Grade 6 ELA state test format with reading + language items.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Grade 8 ELA State Test</span></div>
+      <h1>Grade 8 ELA Practice Test</h1>
+      <p class="subtitle">35-question practice test modeled on NYS Grade 8 ELA state test format with reading + language items.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1516,7 +1516,7 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
   <section class="exam-shell" id="examShell">
     <div class="exam-progress" id="examProgress" hidden>
       <div>
-        <div class="progress-label" id="progressLabel">Question 1 of 30</div>
+        <div class="progress-label" id="progressLabel">Question 1 of 35</div>
         <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
       </div>
       <div class="score-pill" id="scorePill">Score: 0 / 0 <span class="pct">0%</span></div>
@@ -1524,432 +1524,537 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 30 Grade 6 ELA practice items</span>
-    <span class="pill" id="topicStatus">Reading Literature · Reading Informational · Conventions · Vocabulary</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 35 state-test-modeled questions across reading + language</span>
+    <span class="pill" id="topicStatus">Literature + Informational reading, conventions, vocabulary skills included</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
-// Reading passages below are original works written for this practice exam.
-// No copyrighted state-test items are reproduced or paraphrased.
-const PASSAGE_LIT_1 = `The Lighthouse Keeper's Daughter\n\nMira had counted the same forty-seven steps to the top of the lighthouse every evening since she was old enough to walk them on her own. Tonight, the wooden boards groaned under her boots like an old man complaining about the cold. Her father was sick again, and the great lamp would not light itself. "It's only a lantern," she whispered, repeating the words he always used. "Be braver than it is bright." When she reached the lamp room, the sea below was a black field stitched with silver, and somewhere out in that field a ship was waiting for her small, stubborn hands to strike the match.`;
-const PASSAGE_LIT_2 = `The Race at Coyote Ridge\n\nDiego had trained for the Coyote Ridge cross-country meet all summer, but he had never trained against Marcus, who moved like rumor through the desert dust. At the starting line, Marcus grinned and said, "Try to keep up, slowpoke." Diego said nothing. He just nodded the way his grandfather nodded when he was about to prove someone wrong. The starter pistol cracked, the runners surged, and for the first half mile Diego let Marcus float ahead, content to study the rhythm of his stride. Then, where the trail bent into the sun, Diego shifted gears and began, quietly, to close the gap.`;
-const PASSAGE_INFO_1 = `Why Octopuses Are Smarter Than You Think\n\nMost people picture an octopus as a slippery creature drifting along the ocean floor, but marine biologists have learned that octopuses are among the cleverest animals in the sea. In laboratory studies, octopuses have unscrewed jar lids to reach a snack, navigated complicated mazes, and even recognized individual human researchers by sight. Unlike mammals, which concentrate most of their thinking power in a central brain, an octopus carries about two-thirds of its neurons in its eight arms. This unusual nervous system means each arm can taste, touch, and even solve small problems on its own. Researchers now argue that intelligence in nature can take many forms — and that we should not assume an animal must look like us to think like us.`;
-const PASSAGE_INFO_2 = `The Lost Library of Timbuktu\n\nLong before Europe built its great universities, the West African city of Timbuktu was a world center of learning. Beginning in the 1400s, scholars at the University of Sankoré studied astronomy, medicine, mathematics, and law, and the city's private libraries held hundreds of thousands of handwritten manuscripts. When invading armies threatened Timbuktu in 1591, families hid the manuscripts in clay jars, buried them under floors, and sealed them inside the walls of homes. For centuries, the texts waited in secret. Only recently have scholars begun digitizing the surviving manuscripts, revealing forgotten poetry, medical guides, and astronomical charts. The story of these books shows that knowledge can survive even when the buildings that house it cannot.`;
-
 const QUESTIONS = [
-  // ============================================================
-  // READING LITERATURE — Passage 1 (Lighthouse Keeper's Daughter)
-  // ============================================================
   {
-    id: "g6ela-001",
-    topic: "Reading Literature: Theme",
-    prompt: PASSAGE_LIT_1 + "\n\nWhich statement BEST expresses a theme of the passage?",
+    id: "ghii-001",
+    topic: "Unit 1: World in 1750",
+    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
-      "Courage means doing a duty even when you are afraid.",
-      "Lighthouses are dangerous places for children.",
-      "Family members should never disagree with one another.",
-      "Sailors rely too much on technology to stay safe.",
+      "All three had embraced parliamentary democracy.",
+      "All three were multiethnic land-based empires governed by hereditary rulers.",
+      "All three had abolished traditional religious practices.",
+      "All three controlled overseas colonies in the Americas.",
     ],
-    correctText: "Courage means doing a duty even when you are afraid.",
-    explanation: "Mira repeats her father's saying — 'Be braver than it is bright' — as she climbs the stairs alone to light the lamp for a waiting ship. The story shows her choosing duty over fear, which is the core idea of courage."
+    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
+    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
   },
   {
-    id: "g6ela-002",
-    topic: "Reading Literature: Plot Structure",
-    prompt: PASSAGE_LIT_1 + "\n\nWhich event most clearly marks the rising action of the passage?",
+    id: "ghii-002",
+    topic: "Unit 1: World in 1750",
+    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
     choices: [
-      "Mira learning to count the steps as a young child.",
-      "Mira's father becoming sick and unable to light the lamp.",
-      "The ship sailing safely past the rocks at dawn.",
-      "Mira eating dinner before climbing the stairs.",
+      "Promote global trade with European powers.",
+      "Spread Christianity across East Asia.",
+      "Preserve internal stability by limiting foreign contact.",
+      "Expand Japanese colonies in the Americas.",
     ],
-    correctText: "Mira's father becoming sick and unable to light the lamp.",
-    explanation: "Rising action is the event that creates the central problem and pushes the main character into the story's challenge. Her father's illness is what forces Mira to climb the stairs alone, setting the rest of the story in motion."
+    correctText: "Preserve internal stability by limiting foreign contact.",
+    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
   },
   {
-    id: "g6ela-003",
-    topic: "Reading Literature: Character Development",
-    prompt: PASSAGE_LIT_1 + "\n\nWhat does the detail that Mira's boots make the boards 'groan like an old man complaining about the cold' suggest about her at this moment?",
+    id: "ghii-003",
+    topic: "Unit 1: World in 1750",
+    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
     choices: [
-      "She is angry at her father for being sick.",
-      "She is moving heavily because she is nervous about the task.",
-      "She wishes she lived somewhere warmer than the lighthouse.",
-      "She is excited to finally climb the stairs by herself.",
+      "Laissez-faire capitalism",
+      "Mercantilism",
+      "Socialism",
+      "Command economy",
     ],
-    correctText: "She is moving heavily because she is nervous about the task.",
-    explanation: "The groaning, complaining sound mirrors Mira's own reluctance. The simile uses the boards' noise to show readers what is happening inside her — a nervous, weighted feeling — without saying it directly."
+    correctText: "Mercantilism",
+    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
   },
   {
-    id: "g6ela-004",
-    topic: "Reading Literature: Figurative Language",
-    prompt: PASSAGE_LIT_1 + "\n\nThe sentence 'the sea below was a black field stitched with silver' is an example of which technique?",
+    id: "ghii-004",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
     choices: [
-      "Personification, because the sea is given human feelings.",
-      "Metaphor, because the sea is described as if it were a field.",
-      "Hyperbole, because the description is greatly exaggerated.",
-      "Alliteration, because the sentence repeats the same sounds.",
+      "Thomas Hobbes",
+      "John Locke",
+      "Niccolò Machiavelli",
+      "Karl Marx",
     ],
-    correctText: "Metaphor, because the sea is described as if it were a field.",
-    explanation: "A metaphor states that one thing IS another without using 'like' or 'as.' The sea is directly called a 'field,' with moonlight as silver stitching, creating a single vivid image."
+    correctText: "John Locke",
+    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
   },
   {
-    id: "g6ela-005",
-    topic: "Reading Literature: Point of View",
-    prompt: PASSAGE_LIT_1 + "\n\nFrom which point of view is the passage told?",
+    id: "ghii-005",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
     choices: [
-      "First person, told by Mira herself.",
-      "Second person, addressing the reader as 'you.'",
-      "Third-person limited, following Mira's thoughts and feelings.",
-      "Third-person omniscient, revealing every character's thoughts.",
+      "Free public education",
+      "Separation of powers among three branches",
+      "Universal suffrage",
+      "Direct election of judges",
     ],
-    correctText: "Third-person limited, following Mira's thoughts and feelings.",
-    explanation: "The narrator uses 'she' and 'her' (third person) but stays inside Mira's experience — her whispers, her boots, what she sees from the lamp room — without entering any other character's mind. That is third-person limited."
-  },
-  // ============================================================
-  // READING LITERATURE — Passage 2 (Race at Coyote Ridge)
-  // ============================================================
-  {
-    id: "g6ela-006",
-    topic: "Reading Literature: Character Development",
-    prompt: PASSAGE_LIT_2 + "\n\nWhich pair of words BEST describes Diego in this passage?",
-    choices: [
-      "Boastful and loud.",
-      "Patient and confident.",
-      "Frightened and confused.",
-      "Careless and lucky.",
-    ],
-    correctText: "Patient and confident.",
-    explanation: "Diego does not argue with Marcus and 'just nodded' — a quiet, confident response. He then chooses to let Marcus lead at first so he can study his rhythm, showing patience and a plan."
+    correctText: "Separation of powers among three branches",
+    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
   },
   {
-    id: "g6ela-007",
-    topic: "Reading Literature: Dialogue's Effect",
-    prompt: PASSAGE_LIT_2 + "\n\nHow does Marcus's line 'Try to keep up, slowpoke' MOSTLY affect the story?",
+    id: "ghii-006",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
     choices: [
-      "It explains the rules of the cross-country meet.",
-      "It establishes a rivalry that motivates Diego to run his race.",
-      "It shows that Marcus and Diego are old friends.",
-      "It changes the setting from the desert to the school.",
+      "It restored a monarchy after a brief republican experiment.",
+      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+      "It ended without significant political change.",
+      "It established a constitutional monarchy under European supervision.",
     ],
-    correctText: "It establishes a rivalry that motivates Diego to run his race.",
-    explanation: "The taunt sets up the conflict between the two runners. Diego's silent, nodding response shows him absorbing the challenge, which fuels the strategic race he runs."
+    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
   },
   {
-    id: "g6ela-008",
-    topic: "Reading Literature: Figurative Language",
-    prompt: PASSAGE_LIT_2 + "\n\nThe phrase 'Marcus, who moved like rumor through the desert dust' is an example of which type of figurative language?",
+    id: "ghii-007",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
     choices: [
-      "Simile",
-      "Personification",
-      "Onomatopoeia",
-      "Idiom",
+      "Britain had the most extensive colonial empire in Asia.",
+      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+      "Britain was the only European country with a literate workforce.",
+      "Britain was the first nation to outlaw all forms of forced labor.",
     ],
-    correctText: "Simile",
-    explanation: "A simile compares two unlike things using 'like' or 'as.' Marcus's movement is compared to 'rumor' — something that travels quickly and quietly — using the word 'like.'"
+    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
   },
   {
-    id: "g6ela-009",
-    topic: "Reading Literature: Plot Structure",
-    prompt: PASSAGE_LIT_2 + "\n\nWhich sentence from the passage signals the TURNING POINT of Diego's race?",
+    id: "ghii-008",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
     choices: [
-      "'Diego had trained for the Coyote Ridge cross-country meet all summer.'",
-      "'At the starting line, Marcus grinned and said, \"Try to keep up, slowpoke.\"'",
-      "'The starter pistol cracked, the runners surged.'",
-      "'Then, where the trail bent into the sun, Diego shifted gears and began, quietly, to close the gap.'",
+      "Workers gained shorter hours and immediate political rights.",
+      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+      "Workers transitioned from factories back to small craft workshops.",
+      "Workers were guaranteed employment by national governments.",
     ],
-    correctText: "'Then, where the trail bent into the sun, Diego shifted gears and began, quietly, to close the gap.'",
-    explanation: "The turning point is where the action shifts. Up to this sentence, Diego has been following; once he 'shifts gears,' he becomes the challenger. The word 'Then' marks the moment the race changes direction."
+    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
   },
   {
-    id: "g6ela-010",
-    topic: "Reading Literature: Theme",
-    prompt: PASSAGE_LIT_2 + "\n\nWhich theme does the passage MOST clearly develop?",
+    id: "ghii-009",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
     choices: [
-      "Winning matters more than effort.",
-      "A thoughtful strategy can be more powerful than a flashy start.",
-      "Friends always make the best competitors.",
-      "Running is only fun when the weather is warm.",
+      "Religious revival across industrial societies",
+      "A class struggle leading to revolution by the proletariat",
+      "Voluntary government regulation of industries",
+      "A return to feudal economic relationships",
     ],
-    correctText: "A thoughtful strategy can be more powerful than a flashy start.",
-    explanation: "Marcus is described as fast and boastful, but Diego is the one who plans — studying Marcus's stride and choosing his moment. The passage builds toward the idea that patient strategy can beat a flashy beginning."
-  },
-  // ============================================================
-  // READING INFORMATIONAL — Passage 1 (Octopuses)
-  // ============================================================
-  {
-    id: "g6ela-011",
-    topic: "Reading Informational: Central Idea",
-    prompt: PASSAGE_INFO_1 + "\n\nWhich sentence BEST states the central idea of the passage?",
-    choices: [
-      "Octopuses are dangerous predators that should be feared.",
-      "Octopuses are highly intelligent animals whose minds work in surprising ways.",
-      "Octopuses are difficult to study because they live underwater.",
-      "Octopuses should be kept in laboratories rather than oceans.",
-    ],
-    correctText: "Octopuses are highly intelligent animals whose minds work in surprising ways.",
-    explanation: "Every supporting detail — jar lids, mazes, recognizing humans, neurons in the arms — develops the idea that octopuses are unusually intelligent and that their intelligence does not look like ours."
+    correctText: "A class struggle leading to revolution by the proletariat",
+    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
   },
   {
-    id: "g6ela-012",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: PASSAGE_INFO_1 + "\n\nWhat is the author's MAIN purpose in this passage?",
+    id: "ghii-010",
+    topic: "Unit 4: Imperialism",
+    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
     choices: [
-      "To entertain readers with a funny story about ocean life.",
-      "To persuade readers to stop eating seafood.",
-      "To inform readers about scientific discoveries regarding octopus intelligence.",
-      "To describe step-by-step how to care for a pet octopus.",
+      "African leaders would have veto power over all colonial boundaries.",
+      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+      "African colonies would gain independence within 25 years.",
+      "All European nations would withdraw from the African continent.",
     ],
-    correctText: "To inform readers about scientific discoveries regarding octopus intelligence.",
-    explanation: "The passage shares factual research findings and explanations without telling a story, telling readers what to buy, or giving step-by-step directions. That signals an informative purpose."
+    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
   },
   {
-    id: "g6ela-013",
-    topic: "Reading Informational: Text Structure",
-    prompt: PASSAGE_INFO_1 + "\n\nWhich text structure BEST describes the third sentence ('Unlike mammals, which concentrate most of their thinking power in a central brain, an octopus carries about two-thirds of its neurons in its eight arms')?",
+    id: "ghii-011",
+    topic: "Unit 4: Imperialism",
+    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
     choices: [
-      "Chronological order",
-      "Compare and contrast",
-      "Problem and solution",
-      "Cause and effect",
+      "Indian soldiers refused to fight against the Ottoman Empire.",
+      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+      "Sepoys demanded equal pay with British officers.",
+      "British missionaries had been expelled from India.",
     ],
-    correctText: "Compare and contrast",
-    explanation: "The word 'Unlike' signals contrast. The sentence sets mammals' central brains side by side with the octopus's arm-distributed neurons to highlight a difference."
+    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
   },
   {
-    id: "g6ela-014",
-    topic: "Reading Informational: Claim and Evidence",
-    prompt: PASSAGE_INFO_1 + "\n\nThe author claims that 'intelligence in nature can take many forms.' Which detail from the passage BEST supports that claim?",
+    id: "ghii-012",
+    topic: "Unit 4: Imperialism",
+    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
     choices: [
-      "Octopuses are slippery creatures that live in the ocean.",
-      "Each octopus arm can taste, touch, and solve small problems on its own.",
-      "Most people picture an octopus drifting along the ocean floor.",
-      "Marine biologists study octopuses in laboratory settings.",
+      "China had invaded British India.",
+      "China refused to allow British ships into the Mediterranean.",
+      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+      "China demanded that Britain abolish slavery in its colonies.",
     ],
-    correctText: "Each octopus arm can taste, touch, and solve small problems on its own.",
-    explanation: "If parts of an animal's BODY can sense and solve problems, then thinking does not have to live in one central brain. That detail directly supports the claim that intelligence can look different across species."
+    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
   },
   {
-    id: "g6ela-015",
-    topic: "Reading Informational: Academic Vocabulary",
-    prompt: PASSAGE_INFO_1 + "\n\nAs used in the passage, the word 'concentrate' MOST NEARLY means —",
+    id: "ghii-013",
+    topic: "Unit 4: Imperialism",
+    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
     choices: [
-      "to pay close attention",
-      "to gather together in one place",
-      "to make a liquid stronger",
-      "to repeat over and over",
+      "Embraced Western technology, industry, and military methods while preserving its emperor.",
+      "Permanently closed its borders to all foreign contact.",
+      "Was conquered and ruled directly by Western powers until 1945.",
+      "Refused to make any changes to its traditional samurai society.",
     ],
-    correctText: "to gather together in one place",
-    explanation: "The sentence says mammals 'concentrate' their thinking power 'in a central brain' — the contrast is with an octopus spreading neurons across eight arms. In this context, 'concentrate' means to gather into one place."
-  },
-  // ============================================================
-  // READING INFORMATIONAL — Passage 2 (Timbuktu)
-  // ============================================================
-  {
-    id: "g6ela-016",
-    topic: "Reading Informational: Central Idea",
-    prompt: PASSAGE_INFO_2 + "\n\nWhich sentence BEST states the central idea of the passage?",
-    choices: [
-      "Timbuktu was destroyed in a single invasion in 1591.",
-      "Families in Timbuktu were skilled at making clay jars.",
-      "Timbuktu's scholarly tradition survived because people worked to protect its books.",
-      "European universities were the first centers of learning in the world.",
-    ],
-    correctText: "Timbuktu's scholarly tradition survived because people worked to protect its books.",
-    explanation: "The passage centers on a city of learning, the threat to its manuscripts, and the people who hid them so the knowledge could survive. The final line restates this idea directly."
+    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
+    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
   },
   {
-    id: "g6ela-017",
-    topic: "Reading Informational: Text Structure",
-    prompt: PASSAGE_INFO_2 + "\n\nWhich text structure BEST describes the OVERALL organization of the passage?",
+    id: "ghii-014",
+    topic: "Unit 5: World War I",
+    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
     choices: [
-      "Chronological order, moving from the 1400s to the present.",
-      "Spatial order, moving across different regions of Africa.",
-      "Order of importance, listing the most valuable manuscripts first.",
-      "Question and answer, with the author asking and answering questions.",
+      "Marxism, agriculture, isolationism, neutrality",
+      "Militarism, alliances, imperialism, nationalism",
+      "Monarchy, anarchism, industry, navy",
+      "Modernization, autocracy, individualism, neocolonialism",
     ],
-    correctText: "Chronological order, moving from the 1400s to the present.",
-    explanation: "Time signals — 'Beginning in the 1400s,' 'in 1591,' 'For centuries,' 'Only recently' — march the passage forward in time, which is chronological organization."
+    correctText: "Militarism, alliances, imperialism, nationalism",
+    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
   },
   {
-    id: "g6ela-018",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: PASSAGE_INFO_2 + "\n\nWhich phrase from the passage BEST shows the author's purpose of correcting a common misunderstanding?",
+    id: "ghii-015",
+    topic: "Unit 5: World War I",
+    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
     choices: [
-      "'sealed them inside the walls of homes'",
-      "'Long before Europe built its great universities'",
-      "'astronomy, medicine, mathematics, and law'",
-      "'forgotten poetry, medical guides, and astronomical charts'",
+      "Russia won early victories in WWI that inspired political reform.",
+      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+      "Western powers sent armies to depose Nicholas II.",
+      "The Tsar voluntarily turned over power to the peasantry.",
     ],
-    correctText: "'Long before Europe built its great universities'",
-    explanation: "Many readers assume Europe led the world in higher learning. The phrase 'Long before Europe' deliberately pushes back against that assumption, signaling that the author is correcting a common misunderstanding."
+    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
   },
   {
-    id: "g6ela-019",
-    topic: "Reading Informational: Claim and Evidence",
-    prompt: PASSAGE_INFO_2 + "\n\nA student claims, 'The people of Timbuktu valued knowledge as something worth great personal effort.' Which detail BEST supports this claim?",
+    id: "ghii-016",
+    topic: "Unit 5: World War I",
+    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
     choices: [
-      "Timbuktu was located in West Africa.",
-      "Families hid manuscripts in clay jars, buried them under floors, and sealed them inside walls.",
-      "Scholars studied astronomy, medicine, mathematics, and law.",
-      "Modern researchers are digitizing the surviving manuscripts.",
+      "Germany's loss of its colonies in Africa",
+      "The 'war guilt' clause (Article 231) and crushing reparations payments",
+      "The reduction of the German navy",
+      "The redrawing of borders in the Middle East",
     ],
-    correctText: "Families hid manuscripts in clay jars, buried them under floors, and sealed them inside walls.",
-    explanation: "Hiding books at personal risk to save them from invaders is direct evidence that families treated knowledge as worth great effort. The other choices are facts but do not show the personal sacrifice the claim describes."
+    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
+    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
   },
   {
-    id: "g6ela-020",
-    topic: "Reading Informational: Academic Vocabulary",
-    prompt: PASSAGE_INFO_2 + "\n\nAs used in the passage, the word 'digitizing' MOST NEARLY means —",
+    id: "ghii-017",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
     choices: [
-      "translating texts into a different language",
-      "converting documents into computer files",
-      "tearing pages apart for study",
-      "selling manuscripts to collectors",
+      "All world currencies were physically stored in U.S. banks.",
+      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+      "Only the United States used a banking system in 1929.",
+      "European nations were forced to convert to communism in response.",
     ],
-    correctText: "converting documents into computer files",
-    explanation: "Context clues — 'scholars have begun,' 'revealing forgotten poetry' — show modern researchers making old texts accessible. The Latin-rooted 'digit' (relating to numbers/computers) signals turning the manuscripts into digital files."
-  },
-  // ============================================================
-  // LANGUAGE: CONVENTIONS (5)
-  // ============================================================
-  {
-    id: "g6ela-021",
-    topic: "Language: Pronoun Shifts",
-    prompt: "Which sentence has an INCORRECT shift in pronoun person and should be revised?",
-    choices: [
-      "When students arrive at the museum, they should check their backpacks at the front desk.",
-      "When a student arrives at the museum, you should check your backpack at the front desk.",
-      "When you arrive at the museum, you should check your backpack at the front desk.",
-      "When I arrive at the museum, I always check my backpack at the front desk.",
-    ],
-    correctText: "When a student arrives at the museum, you should check your backpack at the front desk.",
-    explanation: "This sentence starts in third person ('a student') and shifts to second person ('you'). Pronouns must stay in the same person throughout. The other choices stay consistent."
+    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
   },
   {
-    id: "g6ela-022",
-    topic: "Language: Subject-Verb Agreement",
-    prompt: "Which sentence shows CORRECT subject-verb agreement?",
+    id: "ghii-018",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
     choices: [
-      "The box of old photographs are sitting on the shelf.",
-      "The box of old photographs is sitting on the shelf.",
-      "The box of old photographs were sitting on the shelf.",
-      "The box of old photographs have been sitting on the shelf.",
+      "Demilitarize the Soviet Union",
+      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+      "Restore private property to peasants",
+      "Establish democratic elections",
     ],
-    correctText: "The box of old photographs is sitting on the shelf.",
-    explanation: "The subject is 'box' (singular), not 'photographs.' The phrase 'of old photographs' is a prepositional phrase that does not change the subject. Singular subject takes the singular verb 'is.'"
+    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
   },
   {
-    id: "g6ela-023",
-    topic: "Language: Clauses",
-    prompt: "Read this sentence: 'Because the rain stopped suddenly, the soccer game continued on time.' Which statement BEST describes the underlined kind of word group 'Because the rain stopped suddenly'?",
+    id: "ghii-019",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
     choices: [
-      "It is an independent clause because it has a subject and a verb.",
-      "It is a dependent clause because it cannot stand alone as a complete sentence.",
-      "It is a phrase because it has no subject or verb.",
-      "It is a run-on sentence because it joins two complete thoughts.",
+      "Free press and competitive elections",
+      "A one-party state, suppression of dissent, and a personality cult around the leader",
+      "Decentralized economic decision-making",
+      "Voluntary collective decision-making by citizens' councils",
     ],
-    correctText: "It is a dependent clause because it cannot stand alone as a complete sentence.",
-    explanation: "The group has a subject ('rain') and a verb ('stopped'), but the subordinating word 'Because' makes it depend on the rest of the sentence. A dependent clause cannot stand by itself as a complete thought."
+    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
+    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
   },
   {
-    id: "g6ela-024",
-    topic: "Language: Fragments and Run-Ons",
-    prompt: "Which group of words is a SENTENCE FRAGMENT (not a complete sentence)?",
+    id: "ghii-020",
+    topic: "Unit 7: World War II",
+    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
     choices: [
-      "The dog barked loudly at the mail carrier.",
-      "After we finished our homework and put away our books.",
-      "We ate lunch, and then we went to the park.",
-      "Did Lila remember her library card?",
+      "France and Britain went to war with Hitler over Czechoslovakia.",
+      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+      "Hitler returned previously seized territory to Czechoslovakia.",
+      "The League of Nations sanctioned Germany for aggression.",
     ],
-    correctText: "After we finished our homework and put away our books.",
-    explanation: "The word 'After' starts a dependent clause that leaves the reader waiting for what happened next. A complete sentence needs an independent clause. The other choices each express a complete thought."
+    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
   },
   {
-    id: "g6ela-025",
-    topic: "Language: Commas",
-    prompt: "Which sentence uses commas CORRECTLY?",
+    id: "ghii-021",
+    topic: "Unit 7: World War II",
+    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
     choices: [
-      "Although it was raining the band practiced outside.",
-      "Although it was raining, the band practiced outside.",
-      "Although, it was raining the band practiced outside.",
-      "Although it was raining the band, practiced outside.",
+      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
+      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+      "The United States had declared war on Japan one week earlier.",
+      "Japan was honoring a defensive treaty with China.",
     ],
-    correctText: "Although it was raining, the band practiced outside.",
-    explanation: "When a dependent clause comes first ('Although it was raining'), a comma must separate it from the independent clause that follows. The comma goes at the end of the introductory clause, not after 'Although' or inside the main clause."
-  },
-  // ============================================================
-  // LANGUAGE: VOCABULARY (5)
-  // ============================================================
-  {
-    id: "g6ela-026",
-    topic: "Vocabulary: Greek and Latin Roots",
-    prompt: "The Greek root 'graph' means 'to write.' Based on this root, what does AUTOBIOGRAPHY most likely mean?",
-    choices: [
-      "A story about cars and how they are built.",
-      "A self-written account of a person's own life.",
-      "A photograph taken automatically by a machine.",
-      "A list of books written about famous people.",
-    ],
-    correctText: "A self-written account of a person's own life.",
-    explanation: "Combine the roots: 'auto' (self) + 'bio' (life) + 'graph' (write). An autobiography is a self-written life story. Using roots helps unlock unfamiliar words even without a dictionary."
+    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
   },
   {
-    id: "g6ela-027",
-    topic: "Vocabulary: Greek and Latin Roots",
-    prompt: "The Latin root 'ped' means 'foot.' Which word uses this root to describe something related to walking on foot?",
+    id: "ghii-022",
+    topic: "Unit 7: World War II",
+    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
     choices: [
-      "Pediatrician",
-      "Pedestrian",
-      "Pedigree",
-      "Pedal-powered",
+      "100,000 people, primarily Polish soldiers",
+      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+      "Only Jewish residents of Germany",
+      "Twelve million ethnic Germans",
     ],
-    correctText: "Pedestrian",
-    explanation: "A pedestrian is a person traveling on foot. While other choices may LOOK similar, 'pediatrician' comes from a Greek root for 'child,' and 'pedigree' refers to ancestry. 'Pedestrian' most directly applies the foot meaning to walking."
+    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
   },
   {
-    id: "g6ela-028",
-    topic: "Vocabulary: Figurative Language",
-    prompt: "Read this sentence: 'The old engine coughed twice and finally agreed to start.' Which figurative-language technique is the writer using?",
+    id: "ghii-023",
+    topic: "Unit 7: World War II",
+    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
     choices: [
-      "Hyperbole — exaggerating for effect.",
-      "Personification — giving human qualities to a non-human thing.",
-      "Simile — comparing two things using 'like' or 'as.'",
-      "Allusion — referring to a famous person or event.",
+      "A test of the new weapon under combat conditions",
+      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+      "Retaliation for the Holocaust in Europe",
+      "A response to a Japanese atomic weapons program",
     ],
-    correctText: "Personification — giving human qualities to a non-human thing.",
-    explanation: "An engine cannot truly 'cough' or 'agree.' Giving the engine these human actions is personification, which makes the engine feel stubborn and alive."
+    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
   },
   {
-    id: "g6ela-029",
-    topic: "Vocabulary: Multiple-Meaning Words",
-    prompt: "Read this sentence: 'The judge will RULE on the case tomorrow morning.' Which meaning of 'rule' is used in the sentence?",
+    id: "ghii-024",
+    topic: "Unit 8: Cold War",
+    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
     choices: [
-      "A printed guideline that explains how to play a game.",
-      "A straight tool used to measure inches and centimeters.",
-      "To make an official decision or judgment.",
-      "To govern a country as a king or queen does.",
+      "Returning to isolationism",
+      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+      "Direct military conquest of the Soviet Union",
+      "Sharing nuclear technology with all U.S. allies",
     ],
-    correctText: "To make an official decision or judgment.",
-    explanation: "Context clues — 'judge,' 'case,' 'tomorrow morning' — point to a courtroom. In that setting, 'rule' is a verb meaning to issue an official decision."
+    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
   },
   {
-    id: "g6ela-030",
-    topic: "Vocabulary: Denotation and Connotation",
-    prompt: "Which word has the MOST NEGATIVE connotation when describing a person's behavior, even though all four share a similar denotation?",
+    id: "ghii-025",
+    topic: "Unit 8: Cold War",
+    prompt: "Which Cold War event came closest to triggering nuclear war?",
     choices: [
-      "Curious",
-      "Inquisitive",
-      "Interested",
-      "Nosy",
+      "The 1948 Berlin Blockade",
+      "The 1962 Cuban Missile Crisis",
+      "The 1953 Korean armistice",
+      "The 1957 Sputnik launch",
     ],
-    correctText: "Nosy",
-    explanation: "All four words can describe someone who asks lots of questions (denotation). But 'nosy' carries a negative feeling — it suggests prying into things that are not the person's business. The other three feel neutral or positive."
+    correctText: "The 1962 Cuban Missile Crisis",
+    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
+  },
+  {
+    id: "ghii-026",
+    topic: "Unit 8: Cold War",
+    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
+    choices: [
+      "Promote free trade across Europe",
+      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+      "Coordinate scientific space programs",
+      "Govern post-war reconstruction in Asia",
+    ],
+    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
+  },
+  {
+    id: "ghii-027",
+    topic: "Unit 8: Cold War",
+    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
+    choices: [
+      "The U.S. sought to annex Vietnam as a territory.",
+      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+      "The Vietnamese government formally requested annexation.",
+      "Vietnam had attacked the United States directly in 1960.",
+    ],
+    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
+  },
+  {
+    id: "ghii-028",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
+    choices: [
+      "Through armed military rebellion against British troops",
+      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+      "By accepting all British demands without protest",
+      "By forming a violent partnership with Japan during WWII",
+    ],
+    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
+  },
+  {
+    id: "ghii-029",
+    topic: "Unit 9: Decolonization",
+    prompt: "What was the immediate result of the 1947 Partition of British India?",
+    choices: [
+      "India and Pakistan formed a single unified democracy.",
+      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+      "India remained a British colony until 1960.",
+      "The partition created peace across South Asia.",
+    ],
+    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
+  },
+  {
+    id: "ghii-030",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
+    choices: [
+      "He led a foreign army that invaded South Africa.",
+      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+      "He restored a system of racial segregation under a new name.",
+      "He oversaw the colonization of South Africa by a European power.",
+    ],
+    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
+  },
+  {
+    id: "ghii-031",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "What is the European Union (EU)?",
+    choices: [
+      "A military alliance to replace NATO",
+      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+      "An international religious organization",
+      "A short-lived 19th-century trade league",
+    ],
+    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
+  },
+  {
+    id: "ghii-032",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
+    choices: [
+      "It granted multi-party democracy.",
+      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+      "It abolished the Communist Party.",
+      "It allowed the protests to continue indefinitely.",
+    ],
+    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
+  },
+  {
+    id: "ghii-033",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
+    choices: [
+      "French colonial troops",
+      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+      "United Nations peacekeepers",
+      "American military forces",
+    ],
+    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
+  },
+  {
+    id: "ghii-034",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "Which statement best describes the scientific consensus on climate change?",
+    choices: [
+      "Earth's climate has not changed in recorded history.",
+      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+      "Climate change affects only the polar regions.",
+      "Climate change is caused exclusively by natural solar cycles.",
+    ],
+    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
+  },
+  {
+    id: "ghii-035",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
+    choices: [
+      "Tokugawa daimyo system and South African apartheid",
+      "The printing press and the steam engine",
+      "Monsoon winds and the Nile River",
+      "Pasta and pizza",
+    ],
+    correctText: "Tokugawa daimyo system and South African apartheid",
+    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
+  },
+  {
+    id: "ghii-036",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
+    choices: [
+      "Gutenberg's printing press and the Industrial Revolution's steam engine",
+      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
+      "Confucian filial piety and feudal serfdom",
+      "The Treaty of Westphalia and the Truman Doctrine",
+    ],
+    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
+    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
+  },
+  {
+    id: "ghii-037",
+    topic: "Enduring Issues",
+    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
+    choices: [
+      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+      "The Code of Hammurabi and the Treaty of Versailles",
+      "The Edict of Nantes and the Smoot-Hawley Tariff",
+      "The Edict of Worms and the Cuban Missile Crisis briefings",
+    ],
+    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
+  },
+  {
+    id: "ghii-038",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
+    choices: [
+      "Ancient African kingdoms and ethnic boundaries",
+      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+      "Geographic features like rivers and mountains",
+      "Borders established by the Ottoman Empire",
+    ],
+    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
+  },
+  {
+    id: "ghii-039",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
+    choices: [
+      "Confucian philosophy",
+      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+      "Medieval feudal contracts",
+      "Mercantilist economic theory",
+    ],
+    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
+  },
+  {
+    id: "ghii-040",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "Which sequence of 20th-century events is in correct chronological order?",
+    choices: [
+      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
+      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
+      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
+    ],
+    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "grade-6-ela-practice-exam-state-v1";
+const STORAGE_KEY = "grade-8-ela-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2063,13 +2168,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Grade 6 ELA Practice · 30 Items</div>
+      <div class="exam-topic">Grade 8 ELA Practice · 35 Items</div>
       <p class="exam-prompt">Ready to take the practice test?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 30 multiple-choice questions modeled on the NYS Grade 6 ELA state test: Reading Literature,
-        Reading Informational, Language Conventions, and Vocabulary. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review.
+        You'll see 35 multiple-choice questions modeled on the NYS Grade 8 ELA state test — reading literature
+        and informational passages, language conventions, and academic vocabulary. Each question gives instant
+        feedback with a short explanation. At the end, you'll see your overall score plus a per-topic mastery
+        breakdown so you know exactly where to focus your review before test day.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2206,13 +2311,13 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Test Complete · NYS Grade 6 ELA</div>
+      <div class="results-eyebrow">Practice Test Complete · NYS Grade 8 ELA</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a solid Grade 6 ELA performance. The breakdown below shows where to push higher."
+          ? "Strong work — you're tracking toward a confident performance on test day. The breakdown below shows where to push higher."
           : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which skills to drill before test day."}
       </p>
 
@@ -2292,7 +2397,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/grade-8-ela-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

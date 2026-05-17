@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>NYS Global History II Practice Exam — Mr. Mac's Review Arcade</title>
+<title>NYS Grade 7 Math Practice Test — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
-      <h1>NYS Global History II Practice Exam</h1>
-      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Grade 7 Math State Test</span></div>
+      <h1>Grade 7 Math Practice Test</h1>
+      <p class="subtitle">30-question practice test modeled on NYS Grade 7 Math state test format covering ratios, integers, expressions, geometry, statistics.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,15 +1524,405 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
-    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 30 state-test-modeled questions across all Grade 7 Math domains</span>
+    <span class="pill" id="topicStatus">Ratios · Number System · Expressions/Equations · Geometry · Statistics + Probability</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
   {
-    id: "ghii-001",
+    id: "g7math-001",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "Maya runs 3/4 of a mile in 1/6 of an hour. What is her unit rate in miles per hour?",
+    choices: [
+      "1/8 mile per hour",
+      "4 1/2 miles per hour",
+      "1 1/8 miles per hour",
+      "9 miles per hour",
+    ],
+    correctText: "4 1/2 miles per hour",
+    explanation: "Unit rate = (3/4) divided by (1/6) = (3/4) * (6/1) = 18/4 = 4 1/2 miles per hour. Divide miles by hours to get miles per hour."
+  },
+  {
+    id: "g7math-002",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "Which table shows a proportional relationship between x and y?",
+    choices: [
+      "x: 1, 2, 3, 4  y: 4, 7, 10, 13",
+      "x: 1, 2, 3, 4  y: 5, 10, 15, 20",
+      "x: 1, 2, 3, 4  y: 2, 5, 10, 17",
+      "x: 1, 2, 3, 4  y: 3, 5, 8, 11",
+    ],
+    correctText: "x: 1, 2, 3, 4  y: 5, 10, 15, 20",
+    explanation: "A proportional relationship has a constant ratio y/x. Here 5/1 = 10/2 = 15/3 = 20/4 = 5, so the constant of proportionality is 5. The other tables do not have a constant ratio."
+  },
+  {
+    id: "g7math-003",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "The graph of a proportional relationship passes through the origin and the point (4, 10). What is the constant of proportionality?",
+    choices: [
+      "0.4",
+      "2",
+      "2.5",
+      "6",
+    ],
+    correctText: "2.5",
+    explanation: "The constant of proportionality is y/x = 10/4 = 2.5. A proportional graph is always a straight line through the origin with slope equal to the unit rate."
+  },
+  {
+    id: "g7math-004",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "A jacket originally priced at $80 is marked down 25%. What is the sale price before tax?",
+    choices: [
+      "$20",
+      "$55",
+      "$60",
+      "$75",
+    ],
+    correctText: "$60",
+    explanation: "25% of $80 = 0.25 * 80 = $20 discount. Sale price = $80 - $20 = $60. Alternative: pay 75% of the original, so 0.75 * 80 = $60."
+  },
+  {
+    id: "g7math-005",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "A restaurant bill is $40 before tip. If a 20% gratuity is added, what is the total amount paid?",
+    choices: [
+      "$42",
+      "$48",
+      "$50",
+      "$60",
+    ],
+    correctText: "$48",
+    explanation: "Tip = 20% of 40 = 0.20 * 40 = $8. Total = $40 + $8 = $48. Or multiply by 1.20 in one step: 40 * 1.20 = $48."
+  },
+  {
+    id: "g7math-006",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "Devon deposits $500 in an account that pays 4% simple interest per year. How much simple interest will he earn after 3 years?",
+    choices: [
+      "$12",
+      "$20",
+      "$60",
+      "$120",
+    ],
+    correctText: "$60",
+    explanation: "Simple interest formula: I = P * r * t = 500 * 0.04 * 3 = $60. Simple interest is calculated on the original principal only, not on accumulated interest."
+  },
+  {
+    id: "g7math-007",
+    topic: "Ratios + Proportional Relationships",
+    prompt: "A pair of sneakers cost $45 last year and costs $54 this year. What is the percent increase in price?",
+    choices: [
+      "9%",
+      "16.7%",
+      "20%",
+      "83.3%",
+    ],
+    correctText: "20%",
+    explanation: "Percent change = (new - original) / original * 100 = (54 - 45) / 45 * 100 = 9/45 * 100 = 20% increase."
+  },
+  {
+    id: "g7math-008",
+    topic: "The Number System",
+    prompt: "What is the value of -8 + 5 + (-3)?",
+    choices: [
+      "-16",
+      "-6",
+      "0",
+      "10",
+    ],
+    correctText: "-6",
+    explanation: "Add left to right: -8 + 5 = -3, then -3 + (-3) = -6. Adding a negative is the same as subtracting its absolute value."
+  },
+  {
+    id: "g7math-009",
+    topic: "The Number System",
+    prompt: "What is the value of 4 - (-7)?",
+    choices: [
+      "-11",
+      "-3",
+      "3",
+      "11",
+    ],
+    correctText: "11",
+    explanation: "Subtracting a negative is the same as adding the positive: 4 - (-7) = 4 + 7 = 11. The two negative signs cancel out."
+  },
+  {
+    id: "g7math-010",
+    topic: "The Number System",
+    prompt: "What is the product of (-6) * (-4) * (-2)?",
+    choices: [
+      "-48",
+      "-12",
+      "12",
+      "48",
+    ],
+    correctText: "-48",
+    explanation: "Multiply step by step: (-6) * (-4) = 24 (negative * negative = positive). Then 24 * (-2) = -48. An odd number of negative factors gives a negative product."
+  },
+  {
+    id: "g7math-011",
+    topic: "The Number System",
+    prompt: "What is the quotient of (3/4) divided by (1/2)?",
+    choices: [
+      "3/8",
+      "1 1/2",
+      "2",
+      "8/3",
+    ],
+    correctText: "1 1/2",
+    explanation: "To divide fractions, multiply by the reciprocal: (3/4) divided by (1/2) = (3/4) * (2/1) = 6/4 = 3/2 = 1 1/2."
+  },
+  {
+    id: "g7math-012",
+    topic: "The Number System",
+    prompt: "Use the distributive property to rewrite -3(4 + (-2)) as an equivalent expression.",
+    choices: [
+      "-12 + (-6)",
+      "-12 + 6",
+      "12 + (-6)",
+      "-3 + 4 + (-2)",
+    ],
+    correctText: "-12 + 6",
+    explanation: "Distribute -3 to each term inside the parentheses: -3 * 4 = -12 and -3 * (-2) = +6. So -3(4 + (-2)) = -12 + 6 = -6."
+  },
+  {
+    id: "g7math-013",
+    topic: "The Number System",
+    prompt: "Which fraction is equivalent to a repeating decimal (not a terminating decimal)?",
+    choices: [
+      "1/4",
+      "3/8",
+      "2/3",
+      "7/10",
+    ],
+    correctText: "2/3",
+    explanation: "A fraction in lowest terms terminates only if its denominator has prime factors of 2 and 5 only. 2/3 = 0.666... repeats because 3 is not a factor of any power of 10. The other three terminate (0.25, 0.375, 0.7)."
+  },
+  {
+    id: "g7math-014",
+    topic: "The Number System",
+    prompt: "Evaluate: -2.5 + 1.75 - (-0.5)",
+    choices: [
+      "-4.75",
+      "-1.25",
+      "-0.25",
+      "1.25",
+    ],
+    correctText: "-0.25",
+    explanation: "Work left to right: -2.5 + 1.75 = -0.75. Then -0.75 - (-0.5) = -0.75 + 0.5 = -0.25."
+  },
+  {
+    id: "g7math-015",
+    topic: "Expressions + Equations",
+    prompt: "Which expression is equivalent to 4(2x - 3) + 5x?",
+    choices: [
+      "7x - 3",
+      "8x - 12 + 5x",
+      "13x - 12",
+      "13x - 3",
+    ],
+    correctText: "13x - 12",
+    explanation: "Distribute first: 4(2x - 3) = 8x - 12. Then combine like terms: 8x - 12 + 5x = 13x - 12. The choice 8x - 12 + 5x is not fully simplified."
+  },
+  {
+    id: "g7math-016",
+    topic: "Expressions + Equations",
+    prompt: "Factor the expression 6x + 18 by pulling out the greatest common factor.",
+    choices: [
+      "2(3x + 9)",
+      "3(2x + 6)",
+      "6(x + 3)",
+      "6(x + 18)",
+    ],
+    correctText: "6(x + 3)",
+    explanation: "The GCF of 6x and 18 is 6. Pull it out: 6x + 18 = 6(x + 3). The other factorings (2 or 3 in front) are correct algebraically but do not use the GREATEST common factor."
+  },
+  {
+    id: "g7math-017",
+    topic: "Expressions + Equations",
+    prompt: "Solve for x: 3x + 5 = 11",
+    choices: [
+      "x = 2",
+      "x = 16/3",
+      "x = 16",
+      "x = 48",
+    ],
+    correctText: "x = 2",
+    explanation: "Subtract 5 from both sides: 3x = 6. Divide both sides by 3: x = 2. Check: 3(2) + 5 = 6 + 5 = 11."
+  },
+  {
+    id: "g7math-018",
+    topic: "Expressions + Equations",
+    prompt: "Solve for x: (1/4)x - 7 = 3",
+    choices: [
+      "x = -16",
+      "x = -1",
+      "x = 16",
+      "x = 40",
+    ],
+    correctText: "x = 40",
+    explanation: "Add 7 to both sides: (1/4)x = 10. Multiply both sides by 4: x = 40. Check: (1/4)(40) - 7 = 10 - 7 = 3."
+  },
+  {
+    id: "g7math-019",
+    topic: "Expressions + Equations",
+    prompt: "Solve the inequality: -2x > 10",
+    choices: [
+      "x > -5",
+      "x < -5",
+      "x > 5",
+      "x < 5",
+    ],
+    correctText: "x < -5",
+    explanation: "Divide both sides by -2. Because you are dividing by a negative number, the inequality sign FLIPS: x < -5. Check x = -6: -2(-6) = 12, and 12 > 10. True."
+  },
+  {
+    id: "g7math-020",
+    topic: "Expressions + Equations",
+    prompt: "A taxi charges a $4 flat fee plus $2 per mile. How many miles can you ride for exactly $20?",
+    choices: [
+      "6 miles",
+      "8 miles",
+      "10 miles",
+      "12 miles",
+    ],
+    correctText: "8 miles",
+    explanation: "Let m = miles. Equation: 2m + 4 = 20. Subtract 4: 2m = 16. Divide by 2: m = 8 miles. Check: 2(8) + 4 = 16 + 4 = $20."
+  },
+  {
+    id: "g7math-021",
+    topic: "Expressions + Equations",
+    prompt: "Lila has saved $35. She wants to buy concert tickets that cost $15 each. What is the greatest whole number of tickets she can afford?",
+    choices: [
+      "1 ticket",
+      "2 tickets",
+      "3 tickets",
+      "4 tickets",
+    ],
+    correctText: "2 tickets",
+    explanation: "Inequality: 15t <= 35. Divide both sides by 15: t <= 2.33... She can afford 2 whole tickets ($30). A third ticket would cost $45, which exceeds $35."
+  },
+  {
+    id: "g7math-022",
+    topic: "Geometry",
+    prompt: "On a scale drawing of a backyard, 1 inch represents 4 feet. The drawing shows a patio that is 3.5 inches long. What is the actual length of the patio?",
+    choices: [
+      "7 feet",
+      "10.5 feet",
+      "14 feet",
+      "16 feet",
+    ],
+    correctText: "14 feet",
+    explanation: "Set up a proportion: 1 inch / 4 feet = 3.5 inches / x feet. Cross-multiply: x = 3.5 * 4 = 14 feet."
+  },
+  {
+    id: "g7math-023",
+    topic: "Geometry",
+    prompt: "Two angles are supplementary. If one angle measures 47 degrees, what is the measure of the other angle?",
+    choices: [
+      "43 degrees",
+      "53 degrees",
+      "133 degrees",
+      "313 degrees",
+    ],
+    correctText: "133 degrees",
+    explanation: "Supplementary angles add to 180 degrees. 180 - 47 = 133 degrees. (Complementary angles add to 90; vertical angles are equal.)"
+  },
+  {
+    id: "g7math-024",
+    topic: "Geometry",
+    prompt: "What is the area of a circle with a radius of 5 cm? Use pi = 3.14.",
+    choices: [
+      "15.7 sq cm",
+      "31.4 sq cm",
+      "78.5 sq cm",
+      "314 sq cm",
+    ],
+    correctText: "78.5 sq cm",
+    explanation: "Area of a circle = pi * r^2 = 3.14 * 5^2 = 3.14 * 25 = 78.5 square centimeters. (Circumference would be 2 * pi * r = 31.4 cm.)"
+  },
+  {
+    id: "g7math-025",
+    topic: "Geometry",
+    prompt: "A rectangular prism has length 6 cm, width 4 cm, and height 5 cm. What is its volume?",
+    choices: [
+      "15 cubic cm",
+      "60 cubic cm",
+      "120 cubic cm",
+      "148 cubic cm",
+    ],
+    correctText: "120 cubic cm",
+    explanation: "Volume of a right rectangular prism = length * width * height = 6 * 4 * 5 = 120 cubic centimeters. (148 is the surface area: 2(lw + lh + wh).)"
+  },
+  {
+    id: "g7math-026",
+    topic: "Geometry",
+    prompt: "A net is made of 6 identical squares, each with side length 3 inches. The net folds into a cube. What is the total surface area of the cube?",
+    choices: [
+      "9 sq in",
+      "27 sq in",
+      "54 sq in",
+      "108 sq in",
+    ],
+    correctText: "54 sq in",
+    explanation: "Each square face has area 3 * 3 = 9 sq in. A cube has 6 faces, so total surface area = 6 * 9 = 54 square inches. (27 cubic inches would be the volume, 3^3.)"
+  },
+  {
+    id: "g7math-027",
+    topic: "Statistics + Probability",
+    prompt: "A principal wants to estimate how students at her school feel about a new lunch menu. Which sampling method is MOST likely to give a representative sample?",
+    choices: [
+      "Survey only the students who eat in the cafeteria every day",
+      "Survey only the members of the student government",
+      "Randomly select 50 students from the full school roster",
+      "Survey the first 50 students who arrive at school one morning",
+    ],
+    correctText: "Randomly select 50 students from the full school roster",
+    explanation: "A random sample drawn from the full population gives every student an equal chance of being chosen, which makes the sample representative. The other methods are biased because they over-select students with particular routines or roles."
+  },
+  {
+    id: "g7math-028",
+    topic: "Statistics + Probability",
+    prompt: "Class A's test scores have a mean of 80 and a mean absolute deviation (MAD) of 4. Class B's test scores have a mean of 80 and a MAD of 12. What does this comparison tell you?",
+    choices: [
+      "Class B scored higher on average than Class A",
+      "Both classes had identical sets of scores",
+      "Class A's scores are more spread out than Class B's",
+      "Class B's scores are more spread out than Class A's",
+    ],
+    correctText: "Class B's scores are more spread out than Class A's",
+    explanation: "Mean absolute deviation measures variability. Both classes have the same mean (center), but Class B has a MAD three times as large, meaning its scores vary much more from the mean. Class A's scores cluster tightly around 80."
+  },
+  {
+    id: "g7math-029",
+    topic: "Statistics + Probability",
+    prompt: "A bag holds 3 red marbles, 4 blue marbles, and 5 green marbles. A marble is drawn at random. What is the theoretical probability of drawing a blue marble?",
+    choices: [
+      "1/4",
+      "1/3",
+      "4/12",
+      "4/8",
+    ],
+    correctText: "1/3",
+    explanation: "Total marbles = 3 + 4 + 5 = 12. P(blue) = favorable / total = 4/12, which simplifies to 1/3. (4/12 is numerically correct but is not in lowest terms; conventional answer is 1/3.)"
+  },
+  {
+    id: "g7math-030",
+    topic: "Statistics + Probability",
+    prompt: "A fair coin is flipped and a fair six-sided number cube is rolled. What is the probability of getting heads AND rolling a 4?",
+    choices: [
+      "1/2",
+      "1/6",
+      "1/8",
+      "1/12",
+    ],
+    correctText: "1/12",
+    explanation: "For independent compound events, multiply the probabilities. P(heads) = 1/2 and P(rolling a 4) = 1/6, so P(heads AND 4) = 1/2 * 1/6 = 1/12. The full sample space has 2 * 6 = 12 equally likely outcomes, and only one (H, 4) matches."
+  },
+];
+  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
     topic: "Unit 1: World in 1750",
     prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
@@ -2054,7 +2444,7 @@ const QUESTIONS = [
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+const STORAGE_KEY = "grade-7-math-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2558,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
-      <p class="exam-prompt">Ready to take the practice exam?</p>
+      <div class="exam-topic">State Test Practice · 30 Items</div>
+      <p class="exam-prompt">Ready to take the practice test?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 30 multiple-choice questions drawn from all five Grade 7 Math domains: Ratios + Proportional
+        Relationships, The Number System, Expressions + Equations, Geometry, and Statistics + Probability. Each
+        question gives instant feedback with a short explanation. At the end, you'll see your overall score plus
+        a per-topic mastery breakdown so you know exactly where to focus your review for the state test.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,14 +2701,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Test Complete · NYS Grade 7 Math</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a proficient state-test performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which domains to drill before test day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2397,7 +2787,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/grade-7-math-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 
