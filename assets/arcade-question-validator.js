@@ -1,21 +1,26 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   Mr. Mac's Arcade — Question Validator (defense-in-depth)
-   Single source of truth for "is this question safe to render?".
-   Sits behind every game's pickQuestion path so a stale cache, malformed
-   bank row, or pedagogy-template leak can never silently reach the player.
+   Mr. Mac's Arcade — Question Validator + Session Dedup (defense-in-depth)
+   Single source of truth for "is this question safe to render?" AND "have
+   we just shown this question?". Sits behind every game's pickQuestion path
+   so (a) a stale cache / malformed bank row / template leak can never reach
+   the player, and (b) the same prompt isn't shown twice in quick succession.
 
    Public API: window.MrMacsValidQuestion(q)         → bool
                window.MrMacsPickValidQuestion(fn, n) → q | null
+                 — auto-rejects template-leaked items AND recently-shown
+                   prompts. Tracks last 80 prompts per session.
+               window.MrMacsRecentTracker.markSeen(q)
+               window.MrMacsRecentTracker.wasSeen(q) → bool
+               window.MrMacsRecentTracker.clear()
+               window.MrMacsRecentTracker.size() → number
 
-   Mirrors the runtime self-clean filter in assets/shared-question-bank.js
-   but extended to include every template needle we've seen leak through.
    Idempotent: re-loading the script is a no-op (early return if loaded).
    MRMAC_QUESTION_VALIDATOR_V1
    ═══════════════════════════════════════════════════════════════════════ */
 (function (w) {
   "use strict";
   if (!w) return;
-  if (w.MrMacsValidQuestion && w.MrMacsPickValidQuestion) return; // idempotent
+  if (w.MrMacsValidQuestion && w.MrMacsPickValidQuestion && w.MrMacsRecentTracker) return;
 
   // Pedagogy-template fingerprints — any blob containing one of these is
   // treated as a leaked builder template that escaped the bank build.
@@ -52,20 +57,78 @@
     return true;
   }
 
+  // Recently-seen tracker. Keeps a FIFO of the last RECENT_LIMIT prompts
+  // shown in this session so picks rotate through the deep pool instead of
+  // repeating after 5–10 questions. Resets only on page reload.
+  var RECENT_LIMIT = 80;
+  var recentQueue = [];
+  var recentSet = Object.create(null);
+
+  function keyOf(q) {
+    if (!q || typeof q !== "object") return "";
+    if (typeof q.prompt === "string" && q.prompt) return q.prompt;
+    if (typeof q.id === "string" && q.id) return q.id;
+    if (typeof q.question === "string" && q.question) return q.question;
+    if (typeof q.stem === "string" && q.stem) return q.stem;
+    return "";
+  }
+
+  function wasSeen(q) {
+    var k = keyOf(q);
+    return !!(k && recentSet[k]);
+  }
+
+  function markSeen(q) {
+    var k = keyOf(q);
+    if (!k) return;
+    if (recentSet[k]) return;
+    recentSet[k] = true;
+    recentQueue.push(k);
+    while (recentQueue.length > RECENT_LIMIT) {
+      var drop = recentQueue.shift();
+      delete recentSet[drop];
+    }
+  }
+
+  function clearRecent() {
+    recentQueue.length = 0;
+    recentSet = Object.create(null);
+  }
+
+  function recentSize() { return recentQueue.length; }
+
   function pickValidQuestion(pickFn, maxTries) {
     if (typeof pickFn !== "function") return null;
-    maxTries = (typeof maxTries === "number" && maxTries > 0) ? maxTries : 10;
+    maxTries = (typeof maxTries === "number" && maxTries > 0) ? maxTries : 25;
+    // Phase 1: prefer fresh (not recently seen) + valid
     for (var i = 0; i < maxTries; i++) {
       try {
         var q = pickFn();
-        if (isValidQuestion(q)) return q;
-      } catch (e) {
-        // swallow — try again with a different random pick
-      }
+        if (isValidQuestion(q) && !wasSeen(q)) {
+          markSeen(q);
+          return q;
+        }
+      } catch (e) {}
+    }
+    // Phase 2: pool may be exhausted — fall back to any valid Q (allow repeat)
+    for (var k = 0; k < 5; k++) {
+      try {
+        var q2 = pickFn();
+        if (isValidQuestion(q2)) {
+          markSeen(q2);
+          return q2;
+        }
+      } catch (e) {}
     }
     return null;
   }
 
   w.MrMacsValidQuestion = isValidQuestion;
   w.MrMacsPickValidQuestion = pickValidQuestion;
+  w.MrMacsRecentTracker = {
+    markSeen: markSeen,
+    wasSeen: wasSeen,
+    clear: clearRecent,
+    size: recentSize
+  };
 })(typeof window !== "undefined" ? window : (typeof globalThis !== "undefined" ? globalThis : this));
