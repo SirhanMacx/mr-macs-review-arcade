@@ -73,6 +73,30 @@ function main() {
       if (!q.prompt || !q.correctText || !Array.isArray(q.choices)) { bad++; continue; }
       if (q.choices.length !== 4) { bad++; continue; }
       if (!q.choices.includes(q.correctText)) { bad++; continue; }
+      // Reject broken-distractor patterns the user has caught in screenshots:
+      // empty option, choice < 4 chars (looks like a typo), more than one pure
+      // 1-2 digit choice (the "Dispersion / Caravan / / 28" pattern), or any
+      // remaining Codex template phrase that slipped through fragment cleanup.
+      const choiceStrings = q.choices.map(c => (typeof c === "string" ? c.trim() : ""));
+      if (choiceStrings.some(c => !c)) { bad++; continue; }
+      if (choiceStrings.some(c => c.length < 3)) { bad++; continue; }
+      const numericChoices = choiceStrings.filter(c => /^-?\d{1,2}$/.test(c)).length;
+      if (numericChoices > 1 && q.correctText && !/^-?\d{1,2}$/.test(String(q.correctText).trim())) { bad++; continue; }
+      const templatePhrases = [
+        "Specific evidence that proves a claim",
+        "ignoring the source or data in the prompt",
+        "describing a topic without explaining why it matters",
+        "choosing an answer because it uses familiar words",
+        "A fact from a different course",
+        "In an AP CED-aligned exam task",
+        "In a NYS Framework-aligned exam task",
+        "which concept is the best anchor for a NYS standards-aligned",
+        "best avoids a common mistake about",
+      ];
+      const promptText = String(q.prompt || "");
+      const correctTextStr = String(q.correctText || "");
+      if (templatePhrases.some(p => promptText.includes(p) || correctTextStr.includes(p) ||
+                                    choiceStrings.some(c => c.includes(p)))) { bad++; continue; }
       // Dedup within course by prompt
       const key = q.prompt.trim().toLowerCase();
       if (seenPromptsPerCourse[course].has(key)) { dups++; continue; }
@@ -136,6 +160,53 @@ function main() {
   "use strict";
   w.DIAG_BANK_COURSE_LABELS = ${JSON.stringify(labels, null, 2)};
   w.DIAG_BANK_BY_COURSE = ${JSON.stringify(orderedBank, null, 2)};
+  // Runtime self-clean: drop any question that doesn't pass the same
+  // structural checks the build applied. Protects against stale service-worker
+  // caches serving an older shared-question-bank.js — even on a stale cache
+  // the bad questions are filtered before any arcade game sees them.
+  (function selfClean() {
+    var bank = w.DIAG_BANK_BY_COURSE || {};
+    var TEMPLATE_NEEDLES = [
+      "Specific evidence that proves a claim",
+      "ignoring the source or data in the prompt",
+      "describing a topic without explaining why it matters",
+      "choosing an answer because it uses familiar words",
+      "In an AP CED-aligned exam task",
+      "In a NYS Framework-aligned exam task",
+      "which concept is the best anchor for a NYS standards-aligned",
+      "best avoids a common mistake about"
+    ];
+    function isValid(q) {
+      if (!q || typeof q !== "object") return false;
+      if (!q.prompt || !q.correctText || !Array.isArray(q.choices)) return false;
+      if (q.choices.length !== 4) return false;
+      if (q.choices.indexOf(q.correctText) === -1) return false;
+      var strs = q.choices.map(function (c) { return typeof c === "string" ? c.trim() : ""; });
+      if (strs.some(function (s) { return !s || s.length < 3; })) return false;
+      var numericChoices = strs.filter(function (s) { return /^-?\\d{1,2}$/.test(s); }).length;
+      var correctIsNumeric = /^-?\\d{1,2}$/.test(String(q.correctText).trim());
+      if (numericChoices > 1 && !correctIsNumeric) return false;
+      var blob = (q.prompt || "") + " " + (q.correctText || "") + " " + strs.join(" ");
+      for (var i = 0; i < TEMPLATE_NEEDLES.length; i++) {
+        if (blob.indexOf(TEMPLATE_NEEDLES[i]) !== -1) return false;
+      }
+      return true;
+    }
+    var droppedCount = 0;
+    for (var course in bank) {
+      if (!Object.prototype.hasOwnProperty.call(bank, course)) continue;
+      var rows = bank[course] || [];
+      var clean = [];
+      for (var i = 0; i < rows.length; i++) {
+        if (isValid(rows[i])) clean.push(rows[i]);
+        else droppedCount += 1;
+      }
+      bank[course] = clean;
+    }
+    if (droppedCount > 0 && w.console && w.console.warn) {
+      w.console.warn("[shared-bank] runtime self-clean dropped " + droppedCount + " malformed questions (stale cache likely)");
+    }
+  })();
   // Convenience: flat pool of ALL questions, used by games that want
   // a deep universal pool without course filtering.
   w.DIAG_BANK_ALL = [];

@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v55-2026-05-16-headers-bank-purge-codex-templates";
+const CACHE_NAME = "mr-macs-arcade-v56-2026-05-16-bank-validator-runtime-self-clean";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
