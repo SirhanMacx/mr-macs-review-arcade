@@ -1959,6 +1959,8 @@
       cursor: null,
       userGrid: emptyUserGrid(),
       revealedCells: emptyUserGrid(),
+      cellMistakeCounted: emptyUserGrid(),
+      hintedCells: emptyUserGrid(),
       solvedClues: {},
       revealedClueKeys: {},
       hintedClueKeys: {},
@@ -1995,6 +1997,8 @@
     state.puzzleIndex = index + 1;
     state.userGrid = emptyUserGrid();
     state.revealedCells = emptyUserGrid();
+    state.cellMistakeCounted = emptyUserGrid();
+    state.hintedCells = emptyUserGrid();
     state.solvedClues = {};
     state.revealedClueKeys = {};
     state.hintedClueKeys = {};
