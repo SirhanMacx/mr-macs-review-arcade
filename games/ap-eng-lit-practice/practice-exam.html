@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
-      <h1>NYS Global History II Practice Exam</h1>
-      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
+      <div class="kicker"><span>Practice Exam</span><span>AP English Literature and Composition</span></div>
+      <h1>AP English Literature Practice Exam</h1>
+      <p class="subtitle">45-question prose + poetry analysis practice test modeled on Section I MCQ format.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1516,7 +1516,7 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
   <section class="exam-shell" id="examShell">
     <div class="exam-progress" id="examProgress" hidden>
       <div>
-        <div class="progress-label" id="progressLabel">Question 1 of 40</div>
+        <div class="progress-label" id="progressLabel">Question 1 of 45</div>
         <div class="progress-bar" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
       </div>
       <div class="score-pill" id="scorePill">Score: 0 / 0 <span class="pct">0%</span></div>
@@ -1524,536 +1524,677 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
-    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
-    <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 45 AP-modeled questions across 5 passages</span>
+    <span class="pill" id="topicStatus">Prose + poetry analysis · Public-domain and original passages only</span>
+    <span class="pill">Choices randomize each attempt · Per-passage mastery shown at the end</span>
   </section>
 </main>
 <script>
+// ---------------------------------------------------------------------------
+// PASSAGE TEXTS
+// All passages are either (a) public-domain works published before 1929 or
+// (b) original prose/verse composed for this practice exam. No copyrighted
+// AP exam items are reproduced or paraphrased.
+// ---------------------------------------------------------------------------
+const PASSAGE_1 = "Pride and Prejudice, Jane Austen (1813), opening of Chapter 1:\n\n" +
+  "\"It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. " +
+  "However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well " +
+  "fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters. " +
+  "'My dear Mr. Bennet,' said his lady to him one day, 'have you heard that Netherfield Park is let at last?' " +
+  "Mr. Bennet replied that he had not. 'But it is,' returned she; 'for Mrs. Long has just been here, and she told me all about it.' " +
+  "Mr. Bennet made no answer. 'Do not you want to know who has taken it?' cried his wife impatiently. " +
+  "'You want to tell me, and I have no objection to hearing it.' This was invitation enough.\"";
+
+const PASSAGE_2 = "\"The Flea\" by John Donne (published 1633), stanza 1:\n\n" +
+  "Mark but this flea, and mark in this,\n" +
+  "How little that which thou deniest me is;\n" +
+  "It sucked me first, and now sucks thee,\n" +
+  "And in this flea our two bloods mingled be;\n" +
+  "Thou know'st that this cannot be said\n" +
+  "A sin, nor shame, nor loss of maidenhead,\n" +
+  "Yet this enjoys before it woo,\n" +
+  "And pampered swells with one blood made of two,\n" +
+  "And this, alas, is more than we would do.";
+
+const PASSAGE_3 = "Adventures of Huckleberry Finn, Mark Twain (1884), opening paragraph:\n\n" +
+  "\"You don't know about me without you have read a book by the name of The Adventures of Tom Sawyer; but that ain't no matter. " +
+  "That book was made by Mr. Mark Twain, and he told the truth, mainly. There was things which he stretched, but mainly he told " +
+  "the truth. That is nothing. I never seen anybody but lied one time or another, without it was Aunt Polly, or the widow, or " +
+  "maybe Mary. Aunt Polly -- Tom's Aunt Polly, she is -- and Mary, and the Widow Douglas is all told about in that book, which " +
+  "is mostly a true book, with some stretchers, as I said before.\"";
+
+const PASSAGE_4 = "\"Ode on a Grecian Urn\" by John Keats (1819), stanza 1:\n\n" +
+  "Thou still unravish'd bride of quietness,\n" +
+  "Thou foster-child of silence and slow time,\n" +
+  "Sylvan historian, who canst thus express\n" +
+  "A flowery tale more sweetly than our rhyme:\n" +
+  "What leaf-fring'd legend haunts about thy shape\n" +
+  "Of deities or mortals, or of both,\n" +
+  "In Tempe or the dales of Arcady?\n" +
+  "What men or gods are these? What maidens loth?\n" +
+  "What mad pursuit? What struggle to escape?\n" +
+  "What pipes and timbrels? What wild ecstasy?";
+
+const PASSAGE_5 = "Original prose passage composed for this practice exam:\n\n" +
+  "The lighthouse stood at the edge of the cliff like a forgotten sentinel, its lamp long since extinguished, its keeper " +
+  "long since gone. Eleanor climbed the spiral staircase that her grandfather had climbed every evening for forty-three years, " +
+  "and at each turn she felt the granite walls pressing in upon her as though the tower itself were a memory she could not " +
+  "escape. At the top she found what she had always found: the lens, the brass fittings tarnished but intact, the small leather " +
+  "logbook her grandfather had left open on the last day of his service. She did not read the final entry. She had read it " +
+  "once, the summer she turned fifteen, and the words had sat inside her ever since like a stone dropped into a deep well -- " +
+  "still falling, still unanswered. Outside, the sea performed its old indifferent argument with the rocks. Eleanor closed " +
+  "the logbook, set it carefully back upon the desk, and descended.";
+
 const QUESTIONS = [
+  // =====================================================================
+  // PROSE PASSAGE 1: Jane Austen, Pride and Prejudice (1813) -- 9 Qs
+  // =====================================================================
   {
-    id: "ghii-001",
-    topic: "Unit 1: World in 1750",
-    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
+    id: "apenglit-001",
+    topic: "Prose Passage 1: Tone + Irony",
+    prompt: PASSAGE_1 + "\n\nThe tone of the opening sentence (\"It is a truth universally acknowledged...\") is best described as:",
     choices: [
-      "All three had embraced parliamentary democracy.",
-      "All three were multiethnic land-based empires governed by hereditary rulers.",
-      "All three had abolished traditional religious practices.",
-      "All three controlled overseas colonies in the Americas.",
+      "Earnestly philosophical",
+      "Mockingly ironic",
+      "Bitterly resentful",
+      "Coldly clinical",
     ],
-    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
-    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
+    correctText: "Mockingly ironic",
+    explanation: "The narrator presents a comically narrow social assumption as if it were a universal law of nature. The grandiose phrasing ironically undercuts the petty truth being asserted -- a hallmark of Austen's social satire."
   },
   {
-    id: "ghii-002",
-    topic: "Unit 1: World in 1750",
-    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
+    id: "apenglit-002",
+    topic: "Prose Passage 1: Diction + Meaning",
+    prompt: PASSAGE_1 + "\n\nIn context, the phrase \"the rightful property of some one or other of their daughters\" most strongly suggests that the narrator views marriage in this society as:",
     choices: [
-      "Promote global trade with European powers.",
-      "Spread Christianity across East Asia.",
-      "Preserve internal stability by limiting foreign contact.",
-      "Expand Japanese colonies in the Americas.",
+      "A sacred bond founded on mutual love",
+      "A transaction in which men are commodities pursued by families",
+      "An adventure undertaken by independent women",
+      "A legal contract written and enforced by the gentleman himself",
     ],
-    correctText: "Preserve internal stability by limiting foreign contact.",
-    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
+    correctText: "A transaction in which men are commodities pursued by families",
+    explanation: "The word \"property\" is deliberately commercial, and the inversion (the wealthy man as object pursued by daughters' families) flips the conventional gender script to expose marriage as economic enterprise."
   },
   {
-    id: "ghii-003",
-    topic: "Unit 1: World in 1750",
-    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
+    id: "apenglit-003",
+    topic: "Prose Passage 1: Characterization",
+    prompt: PASSAGE_1 + "\n\nMr. Bennet's responses to his wife (\"He had not\" / \"You want to tell me, and I have no objection to hearing it.\") primarily characterize him as:",
     choices: [
-      "Laissez-faire capitalism",
-      "Mercantilism",
-      "Socialism",
-      "Command economy",
+      "Anxious and obsequious",
+      "Detached and dryly amused",
+      "Boisterous and aggressive",
+      "Naively curious about local gossip",
     ],
-    correctText: "Mercantilism",
-    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
+    correctText: "Detached and dryly amused",
+    explanation: "His clipped, deflating replies establish him as a witty, ironic observer who refuses to meet his wife's eagerness on its own terms -- a temperamental contrast that drives the chapter's comedy."
   },
   {
-    id: "ghii-004",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
+    id: "apenglit-004",
+    topic: "Prose Passage 1: Point of View",
+    prompt: PASSAGE_1 + "\n\nThe passage is narrated from which point of view?",
     choices: [
-      "Thomas Hobbes",
-      "John Locke",
-      "Niccolò Machiavelli",
-      "Karl Marx",
+      "First-person limited, from Mr. Bennet's perspective",
+      "Second-person, directly addressing the reader as participant",
+      "Third-person omniscient, with an editorializing narrator",
+      "Third-person objective, presenting only dialogue and action",
     ],
-    correctText: "John Locke",
-    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
+    correctText: "Third-person omniscient, with an editorializing narrator",
+    explanation: "The narrator stands outside the action and freely comments on \"the minds of the surrounding families\" -- access to collective inner thought signals omniscience, while the opening generalization signals an editorial voice."
   },
   {
-    id: "ghii-005",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
+    id: "apenglit-005",
+    topic: "Prose Passage 1: Syntax",
+    prompt: PASSAGE_1 + "\n\nThe long, balanced first sentence functions chiefly to:",
     choices: [
-      "Free public education",
-      "Separation of powers among three branches",
-      "Universal suffrage",
-      "Direct election of judges",
+      "Establish a parodic mock-aphorism that the rest of the novel will deflate",
+      "Reproduce the rhythm of casual conversation among the Bennet family",
+      "Disorient the reader with deliberate grammatical confusion",
+      "Mimic the cadence of legal documents to introduce a courtroom setting",
     ],
-    correctText: "Separation of powers among three branches",
-    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
+    correctText: "Establish a parodic mock-aphorism that the rest of the novel will deflate",
+    explanation: "The stately periodic syntax imitates the form of a universal maxim, but the content is petty and provincial. Austen uses the mismatch between elevated form and trivial content as her opening satirical move."
   },
   {
-    id: "ghii-006",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
+    id: "apenglit-006",
+    topic: "Prose Passage 1: Dialogue Function",
+    prompt: PASSAGE_1 + "\n\nThe brief dialogue between Mr. and Mrs. Bennet primarily serves to:",
     choices: [
-      "It restored a monarchy after a brief republican experiment.",
-      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-      "It ended without significant political change.",
-      "It established a constitutional monarchy under European supervision.",
+      "Reveal a sudden plot-altering secret about Netherfield Park",
+      "Dramatize the contrast between Mrs. Bennet's eagerness and Mr. Bennet's reserve",
+      "Show the couple's deep and harmonious affection for each other",
+      "Provide exposition about the financial ruin of the Bennet family",
     ],
-    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
+    correctText: "Dramatize the contrast between Mrs. Bennet's eagerness and Mr. Bennet's reserve",
+    explanation: "The exchange illustrates by contrast: she pushes information at him, he resists, and the gap between their temperaments becomes the engine of the scene's humor and the marriage's character."
   },
   {
-    id: "ghii-007",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
+    id: "apenglit-007",
+    topic: "Prose Passage 1: Theme",
+    prompt: PASSAGE_1 + "\n\nWhich of the following is most clearly established as a central concern of the novel by this opening?",
     choices: [
-      "Britain had the most extensive colonial empire in Asia.",
-      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-      "Britain was the only European country with a literate workforce.",
-      "Britain was the first nation to outlaw all forms of forced labor.",
+      "The dangers of foreign invasion",
+      "The intersection of marriage, wealth, and social maneuvering",
+      "The horror of supernatural events in country houses",
+      "The political corruption of provincial magistrates",
     ],
-    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
+    correctText: "The intersection of marriage, wealth, and social maneuvering",
+    explanation: "The opening yokes \"good fortune\" to \"want of a wife\" and frames the newcomer at Netherfield as a marriage prospect to be claimed -- announcing the novel's preoccupation with the economics of courtship."
   },
   {
-    id: "ghii-008",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
+    id: "apenglit-008",
+    topic: "Prose Passage 1: Author's Stance",
+    prompt: PASSAGE_1 + "\n\nThe phrase \"This was invitation enough\" in the final line is best read as:",
     choices: [
-      "Workers gained shorter hours and immediate political rights.",
-      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-      "Workers transitioned from factories back to small craft workshops.",
-      "Workers were guaranteed employment by national governments.",
+      "Sincere narrative approval of Mr. Bennet's politeness",
+      "An ironic understatement signaling that Mrs. Bennet needs no real encouragement to talk",
+      "A literal report that Mr. Bennet has formally requested a guest",
+      "A foreshadowing of physical danger to come",
     ],
-    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
+    correctText: "An ironic understatement signaling that Mrs. Bennet needs no real encouragement to talk",
+    explanation: "The narrator wryly registers that Mr. Bennet's tepid permission is more than sufficient for his garrulous wife. The understatement extends the chapter's irony at her expense."
   },
   {
-    id: "ghii-009",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
+    id: "apenglit-009",
+    topic: "Prose Passage 1: Rhetorical Strategy",
+    prompt: PASSAGE_1 + "\n\nThe narrator's strategy throughout the passage can best be described as:",
     choices: [
-      "Religious revival across industrial societies",
-      "A class struggle leading to revolution by the proletariat",
-      "Voluntary government regulation of industries",
-      "A return to feudal economic relationships",
+      "Pretending to endorse a social convention in order to expose its absurdity",
+      "Issuing a moral lecture against the institution of marriage",
+      "Recording events without commentary or evaluation",
+      "Mourning the loss of an earlier, nobler social order",
     ],
-    correctText: "A class struggle leading to revolution by the proletariat",
-    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
+    correctText: "Pretending to endorse a social convention in order to expose its absurdity",
+    explanation: "The narrator adopts the voice of the society being satirized -- a classic ironic stance. By appearing to agree with the \"universally acknowledged\" view, Austen invites readers to recognize and reject it."
+  },
+
+  // =====================================================================
+  // POETRY PASSAGE 1: John Donne, "The Flea" (1633) -- 9 Qs
+  // =====================================================================
+  {
+    id: "apenglit-010",
+    topic: "Poetry Passage 1: Metaphysical Conceit",
+    prompt: PASSAGE_2 + "\n\nThe central conceit of the stanza is built around:",
+    choices: [
+      "A garden in springtime as a symbol of religious devotion",
+      "A flea whose bite has mingled the speaker's and beloved's blood",
+      "A ship at sea as an emblem of human ambition",
+      "A mirror in which the speaker sees his own mortality",
+    ],
+    correctText: "A flea whose bite has mingled the speaker's and beloved's blood",
+    explanation: "Donne builds an elaborate metaphysical conceit from a flea's bite, arguing that since their bloods are already mingled inside the insect, physical union between the lovers carries no greater sin or loss."
   },
   {
-    id: "ghii-010",
-    topic: "Unit 4: Imperialism",
-    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
+    id: "apenglit-011",
+    topic: "Poetry Passage 1: Argument",
+    prompt: PASSAGE_2 + "\n\nThe speaker's overall argument in the stanza is best paraphrased as:",
     choices: [
-      "African leaders would have veto power over all colonial boundaries.",
-      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-      "African colonies would gain independence within 25 years.",
-      "All European nations would withdraw from the African continent.",
+      "Our love is too sacred to be expressed in any physical form",
+      "Since the flea has already joined us bodily without harm, you should not deny me",
+      "I regret that I have wasted my youth on courtship rather than scholarship",
+      "Death is near, and we must repent our worldly pleasures",
     ],
-    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
+    correctText: "Since the flea has already joined us bodily without harm, you should not deny me",
+    explanation: "The speaker uses the flea as logical evidence that physical union is no sin or shame, since their bloods are already mixed within the insect. The argument is seductive and ironic, not moral."
   },
   {
-    id: "ghii-011",
-    topic: "Unit 4: Imperialism",
-    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
+    id: "apenglit-012",
+    topic: "Poetry Passage 1: Meter",
+    prompt: PASSAGE_2 + "\n\nThe predominant metrical pattern of the stanza alternates between lines of:",
     choices: [
-      "Indian soldiers refused to fight against the Ottoman Empire.",
-      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-      "Sepoys demanded equal pay with British officers.",
-      "British missionaries had been expelled from India.",
+      "Trochaic monometer and dactylic dimeter",
+      "Free verse with no recognizable pattern",
+      "Iambic tetrameter and iambic pentameter",
+      "Anapestic hexameter throughout",
     ],
-    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
+    correctText: "Iambic tetrameter and iambic pentameter",
+    explanation: "Donne's flea stanzas alternate four-foot and five-foot iambic lines, producing a varied, conversational rhythm well suited to the argumentative voice of metaphysical poetry."
   },
   {
-    id: "ghii-012",
-    topic: "Unit 4: Imperialism",
-    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
+    id: "apenglit-013",
+    topic: "Poetry Passage 1: Diction",
+    prompt: PASSAGE_2 + "\n\nThe word \"pampered\" in line 8 most strongly suggests that the flea is now:",
     choices: [
-      "China had invaded British India.",
-      "China refused to allow British ships into the Mediterranean.",
-      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-      "China demanded that Britain abolish slavery in its colonies.",
+      "Indulgently fed and swollen with shared blood",
+      "Punished and beaten by the speaker's hand",
+      "Hidden from view by the beloved's clothing",
+      "Spiritually purified by the act of biting",
     ],
-    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
+    correctText: "Indulgently fed and swollen with shared blood",
+    explanation: "\"Pampered swells with one blood made of two\" treats the engorged flea as a creature luxuriating in the mingled fluids -- the indulgent diction reinforces the conceit's mock-sacramental tone."
   },
   {
-    id: "ghii-013",
-    topic: "Unit 4: Imperialism",
-    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
+    id: "apenglit-014",
+    topic: "Poetry Passage 1: Tone",
+    prompt: PASSAGE_2 + "\n\nThe tone of the speaker can best be described as:",
     choices: [
-      "Embraced Western technology, industry, and military methods while preserving its emperor.",
-      "Permanently closed its borders to all foreign contact.",
-      "Was conquered and ruled directly by Western powers until 1945.",
-      "Refused to make any changes to its traditional samurai society.",
+      "Reverent and prayerful",
+      "Playfully argumentative and seductive",
+      "Mournful and resigned",
+      "Detached and scientifically neutral",
     ],
-    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
-    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
+    correctText: "Playfully argumentative and seductive",
+    explanation: "The speaker performs a witty, persuasive case to a reluctant lover. The combination of mock-logic and erotic suggestion is characteristic of metaphysical seduction poetry."
   },
   {
-    id: "ghii-014",
-    topic: "Unit 5: World War I",
-    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
+    id: "apenglit-015",
+    topic: "Poetry Passage 1: Rhyme Scheme",
+    prompt: PASSAGE_2 + "\n\nThe nine-line stanza follows which rhyme scheme?",
     choices: [
-      "Marxism, agriculture, isolationism, neutrality",
-      "Militarism, alliances, imperialism, nationalism",
-      "Monarchy, anarchism, industry, navy",
-      "Modernization, autocracy, individualism, neocolonialism",
+      "ABAB CDCD E",
+      "AABBCCDDD",
+      "ABABCC DEE",
+      "Free verse, no consistent rhyme",
     ],
-    correctText: "Militarism, alliances, imperialism, nationalism",
-    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
+    correctText: "AABBCCDDD",
+    explanation: "Donne builds the stanza from four couplets (this / is, me / thee, mingled be / said, maidenhead / woo... etc.) capped by a triplet, producing the AABBCCDDD pattern characteristic of \"The Flea.\""
   },
   {
-    id: "ghii-015",
-    topic: "Unit 5: World War I",
-    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
+    id: "apenglit-016",
+    topic: "Poetry Passage 1: Figurative Language",
+    prompt: PASSAGE_2 + "\n\nWhen the speaker insists the mingling \"cannot be said / A sin, nor shame, nor loss of maidenhead,\" he is using which rhetorical strategy?",
     choices: [
-      "Russia won early victories in WWI that inspired political reform.",
-      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-      "Western powers sent armies to depose Nicholas II.",
-      "The Tsar voluntarily turned over power to the peasantry.",
+      "Anaphora of an interrogative phrase",
+      "Triple negation to dismiss objections in advance",
+      "A direct apostrophe to a Greek deity",
+      "An extended simile comparing love to warfare",
     ],
-    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
+    correctText: "Triple negation to dismiss objections in advance",
+    explanation: "The triplet \"nor sin, nor shame, nor loss of maidenhead\" piles negations to preemptively rule out the very objections a chaste lover might raise -- a clever rhetorical inoculation."
   },
   {
-    id: "ghii-016",
-    topic: "Unit 5: World War I",
-    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
+    id: "apenglit-017",
+    topic: "Poetry Passage 1: Imagery",
+    prompt: PASSAGE_2 + "\n\nThe imagery of the flea functions paradoxically by:",
     choices: [
-      "Germany's loss of its colonies in Africa",
-      "The 'war guilt' clause (Article 231) and crushing reparations payments",
-      "The reduction of the German navy",
-      "The redrawing of borders in the Middle East",
+      "Making a tiny, lowly creature carry a grand argument about love and union",
+      "Comparing the flea to a celestial body governing the tides",
+      "Treating the flea as a symbol of religious salvation in the afterlife",
+      "Using the flea as a literal warning about disease and contagion",
     ],
-    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
-    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
+    correctText: "Making a tiny, lowly creature carry a grand argument about love and union",
+    explanation: "The metaphysical conceit deliberately yokes the trivial (a pest) to the weighty (consummation, sin, identity). The disparity of vehicle and tenor is the point -- and the wit."
   },
   {
-    id: "ghii-017",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
+    id: "apenglit-018",
+    topic: "Poetry Passage 1: Theme",
+    prompt: PASSAGE_2 + "\n\nThe stanza's underlying theme can best be expressed as:",
     choices: [
-      "All world currencies were physically stored in U.S. banks.",
-      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-      "Only the United States used a banking system in 1929.",
-      "European nations were forced to convert to communism in response.",
+      "Physical intimacy carries no moral weight if creatures can effect a kind of union without consequence",
+      "Even small creatures deserve the protection of human compassion",
+      "True love must be conducted only within sanctioned marriage",
+      "Mortality renders all earthly pleasures meaningless",
     ],
-    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
+    correctText: "Physical intimacy carries no moral weight if creatures can effect a kind of union without consequence",
+    explanation: "The speaker's argument reduces the symbolic weight of physical union by pointing to the flea's already-accomplished mingling. The thematic stake is the conventional moral weight assigned to sexual union."
+  },
+
+  // =====================================================================
+  // PROSE PASSAGE 2: Mark Twain, Huckleberry Finn (1884) -- 9 Qs
+  // =====================================================================
+  {
+    id: "apenglit-019",
+    topic: "Prose Passage 2: Narrator Voice",
+    prompt: PASSAGE_3 + "\n\nThe distinctive feature of the narrator's voice in this opening is:",
+    choices: [
+      "Highly formal, Latinate diction signaling an educated speaker",
+      "Vernacular speech with non-standard grammar that signals a regional, untutored narrator",
+      "Cold scientific exposition delivered without emotion",
+      "Archaic sixteenth-century syntax modeled on Shakespeare",
+    ],
+    correctText: "Vernacular speech with non-standard grammar that signals a regional, untutored narrator",
+    explanation: "Constructions like \"without you have read,\" \"That ain't no matter,\" and \"I never seen anybody but lied\" deliberately reproduce a Mississippi-valley boy's speech, grounding Huck's voice in a specific class and region."
   },
   {
-    id: "ghii-018",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
+    id: "apenglit-020",
+    topic: "Prose Passage 2: Irony",
+    prompt: PASSAGE_3 + "\n\nHuck's claim that the previous book \"told the truth, mainly\" creates irony chiefly because:",
     choices: [
-      "Demilitarize the Soviet Union",
-      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-      "Restore private property to peasants",
-      "Establish democratic elections",
+      "The reader knows Huck is lying about Tom Sawyer's existence",
+      "A narrator vouching for an author's honesty while admitting he stretched things calls attention to the slipperiness of truth in fiction",
+      "Huck is clearly bribed by Mr. Mark Twain",
+      "The previous book never actually existed",
     ],
-    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
+    correctText: "A narrator vouching for an author's honesty while admitting he stretched things calls attention to the slipperiness of truth in fiction",
+    explanation: "Huck's odd certificate of authorial honesty -- truthful \"mainly,\" with \"stretchers\" -- is a self-undermining endorsement, and Twain plays with the conceit of one fictional character vouching for the truthfulness of his author."
   },
   {
-    id: "ghii-019",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
+    id: "apenglit-021",
+    topic: "Prose Passage 2: Reliability",
+    prompt: PASSAGE_3 + "\n\nHuck's observation that \"I never seen anybody but lied one time or another\" most directly establishes him as a narrator who:",
     choices: [
-      "Free press and competitive elections",
-      "A one-party state, suppression of dissent, and a personality cult around the leader",
-      "Decentralized economic decision-making",
-      "Voluntary collective decision-making by citizens' councils",
+      "Is incapable of distinguishing truth from falsehood",
+      "Is morally cynical and untrustworthy",
+      "Is candid about human inconsistency, including, by implication, his own",
+      "Has been formally trained in legal cross-examination",
     ],
-    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
-    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
+    correctText: "Is candid about human inconsistency, including, by implication, his own",
+    explanation: "Huck's matter-of-fact recognition that everyone lies sometimes positions him as a frank observer rather than a moralist -- a stance that invites readers to take him as honest about his own limits."
   },
   {
-    id: "ghii-020",
-    topic: "Unit 7: World War II",
-    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
+    id: "apenglit-022",
+    topic: "Prose Passage 2: Tone",
+    prompt: PASSAGE_3 + "\n\nThe tone of the opening paragraph is best described as:",
     choices: [
-      "France and Britain went to war with Hitler over Czechoslovakia.",
-      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-      "Hitler returned previously seized territory to Czechoslovakia.",
-      "The League of Nations sanctioned Germany for aggression.",
+      "Casual, confiding, and gently humorous",
+      "Bitter, accusatory, and indignant",
+      "Reverent, hushed, and solemn",
+      "Frantic, alarmed, and anxious",
     ],
-    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
+    correctText: "Casual, confiding, and gently humorous",
+    explanation: "Huck speaks directly to the reader as if to an acquaintance, with offhand asides (\"that ain't no matter\") and gentle qualifications -- a confiding, conversational humor that earns trust without ceremony."
   },
   {
-    id: "ghii-021",
-    topic: "Unit 7: World War II",
-    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
+    id: "apenglit-023",
+    topic: "Prose Passage 2: Address to Reader",
+    prompt: PASSAGE_3 + "\n\nThe second-person opening (\"You don't know about me...\") functions principally to:",
     choices: [
-      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
-      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-      "The United States had declared war on Japan one week earlier.",
-      "Japan was honoring a defensive treaty with China.",
+      "Issue a formal warning that the book is unsuitable for general readers",
+      "Establish an intimate, direct address that draws the reader into Huck's world",
+      "Suggest that the reader is a character within the story",
+      "Mock readers who have not received a formal education",
     ],
-    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
+    correctText: "Establish an intimate, direct address that draws the reader into Huck's world",
+    explanation: "Twain's choice to begin with \"you\" collapses the distance between narrator and reader, treating the audience as a confidant who is being personally addressed by Huck himself."
   },
   {
-    id: "ghii-022",
-    topic: "Unit 7: World War II",
-    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
+    id: "apenglit-024",
+    topic: "Prose Passage 2: Diction",
+    prompt: PASSAGE_3 + "\n\nThe word \"stretchers\" in context most nearly means:",
     choices: [
-      "100,000 people, primarily Polish soldiers",
-      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-      "Only Jewish residents of Germany",
-      "Twelve million ethnic Germans",
+      "Stagecoach passengers",
+      "Exaggerations or mild fabrications",
+      "Tools used by carpenters",
+      "Religious sermons",
     ],
-    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
+    correctText: "Exaggerations or mild fabrications",
+    explanation: "Huck uses \"stretchers\" as folk slang for tall tales or stretches of the truth, paralleling his earlier admission that the previous book's author \"stretched\" things."
   },
   {
-    id: "ghii-023",
-    topic: "Unit 7: World War II",
-    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
+    id: "apenglit-025",
+    topic: "Prose Passage 2: Metafiction",
+    prompt: PASSAGE_3 + "\n\nBy having Huck reference \"Mr. Mark Twain\" as the author of an earlier book, the passage creates an effect that is best described as:",
     choices: [
-      "A test of the new weapon under combat conditions",
-      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-      "Retaliation for the Holocaust in Europe",
-      "A response to a Japanese atomic weapons program",
+      "Metafictional, drawing attention to the constructed nature of the narrative",
+      "Allegorical, in which Twain represents an abstract virtue",
+      "Epistolary, presenting the text as a series of letters",
+      "Pastoral, idealizing rural simplicity",
     ],
-    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
+    correctText: "Metafictional, drawing attention to the constructed nature of the narrative",
+    explanation: "When a fictional narrator names his real-world author and evaluates that author's honesty, the text foregrounds its own fictionality -- a metafictional gesture decades ahead of its moment."
   },
   {
-    id: "ghii-024",
-    topic: "Unit 8: Cold War",
-    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
+    id: "apenglit-026",
+    topic: "Prose Passage 2: Characterization",
+    prompt: PASSAGE_3 + "\n\nThe parenthetical aside \"Tom's Aunt Polly, she is\" most strongly suggests that Huck:",
     choices: [
-      "Returning to isolationism",
-      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-      "Direct military conquest of the Soviet Union",
-      "Sharing nuclear technology with all U.S. allies",
+      "Is unsure of the relationships among the characters",
+      "Naturally corrects and clarifies as he speaks, in the manner of oral storytelling",
+      "Is afraid he will be punished for naming an adult",
+      "Has been coached to deliver a memorized speech",
     ],
-    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
+    correctText: "Naturally corrects and clarifies as he speaks, in the manner of oral storytelling",
+    explanation: "The mid-sentence repair (\"Aunt Polly -- Tom's Aunt Polly, she is\") reproduces the rhythm of spoken narrative, where speakers loop back to specify references. It reinforces Huck's voice as oral rather than written."
   },
   {
-    id: "ghii-025",
-    topic: "Unit 8: Cold War",
-    prompt: "Which Cold War event came closest to triggering nuclear war?",
+    id: "apenglit-027",
+    topic: "Prose Passage 2: Thematic Setup",
+    prompt: PASSAGE_3 + "\n\nThe opening paragraph most clearly sets up which concern that will recur throughout the novel?",
     choices: [
-      "The 1948 Berlin Blockade",
-      "The 1962 Cuban Missile Crisis",
-      "The 1953 Korean armistice",
-      "The 1957 Sputnik launch",
+      "The conflict between European colonial powers",
+      "The relationship between truth, storytelling, and personal honesty",
+      "The mechanics of nineteenth-century steamboat engineering",
+      "The doctrines of organized Protestantism",
     ],
-    correctText: "The 1962 Cuban Missile Crisis",
-    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
+    correctText: "The relationship between truth, storytelling, and personal honesty",
+    explanation: "Huck's opening preoccupation with who tells the truth, who stretches it, and how stretching coexists with mainly-honesty introduces a thread the novel returns to repeatedly through Huck's own lies, deceptions, and moral reckonings."
+  },
+
+  // =====================================================================
+  // POETRY PASSAGE 2: John Keats, "Ode on a Grecian Urn" (1819) -- 9 Qs
+  // =====================================================================
+  {
+    id: "apenglit-028",
+    topic: "Poetry Passage 2: Apostrophe",
+    prompt: PASSAGE_4 + "\n\nThe stanza's opening lines exemplify which figure of speech?",
+    choices: [
+      "Apostrophe -- direct address to an inanimate object",
+      "Synecdoche -- a part standing for the whole",
+      "Litotes -- emphatic understatement through negation",
+      "Zeugma -- one verb governing two unrelated objects",
+    ],
+    correctText: "Apostrophe -- direct address to an inanimate object",
+    explanation: "The speaker addresses the urn directly as \"Thou\" and assigns it human roles (\"bride,\" \"foster-child,\" \"historian\"). Sustained direct address to a nonhuman object is the defining mark of apostrophe."
   },
   {
-    id: "ghii-026",
-    topic: "Unit 8: Cold War",
-    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
+    id: "apenglit-029",
+    topic: "Poetry Passage 2: Personification",
+    prompt: PASSAGE_4 + "\n\nThe urn is personified as all of the following EXCEPT:",
     choices: [
-      "Promote free trade across Europe",
-      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-      "Coordinate scientific space programs",
-      "Govern post-war reconstruction in Asia",
+      "A bride still virginal and unravished",
+      "A foster-child raised by silence and slow time",
+      "A historian of the woods who tells a tale",
+      "A merchant trading goods across the sea",
     ],
-    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
+    correctText: "A merchant trading goods across the sea",
+    explanation: "The urn is figured as bride, foster-child, and sylvan (woodland) historian -- never as a merchant. The three actual personifications group around stillness, time, and storytelling."
   },
   {
-    id: "ghii-027",
-    topic: "Unit 8: Cold War",
-    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
+    id: "apenglit-030",
+    topic: "Poetry Passage 2: Paradox",
+    prompt: PASSAGE_4 + "\n\nThe paradox in \"Sylvan historian, who canst thus express / A flowery tale more sweetly than our rhyme\" lies in the claim that:",
     choices: [
-      "The U.S. sought to annex Vietnam as a territory.",
-      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-      "The Vietnamese government formally requested annexation.",
-      "Vietnam had attacked the United States directly in 1960.",
+      "A silent, frozen object can communicate a story more eloquently than the poet's own words",
+      "Historians are typically silent about ancient civilizations",
+      "Sweetness is less desirable than bitterness in art",
+      "Rhyme is forbidden in odes about classical subjects",
     ],
-    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
+    correctText: "A silent, frozen object can communicate a story more eloquently than the poet's own words",
+    explanation: "Keats sets up the central paradox of the ode: a wordless ceramic surface tells a \"sweeter\" tale than verse can. The paradox enables the poem's later meditations on art versus life."
   },
   {
-    id: "ghii-028",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
+    id: "apenglit-031",
+    topic: "Poetry Passage 2: Sound Devices",
+    prompt: PASSAGE_4 + "\n\nThe phrase \"What pipes and timbrels? What wild ecstasy?\" relies primarily on which sound device for its effect?",
     choices: [
-      "Through armed military rebellion against British troops",
-      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-      "By accepting all British demands without protest",
-      "By forming a violent partnership with Japan during WWII",
+      "Onomatopoeia of musical sounds",
+      "Anaphora through the repeated interrogative \"What\"",
+      "Internal rhyme between \"pipes\" and \"timbrels\"",
+      "Sustained alliteration of soft sibilants",
     ],
-    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
+    correctText: "Anaphora through the repeated interrogative \"What\"",
+    explanation: "The series of \"What... ? What... ? What... ?\" questions employs anaphora -- the repetition of an opening word -- to build a mounting rhetorical pressure of unanswerable inquiry."
   },
   {
-    id: "ghii-029",
-    topic: "Unit 9: Decolonization",
-    prompt: "What was the immediate result of the 1947 Partition of British India?",
+    id: "apenglit-032",
+    topic: "Poetry Passage 2: Speaker's Attitude",
+    prompt: PASSAGE_4 + "\n\nThe speaker's attitude toward the urn is best characterized as:",
     choices: [
-      "India and Pakistan formed a single unified democracy.",
-      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-      "India remained a British colony until 1960.",
-      "The partition created peace across South Asia.",
+      "Dismissive contempt for an outdated artifact",
+      "Reverent fascination mixed with urgent questioning",
+      "Cold, scientific cataloguing of its dimensions",
+      "Jealous resentment of the urn's superior reputation",
     ],
-    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
+    correctText: "Reverent fascination mixed with urgent questioning",
+    explanation: "The speaker addresses the urn with reverence (\"unravish'd bride,\" \"foster-child\") while bombarding it with urgent questions about the figures on its surface. Awe and inquiry coexist throughout the stanza."
   },
   {
-    id: "ghii-030",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
+    id: "apenglit-033",
+    topic: "Poetry Passage 2: Diction",
+    prompt: PASSAGE_4 + "\n\nThe word \"unravish'd\" in the opening line primarily connotes:",
     choices: [
-      "He led a foreign army that invaded South Africa.",
-      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-      "He restored a system of racial segregation under a new name.",
-      "He oversaw the colonization of South Africa by a European power.",
+      "Untouched, undisturbed, preserved in its original state",
+      "Excessively decorated and ornate",
+      "Religiously consecrated to a single deity",
+      "Recently restored after extensive damage",
     ],
-    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
+    correctText: "Untouched, undisturbed, preserved in its original state",
+    explanation: "The urn as \"unravish'd bride of quietness\" suggests a state of preserved stillness -- never violated, never altered by time. The diction sets up the larger meditation on art's freedom from change."
   },
   {
-    id: "ghii-031",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "What is the European Union (EU)?",
+    id: "apenglit-034",
+    topic: "Poetry Passage 2: Structure",
+    prompt: PASSAGE_4 + "\n\nThe stanza moves structurally from:",
     choices: [
-      "A military alliance to replace NATO",
-      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-      "An international religious organization",
-      "A short-lived 19th-century trade league",
+      "Declarative statements about the urn's nature to a cascade of questions about the figures on its surface",
+      "A series of commands ordering the urn to speak",
+      "A formal sonnet octave followed by a sestet",
+      "Pure narrative recounting events from Greek mythology",
     ],
-    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
+    correctText: "Declarative statements about the urn's nature to a cascade of questions about the figures on its surface",
+    explanation: "The opening four lines describe what the urn is; the final six pose escalating questions about the scenes depicted on it. The structural turn from description to interrogation drives the stanza's energy."
   },
   {
-    id: "ghii-032",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
+    id: "apenglit-035",
+    topic: "Poetry Passage 2: Allusion",
+    prompt: PASSAGE_4 + "\n\nThe references to \"Tempe\" and \"the dales of Arcady\" allude to:",
     choices: [
-      "It granted multi-party democracy.",
-      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-      "It abolished the Communist Party.",
-      "It allowed the protests to continue indefinitely.",
+      "Idealized pastoral landscapes from classical Greek tradition",
+      "Specific battlefields of the Napoleonic Wars",
+      "Industrial towns in early nineteenth-century England",
+      "Biblical locations from the Old Testament",
     ],
-    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
+    correctText: "Idealized pastoral landscapes from classical Greek tradition",
+    explanation: "Tempe (a vale in Thessaly sacred to Apollo) and Arcadia (a Peloponnesian region treated as the archetypal pastoral paradise) are classical references locating the urn's imagined scene in idealized Greek landscape."
   },
   {
-    id: "ghii-033",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
+    id: "apenglit-036",
+    topic: "Poetry Passage 2: Theme",
+    prompt: PASSAGE_4 + "\n\nThe stanza begins to develop which thematic concern that the ode will continue to explore?",
     choices: [
-      "French colonial troops",
-      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-      "United Nations peacekeepers",
-      "American military forces",
+      "The relationship between art, stillness, and the passage of time",
+      "The political failures of post-Napoleonic Europe",
+      "The advantages of urban over rural life",
+      "The proper conduct of religious worship",
     ],
-    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
+    correctText: "The relationship between art, stillness, and the passage of time",
+    explanation: "By casting the urn as \"foster-child of silence and slow time,\" Keats inaugurates the ode's central meditation: art freezes a moment, and that frozen permanence is both a triumph over time and a kind of loss."
+  },
+
+  // =====================================================================
+  // PROSE PASSAGE 3: Original prose -- 9 Qs
+  // =====================================================================
+  {
+    id: "apenglit-037",
+    topic: "Prose Passage 3: Simile",
+    prompt: PASSAGE_5 + "\n\nThe opening simile, \"like a forgotten sentinel,\" most effectively establishes the lighthouse as:",
+    choices: [
+      "A cheerful and welcoming presence overlooking the harbor",
+      "An abandoned watcher whose protective purpose has lapsed",
+      "A military fortress still actively defended",
+      "A newly constructed monument celebrating victory",
+    ],
+    correctText: "An abandoned watcher whose protective purpose has lapsed",
+    explanation: "\"Sentinel\" carries the sense of one who stands guard; \"forgotten\" cancels the function. The simile fuses presence and abandonment, signaling the larger atmosphere of vigilance outliving its purpose."
   },
   {
-    id: "ghii-034",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "Which statement best describes the scientific consensus on climate change?",
+    id: "apenglit-038",
+    topic: "Prose Passage 3: Symbolism",
+    prompt: PASSAGE_5 + "\n\nThe spiral staircase functions symbolically in the passage primarily as:",
     choices: [
-      "Earth's climate has not changed in recorded history.",
-      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-      "Climate change affects only the polar regions.",
-      "Climate change is caused exclusively by natural solar cycles.",
+      "A literal architectural detail with no symbolic weight",
+      "An emblem of Eleanor's circular, inescapable return to inherited memory",
+      "A reference to a specific religious pilgrimage route",
+      "A warning of imminent physical danger from collapse",
     ],
-    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
+    correctText: "An emblem of Eleanor's circular, inescapable return to inherited memory",
+    explanation: "The staircase climbs in turns just as Eleanor turns back through her grandfather's life. The narrator explicitly connects the granite walls' pressure to memory she \"could not escape,\" cementing the symbolic load."
   },
   {
-    id: "ghii-035",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
+    id: "apenglit-039",
+    topic: "Prose Passage 3: Simile + Theme",
+    prompt: PASSAGE_5 + "\n\nThe simile comparing the unread words to \"a stone dropped into a deep well -- still falling, still unanswered\" most strongly conveys:",
     choices: [
-      "Tokugawa daimyo system and South African apartheid",
-      "The printing press and the steam engine",
-      "Monsoon winds and the Nile River",
-      "Pasta and pizza",
+      "A precise geological detail about local terrain",
+      "The enduring, unresolved weight of language Eleanor has tried not to confront",
+      "Eleanor's career as a professional well-builder",
+      "A literal stone the grandfather kept in the lighthouse",
     ],
-    correctText: "Tokugawa daimyo system and South African apartheid",
-    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
+    correctText: "The enduring, unresolved weight of language Eleanor has tried not to confront",
+    explanation: "The figure converts the grandfather's last entry into a sustained interior fall: still falling because never resolved, still unanswered because Eleanor will not return to it. The simile localizes a felt, ongoing pressure."
   },
   {
-    id: "ghii-036",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
+    id: "apenglit-040",
+    topic: "Prose Passage 3: Personification",
+    prompt: PASSAGE_5 + "\n\nThe phrase \"the sea performed its old indifferent argument with the rocks\" personifies the sea as:",
     choices: [
-      "Gutenberg's printing press and the Industrial Revolution's steam engine",
-      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
-      "Confucian filial piety and feudal serfdom",
-      "The Treaty of Westphalia and the Truman Doctrine",
+      "A passionate lover pleading for reconciliation",
+      "A long-standing debater who continues an unresolved dispute without caring about its outcome",
+      "A judge issuing a verdict on Eleanor's behavior",
+      "A grieving mourner attending a funeral procession",
     ],
-    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
-    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
+    correctText: "A long-standing debater who continues an unresolved dispute without caring about its outcome",
+    explanation: "\"Argument\" frames the surf as discourse; \"old\" and \"indifferent\" give the sea continuity and impersonality. The personification underscores the human-scale drama against an inhuman, ongoing process."
   },
   {
-    id: "ghii-037",
-    topic: "Enduring Issues",
-    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
+    id: "apenglit-041",
+    topic: "Prose Passage 3: Tone",
+    prompt: PASSAGE_5 + "\n\nThe overall tone of the passage is best described as:",
     choices: [
-      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-      "The Code of Hammurabi and the Treaty of Versailles",
-      "The Edict of Nantes and the Smoot-Hawley Tariff",
-      "The Edict of Worms and the Cuban Missile Crisis briefings",
+      "Triumphant and celebratory",
+      "Elegiac and restrained",
+      "Comic and absurd",
+      "Furious and accusatory",
     ],
-    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
+    correctText: "Elegiac and restrained",
+    explanation: "The passage mourns -- a lost keeper, a closed era of service, a withheld confrontation -- but the restraint is total: Eleanor does not read, does not weep, does not speak. The mode is elegy in a quiet register."
   },
   {
-    id: "ghii-038",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
+    id: "apenglit-042",
+    topic: "Prose Passage 3: Characterization",
+    prompt: PASSAGE_5 + "\n\nEleanor's decision not to read the final entry most strongly characterizes her as:",
     choices: [
-      "Ancient African kingdoms and ethnic boundaries",
-      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-      "Geographic features like rivers and mountains",
-      "Borders established by the Ottoman Empire",
+      "Cruelly indifferent to her grandfather's memory",
+      "Unable to read the language in which the entry is written",
+      "Self-protective and deliberate in managing the weight of memory",
+      "Eager to repurpose the lighthouse for commercial use",
     ],
-    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
+    correctText: "Self-protective and deliberate in managing the weight of memory",
+    explanation: "She has read it once and knows what it does to her; she now declines to read it again. The choice is presented as conscious and protective, not negligent -- a deliberate refusal that is itself a form of mourning."
   },
   {
-    id: "ghii-039",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
+    id: "apenglit-043",
+    topic: "Prose Passage 3: Diction",
+    prompt: PASSAGE_5 + "\n\nThe word \"intact\" in the description of the brass fittings (\"tarnished but intact\") most importantly emphasizes:",
     choices: [
-      "Confucian philosophy",
-      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-      "Medieval feudal contracts",
-      "Mercantilist economic theory",
+      "The fittings' polished and gleaming condition",
+      "The persistence of form even as surface decay sets in -- a structural metaphor for Eleanor herself",
+      "The fact that vandals have removed major components",
+      "The grandfather's professional carelessness in maintenance",
     ],
-    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
+    correctText: "The persistence of form even as surface decay sets in -- a structural metaphor for Eleanor herself",
+    explanation: "\"Tarnished but intact\" yokes visible damage with underlying integrity. The pairing parallels Eleanor -- altered by what she carries, still functional, still ascending and descending the tower of inheritance."
   },
   {
-    id: "ghii-040",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "Which sequence of 20th-century events is in correct chronological order?",
+    id: "apenglit-044",
+    topic: "Prose Passage 3: Structure",
+    prompt: PASSAGE_5 + "\n\nThe final sentence (\"Eleanor closed the logbook, set it carefully back upon the desk, and descended.\") functions structurally to:",
     choices: [
-      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
-      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
-      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
+      "Introduce a sudden plot twist that overturns earlier events",
+      "Provide a measured, quiet closure that mirrors the passage's elegiac restraint",
+      "Cut off the narrative mid-action to suggest violence",
+      "Issue a direct moral judgment of Eleanor's behavior",
     ],
-    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
+    correctText: "Provide a measured, quiet closure that mirrors the passage's elegiac restraint",
+    explanation: "The three short, parallel actions (closed, set, descended) restore order and stillness. The cadence matches the passage's controlled mournfulness -- nothing dramatized, everything carried."
+  },
+  {
+    id: "apenglit-045",
+    topic: "Prose Passage 3: Theme",
+    prompt: PASSAGE_5 + "\n\nWhich of the following best states a central theme of the passage?",
+    choices: [
+      "Inherited memory exerts an unresolved pressure that the living must learn to carry without necessarily confronting",
+      "Lighthouses must be modernized to remain useful in a changing economy",
+      "Communication between generations is impossible and therefore not worth attempting",
+      "Coastal weather inevitably destroys all manmade structures",
+    ],
+    correctText: "Inherited memory exerts an unresolved pressure that the living must learn to carry without necessarily confronting",
+    explanation: "Eleanor inherits the tower, the lens, the logbook, and the words she will not re-read. The passage stages how the past asserts its weight on a descendant, and how she chooses to carry rather than resolve it."
   },
 ];
 
-const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
+
+const STORAGE_KEY = "ap-eng-lit-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2167,13 +2308,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
+      <div class="exam-topic">AP English Literature Practice · 45 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
-        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review for the June Regents.
+        You'll see 45 multiple-choice questions modeled on the AP English Literature Section I MCQ format —
+        five passages (three prose, two poetry) drawn from original and public-domain texts, with nine questions
+        per passage covering close reading, figurative language, structure, tone, and theme. Each item gives
+        instant feedback with a short explanation. At the end, you'll see your overall score plus a per-passage
+        mastery breakdown so you know exactly where to focus your review for the May AP exam.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2310,14 +2452,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
+      <div class="results-eyebrow">Practice Exam Complete · AP English Literature</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
+          ? "Strong work — you're tracking toward a 4 or 5 on the AP exam. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which skills to drill before exam day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2396,7 +2538,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-global-2/ → root index.html
+  // Walk up the path: games/ap-eng-lit-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

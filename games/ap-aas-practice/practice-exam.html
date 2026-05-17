@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>AP English Language Practice Exam — Mr. Mac's Review Arcade</title>
+<title>AP African American Studies Practice Exam — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>AP English Language and Composition</span></div>
-      <h1>AP English Language Practice Exam</h1>
-      <p class="subtitle">45-question rhetorical analysis practice test modeled on Section I MCQ format with reading + writing items.</p>
+      <div class="kicker"><span>Practice Exam</span><span>AP African American Studies</span></div>
+      <h1>AP African American Studies Practice Exam</h1>
+      <p class="subtitle">40-question practice test covering all 4 units, modeled on Section I MCQ format with stimulus + source-analysis items.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,648 +1524,537 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 45 AP-modeled questions across reading + writing skills</span>
-    <span class="pill" id="topicStatus">Rhetorical situation · strategies · style · argument · composition revision</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 AP-modeled questions across 4 CED units</span>
+    <span class="pill" id="topicStatus">Stimulus + source-analysis items included</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
-  // ============================================================
-  // PASSAGE A — Original op-ed prose by the test author (Qs 1-6)
-  // "The public library is the last building in town that asks
-  //  nothing of you. There is no entrance fee, no membership tier,
-  //  no algorithm tracking what you linger over. You walk in, and
-  //  the building presumes you belong. In an age that monetizes
-  //  attention by the second, this presumption is not a quaint
-  //  inheritance from a slower era; it is a quiet act of resistance."
-  // ============================================================
   {
-    id: "apenglang-001",
-    topic: "Reading: Main Claim + Intent",
-    prompt: "PASSAGE A: \"The public library is the last building in town that asks nothing of you. There is no entrance fee, no membership tier, no algorithm tracking what you linger over. You walk in, and the building presumes you belong. In an age that monetizes attention by the second, this presumption is not a quaint inheritance from a slower era; it is a quiet act of resistance.\" — Which of the following best states the writer's central claim?",
+    id: "apaas-001",
+    topic: "Unit 1: Origins of the African Diaspora",
+    prompt: "The fourteenth-century pilgrimage of Mansa Musa, ruler of the Mali Empire, to Mecca is most significant for which of the following reasons?",
     choices: [
-      "Public libraries should expand their digital offerings to compete with technology companies.",
-      "The unconditional access offered by public libraries challenges the surveillance and gatekeeping that characterize modern commercial spaces.",
-      "Libraries are outdated institutions surviving only because they are sustained by nostalgia.",
-      "Most public spaces have become hostile to people who lack disposable income.",
+      "It marked the first contact between Mali and Portuguese traders along the Atlantic coast.",
+      "It demonstrated Mali's enormous gold wealth and integrated West Africa into wider Afro-Eurasian trade and intellectual networks.",
+      "It led directly to the founding of the Songhai Empire under Sunni Ali.",
+      "It resulted in the abolition of trans-Saharan trade routes through the Sahara.",
     ],
-    correctText: "The unconditional access offered by public libraries challenges the surveillance and gatekeeping that characterize modern commercial spaces.",
-    explanation: "The passage contrasts the library's open access with an age that 'monetizes attention by the second' and frames its presumption of belonging as 'a quiet act of resistance.' That is the central claim. Option C contradicts the passage's admiring tone; A and D are unsupported."
+    correctText: "It demonstrated Mali's enormous gold wealth and integrated West Africa into wider Afro-Eurasian trade and intellectual networks.",
+    explanation: "Mansa Musa's 1324-25 hajj famously distributed so much gold in Cairo that it depreciated Egyptian currency for years, advertising Mali's wealth and drawing scholars and architects to Timbuktu — placing West Africa firmly on Afro-Eurasian maps."
   },
   {
-    id: "apenglang-002",
-    topic: "Reading: Rhetorical Situation",
-    prompt: "PASSAGE A: The phrase \"a quiet act of resistance\" most clearly serves which rhetorical purpose?",
+    id: "ghii-002",
+    topic: "Unit 1: World in 1750",
+    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
     choices: [
-      "It concedes a counterargument by acknowledging that libraries are politically controversial.",
-      "It elevates an ordinary civic institution by attaching to it the moral weight of dissent.",
-      "It signals that the writer intends to recommend specific legislative reforms.",
-      "It introduces a shift from logical argument to anecdotal evidence.",
+      "Promote global trade with European powers.",
+      "Spread Christianity across East Asia.",
+      "Preserve internal stability by limiting foreign contact.",
+      "Expand Japanese colonies in the Americas.",
     ],
-    correctText: "It elevates an ordinary civic institution by attaching to it the moral weight of dissent.",
-    explanation: "By calling library access a form of 'resistance,' the writer recasts a mundane civic service in moral and political terms — a common rhetorical move that asks readers to see a familiar thing as more consequential than they had assumed."
+    correctText: "Preserve internal stability by limiting foreign contact.",
+    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
   },
   {
-    id: "apenglang-003",
-    topic: "Reading: Diction + Syntax",
-    prompt: "PASSAGE A: The semicolon in the final sentence (\"...slower era; it is a quiet act of resistance\") serves primarily to —",
+    id: "ghii-003",
+    topic: "Unit 1: World in 1750",
+    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
     choices: [
-      "introduce a list of supporting examples that follow.",
-      "signal a tonal shift from analytical to sentimental.",
-      "balance two contrasting characterizations of the same idea, sharpening the reversal.",
-      "indicate an interruption or aside that the reader may skip.",
+      "Laissez-faire capitalism",
+      "Mercantilism",
+      "Socialism",
+      "Command economy",
     ],
-    correctText: "balance two contrasting characterizations of the same idea, sharpening the reversal.",
-    explanation: "The semicolon joins two independent clauses that present the same subject (the library's presumption of belonging) under two opposed framings — quaint inheritance vs. quiet resistance. The construction sharpens the writer's pivot from a dismissive to an admiring view."
+    correctText: "Mercantilism",
+    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
   },
   {
-    id: "apenglang-004",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE A: The writer's reference to algorithms that track \"what you linger over\" functions chiefly as —",
+    id: "ghii-004",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
     choices: [
-      "an appeal to authority that cites academic research on surveillance.",
-      "an implied contrast that defines the library by what it refuses to do.",
-      "a hypothetical scenario the writer concedes is exaggerated.",
-      "an anecdote drawn from the writer's personal experience.",
+      "Thomas Hobbes",
+      "John Locke",
+      "Niccolò Machiavelli",
+      "Karl Marx",
     ],
-    correctText: "an implied contrast that defines the library by what it refuses to do.",
-    explanation: "The image of tracking algorithms is set against the library's open door; the comparison defines the library negatively (by what it does not do) rather than through any direct description. There is no citation, no concession, and no personal narrative."
+    correctText: "John Locke",
+    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
   },
   {
-    id: "apenglang-005",
-    topic: "Reading: Audience + Purpose",
-    prompt: "PASSAGE A: The passage is most clearly addressed to —",
+    id: "ghii-005",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
     choices: [
-      "policymakers considering whether to defund municipal libraries.",
-      "library staff seeking guidance on serving difficult patrons.",
-      "general readers who may take the library's openness for granted and have not considered its civic meaning.",
-      "specialists in information science familiar with debates over patron privacy.",
+      "Free public education",
+      "Separation of powers among three branches",
+      "Universal suffrage",
+      "Direct election of judges",
     ],
-    correctText: "general readers who may take the library's openness for granted and have not considered its civic meaning.",
-    explanation: "The op-ed tone, the absence of technical jargon, and the framing 'in an age that monetizes attention' all point to a general readership the writer hopes to defamiliarize — making them see something ordinary in a new light. There is no policy ask or industry-insider vocabulary."
+    correctText: "Separation of powers among three branches",
+    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
   },
   {
-    id: "apenglang-006",
-    topic: "Reading: Argument Analysis",
-    prompt: "PASSAGE A: Which of the following, if true, would most weaken the writer's argument?",
+    id: "ghii-006",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
     choices: [
-      "Several large municipal library systems have begun installing facial-recognition cameras and selling anonymized circulation data to advertisers.",
-      "Library attendance has declined in many cities over the past decade as patrons rely more on the internet.",
-      "Libraries depend on public funding that fluctuates with municipal budgets.",
-      "Some libraries charge nominal fines for overdue materials.",
+      "It restored a monarchy after a brief republican experiment.",
+      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+      "It ended without significant political change.",
+      "It established a constitutional monarchy under European supervision.",
     ],
-    correctText: "Several large municipal library systems have begun installing facial-recognition cameras and selling anonymized circulation data to advertisers.",
-    explanation: "The writer's specific claim is that libraries do NOT track patrons the way commercial spaces do; evidence that libraries actually do surveil patrons would directly undercut that claim. The other options address tangential issues (attendance, funding, fines) but leave the core surveillance contrast intact."
-  },
-
-  // ============================================================
-  // PASSAGE B — Abraham Lincoln, Gettysburg Address (Nov. 19,
-  //   1863). Public domain. Excerpt (opening + closing lines).
-  // ============================================================
-  {
-    id: "apenglang-007",
-    topic: "Reading: Rhetorical Situation",
-    prompt: "PASSAGE B: \"Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.\" (Abraham Lincoln, Gettysburg Address, 1863) — The opening clause \"Four score and seven years ago\" most likely serves to —",
-    choices: [
-      "introduce a scientific calculation that grounds the speech in measurable fact.",
-      "evoke biblical cadence in order to lend the founding of the nation a sacred, generational weight.",
-      "challenge the historical accuracy of conventional accounts of the Revolution.",
-      "delay the central point in order to test the patience of a hostile audience.",
-    ],
-    correctText: "evoke biblical cadence in order to lend the founding of the nation a sacred, generational weight.",
-    explanation: "The archaic 'four score and seven' (rather than 'eighty-seven') echoes the King James Bible's measurement of human lifespans. Lincoln borrows that cadence to mark the nation's founding as a sacred event handed down across generations."
+    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
   },
   {
-    id: "apenglang-008",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE B: \"...we cannot dedicate — we cannot consecrate — we cannot hallow — this ground.\" (Lincoln, Gettysburg Address) — The repeated parallel structure most directly creates which effect?",
+    id: "ghii-007",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
     choices: [
-      "It enumerates a list of distinct ceremonies the speaker plans to conduct.",
-      "It produces a cumulative emphasis on the speaker's humility before what the soldiers have already accomplished.",
-      "It introduces three competing definitions of the word 'dedicate' for the audience to consider.",
-      "It signals that the speaker will retract these statements in the following sentence.",
+      "Britain had the most extensive colonial empire in Asia.",
+      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+      "Britain was the only European country with a literate workforce.",
+      "Britain was the first nation to outlaw all forms of forced labor.",
     ],
-    correctText: "It produces a cumulative emphasis on the speaker's humility before what the soldiers have already accomplished.",
-    explanation: "The triadic repetition of 'we cannot' — paired with the rising intensity of 'dedicate / consecrate / hallow' — drives home the speaker's insistence that the ground has already been hallowed by the soldiers' sacrifice; the parallelism amplifies humility, not enumeration."
+    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
   },
   {
-    id: "apenglang-009",
-    topic: "Reading: Audience + Purpose",
-    prompt: "PASSAGE B: \"It is rather for us to be here dedicated to the great task remaining before us...that government of the people, by the people, for the people, shall not perish from the earth.\" (Lincoln, Gettysburg Address) — The speaker's primary purpose in this closing is to —",
+    id: "ghii-008",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
     choices: [
-      "memorialize individual soldiers by name in order to comfort their families.",
-      "redirect the audience from mourning the dead to recommitting themselves to an unfinished cause.",
-      "propose a new constitutional amendment limiting the powers of the executive.",
-      "concede that the Union's cause has been irreparably damaged by the battle.",
+      "Workers gained shorter hours and immediate political rights.",
+      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+      "Workers transitioned from factories back to small craft workshops.",
+      "Workers were guaranteed employment by national governments.",
     ],
-    correctText: "redirect the audience from mourning the dead to recommitting themselves to an unfinished cause.",
-    explanation: "The closing pivots from 'these honored dead' to 'the great task remaining' — a classic exhortative move that converts grief into renewed commitment. Naming, legislation, and concession are all absent."
+    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
   },
   {
-    id: "apenglang-010",
-    topic: "Reading: Diction + Syntax",
-    prompt: "PASSAGE B: The famous tricolon \"of the people, by the people, for the people\" achieves its persuasive power primarily through —",
+    id: "ghii-009",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
     choices: [
-      "a periodic sentence structure that withholds the subject until the end.",
-      "an extended metaphor comparing government to a living organism.",
-      "the repetition of a single noun across shifting prepositions, which fuses the people with every dimension of governance.",
-      "the deliberate violation of grammatical parallelism in order to surprise the listener.",
+      "Religious revival across industrial societies",
+      "A class struggle leading to revolution by the proletariat",
+      "Voluntary government regulation of industries",
+      "A return to feudal economic relationships",
     ],
-    correctText: "the repetition of a single noun across shifting prepositions, which fuses the people with every dimension of governance.",
-    explanation: "Each prepositional phrase keeps the same noun ('the people') and varies only the relationship — origin, agency, beneficiary. The construction inseparably binds the citizenry to government's source, mechanism, and end."
+    correctText: "A class struggle leading to revolution by the proletariat",
+    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
   },
   {
-    id: "apenglang-011",
-    topic: "Reading: Rhetorical Appeals",
-    prompt: "PASSAGE B: Lincoln's appeal in the Gettysburg Address relies most heavily on which classical mode?",
+    id: "ghii-010",
+    topic: "Unit 4: Imperialism",
+    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
     choices: [
-      "Logos — building a chain of statistical evidence about Union casualties.",
-      "Pathos in service of ethos — invoking shared sacrifice to establish moral standing for the call to action.",
-      "Pure ethos — citing the speaker's personal credentials as a wartime commander.",
-      "Kairos — naming specific legislation pending before Congress.",
+      "African leaders would have veto power over all colonial boundaries.",
+      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+      "African colonies would gain independence within 25 years.",
+      "All European nations would withdraw from the African continent.",
     ],
-    correctText: "Pathos in service of ethos — invoking shared sacrifice to establish moral standing for the call to action.",
-    explanation: "Lincoln offers no statistics or biography. He mobilizes the audience's emotional debt to the dead (pathos) precisely to earn the moral authority (ethos) needed for his closing exhortation. The two appeals work together."
+    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
   },
   {
-    id: "apenglang-012",
-    topic: "Reading: Argument Analysis",
-    prompt: "PASSAGE B: Which feature of the address most strongly suggests that Lincoln intends his words to outlast the immediate occasion of the cemetery dedication?",
+    id: "ghii-011",
+    topic: "Unit 4: Imperialism",
+    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
     choices: [
-      "The reliance on first-person plural pronouns throughout the speech.",
-      "The repeated invocation of a founding 'proposition' and a 'new birth of freedom' that frame the war as a universal test of self-government.",
-      "The careful avoidance of any reference to the Civil War.",
-      "The decision to address the audience only as 'fellow citizens.'",
+      "Indian soldiers refused to fight against the Ottoman Empire.",
+      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+      "Sepoys demanded equal pay with British officers.",
+      "British missionaries had been expelled from India.",
     ],
-    correctText: "The repeated invocation of a founding 'proposition' and a 'new birth of freedom' that frame the war as a universal test of self-government.",
-    explanation: "By framing Gettysburg as a test of whether any nation 'so conceived' can endure, Lincoln lifts the local dedication into a universal question. That abstraction — not the pronouns or the audience address — is what gives the speech transhistorical reach."
-  },
-
-  // ============================================================
-  // PASSAGE C — Original prose by the test author (Qs 13-18)
-  // "Every notification is a small, polite demand. Considered one
-  //  at a time, none is unreasonable. Considered together, they
-  //  describe a working day that belongs less and less to the
-  //  worker. We have been told that the device makes us more
-  //  productive. We have not been asked whether productivity, so
-  //  measured, is the same thing as a life."
-  // ============================================================
-  {
-    id: "apenglang-013",
-    topic: "Reading: Main Claim + Intent",
-    prompt: "PASSAGE C: \"Every notification is a small, polite demand. Considered one at a time, none is unreasonable. Considered together, they describe a working day that belongs less and less to the worker. We have been told that the device makes us more productive. We have not been asked whether productivity, so measured, is the same thing as a life.\" — The writer's central claim is best summarized as —",
-    choices: [
-      "Notifications should be banned by federal regulation.",
-      "Smartphones have improved most workers' efficiency without significant cost.",
-      "The aggregate effect of small digital interruptions has reshaped working life in ways that have never been democratically debated.",
-      "Productivity metrics consistently overstate the contributions of skilled labor.",
-    ],
-    correctText: "The aggregate effect of small digital interruptions has reshaped working life in ways that have never been democratically debated.",
-    explanation: "The passage hinges on the move from 'one at a time' (each notification reasonable) to 'considered together' (an unrecognized loss of agency), and ends by pointing out that workers were 'told' but not 'asked.' That is the argument."
+    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
   },
   {
-    id: "apenglang-014",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE C: The juxtaposition of \"Considered one at a time\" with \"Considered together\" functions chiefly to —",
+    id: "ghii-012",
+    topic: "Unit 4: Imperialism",
+    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
     choices: [
-      "concede that the writer's argument applies only to a narrow group of workers.",
-      "shift the scale of analysis so that what seems trivial in isolation becomes consequential in aggregate.",
-      "introduce statistical evidence that the writer will defend in the next paragraph.",
-      "establish the writer's personal credentials as a workplace consultant.",
+      "China had invaded British India.",
+      "China refused to allow British ships into the Mediterranean.",
+      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+      "China demanded that Britain abolish slavery in its colonies.",
     ],
-    correctText: "shift the scale of analysis so that what seems trivial in isolation becomes consequential in aggregate.",
-    explanation: "This is a classic 'zoom-out' rhetorical move: the writer accepts a defense of the practice on micro grounds, then re-frames the same practice at macro scale to expose its costs. There is no concession of scope, no statistic, and no biography."
+    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
   },
   {
-    id: "apenglang-015",
-    topic: "Reading: Diction + Syntax",
-    prompt: "PASSAGE C: The parallel construction \"We have been told... We have not been asked...\" most directly emphasizes —",
+    id: "ghii-013",
+    topic: "Unit 4: Imperialism",
+    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
     choices: [
-      "the writer's personal grievance against an unnamed employer.",
-      "the asymmetry between top-down assertion and bottom-up consent in the way the technology was adopted.",
-      "an unresolved grammatical ambiguity that the writer wants the reader to puzzle over.",
-      "a chronological sequence of historical events between the 1990s and today.",
+      "Embraced Western technology, industry, and military methods while preserving its emperor.",
+      "Permanently closed its borders to all foreign contact.",
+      "Was conquered and ruled directly by Western powers until 1945.",
+      "Refused to make any changes to its traditional samurai society.",
     ],
-    correctText: "the asymmetry between top-down assertion and bottom-up consent in the way the technology was adopted.",
-    explanation: "Parallelism with a strategic swap (told / not asked) puts pressure on exactly the contrast the writer cares about — the difference between being informed of a change and being consulted about it."
+    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
+    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
   },
   {
-    id: "apenglang-016",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE C: The phrase \"a small, polite demand\" works primarily through which strategy?",
+    id: "ghii-014",
+    topic: "Unit 5: World War I",
+    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
     choices: [
-      "Hyperbole — exaggerating the size of the demand to mock it.",
-      "Oxymoron — pairing courteous-sounding words with the underlying coercion they conceal.",
-      "Allusion — invoking a specific literary text the audience is expected to recognize.",
-      "Anecdote — recounting a single representative incident.",
+      "Marxism, agriculture, isolationism, neutrality",
+      "Militarism, alliances, imperialism, nationalism",
+      "Monarchy, anarchism, industry, navy",
+      "Modernization, autocracy, individualism, neocolonialism",
     ],
-    correctText: "Oxymoron — pairing courteous-sounding words with the underlying coercion they conceal.",
-    explanation: "Calling a demand both 'small' and 'polite' yokes language of courtesy to language of compulsion; the tension exposes how interruptions disguise their coercive character. (Strictly, this is closer to a paradox or oxymoronic phrasing than to hyperbole, allusion, or anecdote.)"
+    correctText: "Militarism, alliances, imperialism, nationalism",
+    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
   },
   {
-    id: "apenglang-017",
-    topic: "Reading: Audience + Purpose",
-    prompt: "PASSAGE C: The pronoun \"we\" throughout the passage primarily functions to —",
+    id: "ghii-015",
+    topic: "Unit 5: World War I",
+    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
     choices: [
-      "limit the argument's reach to a narrow occupational subgroup.",
-      "implicate the reader in the situation the writer is critiquing, making detachment harder.",
-      "signal that the writer is speaking on behalf of a specific named organization.",
-      "concede that the writer lacks personal experience with the phenomenon discussed.",
+      "Russia won early victories in WWI that inspired political reform.",
+      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+      "Western powers sent armies to depose Nicholas II.",
+      "The Tsar voluntarily turned over power to the peasantry.",
     ],
-    correctText: "implicate the reader in the situation the writer is critiquing, making detachment harder.",
-    explanation: "First-person plural collapses the distance between writer and reader, drafting the reader into the shared condition the essay names. It does the opposite of limiting scope or conceding distance."
+    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
   },
   {
-    id: "apenglang-018",
-    topic: "Reading: Argument Analysis",
-    prompt: "PASSAGE C: The writer's final sentence implies that —",
+    id: "ghii-016",
+    topic: "Unit 5: World War I",
+    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
     choices: [
-      "productivity and a meaningful life are necessarily opposed.",
-      "the prevailing definition of productivity may not capture what makes a life worth living, and that question deserves explicit consideration.",
-      "workers should refuse all forms of digital communication.",
-      "no measurable account of productivity is possible.",
+      "Germany's loss of its colonies in Africa",
+      "The 'war guilt' clause (Article 231) and crushing reparations payments",
+      "The reduction of the German navy",
+      "The redrawing of borders in the Middle East",
     ],
-    correctText: "the prevailing definition of productivity may not capture what makes a life worth living, and that question deserves explicit consideration.",
-    explanation: "The qualifier 'so measured' is critical: the writer is not condemning productivity itself but the particular metric that has gone unquestioned. The claim is calibrated, not absolute."
-  },
-
-  // ============================================================
-  // PASSAGE D — Frederick Douglass, "What to the Slave is the
-  //   Fourth of July?" speech delivered at Rochester, NY, July 5,
-  //   1852. Public domain. Brief excerpt.
-  // ============================================================
-  {
-    id: "apenglang-019",
-    topic: "Reading: Rhetorical Situation",
-    prompt: "PASSAGE D: \"What, to the American slave, is your 4th of July? I answer: a day that reveals to him, more than all other days in the year, the gross injustice and cruelty to which he is the constant victim.\" (Frederick Douglass, 1852) — The shift from \"your\" to \"him\" in this passage primarily serves to —",
-    choices: [
-      "indicate that the speaker no longer addresses the audience directly.",
-      "create a deliberate distance that exposes a contradiction between the audience's celebration and the slave's experience.",
-      "suggest the speaker is uncertain which group he means to address.",
-      "introduce a series of legal citations supporting his claim.",
-    ],
-    correctText: "create a deliberate distance that exposes a contradiction between the audience's celebration and the slave's experience.",
-    explanation: "Douglass refuses to say 'our' Fourth of July. By keeping the holiday 'yours' and locating the slave in the third person, he forces his white audience to feel the moral gap between the freedom they celebrate and the bondage of those excluded from it."
+    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
+    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
   },
   {
-    id: "apenglang-020",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE D: Douglass opens with a rhetorical question (\"What, to the American slave, is your 4th of July?\") rather than a direct assertion. This choice most likely serves to —",
+    id: "ghii-017",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
     choices: [
-      "invite his audience into the act of imagining the contradiction before he names it for them.",
-      "concede that the question has no satisfactory answer.",
-      "test whether his audience has read the speech in advance.",
-      "soften the speech to avoid offending listeners.",
+      "All world currencies were physically stored in U.S. banks.",
+      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+      "Only the United States used a banking system in 1929.",
+      "European nations were forced to convert to communism in response.",
     ],
-    correctText: "invite his audience into the act of imagining the contradiction before he names it for them.",
-    explanation: "A rhetorical question opens an interpretive space the speaker then fills. By posing the question first, Douglass invites the audience to think the unthinkable for a beat before he supplies his unsparing answer."
+    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
   },
   {
-    id: "apenglang-021",
-    topic: "Reading: Diction + Syntax",
-    prompt: "PASSAGE D: The phrase \"gross injustice and cruelty\" relies primarily on which device?",
+    id: "ghii-018",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
     choices: [
-      "Understatement that ironically minimizes the harm described.",
-      "Pairing of two intensifying nouns to leave no room for euphemism or evasion.",
-      "Extended metaphor comparing slavery to a natural disaster.",
-      "Allusion to a specific Supreme Court ruling.",
+      "Demilitarize the Soviet Union",
+      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+      "Restore private property to peasants",
+      "Establish democratic elections",
     ],
-    correctText: "Pairing of two intensifying nouns to leave no room for euphemism or evasion.",
-    explanation: "Douglass deliberately stacks the harshest available nouns. The doublet ('injustice and cruelty') refuses the polite circumlocutions that allowed his audience to tolerate slavery; it is the opposite of understatement."
+    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
   },
   {
-    id: "apenglang-022",
-    topic: "Reading: Rhetorical Appeals",
-    prompt: "PASSAGE D: Douglass's framing of the Fourth of July as a day that 'reveals' injustice 'more than all other days' relies primarily on which appeal?",
+    id: "ghii-019",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
     choices: [
-      "Logos through an explicit syllogism that lays out premises and conclusion.",
-      "Pathos generated by the irony that the audience's most cherished holiday becomes the sharpest accusation against them.",
-      "Ethos derived solely from the speaker's professional credentials.",
-      "Kairos through the citation of recent legislation.",
+      "Free press and competitive elections",
+      "A one-party state, suppression of dissent, and a personality cult around the leader",
+      "Decentralized economic decision-making",
+      "Voluntary collective decision-making by citizens' councils",
     ],
-    correctText: "Pathos generated by the irony that the audience's most cherished holiday becomes the sharpest accusation against them.",
-    explanation: "The rhetorical force comes from emotional irony: the celebration meant to mark American freedom turns into the day that most fully exposes American bondage. The argument runs through feeling, not formal syllogism."
+    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
+    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
   },
   {
-    id: "apenglang-023",
-    topic: "Reading: Audience + Purpose",
-    prompt: "PASSAGE D: Douglass's primary purpose in this passage is to —",
+    id: "ghii-020",
+    topic: "Unit 7: World War II",
+    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
     choices: [
-      "thank his hosts for the invitation to speak on Independence Day.",
-      "indict his audience by refusing to let them enjoy a national celebration without confronting whom it excludes.",
-      "propose specific federal legislation to ameliorate working conditions.",
-      "recount the personal narrative of his own escape from slavery.",
+      "France and Britain went to war with Hitler over Czechoslovakia.",
+      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+      "Hitler returned previously seized territory to Czechoslovakia.",
+      "The League of Nations sanctioned Germany for aggression.",
     ],
-    correctText: "indict his audience by refusing to let them enjoy a national celebration without confronting whom it excludes.",
-    explanation: "The passage is a moral indictment delivered through the speaker's refusal to share in the holiday. Gratitude, legislation, and autobiography appear elsewhere in Douglass's work but are not the work of this excerpt."
+    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
   },
   {
-    id: "apenglang-024",
-    topic: "Reading: Argument Analysis",
-    prompt: "PASSAGE D: The implicit reasoning in the passage proceeds from —",
+    id: "ghii-021",
+    topic: "Unit 7: World War II",
+    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
     choices: [
-      "a specific statistical premise to a general legal conclusion.",
-      "a shared definition of liberty to the conclusion that any group excluded from that liberty stands as a living refutation of the nation's professed values.",
-      "an analogy between the Fourth of July and a religious holy day, which is then sustained throughout the speech.",
-      "an appeal to silence, suggesting that the topic cannot be discussed in public.",
+      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
+      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+      "The United States had declared war on Japan one week earlier.",
+      "Japan was honoring a defensive treaty with China.",
     ],
-    correctText: "a shared definition of liberty to the conclusion that any group excluded from that liberty stands as a living refutation of the nation's professed values.",
-    explanation: "Douglass takes his audience's own definition of liberty (which the Fourth celebrates) and shows that the very existence of the American slave contradicts it. The argument runs by exposing internal contradiction."
-  },
-
-  // ============================================================
-  // PASSAGE E — Original prose by the test author (Qs 25-30)
-  // "Critics dismiss the neighborhood garden as a hobby for those
-  //  who can afford the time. They miss the point. The garden
-  //  produces tomatoes, yes; but it also produces the small,
-  //  ordinary trust between neighbors who have learned each
-  //  other's names while waiting for the rain. Of the two harvests,
-  //  the second is harder to grow and easier to lose."
-  // ============================================================
-  {
-    id: "apenglang-025",
-    topic: "Reading: Main Claim + Intent",
-    prompt: "PASSAGE E: \"Critics dismiss the neighborhood garden as a hobby for those who can afford the time. They miss the point. The garden produces tomatoes, yes; but it also produces the small, ordinary trust between neighbors who have learned each other's names while waiting for the rain. Of the two harvests, the second is harder to grow and easier to lose.\" — The writer's central claim is best summarized as —",
-    choices: [
-      "Community gardens are economically more efficient than commercial agriculture.",
-      "The most important yield of a community garden is the social trust it builds, which is fragile and undervalued.",
-      "Critics of community gardens are correct that the gardens are merely a leisure activity.",
-      "Cities should mandate the conversion of vacant lots into community gardens.",
-    ],
-    correctText: "The most important yield of a community garden is the social trust it builds, which is fragile and undervalued.",
-    explanation: "The whole passage pivots on the metaphor of 'two harvests' — produce and trust — and ends by ranking the second above the first while marking its fragility. That is the thesis."
+    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
   },
   {
-    id: "apenglang-026",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE E: \"They miss the point.\" — This short, declarative sentence interrupts the longer surrounding sentences chiefly to —",
+    id: "ghii-022",
+    topic: "Unit 7: World War II",
+    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
     choices: [
-      "introduce a literal change in subject the writer will not return to.",
-      "deliver a blunt pivot that signals the writer is about to overturn the critics' framing.",
-      "concede that the critics are partially correct on the most important point.",
-      "demonstrate the writer's preference for fragments over complete sentences.",
+      "100,000 people, primarily Polish soldiers",
+      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+      "Only Jewish residents of Germany",
+      "Twelve million ethnic Germans",
     ],
-    correctText: "deliver a blunt pivot that signals the writer is about to overturn the critics' framing.",
-    explanation: "Short sentences placed amid longer ones do rhetorical work through contrast. Here, the curt declaration breaks the rhythm precisely at the moment the writer dismisses the critics' frame and pivots to a richer counter-argument."
+    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
   },
   {
-    id: "apenglang-027",
-    topic: "Reading: Diction + Syntax",
-    prompt: "PASSAGE E: The phrase \"the small, ordinary trust between neighbors\" relies on which choice of diction to do most of its work?",
+    id: "ghii-023",
+    topic: "Unit 7: World War II",
+    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
     choices: [
-      "Elevated, abstract vocabulary that signals philosophical sophistication.",
-      "Modest, plainspoken adjectives that honor the everyday character of what the writer wants to defend.",
-      "Specialized technical vocabulary borrowed from sociology.",
-      "Archaic diction meant to evoke an idealized past.",
+      "A test of the new weapon under combat conditions",
+      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+      "Retaliation for the Holocaust in Europe",
+      "A response to a Japanese atomic weapons program",
     ],
-    correctText: "Modest, plainspoken adjectives that honor the everyday character of what the writer wants to defend.",
-    explanation: "'Small' and 'ordinary' deliberately understate the social good the writer is championing — a rhetorical move that protects the argument against the charge of sentimentality. Plain words for plain virtues."
+    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
   },
   {
-    id: "apenglang-028",
-    topic: "Reading: Rhetorical Strategies",
-    prompt: "PASSAGE E: The closing sentence — \"Of the two harvests, the second is harder to grow and easier to lose\" — chiefly relies on which device?",
+    id: "ghii-024",
+    topic: "Unit 8: Cold War",
+    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
     choices: [
-      "Antithesis built on parallel comparatives that sharpen the contrast between the two yields.",
-      "Allusion to a specific agricultural treatise the audience is expected to know.",
-      "Hyperbole exaggerating the difficulty of community formation.",
-      "Anecdote drawn from a single garden in a named city.",
+      "Returning to isolationism",
+      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+      "Direct military conquest of the Soviet Union",
+      "Sharing nuclear technology with all U.S. allies",
     ],
-    correctText: "Antithesis built on parallel comparatives that sharpen the contrast between the two yields.",
-    explanation: "'Harder to grow' is balanced against 'easier to lose' in tight parallel structure. The antithetical pair concentrates the argument's emotional weight into a single closing line."
+    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
   },
   {
-    id: "apenglang-029",
-    topic: "Reading: Audience + Purpose",
-    prompt: "PASSAGE E: The writer most clearly addresses readers who —",
+    id: "ghii-025",
+    topic: "Unit 8: Cold War",
+    prompt: "Which Cold War event came closest to triggering nuclear war?",
     choices: [
-      "have already committed to expanding community gardens in their neighborhoods.",
-      "may be sympathetic to civic projects in principle but are vulnerable to the critics' efficiency-based dismissal.",
-      "specialize in urban agricultural policy at the federal level.",
-      "are openly hostile to any form of voluntary community organization.",
+      "The 1948 Berlin Blockade",
+      "The 1962 Cuban Missile Crisis",
+      "The 1953 Korean armistice",
+      "The 1957 Sputnik launch",
     ],
-    correctText: "may be sympathetic to civic projects in principle but are vulnerable to the critics' efficiency-based dismissal.",
-    explanation: "The passage names the critics' frame ('a hobby for those who can afford the time') in order to defuse it for readers who might have absorbed it without examination. The argument targets the persuadable middle, not specialists or opponents."
+    correctText: "The 1962 Cuban Missile Crisis",
+    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
   },
   {
-    id: "apenglang-030",
-    topic: "Reading: Argument Analysis",
-    prompt: "PASSAGE E: Which assumption is most essential to the writer's argument?",
+    id: "ghii-026",
+    topic: "Unit 8: Cold War",
+    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
     choices: [
-      "That commercial agriculture is incapable of producing nutritious food.",
-      "That informal social trust among neighbors is a genuine civic good rather than a sentimental notion.",
-      "That municipal governments are required to fund community gardens.",
-      "That the critics referenced in the first sentence have never visited a community garden.",
+      "Promote free trade across Europe",
+      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+      "Coordinate scientific space programs",
+      "Govern post-war reconstruction in Asia",
     ],
-    correctText: "That informal social trust among neighbors is a genuine civic good rather than a sentimental notion.",
-    explanation: "If a reader does not grant that social trust counts as a real good worth defending, the entire 'two harvests' argument collapses. The other choices are either irrelevant or unsupported by the passage."
-  },
-
-  // ============================================================
-  // WRITING / COMPOSITION REVISION ITEMS (Qs 31-45)
-  // Standalone sentence- and paragraph-revision problems.
-  // ============================================================
-  {
-    id: "apenglang-031",
-    topic: "Writing: Subject-Verb Agreement",
-    prompt: "WRITING: Choose the revision that best corrects the underlined portion. \"Neither the senator nor her aides _was prepared_ for the reporter's follow-up question.\"",
-    choices: [
-      "was prepared (no change)",
-      "were prepared",
-      "is prepared",
-      "has been prepared",
-    ],
-    correctText: "were prepared",
-    explanation: "With 'neither...nor,' the verb agrees with the nearer subject. 'Her aides' is plural, so the verb must be 'were prepared.' This is one of the most-tested AP Lang grammar items."
+    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
   },
   {
-    id: "apenglang-032",
-    topic: "Writing: Pronoun-Antecedent",
-    prompt: "WRITING: Choose the revision that best corrects the underlined portion. \"Every student should bring _their_ laptop to the workshop.\"",
+    id: "ghii-027",
+    topic: "Unit 8: Cold War",
+    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
     choices: [
-      "their (no change — singular 'they' is now widely accepted in formal writing for an indefinite antecedent)",
-      "his",
-      "its",
-      "them",
+      "The U.S. sought to annex Vietnam as a territory.",
+      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+      "The Vietnamese government formally requested annexation.",
+      "Vietnam had attacked the United States directly in 1960.",
     ],
-    correctText: "their (no change — singular 'they' is now widely accepted in formal writing for an indefinite antecedent)",
-    explanation: "The current AP Lang scoring and most major style guides (APA 7, MLA 9, Chicago 17) accept singular 'they' with indefinite antecedents like 'every student.' 'His' is gender-exclusive; 'its' is for non-persons; 'them' is the wrong case."
+    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
   },
   {
-    id: "apenglang-033",
-    topic: "Writing: Parallel Structure",
-    prompt: "WRITING: Choose the revision that best corrects the underlined portion. \"The committee praised the candidate for her clear writing, her command of statistics, and _because she could explain complex ideas plainly_.\"",
+    id: "ghii-028",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
     choices: [
-      "because she could explain complex ideas plainly (no change)",
-      "her ability to explain complex ideas plainly",
-      "she explained complex ideas plainly",
-      "and explaining complex ideas plainly",
+      "Through armed military rebellion against British troops",
+      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+      "By accepting all British demands without protest",
+      "By forming a violent partnership with Japan during WWII",
     ],
-    correctText: "her ability to explain complex ideas plainly",
-    explanation: "Items in a series must be grammatically parallel. The first two items are noun phrases ('her clear writing,' 'her command of statistics'), so the third must also be a noun phrase: 'her ability to explain...' The original mixes a subordinate clause into the series."
+    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
   },
   {
-    id: "apenglang-034",
-    topic: "Writing: Modifier Placement",
-    prompt: "WRITING: Choose the revision that best corrects the underlined sentence. \"_Walking through the museum, the paintings seemed to come alive._\"",
+    id: "ghii-029",
+    topic: "Unit 9: Decolonization",
+    prompt: "What was the immediate result of the 1947 Partition of British India?",
     choices: [
-      "Walking through the museum, the paintings seemed to come alive. (no change)",
-      "Walking through the museum, we felt the paintings come alive.",
-      "The paintings, walking through the museum, seemed to come alive.",
-      "Walking through the museum was when the paintings came alive.",
+      "India and Pakistan formed a single unified democracy.",
+      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+      "India remained a British colony until 1960.",
+      "The partition created peace across South Asia.",
     ],
-    correctText: "Walking through the museum, we felt the paintings come alive.",
-    explanation: "The original is a dangling modifier — paintings don't walk. The revision supplies a logical agent ('we') for the introductory participial phrase. Option C makes the dangler worse; D buries the action in a vague 'was when' construction."
+    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
   },
   {
-    id: "apenglang-035",
-    topic: "Writing: Conciseness + Precision",
-    prompt: "WRITING: Choose the most concise and precise revision. \"_Due to the fact that_ the bridge was closed, traffic was rerouted along the river road.\"",
+    id: "ghii-030",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
     choices: [
-      "Due to the fact that (no change)",
-      "Because",
-      "Owing to the fact that",
-      "On account of the fact that",
+      "He led a foreign army that invaded South Africa.",
+      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+      "He restored a system of racial segregation under a new name.",
+      "He oversaw the colonization of South Africa by a European power.",
     ],
-    correctText: "Because",
-    explanation: "AP Lang readers consistently reward concision when meaning is preserved. 'Because' replaces a four-word filler phrase with a single word that says exactly the same thing. The other options are merely synonyms for the wordy original."
+    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
   },
   {
-    id: "apenglang-036",
-    topic: "Writing: Tone Consistency",
-    prompt: "WRITING: A formal research essay on climate policy contains the sentence: \"Scientists have argued for decades that the trends are clear; _basically, anyone who doesn't get this is asleep at the wheel_.\" Which revision best preserves the writer's argument while restoring a tone consistent with the rest of the essay?",
+    id: "ghii-031",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "What is the European Union (EU)?",
     choices: [
-      "basically, anyone who doesn't get this is asleep at the wheel (no change)",
-      "the persistence of skepticism therefore reflects a failure of attention rather than a deficiency of evidence.",
-      "and people who don't believe it are basically clueless about the science.",
-      "skeptics need to wake up and smell the coffee already.",
+      "A military alliance to replace NATO",
+      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+      "An international religious organization",
+      "A short-lived 19th-century trade league",
     ],
-    correctText: "the persistence of skepticism therefore reflects a failure of attention rather than a deficiency of evidence.",
-    explanation: "Option B keeps the writer's argument (skepticism stems from inattention, not from missing evidence) but restores academic register. The other choices preserve or worsen the colloquial slang that clashes with a formal essay."
+    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
   },
   {
-    id: "apenglang-037",
-    topic: "Writing: Transitions",
-    prompt: "WRITING: Choose the transition that best fits between these two sentences in an argumentative essay: \"The new policy reduced emissions by twelve percent in the first year. _____, energy costs for low-income households rose sharply, prompting calls for targeted rebates.\"",
+    id: "ghii-032",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
     choices: [
-      "Consequently",
-      "However",
-      "Similarly",
-      "For example",
+      "It granted multi-party democracy.",
+      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+      "It abolished the Communist Party.",
+      "It allowed the protests to continue indefinitely.",
     ],
-    correctText: "However",
-    explanation: "The second sentence introduces a counterweight to the first (a benefit followed by a cost), so a contrastive transition is required. 'Consequently' would suggest the cost was caused by the emissions reduction (not stated); 'Similarly' and 'For example' would misrepresent the relationship as continuation rather than contrast."
+    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
   },
   {
-    id: "apenglang-038",
-    topic: "Writing: Punctuation — Semicolons",
-    prompt: "WRITING: Which sentence uses the semicolon correctly?",
+    id: "ghii-033",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
     choices: [
-      "The mayor announced three priorities; housing, transit, and parks.",
-      "Although the report was delayed; the committee voted on schedule.",
-      "The witness testified for two hours; the jury then asked for a recess.",
-      "The author cited three sources; including a recent monograph.",
+      "French colonial troops",
+      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+      "United Nations peacekeepers",
+      "American military forces",
     ],
-    correctText: "The witness testified for two hours; the jury then asked for a recess.",
-    explanation: "A semicolon joins two independent clauses that could each stand alone as sentences. Option A should use a colon (list following an independent clause). B should use a comma after the subordinate clause. D should also use a comma before 'including.'"
+    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
   },
   {
-    id: "apenglang-039",
-    topic: "Writing: Punctuation — Commas",
-    prompt: "WRITING: Choose the sentence with correct comma usage.",
+    id: "ghii-034",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "Which statement best describes the scientific consensus on climate change?",
     choices: [
-      "The novelist, who won the prize last spring will speak on Friday.",
-      "The novelist who won the prize last spring, will speak on Friday.",
-      "The novelist, who won the prize last spring, will speak on Friday.",
-      "The novelist who, won the prize last spring will speak on Friday.",
+      "Earth's climate has not changed in recorded history.",
+      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+      "Climate change affects only the polar regions.",
+      "Climate change is caused exclusively by natural solar cycles.",
     ],
-    correctText: "The novelist, who won the prize last spring, will speak on Friday.",
-    explanation: "A non-restrictive relative clause ('who won the prize last spring') — one that supplies extra information rather than identifying which novelist — is set off by a pair of commas. The clause must be enclosed on both sides; partial commas (A, B) and a misplaced comma (D) are all incorrect."
+    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
   },
   {
-    id: "apenglang-040",
-    topic: "Writing: Punctuation — Apostrophes",
-    prompt: "WRITING: Choose the sentence with correct apostrophe use.",
+    id: "ghii-035",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
     choices: [
-      "The students assignments were due on Tuesday, but its grading was delayed until Friday.",
-      "The students' assignments were due on Tuesday, but its grading was delayed until Friday.",
-      "The student's assignments were due on Tuesday, but it's grading was delayed until Friday.",
-      "The students' assignments were due on Tuesday, but it's grading was delayed until Friday.",
+      "Tokugawa daimyo system and South African apartheid",
+      "The printing press and the steam engine",
+      "Monsoon winds and the Nile River",
+      "Pasta and pizza",
     ],
-    correctText: "The students' assignments were due on Tuesday, but its grading was delayed until Friday.",
-    explanation: "Plural possessive 'students'' takes an apostrophe after the s; possessive 'its' takes no apostrophe ('it's' = 'it is'). Only option B gets both right."
+    correctText: "Tokugawa daimyo system and South African apartheid",
+    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
   },
   {
-    id: "apenglang-041",
-    topic: "Writing: Sentence Variety",
-    prompt: "WRITING: A paragraph reads: \"The lab opens at eight. The director arrives at nine. The technicians begin at nine-thirty. The first experiments start at ten.\" Which revision best improves sentence variety while preserving meaning?",
+    id: "ghii-036",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
     choices: [
-      "Leave as is — the parallel short sentences create useful rhythm.",
-      "The lab opens at eight; the director arrives an hour later, and by nine-thirty the technicians have begun, allowing the first experiments to start at ten.",
-      "At eight, the lab opens, and at nine, the director arrives, and at nine-thirty, the technicians begin, and at ten, the experiments start.",
-      "Eight: lab opens. Nine: director arrives. Nine-thirty: technicians begin. Ten: experiments start.",
+      "Gutenberg's printing press and the Industrial Revolution's steam engine",
+      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
+      "Confucian filial piety and feudal serfdom",
+      "The Treaty of Westphalia and the Truman Doctrine",
     ],
-    correctText: "The lab opens at eight; the director arrives an hour later, and by nine-thirty the technicians have begun, allowing the first experiments to start at ten.",
-    explanation: "Option B varies clause length and connector type and uses subordination to mark the relationships among events. Option A and D both keep the choppy original; C strings everything together with repetitive 'and...and...and' coordination."
+    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
+    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
   },
   {
-    id: "apenglang-042",
-    topic: "Writing: Active vs. Passive Voice",
-    prompt: "WRITING: A campaign brochure includes the sentence: \"_Mistakes were made by the previous administration._\" When the writer's goal is to assign clear responsibility, the revision that best serves that goal is —",
+    id: "ghii-037",
+    topic: "Enduring Issues",
+    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
     choices: [
-      "Mistakes were made by the previous administration. (no change — passive is more diplomatic)",
-      "The previous administration made mistakes.",
-      "Mistakes were made.",
-      "There were mistakes that occurred during the previous administration.",
+      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+      "The Code of Hammurabi and the Treaty of Versailles",
+      "The Edict of Nantes and the Smoot-Hawley Tariff",
+      "The Edict of Worms and the Cuban Missile Crisis briefings",
     ],
-    correctText: "The previous administration made mistakes.",
-    explanation: "Active voice names the agent first and clearly. The original passive construction technically names the agent but de-emphasizes responsibility by burying it in a 'by' phrase. C drops the agent entirely; D buries the action in expletive ('There were') and vague ('occurred') wording. When responsibility is the rhetorical goal, B is strongest."
+    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
   },
   {
-    id: "apenglang-043",
-    topic: "Writing: Logical Organization",
-    prompt: "WRITING: A student's introductory paragraph contains the following four sentences in this order: (1) Several cities have piloted free bus service. (2) Public transit has become a major equity issue in American cities. (3) Their results offer important lessons for federal policy. (4) Riders without cars depend on it; commuters with cars benefit when others use it. — Which reordering produces the most logical paragraph?",
+    id: "ghii-038",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
     choices: [
-      "1, 2, 3, 4",
-      "2, 4, 1, 3",
-      "4, 2, 3, 1",
-      "3, 1, 2, 4",
+      "Ancient African kingdoms and ethnic boundaries",
+      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+      "Geographic features like rivers and mountains",
+      "Borders established by the Ottoman Empire",
     ],
-    correctText: "2, 4, 1, 3",
-    explanation: "Move from general to specific: name the issue (2), explain why it matters to a broad audience (4), introduce the concrete cases (1), then point to their significance (3). This pattern — claim, stakes, evidence, implication — is the standard structure for an analytical introduction."
+    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
   },
   {
-    id: "apenglang-044",
-    topic: "Writing: Thesis Placement + Precision",
-    prompt: "WRITING: Which of the following is the most effective thesis statement for a rhetorical analysis essay on a presidential inaugural address?",
+    id: "ghii-039",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
     choices: [
-      "The speech was very inspiring and used many rhetorical devices.",
-      "In her inaugural address, the new president unifies a divided audience by pairing inclusive first-person plural with carefully chosen historical allusions that recast partisan disagreement as a shared American tradition.",
-      "This essay will discuss the rhetorical strategies in the inaugural address.",
-      "The president gave a good speech that touched on many important topics, such as the economy, foreign policy, and unity.",
+      "Confucian philosophy",
+      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+      "Medieval feudal contracts",
+      "Mercantilist economic theory",
     ],
-    correctText: "In her inaugural address, the new president unifies a divided audience by pairing inclusive first-person plural with carefully chosen historical allusions that recast partisan disagreement as a shared American tradition.",
-    explanation: "A strong rhetorical-analysis thesis names (a) the rhetorical goal, (b) the specific strategies used to achieve it, and (c) the effect on the audience. Option B does all three. A is evaluative but vague; C is a roadmap, not a claim; D is a topic list."
+    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
   },
   {
-    id: "apenglang-045",
-    topic: "Writing: Paragraph Coherence",
-    prompt: "WRITING: A paragraph defends the value of close reading. Which sentence, if inserted as the topic sentence at the start, would best unify the paragraph below? \"_____. A student who pauses on a single metaphor learns to ask why the writer chose that image and not another. The habit transfers: in a contract, in a news article, in a campaign speech, the same trained attention catches what would otherwise slip past unnoticed.\"",
+    id: "ghii-040",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "Which sequence of 20th-century events is in correct chronological order?",
     choices: [
-      "Close reading is a difficult skill that most students do not master.",
-      "Close reading trains a kind of attention that pays dividends well beyond the literature classroom.",
-      "Many teachers assign too much reading and not enough close reading.",
-      "Reading is one of the most important skills a student can learn.",
+      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
+      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
+      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
     ],
-    correctText: "Close reading trains a kind of attention that pays dividends well beyond the literature classroom.",
-    explanation: "The body of the paragraph illustrates how the attention developed in literature class transfers to contracts, news, and speeches — exactly the claim made in option B. A is off-topic (difficulty), C is off-topic (curriculum design), and D is too general to organize the specifics that follow."
+    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
+  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
-
-const STORAGE_KEY = "ap-eng-lang-practice-exam-state-v1";
+const STORAGE_KEY = "ap-aas-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2279,14 +2168,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">AP English Language Practice · 45 Items</div>
+      <div class="exam-topic">AP Practice · 40 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 45 multiple-choice questions modeled on the AP English Language and Composition Section I
-        format — roughly 30 reading items grouped under short nonfiction passages plus 15 composition-revision
-        items covering grammar, style, punctuation, and organization. Each question gives instant feedback with
-        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
-        know exactly where to focus your review before the May exam.
+        You'll see 40 multiple-choice questions drawn from all 4 units of the AP African American Studies CED,
+        modeled on Section I MCQ format including stimulus and source-analysis items. Each question gives instant
+        feedback with a short explanation. At the end, you'll see your overall score plus a per-topic mastery
+        breakdown so you know exactly where to focus your review for the AP exam.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2423,14 +2311,14 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · AP English Language</div>
+      <div class="results-eyebrow">Practice Exam Complete · AP African American Studies</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a 4 or 5 on AP Lang Section I. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which skills to drill before exam day."}
+          ? "Strong work — you're tracking toward a solid AP performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
@@ -2509,7 +2397,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/ap-eng-lang-practice/ → root index.html
+  // Walk up the path: games/ap-aas-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 
