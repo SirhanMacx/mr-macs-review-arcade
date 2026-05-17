@@ -368,28 +368,6 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-physics-1",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Slope of velocity-time graph.",
-      "choices": [
-        "Acceleration",
-        "Mu",
-        "Velocity",
-        "Displacement"
-      ],
-      "correctText": "Acceleration",
-      "explanation": "Slope of v(t) gives a(t): a = dv/dt. A horizontal v-t line means a = 0 (constant velocity); an inclined v-t line means constant a; a curving v-t line means changing a (jerk, beyond AP). When v and a have the same sign the object speeds up; when they have opposite signs it slows down. AP FRQ classic (Science Practice 4): handed a piecewise-linear v-t graph, students compute acceleration on each segment and must explicitly justify direction of motion using sign conventions defined on a coordinate axis."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-018",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Graphs of Motion",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
       "prompt": "Area under velocity-time graph.",
       "choices": [
         "Displacement",
@@ -401,7 +379,7 @@
       "explanation": "Area under v(t) gives displacement Delta x (meters). Geometrically: count signed area — area below the t-axis is negative displacement (motion in the -x direction). For constant velocity v over time t, area = v * t = Delta x. For constant acceleration starting from rest, area is a triangle: Delta x = (1/2) v_max t. AP FRQs (Science Practice 4) use trapezoid and triangle decomposition to integrate non-trivial v-t graphs, and students must show area computations with units to receive full credit (Science Practice 5)."
     },
     {
-      "id": "ap-physics-1-algebra-based-019",
+      "id": "ap-physics-1-algebra-based-018",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Graphs of Motion",
@@ -423,7 +401,7 @@
       "explanation": "Area under a(t) gives Delta v (m/s). For constant acceleration over time t: Delta v = a * t (the basic kinematic relation). The hierarchy x → v → a connects by slope (going down: x slope = v, v slope = a) and by area (going up: a area = Delta v, v area = Delta x). AP FRQ (Science Practice 2: Mathematical Routines) testing this chain expects students to read off slope and area values from graphs consistently and combine them — common in collision and rocket-thrust problems where a is piecewise constant."
     },
     {
-      "id": "ap-physics-1-algebra-based-020",
+      "id": "ap-physics-1-algebra-based-019",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Graphs of Motion",
@@ -445,7 +423,7 @@
       "explanation": "Slope sign on a position-time graph reveals direction of motion relative to a chosen coordinate axis: positive slope = +x direction, negative slope = -x direction, zero slope = at rest. Same logic applies to v-t slope giving acceleration direction. AP FRQ (Science Practice 6: Argumentation) often asks students to write a paragraph-length argument explaining whether a cart moving along a track is moving toward or away from a sensor based purely on graph slope — students must explicitly reference the coordinate convention they defined."
     },
     {
-      "id": "ap-physics-1-algebra-based-021",
+      "id": "ap-physics-1-algebra-based-020",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Reference Frames",
@@ -467,7 +445,7 @@
       "explanation": "A reference frame is a coordinate system attached to an observer used to measure positions, velocities, and accelerations. Newton assumed an absolute frame in the Principia (1687); Galileo's relativity principle held that laws of motion are identical in all inertial frames. AP Physics 1 stays strictly within Galilean (non-relativistic) relativity. On FRQs (Science Practice 1: Modeling) students must declare the chosen reference frame at the start — typically the ground frame — and stick with it consistently, since velocities, displacements, and even forces can have different signs in different frames."
     },
     {
-      "id": "ap-physics-1-algebra-based-022",
+      "id": "ap-physics-1-algebra-based-021",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Reference Frames",
@@ -489,7 +467,7 @@
       "explanation": "An inertial frame is one in which Newton's first law (inertia) holds: an object with no net force moves at constant velocity. Equivalently, any frame moving at constant velocity relative to a known inertial frame is also inertial. Newton's laws as written apply only in inertial frames; in accelerating frames, pseudo-forces (centrifugal, Coriolis) must be added — but AP Physics 1 avoids non-inertial frames. AP FRQs (Science Practice 6) sometimes ask students to argue why a frame attached to an accelerating elevator is not inertial — because objects appear to accelerate without a real force."
     },
     {
-      "id": "ap-physics-1-algebra-based-023",
+      "id": "ap-physics-1-algebra-based-022",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Reference Frames",
@@ -511,7 +489,7 @@
       "explanation": "The rest frame of an object is the inertial frame in which that object's velocity is zero. Every observer is at rest in their own rest frame by definition. Galilean transformations relate observations between frames: if frame S' moves at velocity u relative to frame S, then v_{in S} = v_{in S'} + u for any object. AP Physics 1 FRQs (Science Practice 2: Mathematical Routines) use this to handle 'velocity of plane relative to ground' problems — students must vector-add the plane-relative-to-air velocity and the air-relative-to-ground (wind) velocity."
     },
     {
-      "id": "ap-physics-1-algebra-based-024",
+      "id": "ap-physics-1-algebra-based-023",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Reference Frames",
@@ -533,7 +511,7 @@
       "explanation": "Relative velocity v_{A/B} = v_A - v_B (m/s), where both v_A and v_B are measured in a common (typically ground) frame. The Galilean transformation. AP FRQ scenarios (Science Practice 5: Calculations): a boat crossing a river — boat-relative-to-water velocity vector plus water-relative-to-ground (current) velocity gives boat-relative-to-ground; students must determine downstream drift and crossing time. Sign convention is critical: v_{A/B} = -v_{B/A}. Students must label diagrams with both vectors explicitly."
     },
     {
-      "id": "ap-physics-1-algebra-based-025",
+      "id": "ap-physics-1-algebra-based-024",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Reference Frames",
@@ -555,7 +533,7 @@
       "explanation": "Galilean velocity addition: v_{A/C} = v_{A/B} + v_{B/C}, where the middle subscripts must match in chain fashion. Operations are head-to-tail vector additions (or component sums). AP Physics 1 stays non-relativistic, so velocities simply add — Einstein's velocity-addition formula is reserved for AP Physics 2 modern physics. On river-crossing or airplane-with-wind FRQs (Science Practice 5), students must draw the velocity-vector triangle, label all three vectors with both subscripts, and decompose into components to find magnitude and heading."
     },
     {
-      "id": "ap-physics-1-algebra-based-026",
+      "id": "ap-physics-1-algebra-based-025",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's Laws",
@@ -577,7 +555,7 @@
       "explanation": "Newton's first law (1687): an object at rest stays at rest, and an object in motion stays in motion with constant velocity, unless acted on by a net external force. The property quantified is inertia (mass). Galileo's inclined-plane experiments first articulated this principle; Newton elevated it to a law in Principia Mathematica. AP FRQs (Science Practice 1: Modeling) require students to identify inertial frames before applying any Newtonian analysis, and to recognize that an object with zero net force is in equilibrium even if moving (constant v) — a common conceptual trap on multiple-choice items."
     },
     {
-      "id": "ap-physics-1-algebra-based-027",
+      "id": "ap-physics-1-algebra-based-026",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's Laws",
@@ -599,7 +577,7 @@
       "explanation": "F_net = m a (newtons = kg * m/s^2). Newton's second law from Principia (1687) — the central equation of mechanics. F_net is the vector sum of ALL external forces; m is inertial mass; a is the resulting acceleration. AP FRQs (Science Practice 5: Calculations) consistently require students to draw a free-body diagram (Science Practice 1: Modeling), sum forces along each axis, and apply F_net,x = m a_x and F_net,y = m a_y separately. On the AP equation table. Limiting case: if F_net = 0 then a = 0, recovering Newton's first law as a special case."
     },
     {
-      "id": "ap-physics-1-algebra-based-028",
+      "id": "ap-physics-1-algebra-based-027",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's Laws",
@@ -621,7 +599,7 @@
       "explanation": "Newton's third law (1687): for every action force F_{AB}, there is an equal-magnitude opposite-direction reaction force F_{BA} = -F_{AB}, exerted on a different object. AP FRQ classic trap (Science Practice 6: Argumentation): students must explicitly name the partner of each action force AND identify which body exerts it on which body. The two forces never cancel in a free-body diagram because they act on different objects. Earth pulls a falling ball downward with mg; the ball pulls Earth upward with mg — but Earth's mass is so large its acceleration is undetectable."
     },
     {
-      "id": "ap-physics-1-algebra-based-029",
+      "id": "ap-physics-1-algebra-based-028",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's Laws",
@@ -643,7 +621,7 @@
       "explanation": "Momentum p = m v (kg * m/s) is a vector. Newton actually wrote his second law in momentum form: F_net = dp/dt — the rate of change of momentum. For constant mass this reduces to F = m a. Momentum is conserved in isolated systems (no external force), which underlies all AP Physics 1 collision FRQs (Science Practice 5). On the AP equation sheet. Students writing paragraph-length arguments (Science Practice 7) must explicitly invoke 'isolated system' or 'F_ext = 0' as justification for using conservation of momentum to bridge before-and-after states."
     },
     {
-      "id": "ap-physics-1-algebra-based-030",
+      "id": "ap-physics-1-algebra-based-029",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's Laws",
@@ -665,7 +643,7 @@
       "explanation": "F_net = dp/dt — the original form of Newton's second law as Newton wrote it. For variable mass (e.g., rocket expelling propellant) F = m a is incomplete; F = dp/dt is the general form. AP Physics 1 FRQs (Science Practice 7: Paragraph-Length Argument) often invoke this form for impulse analyses: integrating F dt over the contact time gives Delta p = J (impulse). On a rocket FRQ, students may need to recognize that mass changes — at AP level this is usually treated by computing average force = Delta p / Delta t rather than calculus."
     },
     {
-      "id": "ap-physics-1-algebra-based-031",
+      "id": "ap-physics-1-algebra-based-030",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Friction",
@@ -687,29 +665,7 @@
       "explanation": "Friction is a contact force parallel to surfaces, opposing relative motion (kinetic) or impending motion (static). Microscopically caused by surface asperities and adhesion at the contact patches. Coulomb (yes, the same Coulomb of electrostatics) first systematized friction laws in 1785. AP FRQs (Science Practice 1: Modeling) require explicit friction force vectors on free-body diagrams, always directed opposite to motion or impending motion. Treated as a single resultant force in AP Physics 1, not microscopically. Friction always reduces kinetic energy by generating thermal energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-032",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Friction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Friction preventing motion.",
-      "choices": [
-        "Center of mass",
-        "Friction",
-        "Mu",
-        "Static friction"
-      ],
-      "correctText": "Static friction",
-      "explanation": "Static friction f_s adjusts up to a maximum f_{s,max} = mu_s N (newtons), where mu_s is the coefficient of static friction (dimensionless) and N is normal force (N). Static friction is NOT a fixed value — it equals whatever applied force is needed to keep the object at rest, up to the ceiling. AP FRQ classic (Science Practice 6): a box on an incline, theta increasing — students must argue that f_s = mg sin(theta) until tan(theta) = mu_s, after which the box slides and kinetic friction takes over. Distinguish static (mu_s) and kinetic (mu_k); mu_s > mu_k usually."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-033",
+      "id": "ap-physics-1-algebra-based-031",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Friction",
@@ -731,51 +687,7 @@
       "explanation": "Kinetic friction f_k = mu_k N (newtons) — constant magnitude (to AP-level approximation) once the object slides, directed opposite to velocity. mu_k is the coefficient of kinetic friction, dimensionless. AP FRQs (Science Practice 5: Calculations) frequently combine friction with Newton's second law on inclines: ma = mg sin(theta) - mu_k mg cos(theta) gives a = g(sin(theta) - mu_k cos(theta)). Limiting check: if mu_k = 0 (frictionless), a = g sin(theta), the classic frictionless-incline result. The work-energy theorem with friction: W_friction = -f_k * d (always negative, generates heat)."
     },
     {
-      "id": "ap-physics-1-algebra-based-034",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Friction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Friction formula.",
-      "choices": [
-        "mu times Normal force",
-        "Kinetic friction",
-        "Angular momentum",
-        "Mu"
-      ],
-      "correctText": "mu times Normal force",
-      "explanation": "f = mu N (newtons) — the basic friction relation, with mu either mu_s (max static) or mu_k (kinetic). Crucially: friction depends on the NORMAL force, not on the contact area or weight directly. On an incline, N = mg cos(theta) — not mg — a frequent AP error. On the AP equation sheet. Coulomb established the dependence on N empirically. AP FRQs (Science Practice 5) often require computing N on inclines, in elevators (N = m(g + a)), or with applied vertical forces (a downward push increases N and thus friction)."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-035",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Friction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Friction's dimensionless coefficient.",
-      "choices": [
-        "Kinetic friction",
-        "Mu",
-        "Work",
-        "Friction"
-      ],
-      "correctText": "Mu",
-      "explanation": "mu (μ) is the dimensionless coefficient of friction. Typical values: mu_s ≈ 0.6 (rubber on dry concrete), mu_k ≈ 0.4 (steel on steel). AP FRQ experimental-design questions (Science Practice 4: Experimental Design) often ask students to design a procedure to measure mu_s by slowly tilting an incline until the block slips, then computing mu_s = tan(theta_critical). Or to measure mu_k by recording the deceleration of a sliding block: a = -mu_k g, so mu_k = |a|/g. Students must specify what to measure, how, and how to compute uncertainty."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-036",
+      "id": "ap-physics-1-algebra-based-032",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Free Body Diagrams",
@@ -797,7 +709,7 @@
       "explanation": "A free-body diagram (FBD) isolates a single object as a dot or box and shows every external force as an arrow originating at the object, labeled with its source (e.g., F_g, F_N, T, f). AP FRQs (Science Practice 1: Modeling) explicitly require a labeled FBD with no extraneous forces (no centripetal pseudo-force, no 'normal reaction of itself'). FBD then drives the application of Newton's second law in vector components. Common AP grading rubric: each missing or extra force costs a point. Internal forces (springs inside the object, atomic forces) never appear."
     },
     {
-      "id": "ap-physics-1-algebra-based-037",
+      "id": "ap-physics-1-algebra-based-033",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Free Body Diagrams",
@@ -819,7 +731,7 @@
       "explanation": "Weight F_g = m g (newtons), always directed downward (toward Earth's center). Distinguish from mass m (kg, scalar). Newton's law of universal gravitation: F_g = G m M_E / r^2, which near Earth's surface simplifies to mg with g = 9.8 m/s^2. AP FRQs (Science Practice 6: Argumentation) commonly ask students to explain why apparent weight (normal force reading on a scale) differs from true weight in an accelerating elevator — N = m(g + a) when upward-accelerating, N = m(g - a) when downward-accelerating, and N = 0 in free fall (apparent weightlessness)."
     },
     {
-      "id": "ap-physics-1-algebra-based-038",
+      "id": "ap-physics-1-algebra-based-034",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Free Body Diagrams",
@@ -841,7 +753,7 @@
       "explanation": "Normal force N (newtons) is the contact force perpendicular to the surfaces, preventing interpenetration. On level ground with no vertical applied force: N = mg. On an incline: N = mg cos(theta). In an elevator accelerating upward with a: N = m(g + a). Normal force adjusts to whatever value is needed to satisfy the no-penetration constraint — it is NOT a fixed quantity. AP FRQs (Science Practice 5: Calculations) chain N with friction (f = mu N) and circular motion (N supplies centripetal force on banked turns and the bottom of vertical loops)."
     },
     {
-      "id": "ap-physics-1-algebra-based-039",
+      "id": "ap-physics-1-algebra-based-035",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Free Body Diagrams",
@@ -863,7 +775,7 @@
       "explanation": "Tension T (newtons) is the pulling force transmitted along a string, rope, or wire, directed along the rope away from the object. AP Physics 1 idealization: ropes are massless and inextensible, so tension has the same magnitude at every point along the rope (no mass means no net force needed to accelerate the rope itself). On Atwood machines (Science Practice 5: Calculations), the rope passing over a frictionless massless pulley keeps T equal on both sides. If the rope has appreciable mass or the pulley has rotational inertia, tensions differ — but those scenarios appear in Unit 5 rotational dynamics."
     },
     {
-      "id": "ap-physics-1-algebra-based-040",
+      "id": "ap-physics-1-algebra-based-036",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Free Body Diagrams",
@@ -885,7 +797,7 @@
       "explanation": "Net force F_net = vector sum of all external forces (N). By Newton's second law, F_net = m a. AP FRQs (Science Practice 1: Modeling) require students to compute net force component-by-component: F_{net,x} = sum F_x, F_{net,y} = sum F_y. Then a_x = F_{net,x} / m and a_y = F_{net,y} / m. If F_net = 0 the object is in translational equilibrium (constant velocity or rest). Crucial AP distinction (Science Practice 6): equilibrium does not mean at rest; it means a = 0. A satellite in orbit or a car at terminal velocity satisfies this."
     },
     {
-      "id": "ap-physics-1-algebra-based-041",
+      "id": "ap-physics-1-algebra-based-037",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Inclined Planes",
@@ -907,7 +819,7 @@
       "explanation": "An inclined plane is a flat surface angled at theta to the horizontal. Galileo used inclined planes to slow gravitational acceleration enough to measure motion with water-clocks, indirectly establishing g. AP FRQs (Science Practice 1: Modeling) require setting up tilted coordinates with x along the incline (positive = down-slope) and y perpendicular to it — this trick avoids needing to decompose the normal force and friction. Then mg decomposes into mg sin(theta) (along incline, down-slope) and mg cos(theta) (perpendicular to incline, into the surface)."
     },
     {
-      "id": "ap-physics-1-algebra-based-042",
+      "id": "ap-physics-1-algebra-based-038",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Inclined Planes",
@@ -929,7 +841,7 @@
       "explanation": "Weight component parallel to incline = mg sin(theta) (newtons), pointing down-slope. Derived by projecting mg (always vertical) onto the tilted x-axis aligned with the incline surface. This is the force that accelerates the block down a frictionless ramp. AP FRQ checks (Science Practice 5: Calculations): when theta = 0 (flat), mg sin(0) = 0 — no horizontal pull. When theta = 90 (vertical wall), mg sin(90) = mg — full free fall. Always pair with the perpendicular component mg cos(theta) for N when summing forces in the perpendicular direction."
     },
     {
-      "id": "ap-physics-1-algebra-based-043",
+      "id": "ap-physics-1-algebra-based-039",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Inclined Planes",
@@ -951,7 +863,7 @@
       "explanation": "Weight component perpendicular to incline = mg cos(theta) (newtons), pointing into the surface. Sets the normal force on a frictionless incline: N = mg cos(theta). When theta = 0 (flat surface), N = mg (full weight). When theta = 90 (vertical wall), N = 0 (block has no normal force). AP FRQs (Science Practice 5: Calculations) chain this with friction: f_max = mu_s mg cos(theta), so as theta increases mg sin(theta) eventually overcomes mu_s mg cos(theta), giving the critical angle tan(theta_c) = mu_s for slipping to begin."
     },
     {
-      "id": "ap-physics-1-algebra-based-044",
+      "id": "ap-physics-1-algebra-based-040",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Inclined Planes",
@@ -973,7 +885,7 @@
       "explanation": "On a frictionless incline with no other vertical applied force, N = mg cos(theta). This is the SAME value as the perpendicular weight component because perpendicular forces must sum to zero (no acceleration perpendicular to the incline — the block doesn't sink into or fly off the surface). AP FRQs (Science Practice 6: Argumentation) commonly catch students who write N = mg (forgetting the cos(theta) factor) — graders mark this conceptual error harshly. If a string parallel to the incline applies an additional force, N is unchanged; if the string pulls outward at an angle, N changes."
     },
     {
-      "id": "ap-physics-1-algebra-based-045",
+      "id": "ap-physics-1-algebra-based-041",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Inclined Planes",
@@ -995,7 +907,7 @@
       "explanation": "Acceleration of a block on a frictionless incline: a = g sin(theta) (m/s^2), directed down-slope. Derived by F_net = m a: mg sin(theta) = m a, so a = g sin(theta) — mass-independent (Galilean inertia result). On a rough incline a = g(sin(theta) - mu_k cos(theta)). AP FRQs (Science Practice 5: Calculations) use this to find time-to-bottom or final velocity using kinematics. Limiting cases: theta = 0 gives a = 0 (no slope, no motion); theta = 90 gives a = g (vertical free fall). Galileo verified this by rolling balls down inclined planes."
     },
     {
-      "id": "ap-physics-1-algebra-based-046",
+      "id": "ap-physics-1-algebra-based-042",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Atwood Machines",
@@ -1017,7 +929,7 @@
       "explanation": "An Atwood machine, invented by George Atwood in 1784, consists of two masses connected by a string over a frictionless massless pulley. Designed to slow gravitational acceleration (a = (m_1 - m_2) g / (m_1 + m_2)) enough to time motion with 18th-century pendulum clocks. AP Physics 1 FRQs (Science Practice 1: Modeling) require separate free-body diagrams for each mass, then F = m a applied to each, with the constraint that both masses share the same |a| (rope is inextensible) and same |T| (rope is massless, pulley is massless and frictionless)."
     },
     {
-      "id": "ap-physics-1-algebra-based-047",
+      "id": "ap-physics-1-algebra-based-043",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Atwood Machines",
@@ -1039,7 +951,7 @@
       "explanation": "In an Atwood machine, the heavier mass accelerates downward and the lighter mass upward. The system's center of mass falls because the unbalanced weight (m_1 - m_2) g is the net external force on the two-mass system. Limiting cases (Science Practice 6: Argumentation): if m_1 = m_2, a = 0 (system stays at rest or moves at constant velocity); if m_1 >> m_2, a → g (m_2 falls freely under gravity while pulling m_1 along). AP FRQs often ask students to predict and justify direction before computing magnitude — a Modeling step (Science Practice 1)."
     },
     {
-      "id": "ap-physics-1-algebra-based-048",
+      "id": "ap-physics-1-algebra-based-044",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Atwood Machines",
@@ -1061,7 +973,7 @@
       "explanation": "Tension is equal on both sides of an ideal Atwood machine because the string is massless and the pulley is frictionless and massless (no torque needed to rotate it). Newton's second law applied to a massless rope: F_net = m a = 0 since m = 0, so net force is zero, meaning tensions at both ends balance — but only because mass is zero. AP FRQs (Science Practice 6) often test this with a follow-up: if the pulley has mass (rotational inertia), tensions become unequal because the pulley needs net torque to angularly accelerate — but that scenario is reserved for Unit 5."
     },
     {
-      "id": "ap-physics-1-algebra-based-049",
+      "id": "ap-physics-1-algebra-based-045",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Atwood Machines",
@@ -1083,7 +995,7 @@
       "explanation": "a = (m_1 - m_2) g / (m_1 + m_2) (m/s^2), where m_1 > m_2. Derived by writing F = m a for each mass: for m_1 (falling): m_1 g - T = m_1 a; for m_2 (rising): T - m_2 g = m_2 a. Adding eliminates T, giving the result. AP FRQs (Science Practice 5: Calculations) regularly test this derivation. Limiting checks: m_1 = m_2 gives a = 0; m_2 = 0 gives a = g (free fall of m_1); m_1 >> m_2 gives a ≈ g. This system is a classic AP Modeling FRQ."
     },
     {
-      "id": "ap-physics-1-algebra-based-050",
+      "id": "ap-physics-1-algebra-based-046",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Atwood Machines",
@@ -1105,7 +1017,7 @@
       "explanation": "T = 2 m_1 m_2 g / (m_1 + m_2) (newtons). Derived by substituting a back into T - m_2 g = m_2 a, giving T = m_2(g + a) = 2 m_1 m_2 g / (m_1 + m_2). Limiting checks (Science Practice 6: Argumentation): if m_1 = m_2 = m, T = 2 m^2 g / (2m) = mg, the static equilibrium result; if m_2 → 0, T → 0 (lighter mass exerts no pull); if m_1 → infinity with m_2 fixed, T → 2 m_2 g — the rope tension approaches twice m_2's weight, the maximum non-breaking value. AP FRQs test the derivation explicitly."
     },
     {
-      "id": "ap-physics-1-algebra-based-051",
+      "id": "ap-physics-1-algebra-based-047",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Work",
@@ -1127,7 +1039,7 @@
       "explanation": "Work W = F * d * cos(theta) (joules), the scalar product of force and displacement vectors. Coriolis and Poncelet formalized the modern definition in the 1820s-30s, building on Galilean and Newtonian foundations. Work is positive when force has a component along displacement, negative when opposing it, and zero when perpendicular (centripetal force does no work on circular motion). AP FRQs (Science Practice 5: Calculations) commonly require students to compute work done by individual forces (gravity, normal, friction, applied) and sum to get net work, then apply the work-energy theorem W_net = Delta KE."
     },
     {
-      "id": "ap-physics-1-algebra-based-052",
+      "id": "ap-physics-1-algebra-based-048",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Work",
@@ -1149,7 +1061,7 @@
       "explanation": "W = F d cos(theta) (joules), where F is force magnitude (N), d is displacement magnitude (m), and theta is the angle between F and d. On the AP equation sheet. Maximum work when theta = 0 (force along motion); zero when theta = 90 (force perpendicular); negative when theta > 90 (force opposes motion). AP FRQs (Science Practice 1: Modeling) test work done by gravity on a projectile (W_g = -mg * h_rise during ascent), work done by friction on a slope (always negative, W_f = -f_k * d), and the result on a free-body force when its angle changes."
     },
     {
-      "id": "ap-physics-1-algebra-based-053",
+      "id": "ap-physics-1-algebra-based-049",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Work",
@@ -1171,7 +1083,7 @@
       "explanation": "Joule (J) = 1 N * m = 1 kg * m^2 / s^2. Named after James Prescott Joule (1818-1889), whose paddle-wheel experiment established the mechanical equivalent of heat (4.184 J/cal) and validated conservation of energy. Joule's work proved heat and mechanical work are interchangeable forms of energy — foundational to thermodynamics. AP FRQs (Science Practice 2: Mathematical Routines) require unit-consistency checks: when a student computes W = (5 N)(2 m)(cos 0) = 10 J, the joule appears naturally. Other equivalent forms: kg * m^2/s^2 from KE, Pa * m^3 from pressure-volume work."
     },
     {
-      "id": "ap-physics-1-algebra-based-054",
+      "id": "ap-physics-1-algebra-based-050",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Work",
@@ -1193,7 +1105,7 @@
       "explanation": "Work done by kinetic friction is ALWAYS negative: W_f = -f_k * d (joules), where d is path length traveled. Friction force opposes velocity, so cos(180) = -1. The negative sign reflects energy removed from the mechanical system and converted to thermal energy at the contact surfaces. AP FRQs (Science Practice 6: Argumentation) test this: a block slides on a rough surface and decelerates — students must explicitly invoke W_f < 0 to explain the kinetic-energy decrease, citing W_net = Delta KE. On a closed-loop path (round trip), W_f remains negative — friction is a non-conservative force."
     },
     {
-      "id": "ap-physics-1-algebra-based-055",
+      "id": "ap-physics-1-algebra-based-051",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Work",
@@ -1215,7 +1127,7 @@
       "explanation": "Work in vertical motion: W = F_y * Delta y (joules), where F_y is the vertical force component and Delta y is the vertical displacement. For gravity: W_g = -m g Delta y when y is upward positive (gravity does negative work on rising objects, positive on falling). AP FRQs (Science Practice 5: Calculations) chain this with the work-energy theorem on roller-coaster and pendulum problems: W_g = -m g Delta y = Delta KE, recovering v_f^2 = v_0^2 - 2 g Delta y. Independent of horizontal motion — a key Galilean independence-of-motion result, applied to projectiles."
     },
     {
-      "id": "ap-physics-1-algebra-based-056",
+      "id": "ap-physics-1-algebra-based-052",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Kinetic Energy",
@@ -1237,7 +1149,7 @@
       "explanation": "Kinetic energy KE = (1/2) m v^2 (joules) is the energy associated with motion. Always positive (or zero at rest), scalar. Leibniz (vis viva, 1686) and Coriolis (1829) developed the modern form. KE depends on the square of speed — doubling v quadruples KE — which is why high-speed crashes are so destructive and braking distance scales with v^2 (not v). AP FRQs (Science Practice 5: Calculations) chain KE with the work-energy theorem (W_net = Delta KE) and conservation of energy (KE + PE = constant) on roller coasters, pendulums, and inclined surfaces. On the AP equation sheet."
     },
     {
-      "id": "ap-physics-1-algebra-based-057",
+      "id": "ap-physics-1-algebra-based-053",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Kinetic Energy",
@@ -1259,7 +1171,7 @@
       "explanation": "KE = (1/2) m v^2 (joules), with m in kg and v in m/s. The (1/2) factor arises from integrating F dx = m a dx with a = dv/dt and v = dx/dt, yielding KE = integral of m v dv = (1/2) m v^2. On the AP equation sheet. AP FRQs (Science Practice 2: Mathematical Routines) require KE comparisons: doubling v gives 4x KE; halving m at constant v halves KE. Symmetry check: KE is the same whether v is +5 m/s or -5 m/s — direction doesn't matter (KE is scalar). Translational KE only — rotational KE = (1/2) I omega^2 comes in Unit 5."
     },
     {
-      "id": "ap-physics-1-algebra-based-058",
+      "id": "ap-physics-1-algebra-based-054",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Kinetic Energy",
@@ -1281,7 +1193,7 @@
       "explanation": "Work-Energy Theorem: W_net = Delta KE = KE_f - KE_i (joules). Net work done on an object equals its change in kinetic energy. Proven by integrating Newton's second law (F = m a) over displacement: W = integral F dx = integral m a dx = (1/2) m v_f^2 - (1/2) m v_0^2. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) use this to bypass kinematics: find final speed given total work without needing acceleration or time. Critical for problems with variable forces (springs) where F = m a is hard to apply directly because a changes."
     },
     {
-      "id": "ap-physics-1-algebra-based-059",
+      "id": "ap-physics-1-algebra-based-055",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Kinetic Energy",
@@ -1303,7 +1215,7 @@
       "explanation": "Doubling v multiplies KE by 4 because KE scales with v^2. This non-linear dependence has real-world consequences: stopping distance d = KE / (f_k) = (1/2) m v^2 / (mu_k m g) scales with v^2, so a car going 60 mph needs 4x the stopping distance of one going 30 mph. AP FRQs (Science Practice 6: Argumentation) test this in safety-engineering contexts and in collision-energy comparisons. Limiting case (Science Practice 2): tripling v multiplies KE by 9; halving v gives KE / 4. Often appears in paragraph-length arguments about car crashes."
     },
     {
-      "id": "ap-physics-1-algebra-based-060",
+      "id": "ap-physics-1-algebra-based-056",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Kinetic Energy",
@@ -1325,7 +1237,7 @@
       "explanation": "KE is always non-negative because KE = (1/2) m v^2 with m > 0 and v^2 >= 0. Zero only when the object is at rest. This contrasts with potential energy, which can be negative (depending on chosen zero point) or with work, which can be negative (force opposes displacement). AP FRQs (Science Practice 6: Argumentation) test this conceptual distinction: students must recognize that even a falling object reversing direction has positive KE throughout (only v = 0 at the peak gives KE = 0 momentarily). Scalar quantity — direction-independent."
     },
     {
-      "id": "ap-physics-1-algebra-based-061",
+      "id": "ap-physics-1-algebra-based-057",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Potential Energy",
@@ -1347,7 +1259,7 @@
       "explanation": "Potential energy U (joules) is stored energy associated with the configuration of a conservative-force system (position of an object in a force field). For gravity near Earth: U_g = m g h. For springs: U_s = (1/2) k x^2. Term coined by Rankine (1853). PE is a scalar but its sign depends on the chosen reference (zero) point. AP FRQs (Science Practice 1: Modeling) demand that students declare and label the reference level for U_g (the ground? table top? bottom of incline?) before applying conservation of mechanical energy KE + U = constant on roller coasters, pendulums, and spring-launched projectiles."
     },
     {
-      "id": "ap-physics-1-algebra-based-062",
+      "id": "ap-physics-1-algebra-based-058",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Potential Energy",
@@ -1369,7 +1281,7 @@
       "explanation": "Gravitational PE U_g = m g h (joules) near Earth's surface, where h is height above a chosen reference. Linear in h because g is approximately constant near Earth's surface (within ~1% to altitude 30 km). Derived as -W_g = -(-m g h) = m g h for upward displacement. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) use this in conservation of energy: (1/2) m v_0^2 + m g h_0 = (1/2) m v_f^2 + m g h_f. Limiting case: at h = 0 reference level, U_g = 0. Mass cancels in pure free-fall problems — Galileo's equivalence principle."
     },
     {
-      "id": "ap-physics-1-algebra-based-063",
+      "id": "ap-physics-1-algebra-based-059",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Potential Energy",
@@ -1391,7 +1303,7 @@
       "explanation": "Spring PE U_s = (1/2) k x^2 (joules), with k the spring constant (N/m) and x the displacement from equilibrium (m). Hooke (1660s) discovered F = -k x; PE follows from integrating F dx. On the AP equation sheet. Always non-negative because of x^2. AP FRQs (Science Practice 5: Calculations) use this in conservation of energy for mass-spring systems: (1/2) k x_0^2 = (1/2) m v_max^2 gives v_max = x_0 sqrt(k/m), the maximum speed at equilibrium. Quadratic in x means the energy stored grows fast with compression — a spring compressed by 2x stores 4x the energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-064",
+      "id": "ap-physics-1-algebra-based-060",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Potential Energy",
@@ -1413,7 +1325,7 @@
       "explanation": "The PE reference (zero) is arbitrary — only PE differences are physically meaningful, because forces depend on -dU/dx, the derivative. AP FRQs (Science Practice 1: Modeling) require students to explicitly state their chosen reference (e.g., 'taking U_g = 0 at the bottom of the incline') before computing PE values, because the same setup gives different absolute U but identical Delta U. Common choices: bottom of incline, ground level, lowest point of pendulum swing. Conservation of energy is unaffected by the choice because both initial and final U shift by the same constant."
     },
     {
-      "id": "ap-physics-1-algebra-based-065",
+      "id": "ap-physics-1-algebra-based-061",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Potential Energy",
@@ -1435,7 +1347,7 @@
       "explanation": "Work done BY a conservative force on an object equals the negative of the change in PE: W_cons = -Delta U. So if the force does negative work (e.g., gravity on an upward-moving object), Delta U > 0 — PE increases. AP FRQs (Science Practice 6: Argumentation) test the sign convention: lifting a book against gravity, W_g = -mgh < 0, so U_g increases by mgh. Students writing paragraph-length arguments must explicitly invoke W_cons = -Delta U to justify mgh storage. Non-conservative forces (friction) have no associated PE — energy is dissipated as heat."
     },
     {
-      "id": "ap-physics-1-algebra-based-066",
+      "id": "ap-physics-1-algebra-based-062",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation of Energy",
@@ -1457,7 +1369,7 @@
       "explanation": "Total energy (KE + PE + thermal + chemical + ...) of a closed isolated system is conserved — the First Law of Thermodynamics. Established empirically by James Joule (1840s) with paddle-wheel experiments; formalized by Helmholtz (1847). AP Physics 1 typically tests mechanical energy conservation: E_mech = KE + U = constant when only conservative forces (gravity, springs) act. If friction is present, mechanical energy decreases (-W_f goes to thermal). AP FRQs (Science Practice 5: Calculations) use this to bridge initial and final states on roller coasters and pendulums."
     },
     {
-      "id": "ap-physics-1-algebra-based-067",
+      "id": "ap-physics-1-algebra-based-063",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation of Energy",
@@ -1479,7 +1391,7 @@
       "explanation": "Mechanical energy E_mech = KE + U (joules) — sum of kinetic and potential energies. Conserved when only conservative forces (gravity, springs) act. AP FRQs (Science Practice 5: Calculations) write conservation as: (1/2) m v_0^2 + m g h_0 + (1/2) k x_0^2 = (1/2) m v_f^2 + m g h_f + (1/2) k x_f^2. When friction acts, mechanical energy is NOT conserved: E_{mech,f} = E_{mech,i} - |W_f|, with the lost mechanical energy going to thermal. Paragraph-length arguments (Science Practice 7) must declare 'conservative forces only' before invoking conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-068",
+      "id": "ap-physics-1-algebra-based-064",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation of Energy",
@@ -1501,7 +1413,7 @@
       "explanation": "A conservative force does zero net work over any closed path — equivalently, its work between two points is path-independent. Examples: gravity, ideal spring forces, electrostatic forces. Each conservative force has an associated PE function U(r) with F = -dU/dr. Non-conservative forces (friction, air drag, applied human forces): path-dependent work, no PE. AP FRQs (Science Practice 6: Argumentation) require students to identify which forces in a scenario are conservative and which are not — only conservative forces contribute to PE, while non-conservative forces drain mechanical energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-069",
+      "id": "ap-physics-1-algebra-based-065",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation of Energy",
@@ -1523,29 +1435,7 @@
       "explanation": "A non-conservative force is one whose work depends on the path taken — friction is the canonical example. A longer path through friction loses more energy. No potential energy function exists. AP FRQs (Science Practice 6: Argumentation) test this with closed-loop scenarios: a block sliding around and returning to its starting point has the same KE only if no friction acted (W_net = 0 over closed path); if friction acted, KE has decreased by f_k * (total path length). Modified conservation: E_{mech,f} = E_{mech,i} + W_{nc}. Includes applied forces, friction, drag."
     },
     {
-      "id": "ap-physics-1-algebra-based-070",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Conservation of Energy",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Energy lost to friction becomes this.",
-      "choices": [
-        "Conserved",
-        "KE plus PE",
-        "Thermal energy",
-        "F v"
-      ],
-      "correctText": "Thermal energy",
-      "explanation": "Mechanical energy lost to friction is converted to thermal (internal) energy of the contact surfaces — observable as a temperature increase. Joule's paddle-wheel experiments (1840s) proved this mechanical-equivalent-of-heat principle, with 1 cal = 4.184 J. AP FRQs (Science Practice 5: Calculations) ask students to compute thermal energy generated: E_th = |W_f| = f_k * d_path. In paragraph-length arguments (Science Practice 7) about car braking, students must explicitly identify the destination of the lost KE — brake pads heating up, eventually radiating to surroundings. Total energy is conserved when thermal is included."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-071",
+      "id": "ap-physics-1-algebra-based-066",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Power",
@@ -1567,73 +1457,7 @@
       "explanation": "Power P = dW/dt or dE/dt (watts) — the rate of energy transfer or work done. Scalar quantity. The watt was named after James Watt (1736-1819), whose steam-engine improvements drove the Industrial Revolution. AP FRQs (Science Practice 5: Calculations) require students to compute average power as W/t over a duration or instantaneous power as F * v at a moment. Power matters in engineering contexts: a car engine's horsepower determines top speed, since at max speed F_drive = F_drag and so P_engine = F_drag * v_max. Higher P enables higher v_max."
     },
     {
-      "id": "ap-physics-1-algebra-based-072",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Power",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Power formula.",
-      "choices": [
-        "Work over time",
-        "Watt",
-        "F v",
-        "F equals minus k x"
-      ],
-      "correctText": "Work over time",
-      "explanation": "Average power P = W / t (watts), where W is work done in joules and t is time interval in seconds. Equivalently P = Delta E / t for any energy transfer. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) chain this with W = F d cos(theta): a 50 kg student climbing a 3 m staircase in 4 s does W = (50)(9.8)(3) = 1470 J of work against gravity, requiring P = 1470/4 ≈ 368 W (about a half-horsepower). Faster climbing → higher P at the same W. Units: 1 W = 1 J/s = 1 kg * m^2 / s^3."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-073",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Power",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "SI unit of power.",
-      "choices": [
-        "Watt",
-        "Horsepower",
-        "F v",
-        "mu times Normal force"
-      ],
-      "correctText": "Watt",
-      "explanation": "Watt (W) = 1 J/s = 1 kg * m^2 / s^3. Named after James Watt (1736-1819), whose Newcomen-improved steam engine and condenser invention enabled the Industrial Revolution. AP FRQs (Science Practice 2: Mathematical Routines) require unit consistency: power computed from F * v (N * m/s) automatically gives W. Engineering equivalents: 1 horsepower (hp) = 745.7 W (a horse pulling 550 lb at 1 ft/s); 1 kilowatt-hour (energy) = 3.6 * 10^6 J. Common AP FRQ trap: students mistakenly use W as the symbol for both watt (unit) and work (variable) — context disambiguates."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-074",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Power",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Power formula using force and velocity.",
-      "choices": [
-        "Work over time",
-        "Not conserved as KE",
-        "F v",
-        "Horsepower"
-      ],
-      "correctText": "F v",
-      "explanation": "Instantaneous power P = F * v * cos(theta) (watts) — the dot product of force and velocity vectors. Derived from P = dW/dt = F * (dx/dt) = F v. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) use this for cars and engines: at top speed v_max (where a = 0), F_drive = F_drag, so P = F_drag * v_max determines the maximum cruising speed achievable with a given engine. Doubling drag force halves v_max at constant P. For a constant-force application (motor lifting a load at steady v): P = F * v = m g v (overcoming gravity)."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-075",
+      "id": "ap-physics-1-algebra-based-067",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Power",
@@ -1655,7 +1479,7 @@
       "explanation": "Horsepower (hp) = 745.7 W. James Watt defined 1 hp in 1782 as the rate of work a draft horse could sustain — lifting 550 lb a distance of 1 ft in 1 s — to market his steam engines in comparison units. AP FRQs (Science Practice 2: Mathematical Routines) occasionally include hp-to-watt conversion. A modern compact car engine: ~150 hp ≈ 112 kW; an industrial-scale gas turbine: 100,000+ hp. Watt's contribution shifted Western economies from animal/muscle/water power to thermodynamic-engine power in a single generation — a turning point in industrial history."
     },
     {
-      "id": "ap-physics-1-algebra-based-076",
+      "id": "ap-physics-1-algebra-based-068",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Momentum",
@@ -1677,7 +1501,7 @@
       "explanation": "Momentum p = m v (kg * m/s), a vector with the same direction as velocity. Conserved in isolated systems (no net external force), per Newton's third-law reasoning. Descartes proposed an early scalar version (1644); Huygens corrected it to a vector (1669) by analyzing elastic collisions. AP FRQs (Science Practice 5: Calculations) chain conservation of momentum across collisions: p_i,1 + p_i,2 = p_f,1 + p_f,2. Vector nature is critical: in 2D collisions, x and y components must conserve independently, and a student writing 'momentum is conserved' on a paragraph-length argument must justify F_ext = 0."
     },
     {
-      "id": "ap-physics-1-algebra-based-077",
+      "id": "ap-physics-1-algebra-based-069",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Momentum",
@@ -1699,7 +1523,7 @@
       "explanation": "Momentum unit: kg * m/s = N * s (the impulse-momentum equivalence). Also equal to J * s / m, though that form rarely appears. AP FRQs (Science Practice 2: Mathematical Routines) require unit consistency in conservation equations: m v on both sides must match. A 1500 kg car at 25 m/s has p = 37,500 kg * m/s — a useful gut-check magnitude. Note the equivalence with N * s: a 50 N force applied for 0.5 s delivers impulse J = 25 N * s = 25 kg * m/s of momentum change. Vector quantity — sign convention from the chosen +x axis must be tracked."
     },
     {
-      "id": "ap-physics-1-algebra-based-078",
+      "id": "ap-physics-1-algebra-based-070",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Momentum",
@@ -1721,7 +1545,7 @@
       "explanation": "Momentum is a vector p = m v, inheriting direction from velocity. This makes 1D collision problems require signed quantities: an east-moving p is positive, west-moving negative. In 2D collisions (a classic AP FRQ scenario like billiards), momentum is conserved separately in x and y: p_{x,i,total} = p_{x,f,total} and p_{y,i,total} = p_{y,f,total}. AP FRQ traps (Science Practice 6: Argumentation): students must distinguish between |Delta p| (magnitude of vector difference) and Delta |p| (change in scalar magnitude). For circular motion at constant speed, |p| is constant but Delta p is nonzero (direction changes)."
     },
     {
-      "id": "ap-physics-1-algebra-based-079",
+      "id": "ap-physics-1-algebra-based-071",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Momentum",
@@ -1743,7 +1567,7 @@
       "explanation": "Total momentum of a system is conserved when the net external force on the system is zero (F_ext = 0). Internal forces (collision forces between system members) cancel by Newton's third law. AP FRQ paragraph-length arguments (Science Practice 7) must explicitly invoke 'isolated system' or 'F_ext = 0' before applying p_i = p_f. Common scenarios: explosion (no external horizontal force, so horizontal p is conserved); collision (during the brief collision, external forces are negligible compared to collision forces); rocket propulsion (consider rocket + fuel as one system)."
     },
     {
-      "id": "ap-physics-1-algebra-based-080",
+      "id": "ap-physics-1-algebra-based-072",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Momentum",
@@ -1765,7 +1589,7 @@
       "explanation": "F_net = dp/dt — Newton's original statement of his second law (Principia, 1687), more general than F = m a. For constant mass dp/dt = m(dv/dt) = m a, recovering F = m a. For variable mass (rockets expelling fuel) or relativistic cases, the momentum form is essential. AP Physics 1 FRQs (Science Practice 5: Calculations) use the integral form: integral F dt = Delta p (impulse). This bridges dynamics and momentum analysis on collision problems. Limiting case: F = 0 gives dp/dt = 0, recovering momentum conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-081",
+      "id": "ap-physics-1-algebra-based-073",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Impulse",
@@ -1787,7 +1611,7 @@
       "explanation": "Impulse J = F * Delta t (newton-seconds), the integral of force over time interval. Vector. Equals the change in momentum: J = Delta p (impulse-momentum theorem). On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) compute impulse from constant force * time, or from the area under a force-vs-time graph for variable force. Practical applications: airbags increase Delta t to reduce average F for the same Delta p (whiplash injury reduction); follow-through in sports increases contact time and so total Delta p; pole-vault landing mats absorb impact by stretching Delta t."
     },
     {
-      "id": "ap-physics-1-algebra-based-082",
+      "id": "ap-physics-1-algebra-based-074",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Impulse",
@@ -1809,7 +1633,7 @@
       "explanation": "Impulse-Momentum Theorem: J = Delta p, where J = F_avg * Delta t (N * s) and Delta p = m * Delta v (kg * m/s). Derived by integrating F = dp/dt over time. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) use this for collision problems where time of contact is given: a 0.15 kg baseball decelerates from 40 m/s to 0 in 0.001 s during catch, requiring F_avg = m Delta v / Delta t = (0.15)(40)/0.001 = 6000 N. Critical for safety design (airbags, helmet padding, crumple zones) — extending Delta t reduces peak F for the same Delta p."
     },
     {
-      "id": "ap-physics-1-algebra-based-083",
+      "id": "ap-physics-1-algebra-based-075",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Impulse",
@@ -1831,7 +1655,7 @@
       "explanation": "Impulse unit: N * s = kg * m/s (same as momentum, by the impulse-momentum theorem J = Delta p). AP FRQs (Science Practice 2: Mathematical Routines) often blend the two: 'A force of 20 N applied for 0.5 s on a 2 kg cart initially at rest' → J = (20)(0.5) = 10 N*s → Delta p = 10 kg*m/s → Delta v = 5 m/s. Students must show unit cancellation explicitly to receive full credit on calculation FRQs. The equivalence reinforces the conceptual unity of impulse (cause: force over time) and momentum change (effect)."
     },
     {
-      "id": "ap-physics-1-algebra-based-084",
+      "id": "ap-physics-1-algebra-based-076",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Impulse",
@@ -1853,7 +1677,7 @@
       "explanation": "Impulse equals the area under a force-vs-time graph: J = integral F dt = Delta p. For non-constant forces (collision force-time profile typically rises and falls), area under the curve gives total impulse. AP FRQs (Science Practice 4: Data Analysis) hand students a force-time graph from a sensor on a colliding cart, asking them to estimate J using triangle/trapezoid approximation, then compute Delta v = J/m. The graph approach handles variable forces that F = m a cannot — a powerful tool. Average force F_avg = J / Delta t (the rectangle of equivalent area)."
     },
     {
-      "id": "ap-physics-1-algebra-based-085",
+      "id": "ap-physics-1-algebra-based-077",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Impulse",
@@ -1875,7 +1699,7 @@
       "explanation": "Extending the contact time Delta t reduces the average force F_avg required to deliver a given impulse: F_avg = J / Delta t = Delta p / Delta t. This is the engineering principle behind airbags, crumple zones, helmets, bungee cords, parkour rolls, and bend-the-knees landings. AP FRQs (Science Practice 6: Argumentation) test this in paragraph-length arguments about safety design: students must explicitly state that for fixed Delta p (the change in momentum during impact), increasing Delta t decreases the maximum force experienced by the body, reducing injury. Galileo and Newton implicit; explicit engineering use is 20th-century."
     },
     {
-      "id": "ap-physics-1-algebra-based-086",
+      "id": "ap-physics-1-algebra-based-078",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Collisions",
@@ -1897,7 +1721,7 @@
       "explanation": "An elastic collision conserves BOTH momentum AND kinetic energy: p_i = p_f and KE_i = KE_f. Idealizations: rigid steel balls, billiard balls (nearly elastic), atomic collisions. AP FRQs (Science Practice 5: Calculations) use the joint conservation as two equations in two unknowns (two final velocities) — solvable algebraically. Useful 1D result: for equal masses, the velocities swap (Newton's cradle). For m_1 hitting stationary m_2: v_{1,f} = (m_1 - m_2)/(m_1 + m_2) * v_{1,i}, v_{2,f} = 2 m_1 /(m_1+m_2) * v_{1,i}. Limiting case: m_1 >> m_2 gives v_{2,f} ≈ 2 v_{1,i}."
     },
     {
-      "id": "ap-physics-1-algebra-based-087",
+      "id": "ap-physics-1-algebra-based-079",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Collisions",
@@ -1919,7 +1743,7 @@
       "explanation": "An inelastic collision conserves momentum but NOT kinetic energy — some KE converts to thermal, deformation, sound, or internal energy. AP FRQs (Science Practice 5: Calculations) test this with cars deforming on impact, balls of clay merging, or asteroid impacts. Students use p_i = p_f to find final velocities, then compute Delta KE = KE_f - KE_i to find energy lost. Always Delta KE < 0 in inelastic collisions (energy goes to deformation). On paragraph-length arguments (Science Practice 7), students must explicitly identify the destinations of the lost KE (heat, sound, deformation work)."
     },
     {
-      "id": "ap-physics-1-algebra-based-088",
+      "id": "ap-physics-1-algebra-based-080",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Collisions",
@@ -1941,7 +1765,7 @@
       "explanation": "A perfectly inelastic collision is the most extreme inelastic case: objects stick together post-collision and move as a single body. Maximum KE loss possible while still conserving momentum. AP FRQ (Science Practice 5: Calculations): m_1 v_1 + m_2 v_2 = (m_1 + m_2) v_f, giving v_f = (m_1 v_1 + m_2 v_2)/(m_1 + m_2). Fraction of KE lost: (KE_i - KE_f)/KE_i = m_2/(m_1 + m_2) for m_2 initially at rest. Classic example: bullet embedding in a block (ballistic pendulum, Robins 1742). Conservation of energy fails; conservation of momentum holds because collision forces are internal."
     },
     {
-      "id": "ap-physics-1-algebra-based-089",
+      "id": "ap-physics-1-algebra-based-081",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Collisions",
@@ -1963,7 +1787,7 @@
       "explanation": "Momentum is ALWAYS conserved in collisions of an isolated system, regardless of elastic vs inelastic. The reason (Science Practice 6: Argumentation): during the brief collision, the very large internal forces between colliding bodies (Newton's third law pair) cancel in the total system's momentum equation. External forces (gravity, friction) act for so brief a time that their impulse is negligible. AP FRQs require students to explicitly state 'no significant external impulse during collision' as justification before applying p_i,total = p_f,total to bridge before-and-after states."
     },
     {
-      "id": "ap-physics-1-algebra-based-090",
+      "id": "ap-physics-1-algebra-based-082",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Collisions",
@@ -1985,7 +1809,7 @@
       "explanation": "Kinetic energy is conserved only in elastic collisions; lost (converted to heat, sound, deformation) in inelastic collisions. AP FRQs (Science Practice 5: Calculations) ask students to test whether a collision was elastic by computing KE_i and KE_f from given velocities — if equal, elastic; if KE_f < KE_i, inelastic. Limiting case: in a perfectly inelastic collision with m_2 initially at rest, exactly m_2/(m_1 + m_2) of the original KE is converted (the rest goes into translational KE of the combined mass). Energy is never destroyed — only converted to non-mechanical forms."
     },
     {
-      "id": "ap-physics-1-algebra-based-091",
+      "id": "ap-physics-1-algebra-based-083",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Center of Mass",
@@ -2007,7 +1831,7 @@
       "explanation": "Center of mass (COM): the mass-weighted average position of a system. For discrete masses: x_COM = sum(m_i x_i) / sum(m_i). For continuous distributions: integral. Newton recognized that an extended body behaves like a point mass at its COM when external forces are applied. AP FRQs (Science Practice 1: Modeling) treat collisions and explosions by tracking the system's COM, which moves with constant velocity if F_ext = 0 (Newton's first law applies to the COM). Useful intuition: the COM of two equal masses is at their midpoint; for unequal masses, COM is closer to the larger one."
     },
     {
-      "id": "ap-physics-1-algebra-based-092",
+      "id": "ap-physics-1-algebra-based-084",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Center of Mass",
@@ -2029,7 +1853,7 @@
       "explanation": "x_COM = (m_1 x_1 + m_2 x_2 + ...) / (m_1 + m_2 + ...) — mass-weighted average of position. Same form for y_COM and z_COM in 2D/3D. AP FRQs (Science Practice 5: Calculations) compute COM of irregular composite objects by treating each piece as a point at its individual COM, then weighting. For symmetric uniform objects, COM is at the geometric center. For an L-shape or partial-cutout, COM moves toward the more massive section. Limiting case: equal masses give the midpoint. Used to track explosion-fragment motion: COM continues unchanged."
     },
     {
-      "id": "ap-physics-1-algebra-based-093",
+      "id": "ap-physics-1-algebra-based-085",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Center of Mass",
@@ -2051,7 +1875,7 @@
       "explanation": "Motion of the center of mass: F_ext,net = M_total * a_COM (Newton's second law for the system as a whole). Internal forces (between system members) cannot accelerate the COM. AP FRQ paragraph-length arguments (Science Practice 7) leverage this: in an isolated explosion (F_ext = 0), COM continues at the pre-explosion velocity — fragments scatter, but the COM trajectory is unchanged. In an isolated collision, COM velocity stays the same. In free fall, COM has a = g regardless of internal rotations or fragmentations. This insight simplifies many AP problems dramatically."
     },
     {
-      "id": "ap-physics-1-algebra-based-094",
+      "id": "ap-physics-1-algebra-based-086",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Center of Mass",
@@ -2073,7 +1897,7 @@
       "explanation": "Center of mass of a uniform rod: the geometric midpoint, by symmetry. For a non-uniform rod (variable linear density), COM shifts toward the denser end and requires integration. AP FRQs (Science Practice 5: Calculations) often test COM of composite systems with a uniform rod plus point masses at the ends — students use the weighted-average formula. For symmetric uniform shapes: rectangle COM at intersection of diagonals; disk COM at geometric center; sphere COM at sphere center. Pivot a rod at COM and it balances horizontally — the experimental test for COM location."
     },
     {
-      "id": "ap-physics-1-algebra-based-095",
+      "id": "ap-physics-1-algebra-based-087",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Center of Mass",
@@ -2095,7 +1919,7 @@
       "explanation": "In an explosion with no external force, the COM of the system continues at the pre-explosion velocity. Internal explosion forces (gunpowder, chemical pressure) are internal, so by Newton's third law they cancel in the total-system equation. AP FRQ (Science Practice 5: Calculations): a 10 kg projectile at v = 20 m/s explodes at peak into two equal 5 kg fragments. If fragment 1 has v_1 = 30 m/s in the original direction, fragment 2's velocity satisfies 10*20 = 5*30 + 5*v_2, giving v_2 = 10 m/s. The COM trajectory remains a parabola under gravity, unaffected by the explosion."
     },
     {
-      "id": "ap-physics-1-algebra-based-096",
+      "id": "ap-physics-1-algebra-based-088",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2117,7 +1941,7 @@
       "explanation": "Momentum is conserved in any isolated system (F_ext = 0). The vector sum p_total = m_1 v_1 + m_2 v_2 + ... is constant in time. Newton stated this implicitly via F = dp/dt; Descartes and Huygens established it empirically for collisions in the 1600s. AP FRQ paragraph-length arguments (Science Practice 7) require students to explicitly justify 'F_ext = 0' or 'isolated system' before invoking conservation. Common AP scenarios: 1D collision on frictionless track (horizontal F_ext = 0 even if gravity acts vertically); 2D collision (each component conserves separately); explosion in free space."
     },
     {
-      "id": "ap-physics-1-algebra-based-097",
+      "id": "ap-physics-1-algebra-based-089",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2139,7 +1963,7 @@
       "explanation": "An isolated system has no external forces acting on it (or, weaker definition, the net external impulse is negligible). Internal forces (between system members) cannot change total momentum because Newton's third law makes them cancel pairwise. AP FRQs (Science Practice 1: Modeling) require students to define their system explicitly — boundaries matter. For a colliding pair on a horizontal frictionless surface, the system (m_1, m_2) is isolated horizontally (gravity and normal are vertical, balanced) so horizontal momentum is conserved. Adding the surface to the system makes it isolated in 3D."
     },
     {
-      "id": "ap-physics-1-algebra-based-098",
+      "id": "ap-physics-1-algebra-based-090",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2161,7 +1985,7 @@
       "explanation": "Conservation of momentum for two-body collision: m_1 v_{1,i} + m_2 v_{2,i} = m_1 v_{1,f} + m_2 v_{2,f} (kg * m/s). Each term is a vector — for 2D collisions, x and y components conserve independently. AP FRQs (Science Practice 5: Calculations) chain this with KE conservation for elastic collisions (two equations, two unknowns) or with the constraint v_{1,f} = v_{2,f} for perfectly inelastic ones. Sign convention: pick a +x axis; opposite-direction velocities take negative signs. Common AP scenario: head-on 1D collision of carts on an air track."
     },
     {
-      "id": "ap-physics-1-algebra-based-099",
+      "id": "ap-physics-1-algebra-based-091",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2183,7 +2007,7 @@
       "explanation": "In an elastic collision, total KE is conserved: (1/2) m_1 v_{1,i}^2 + (1/2) m_2 v_{2,i}^2 = (1/2) m_1 v_{1,f}^2 + (1/2) m_2 v_{2,f}^2. Combined with momentum conservation, gives two algebraic equations in two unknowns (the final velocities). AP FRQs (Science Practice 5: Calculations) use this to solve cleanly for v_{1,f} and v_{2,f}. Useful result for equal masses: velocities swap exactly (Newton's cradle). Real collisions are never perfectly elastic; AP idealizes steel balls, billiard balls, atomic collisions as elastic for problem-solving."
     },
     {
-      "id": "ap-physics-1-algebra-based-100",
+      "id": "ap-physics-1-algebra-based-092",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2205,7 +2029,7 @@
       "explanation": "In an inelastic collision, KE is NOT conserved — but TOTAL energy is conserved when accounting for thermal, sound, and deformation energy: KE_i = KE_f + E_thermal + E_deform + E_sound. AP FRQs (Science Practice 5: Calculations) compute Delta KE = KE_f - KE_i (always negative for inelastic). For perfectly inelastic with m_2 at rest: fraction of KE retained = m_1/(m_1 + m_2); fraction lost = m_2/(m_1 + m_2). Paragraph-length arguments (Science Practice 7) must identify where the lost KE went — students often write 'lost as heat and sound and deformation work.'"
     },
     {
-      "id": "ap-physics-1-algebra-based-101",
+      "id": "ap-physics-1-algebra-based-093",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Kinematics",
@@ -2227,7 +2051,7 @@
       "explanation": "Angular velocity omega = d(theta)/dt (rad/s), the rotational analog of linear velocity. Vector pointing along the axis of rotation (right-hand rule). AP Physics 1 typically treats omega as a signed scalar for fixed-axis rotation. Period T and frequency f relate by T = 2 pi / omega = 1/f. AP FRQs (Science Practice 5: Calculations) connect linear and angular: v = r omega for a point at radius r on a rigid rotating body. For a wheel rolling without slipping, v_COM = R omega — the rolling constraint. Newton's framework extended to rotations by Euler (1750s)."
     },
     {
-      "id": "ap-physics-1-algebra-based-102",
+      "id": "ap-physics-1-algebra-based-094",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Kinematics",
@@ -2249,7 +2073,7 @@
       "explanation": "Angular acceleration alpha = d(omega)/dt (rad/s^2), the rotational analog of linear acceleration. Caused by net torque (tau_net = I alpha). For constant alpha, rotational kinematic equations parallel linear ones: theta = theta_0 + omega_0 t + (1/2) alpha t^2; omega = omega_0 + alpha t; omega^2 = omega_0^2 + 2 alpha Delta theta. AP FRQs (Science Practice 5: Calculations) commonly invoke these in pulley problems (a rope around a pulley exerts torque on the pulley) and in rotating-platform problems. Linear analog: a = r alpha for a point at radius r."
     },
     {
-      "id": "ap-physics-1-algebra-based-103",
+      "id": "ap-physics-1-algebra-based-095",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Kinematics",
@@ -2271,7 +2095,7 @@
       "explanation": "Angular velocity unit: rad/s (radians per second). Radians are dimensionless (arc length / radius), so technically the unit is 1/s — but AP Physics 1 conventionally writes rad/s for clarity. 2 pi rad = 360 degrees = one full revolution. Conversion: omega (rad/s) = 2 pi f (Hz) = 2 pi / T (s). A turntable at 33 rpm: omega = 33 * (2 pi / 60) ≈ 3.5 rad/s. AP FRQs (Science Practice 2: Mathematical Routines) demand radians (not degrees) when using rotational equations because v = r omega and a = r alpha are derived assuming radian measure."
     },
     {
-      "id": "ap-physics-1-algebra-based-104",
+      "id": "ap-physics-1-algebra-based-096",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Kinematics",
@@ -2293,7 +2117,7 @@
       "explanation": "v = r omega (m/s), tangential linear velocity of a point at radius r on a rotating rigid body. On the AP equation sheet. Derived from arc length s = r theta, then differentiated: ds/dt = r d(theta)/dt = r omega. AP FRQs (Science Practice 5: Calculations) chain this with the rolling constraint: a wheel rolling without slipping has v_COM = R omega and a_COM = R alpha. Limiting case: at the wheel-ground contact point, v = v_COM - R omega = 0 (instantaneously at rest — that's why static friction acts, not kinetic). Similarly, a_tangential = r alpha for a point at radius r."
     },
     {
-      "id": "ap-physics-1-algebra-based-105",
+      "id": "ap-physics-1-algebra-based-097",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Kinematics",
@@ -2315,7 +2139,7 @@
       "explanation": "T = 1/f, where T is period (s) and f is frequency (Hz = 1/s). Also: T = 2 pi / omega and omega = 2 pi f. AP FRQs (Science Practice 2: Mathematical Routines) use these in oscillation and rotation problems: a pendulum with T = 1 s has f = 1 Hz and omega = 2 pi rad/s. Earth's rotation: T = 24 hours = 86,400 s, so omega ≈ 7.27 * 10^-5 rad/s (very slow). On a spinning bicycle wheel rotating at 5 rev/s: f = 5 Hz, omega = 10 pi rad/s, and the rim speed v = R omega for tire radius R."
     },
     {
-      "id": "ap-physics-1-algebra-based-106",
+      "id": "ap-physics-1-algebra-based-098",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Torque",
@@ -2337,7 +2161,7 @@
       "explanation": "Torque tau (N * m) is the rotational analog of force — what causes angular acceleration. tau = r F sin(theta), the cross product of position vector r (from pivot) and force vector F. Vector quantity (along rotation axis by right-hand rule). Archimedes (3rd century BCE) understood torque qualitatively via the lever principle ('Give me a lever long enough and I shall move the world'). AP FRQs (Science Practice 5: Calculations) compute tau_net on extended bodies and apply tau_net = I alpha to find angular acceleration. Equilibrium requires both F_net = 0 (translational) and tau_net = 0 (rotational)."
     },
     {
-      "id": "ap-physics-1-algebra-based-107",
+      "id": "ap-physics-1-algebra-based-099",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Torque",
@@ -2359,7 +2183,7 @@
       "explanation": "tau = r F sin(theta) (N * m), where r is the distance from pivot to force application point (m), F is force magnitude (N), and theta is the angle between r and F. On the AP equation sheet. Equivalent forms: tau = F * (r sin(theta)) = F * d (force times perpendicular distance, where d is the 'moment arm') OR tau = (F sin(theta)) * r (perpendicular force component times r). AP FRQs (Science Practice 5: Calculations) often have a force at an angle — students must identify the moment arm or perpendicular component. Maximum torque at theta = 90 (perpendicular force)."
     },
     {
-      "id": "ap-physics-1-algebra-based-108",
+      "id": "ap-physics-1-algebra-based-100",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Torque",
@@ -2381,7 +2205,7 @@
       "explanation": "Maximum torque occurs when force is perpendicular to position vector (theta = 90 degrees, sin(90) = 1). Intuition: pushing on a door perpendicular to the door is far more effective than pushing parallel to it (which has zero moment arm). AP FRQ scenarios (Science Practice 6: Argumentation): why does pulling on a wrench at the far end produce more torque? Because increasing r at fixed F and theta scales tau. Why pull perpendicular? Because sin(90) = 1 maximizes the formula. Students writing paragraph-length arguments must explicitly invoke tau = r F sin(theta) and identify which factor is being optimized."
     },
     {
-      "id": "ap-physics-1-algebra-based-109",
+      "id": "ap-physics-1-algebra-based-101",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Torque",
@@ -2403,7 +2227,7 @@
       "explanation": "Torque unit: N * m (newton-meter). Dimensionally same as energy (J = N * m), but conceptually distinct — torque is a vector, energy is a scalar; torque applies at a specific axis, energy does not. AP FRQs (Science Practice 2: Mathematical Routines) require students to label tau in N * m, not J, to maintain clarity. Common practical magnitudes: tightening a bolt on a car engine (~50 N*m); a torque wrench limiting bolt torque to manufacturer spec; a torque produced by a 50 kg person standing on a 2 m diving board (1000 N * 2 m = 2000 N*m at the support)."
     },
     {
-      "id": "ap-physics-1-algebra-based-110",
+      "id": "ap-physics-1-algebra-based-102",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Torque",
@@ -2425,7 +2249,7 @@
       "explanation": "Direction of torque vector: right-hand rule. Curl fingers of right hand from r toward F; thumb points along tau. For a wheel rotated counterclockwise as viewed from +z, tau points in +z direction. AP Physics 1 typically treats fixed-axis rotation, where tau is signed (CCW = +, CW = -). AP FRQs (Science Practice 1: Modeling) require explicit sign convention. The vector form (tau = r x F) becomes essential in AP Physics C, but Physics 1 can rely on the scalar form with rotation-sense convention. Right-hand rule emerges naturally from Newtonian mechanics extended to rotation by Euler."
     },
     {
-      "id": "ap-physics-1-algebra-based-111",
+      "id": "ap-physics-1-algebra-based-103",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Moment of Inertia",
@@ -2447,7 +2271,7 @@
       "explanation": "Moment of inertia I (kg * m^2) is the rotational analog of mass — the rotational inertia, resistance to angular acceleration. Newton's second law for rotation: tau_net = I alpha. Depends on mass distribution relative to the rotation axis: I = sum(m_i r_i^2) for discrete masses; I = integral r^2 dm for continuous distributions. Same body has DIFFERENT I depending on the axis chosen. AP FRQs (Science Practice 1: Modeling) require students to identify the rotation axis before selecting the formula for I (a thin rod about end vs. about center have I = (1/3) ML^2 vs. (1/12) ML^2)."
     },
     {
-      "id": "ap-physics-1-algebra-based-112",
+      "id": "ap-physics-1-algebra-based-104",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Moment of Inertia",
@@ -2469,7 +2293,7 @@
       "explanation": "I = m r^2 (kg * m^2) for a point mass m at distance r from the axis of rotation. The simplest case — building block for all extended-body I calculations via summation or integration. AP FRQs (Science Practice 5: Calculations) chain this with parallel-axis theorem (I = I_COM + m d^2) or use it directly for ball-and-string systems (ball treated as a point at distance r from pivot). Quadratic in r: doubling r quadruples I, making the system 4x harder to angularly accelerate. Important: I depends on mass distribution, not just mass total."
     },
     {
-      "id": "ap-physics-1-algebra-based-113",
+      "id": "ap-physics-1-algebra-based-105",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Moment of Inertia",
@@ -2491,7 +2315,7 @@
       "explanation": "I = (2/5) m r^2 for a uniform solid sphere rotating about a central axis through its center. Hollow shell sphere: I = (2/3) m r^2 (different mass distribution — mass at larger r on average). AP FRQs (Science Practice 5: Calculations) use solid-sphere I for rolling problems: a solid ball rolling down an incline has a = (5/7) g sin(theta), slower than a frictionless block (a = g sin(theta)). Comparison rolling race (Science Practice 6: Argumentation): solid sphere (2/5) beats hollow sphere (2/3) beats solid cylinder (1/2) beats hollow cylinder (1) — lower I/mr^2 ratio wins."
     },
     {
-      "id": "ap-physics-1-algebra-based-114",
+      "id": "ap-physics-1-algebra-based-106",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Moment of Inertia",
@@ -2513,7 +2337,7 @@
       "explanation": "I = (1/3) m L^2 for a thin rod of length L rotating about one end (perpendicular to rod). About its center, I = (1/12) m L^2. AP FRQs (Science Practice 5: Calculations) classic: a falling rod, hinged at one end, has gravity acting at COM (L/2 from hinge); torque tau = m g (L/2) and I = (1/3) m L^2, giving alpha = (3/2) g/L. Parallel-axis theorem connects these: I_end = I_COM + m (L/2)^2 = (1/12) m L^2 + (1/4) m L^2 = (1/3) m L^2. Rotation about an end is 4x harder than about center."
     },
     {
-      "id": "ap-physics-1-algebra-based-115",
+      "id": "ap-physics-1-algebra-based-107",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Moment of Inertia",
@@ -2535,7 +2359,7 @@
       "explanation": "I = (1/2) m R^2 for a uniform solid disk (or solid cylinder) rotating about its central axis. For a thin hollow ring: I = m R^2 (all mass at radius R — maximum I for given mass and outer radius). AP FRQs (Science Practice 5: Calculations) use disk I for pulleys with mass: torque from a hanging weight gives angular acceleration alpha = tau / I, and the tension on one side differs from the other because of pulley's rotational inertia (T_1 - T_2 = I alpha / R). Rolling-down-incline competition: disk (1/2) beats ring (1) — less I means faster acceleration."
     },
     {
-      "id": "ap-physics-1-algebra-based-116",
+      "id": "ap-physics-1-algebra-based-108",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's 2nd for Rotation",
@@ -2557,7 +2381,7 @@
       "explanation": "tau_net = I alpha — the rotational form of Newton's second law (Euler's reformulation of Newton, mid-18th century). Net external torque equals moment of inertia times angular acceleration. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) apply this after computing tau_net from individual torques (each tau = r F sin(theta)) and I from rotation axis. Limiting cases: tau_net = 0 means alpha = 0 (rotational equilibrium or constant omega); I = 0 (impossible for real bodies) would give infinite alpha. Always pair with linear Newton's second for problems with combined translation + rotation."
     },
     {
-      "id": "ap-physics-1-algebra-based-117",
+      "id": "ap-physics-1-algebra-based-109",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's 2nd for Rotation",
@@ -2579,29 +2403,7 @@
       "explanation": "Moment of inertia I (kg * m^2) plays the role of mass in rotational dynamics: tau = I alpha mirrors F = m a. Greater I means greater resistance to angular acceleration for the same applied torque. Unlike mass (a single scalar for a body), I depends on the axis of rotation — a thin rod has I = (1/12) ML^2 about its center but (1/3) ML^2 about an end. AP FRQs (Science Practice 1: Modeling) require students to identify both the axis and the mass distribution before computing I. Used in tau_net = I alpha for linked angular kinematics."
     },
     {
-      "id": "ap-physics-1-algebra-based-118",
-      "course": "ap-physics-1-algebra-based",
-      "courseLabel": "ap-physics-1-algebra-based",
-      "topic": "Newton's 2nd for Rotation",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-1",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Angular equivalent of force.",
-      "choices": [
-        "No angular acceleration",
-        "Torque",
-        "Angular acceleration",
-        "F v"
-      ],
-      "correctText": "Torque",
-      "explanation": "Torque tau (N * m) is the rotational analog of force — what causes angular acceleration: tau = I alpha, analogous to F = m a. tau = r F sin(theta) for a force F applied at radius r at angle theta to r. AP FRQs (Science Practice 1: Modeling) require explicit identification of every torque acting on an extended body (each with sign — CCW positive convention). Net torque drives angular acceleration. Internal torques between particles cancel by Newton's third law extended to rotation; only external torques matter for tau_net."
-    },
-    {
-      "id": "ap-physics-1-algebra-based-119",
+      "id": "ap-physics-1-algebra-based-110",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's 2nd for Rotation",
@@ -2623,7 +2425,7 @@
       "explanation": "Angular acceleration alpha (rad/s^2) is the rotational analog of linear acceleration a. Connected to tangential linear acceleration of a point at radius r: a_t = r alpha. Driven by net torque: alpha = tau_net / I. AP FRQs (Science Practice 5: Calculations) frequently link translational and rotational accelerations using the rolling-without-slipping constraint (a_COM = R alpha) for objects rolling down inclines. Constant-alpha kinematic equations parallel constant-a kinematics — students apply the rotational equivalents in pulley spin-up and turntable problems."
     },
     {
-      "id": "ap-physics-1-algebra-based-120",
+      "id": "ap-physics-1-algebra-based-111",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Newton's 2nd for Rotation",
@@ -2645,7 +2447,7 @@
       "explanation": "tau_net = 0 means alpha = 0 (no angular acceleration) — rotational equilibrium. The object either spins at constant omega or stays at rest. Analogous to F_net = 0 giving a = 0 (translational equilibrium). AP FRQs (Science Practice 5: Calculations) require BOTH F_net = 0 AND tau_net = 0 for full static equilibrium. Classic AP problem: a beam supported by two ropes, sum of vertical forces zero, sum of horizontal forces zero, AND sum of torques about ANY pivot zero. Choosing a clever pivot (where an unknown force acts) eliminates that variable from the torque equation — a powerful problem-solving trick."
     },
     {
-      "id": "ap-physics-1-algebra-based-121",
+      "id": "ap-physics-1-algebra-based-112",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Energy",
@@ -2667,7 +2469,7 @@
       "explanation": "Rotational KE: KE_rot = (1/2) I omega^2 (joules), the rotational analog of (1/2) m v^2. On the AP equation sheet. Vector neutrality: always non-negative. For a rotating disk with I = (1/2) m R^2 and omega = 10 rad/s of mass m = 2 kg, R = 0.5 m: KE_rot = (1/2)(0.25)(100) = 12.5 J. AP FRQs (Science Practice 5: Calculations) compute KE_rot for spinning flywheels, rotating dumbbells, and spinning skaters. Conserved when no net external torque does work over time (analogous to no net force doing work)."
     },
     {
-      "id": "ap-physics-1-algebra-based-122",
+      "id": "ap-physics-1-algebra-based-113",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Energy",
@@ -2689,7 +2491,7 @@
       "explanation": "Total KE of a rolling object: KE = (1/2) m v_COM^2 + (1/2) I omega^2 (joules). For rolling without slipping: omega = v_COM / R, so KE = (1/2)(m + I/R^2) v_COM^2. AP FRQs (Science Practice 5: Calculations) use this in race-down-incline problems: a hollow ball (I = (2/3) m R^2) has more KE_rot per v_COM^2 than a solid ball, so its v_COM at the bottom is lower — solid balls win. Conservation of energy: m g h = (1/2)(m + I/R^2) v_COM^2 gives v_COM^2 = 2 g h / (1 + I/(m R^2))."
     },
     {
-      "id": "ap-physics-1-algebra-based-123",
+      "id": "ap-physics-1-algebra-based-114",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Energy",
@@ -2711,7 +2513,7 @@
       "explanation": "Rotational power P = tau * omega (watts), the rotational analog of P = F * v. AP FRQs (Science Practice 5: Calculations) use this for motors and engines: an electric motor providing tau = 5 N*m at omega = 100 rad/s delivers P = 500 W. Linear/rotational analogies: F ↔ tau, v ↔ omega, m ↔ I, a ↔ alpha, KE = (1/2)mv^2 ↔ (1/2)I omega^2, W = Fd ↔ W = tau * theta. For a torque ramping a flywheel from rest to omega_f, average P = tau * omega_avg = tau * omega_f / 2 (constant tau case)."
     },
     {
-      "id": "ap-physics-1-algebra-based-124",
+      "id": "ap-physics-1-algebra-based-115",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Energy",
@@ -2733,7 +2535,7 @@
       "explanation": "Work done by torque: W_rot = tau * theta (joules) for constant torque over angular displacement theta (radians). For variable torque: W = integral tau d(theta), the area under tau-vs-theta graph. AP FRQs (Science Practice 5: Calculations) use this in conservation-of-energy problems with rotating bodies: net work done by net torque equals change in rotational KE (Work-Energy Theorem for rotation). Linear analog: W = F * d. Combined translation+rotation problems use both forms simultaneously, or use total KE = (1/2)(m + I/R^2) v_COM^2 for rolling without slipping."
     },
     {
-      "id": "ap-physics-1-algebra-based-125",
+      "id": "ap-physics-1-algebra-based-116",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotational Energy",
@@ -2755,7 +2557,7 @@
       "explanation": "On an incline, an object rolling without slipping accelerates faster if it has SMALLER I (per mass and radius squared). Reason (Science Practice 6: Argumentation): less energy is locked into rotation, more available for translation. Race ranking: solid sphere (I = 2/5 m R^2) > solid cylinder (1/2 m R^2) > hollow sphere (2/3 m R^2) > hollow cylinder/ring (m R^2). Acceleration: a = g sin(theta) / (1 + I/(mR^2)). Frictionless block (no rotation, all translation) wins everything: a = g sin(theta). AP FRQ classic: predict, justify, then verify experimentally."
     },
     {
-      "id": "ap-physics-1-algebra-based-126",
+      "id": "ap-physics-1-algebra-based-117",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Angular Momentum",
@@ -2777,7 +2579,7 @@
       "explanation": "Angular momentum L (kg * m^2 / s) is the rotational analog of linear momentum p. For a rotating rigid body: L = I omega. For a point mass: L = m v r sin(theta) = r * p_perp. Vector along rotation axis (right-hand rule). Newton's-third-law analog (Euler): internal torques cancel pairwise, so total L is conserved if no external torque acts. AP FRQs (Science Practice 5: Calculations) use conservation of L to explain skater spin-up (pulling arms in reduces I, so omega increases to keep L constant) and orbital mechanics (planets sweep equal areas in equal times — Kepler's second law)."
     },
     {
-      "id": "ap-physics-1-algebra-based-127",
+      "id": "ap-physics-1-algebra-based-118",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Angular Momentum",
@@ -2799,7 +2601,7 @@
       "explanation": "Angular momentum of a rigid body about a fixed axis: L = I omega (kg * m^2 / s), where I is moment of inertia (kg * m^2) and omega is angular velocity (rad/s). On the AP equation sheet. For a point mass at distance r from axis with linear velocity v perpendicular to r: L = m v r. AP FRQs (Science Practice 5: Calculations) chain conservation: L_i = L_f, so I_i omega_i = I_f omega_f. Skater pulls arms in: I decreases ~4x, so omega increases ~4x (because L = I omega is conserved). KE_rot = (1/2) I omega^2 INCREASES, however — the skater does work pulling arms inward."
     },
     {
-      "id": "ap-physics-1-algebra-based-128",
+      "id": "ap-physics-1-algebra-based-119",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Angular Momentum",
@@ -2821,7 +2623,7 @@
       "explanation": "Angular momentum unit: kg * m^2 / s. Also writeable as N * m * s (the torque-time analog of impulse-momentum). AP FRQs (Science Practice 2: Mathematical Routines) require unit consistency: I (kg*m^2) * omega (rad/s = 1/s) gives kg*m^2/s automatically. Earth's spin angular momentum: ~7 * 10^33 kg*m^2/s. A spinning bicycle wheel: ~0.5 kg*m^2/s. Quantum analog (h-bar = 1.05 * 10^-34 J*s) appears in AP Physics 2 atomic structure — angular momentum is quantized at atomic scale, with electron orbital L in multiples of h-bar."
     },
     {
-      "id": "ap-physics-1-algebra-based-129",
+      "id": "ap-physics-1-algebra-based-120",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Angular Momentum",
@@ -2843,7 +2645,7 @@
       "explanation": "Angular momentum is conserved when net external torque on the system is zero (tau_ext = 0). Internal torques cancel pairwise (Newton's third law for rotation). AP FRQ paragraph-length arguments (Science Practice 7) require students to explicitly justify 'no external torque' before invoking L_i = L_f. Common scenarios: figure skater (gravity and normal force balance — no horizontal external torque); spinning satellite in space (no torque from gravity if symmetric); a person on a turntable changing pose (no external torque about the central axis). Note: external forces CAN act without producing torque (if force passes through axis)."
     },
     {
-      "id": "ap-physics-1-algebra-based-130",
+      "id": "ap-physics-1-algebra-based-121",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Angular Momentum",
@@ -2865,7 +2667,7 @@
       "explanation": "When a figure skater pulls arms inward, I decreases (mass closer to spin axis), so omega INCREASES to conserve L = I omega. If I drops by factor 4, omega rises by factor 4. AP FRQ (Science Practice 5: Calculations) classic: I_i = 5 kg*m^2 at omega_i = 2 rad/s gives L = 10 kg*m^2/s; if skater pulls in to I_f = 2 kg*m^2, then omega_f = L/I_f = 5 rad/s. KE_rot INCREASES from (1/2)(5)(4) = 10 J to (1/2)(2)(25) = 25 J — the skater does +15 J of work pulling against centripetal forces of their arms (Science Practice 6: Argumentation)."
     },
     {
-      "id": "ap-physics-1-algebra-based-131",
+      "id": "ap-physics-1-algebra-based-122",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2887,7 +2689,7 @@
       "explanation": "Angular momentum L is conserved when net external torque on the system is zero (tau_ext = 0). The rotational analog of momentum conservation under zero net external force. AP FRQs (Science Practice 5: Calculations) use this for skater spin-up, pulsar formation (collapsing star spins up because I decreases drastically), and orbital mechanics. Kepler's second law (1609) — planets sweep equal areas in equal times — is angular momentum conservation in action: L = m v r sin(theta) is constant, so when r decreases (perihelion), v increases proportionally. Newton later showed Kepler's laws follow from gravity + L conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-132",
+      "id": "ap-physics-1-algebra-based-123",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2909,7 +2711,7 @@
       "explanation": "Conservation of linear momentum: when F_ext = 0 on an isolated system, total momentum p = sum(m_i v_i) is constant. The cornerstone of collision analysis. AP FRQs (Science Practice 5: Calculations) apply this universally to collisions (elastic, inelastic, perfectly inelastic), explosions, and any system where the timescale of interaction is brief enough that external impulses (gravity, friction) are negligible. Paragraph-length arguments (Science Practice 7) about colliding carts on a frictionless track: external horizontal forces are zero, so horizontal momentum is conserved through the collision."
     },
     {
-      "id": "ap-physics-1-algebra-based-133",
+      "id": "ap-physics-1-algebra-based-124",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2931,7 +2733,7 @@
       "explanation": "Conservation of angular momentum: when tau_ext = 0 on an isolated rotational system, total L = sum(I_i omega_i) is constant. The rotational analog of momentum conservation. AP FRQs (Science Practice 5: Calculations) apply this to: (1) figure skater pulling arms in (I decreases, omega increases); (2) collapsing stars forming pulsars (I drops by factor 10^10, omega rises proportionally — neutron stars rotate millisecond periods); (3) orbital mechanics (Kepler's second law); (4) collisions between rotating and translating systems (a rod struck off-center conserves angular momentum about a chosen axis)."
     },
     {
-      "id": "ap-physics-1-algebra-based-134",
+      "id": "ap-physics-1-algebra-based-125",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2953,7 +2755,7 @@
       "explanation": "Conservation of energy (first law of thermodynamics): total energy of an isolated system is constant — only converts between forms. Joule established the mechanical equivalent of heat (1840s), Helmholtz formalized the conservation law (1847). AP FRQs (Science Practice 5: Calculations) use mechanical energy conservation (KE + U = constant) when only conservative forces act, and total energy conservation (including thermal) when friction is present. Paragraph-length arguments (Science Practice 7) must declare which form of energy each step transforms to, especially in inelastic collisions where KE → thermal + sound + deformation."
     },
     {
-      "id": "ap-physics-1-algebra-based-135",
+      "id": "ap-physics-1-algebra-based-126",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Conservation",
@@ -2975,7 +2777,7 @@
       "explanation": "A skater pulling arms in spins faster — angular momentum conservation in action. Mechanism (Science Practice 6: Argumentation): the skater applies internal forces to bring mass closer to the spin axis, reducing I. Because no external torque acts (gravity and normal force are vertical, parallel to spin axis), L = I omega must stay constant, forcing omega to rise. Quantitative: if I goes from 5 to 2 kg*m^2, omega goes from 2 to 5 rad/s. Energy is NOT conserved — skater does work pulling against centripetal forces of arms, so KE_rot increases from 10 J to 25 J (the body's chemical energy supplied 15 J)."
     },
     {
-      "id": "ap-physics-1-algebra-based-136",
+      "id": "ap-physics-1-algebra-based-127",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rolling",
@@ -2997,7 +2799,7 @@
       "explanation": "Rolling without slipping: v_COM = R omega (m/s), where R is the rolling object's radius. Equivalently, a_COM = R alpha. The constraint that the contact point is momentarily at rest with respect to the surface (no sliding). AP FRQs (Science Practice 1: Modeling) require this constraint to couple translation and rotation: a wheel rolling down an incline has v_COM constrained to R omega throughout, allowing students to write a single equation in one unknown. Static friction (not kinetic) acts at the contact point — friction does NO work, since contact point has zero velocity instantaneously."
     },
     {
-      "id": "ap-physics-1-algebra-based-137",
+      "id": "ap-physics-1-algebra-based-128",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rolling",
@@ -3019,7 +2821,7 @@
       "explanation": "Total KE of a rolling object: KE = (1/2) m v_COM^2 + (1/2) I omega^2 (joules). Using rolling constraint v_COM = R omega: KE = (1/2)(m + I/R^2) v_COM^2 — equivalently KE = (1/2) m v_COM^2 (1 + I/(mR^2)). The factor (1 + I/(mR^2)) measures how much extra rotational KE accompanies a given translational v_COM. For a solid disk: 1 + 1/2 = 3/2, so KE_total = 3/2 of translation alone. AP FRQs (Science Practice 5: Calculations) chain this with energy conservation: m g h = (1/2)(m + I/R^2) v_COM^2."
     },
     {
-      "id": "ap-physics-1-algebra-based-138",
+      "id": "ap-physics-1-algebra-based-129",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rolling",
@@ -3041,7 +2843,7 @@
       "explanation": "On a ramp, smaller I/(m R^2) ratio means faster acceleration: a = g sin(theta) / (1 + I/(m R^2)). Race ranking (Science Practice 6: Argumentation): solid sphere (I/(mR^2) = 2/5, factor 7/5) > solid cylinder (1/2, factor 3/2) > hollow sphere (2/3, factor 5/3) > hollow cylinder/ring (1, factor 2). Frictionless block (no rotation) wins all: a = g sin(theta). AP FRQs commonly ask students to predict the winner without computing — the trick is to recognize that less rotational KE share means more KE for translation, hence higher v_COM at the bottom for the same h."
     },
     {
-      "id": "ap-physics-1-algebra-based-139",
+      "id": "ap-physics-1-algebra-based-130",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rolling",
@@ -3063,7 +2865,7 @@
       "explanation": "Static friction (NOT kinetic) acts on a rolling object that does not slip — the contact point is momentarily at rest relative to the surface. Static friction adjusts to whatever value is needed to maintain rolling, up to mu_s N. AP FRQs (Science Practice 6: Argumentation) catch students writing 'kinetic friction acts' — incorrect because no sliding occurs. Static friction does NO work (contact point velocity = 0, so W = F * 0 = 0), so mechanical energy is conserved on the rolling-down-incline problem. If theta exceeds critical angle (tan(theta) > 7 mu_s / 2 for solid sphere), static friction cannot supply enough torque, and sliding begins."
     },
     {
-      "id": "ap-physics-1-algebra-based-140",
+      "id": "ap-physics-1-algebra-based-131",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rolling",
@@ -3085,7 +2887,7 @@
       "explanation": "The contact point of a wheel rolling without slipping has INSTANTANEOUSLY zero velocity with respect to the ground. The wheel center moves at v_COM = R omega; the top of the wheel moves at 2 v_COM (twice as fast); the bottom contact at v_COM - R omega = 0. AP FRQs (Science Practice 6: Argumentation) test this: if the contact point had nonzero velocity, the wheel would be slipping (kinetic friction would act, doing negative work). The zero-velocity result explains why static friction (not kinetic) acts and why no energy is dissipated — a key Modeling step in rolling problems."
     },
     {
-      "id": "ap-physics-1-algebra-based-141",
+      "id": "ap-physics-1-algebra-based-132",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy Methods",
@@ -3107,7 +2909,7 @@
       "explanation": "Total mechanical energy E_mech = KE + PE (joules). For pure translation: KE = (1/2) m v^2, PE = m g h or (1/2) k x^2. For rotation + translation: KE = (1/2) m v_COM^2 + (1/2) I omega^2, PE same as before. AP FRQs (Science Practice 5: Calculations) chain conservation: E_mech,i = E_mech,f when only conservative forces act. For rolling on incline: m g h = (1/2)(m + I/R^2) v_COM^2 (rotational KE plus translational KE, no friction-loss term because static friction does no work). When friction is present, mechanical energy decreases by f_k * d."
     },
     {
-      "id": "ap-physics-1-algebra-based-142",
+      "id": "ap-physics-1-algebra-based-133",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy Methods",
@@ -3129,7 +2931,7 @@
       "explanation": "A conservative force does zero net work over any closed loop. Equivalently, the work between two points is path-independent. Examples: gravity (W_g = -m g Delta y depends only on Delta y, not on path); spring force (W_s = -Delta((1/2)kx^2)); electrostatic forces. Each conservative force has an associated PE function with F = -dU/dx. Non-conservative forces (friction, drag, applied human forces) lack a PE and have path-dependent work. AP FRQ paragraph-length arguments (Science Practice 7) explicitly distinguish conservative vs non-conservative when invoking mechanical-energy conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-143",
+      "id": "ap-physics-1-algebra-based-134",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy Methods",
@@ -3151,7 +2953,7 @@
       "explanation": "Kinetic friction converts mechanical energy into thermal energy at the contact surfaces — observable as temperature rise of the contact patches. Quantified: E_thermal = |W_f| = f_k * d_path (joules), where d_path is total distance slid. Joule's mid-19th-century paddle-wheel experiments established the mechanical equivalent (1 cal = 4.184 J). AP FRQs (Science Practice 5: Calculations) require explicit accounting: E_mech,f = E_mech,i - E_thermal. Paragraph-length arguments (Science Practice 7) about car brakes must trace the destination of the lost KE — brake pads heat, eventually radiating to surroundings, conserving total energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-144",
+      "id": "ap-physics-1-algebra-based-135",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy Methods",
@@ -3173,7 +2975,7 @@
       "explanation": "Spring potential energy U_s = (1/2) k x^2 (joules), with k the spring constant (N/m) and x displacement from equilibrium (m). On the AP equation sheet. Always non-negative due to x^2. Hooke (1660s) discovered F = -k x; PE follows from integration. AP FRQs (Science Practice 5: Calculations) use this in conservation of mechanical energy for spring-launched carts: (1/2) k x_0^2 = (1/2) m v_max^2 at equilibrium, giving v_max = x_0 sqrt(k/m). For combined rotation + translation (a spring launching a rolling object), the factor (1 + I/(mR^2)) appears in the denominator of v_max^2."
     },
     {
-      "id": "ap-physics-1-algebra-based-145",
+      "id": "ap-physics-1-algebra-based-136",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy Methods",
@@ -3195,7 +2997,7 @@
       "explanation": "Rotational KE: KE_rot = (1/2) I omega^2 (joules), the rotational analog of (1/2) m v^2. Always non-negative. For a rigid body rotating about a fixed axis. For combined rotation + translation (e.g., rolling wheel): total KE = (1/2) m v_COM^2 + (1/2) I omega^2. AP FRQs (Science Practice 5: Calculations) chain KE_rot with energy conservation in rotating systems: a spinning flywheel storing KE_rot can later release it as work (industrial flywheels store ~MJ of energy). Also relevant to skater spin-up: KE_rot INCREASES (not decreases) when arms pull in, despite L being conserved."
     },
     {
-      "id": "ap-physics-1-algebra-based-146",
+      "id": "ap-physics-1-algebra-based-137",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Combined Systems",
@@ -3217,7 +3019,7 @@
       "explanation": "Conservation of linear momentum: total p of an isolated system is constant when F_ext = 0. The cornerstone of all collision and explosion analysis. AP FRQs (Science Practice 5: Calculations) apply it across countless scenarios: car collisions, billiard-ball collisions, ballistic pendulums, rocket propulsion, recoil of guns. Paragraph-length arguments (Science Practice 7) require explicit identification of the system and justification of negligible external impulses. Combined with conservation of energy (when applicable — elastic only) gives two equations for solving 2-unknown collision problems."
     },
     {
-      "id": "ap-physics-1-algebra-based-147",
+      "id": "ap-physics-1-algebra-based-138",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Combined Systems",
@@ -3239,7 +3041,7 @@
       "explanation": "Compound motion combines translation of the center of mass with rotation about it. Total KE = (1/2) m v_COM^2 + (1/2) I omega^2 (joules). AP FRQs (Science Practice 1: Modeling) require students to identify both translational v_COM and rotational omega, often linked by a rolling-without-slipping constraint v_COM = R omega. Common scenarios: a yo-yo descending (gravity does work converting to KE_trans + KE_rot); a ball thrown spinning (translation under gravity, rotation about COM independent); a frisbee in flight (rotation stabilizes against pitch via gyroscopic effect)."
     },
     {
-      "id": "ap-physics-1-algebra-based-148",
+      "id": "ap-physics-1-algebra-based-139",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Combined Systems",
@@ -3261,7 +3063,7 @@
       "explanation": "Total KE of an object in combined translation + rotation: KE = (1/2) m v_COM^2 + (1/2) I omega^2 (joules). For rolling without slipping, v_COM = R omega, so KE = (1/2)(m + I/R^2) v_COM^2. AP FRQs (Science Practice 5: Calculations) use this in conservation of energy for rolling objects on inclines, in pulley systems with mass, in yo-yo problems. The translational + rotational decomposition (König's theorem) is exact for rigid bodies and underlies all combined-motion analysis at the AP level. Linear analog: KE_trans alone for point particles."
     },
     {
-      "id": "ap-physics-1-algebra-based-149",
+      "id": "ap-physics-1-algebra-based-140",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Combined Systems",
@@ -3283,7 +3085,7 @@
       "explanation": "For a two-body rotating system (e.g., a binary star or two atoms in a diatomic molecule), one can use the reduced mass mu = m_1 m_2 / (m_1 + m_2) to reduce the two-body problem to a single body at radius r_rel from a fixed center. AP Physics 1 typically avoids the formal reduced-mass formalism, but the idea appears qualitatively when students analyze orbits or rotations of pairs. Newton (Principia, 1687) showed two-body gravitational orbits reduce to motion of reduced mass mu in a central field, justifying treating the Earth-Sun system as Earth orbiting a fixed Sun (Sun's much larger mass makes mu ≈ m_Earth)."
     },
     {
-      "id": "ap-physics-1-algebra-based-150",
+      "id": "ap-physics-1-algebra-based-141",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Combined Systems",
@@ -3305,7 +3107,7 @@
       "explanation": "When ONLY internal forces act on a system, the center of mass continues at constant velocity (Newton's first law for COM). Internal forces cancel pairwise by Newton's third law and cannot accelerate the COM. AP FRQs (Science Practice 7: Paragraph-Length Argument) use this powerful insight on explosions: a 10 kg shell traveling at 50 m/s explodes; despite the dramatic internal forces, the COM continues at 50 m/s. Fragments redistribute around this COM motion. For free fall, the COM has a = -g regardless of internal rotations or fragmentations — exemplified by a wrench tossed across a frictionless table, whose COM moves linearly while the wrench rotates."
     },
     {
-      "id": "ap-physics-1-algebra-based-151",
+      "id": "ap-physics-1-algebra-based-142",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Simple Harmonic Motion",
@@ -3327,7 +3129,7 @@
       "explanation": "Simple harmonic motion (SHM): motion under a linear restoring force F = -k x, with displacement x from equilibrium. Solutions are sinusoidal: x(t) = A cos(omega t + phi), where omega = sqrt(k/m). Hooke's Law (1660s) provides the linear restoring force; Newton's second law plus this force yields the second-order ODE m d^2x/dt^2 = -k x with sinusoidal solutions. AP FRQs (Science Practice 1: Modeling) require students to identify the restoring force, verify proportionality to displacement, and confirm SHM behavior before applying period formulas. Examples: mass on spring, small-angle pendulum, vibrating molecule."
     },
     {
-      "id": "ap-physics-1-algebra-based-152",
+      "id": "ap-physics-1-algebra-based-143",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Simple Harmonic Motion",
@@ -3349,7 +3151,7 @@
       "explanation": "Hooke's Law: F = -k x (newtons), where k is the spring constant (N/m) and x is displacement from equilibrium (m). Discovered by Robert Hooke (1660s). The negative sign indicates restoring direction (toward equilibrium). On the AP equation sheet. Linear in x — small-amplitude approximation valid for real springs within their elastic limit. AP FRQs (Science Practice 5: Calculations) chain Hooke's Law with Newton's second to derive omega = sqrt(k/m) and T = 2 pi sqrt(m/k). Stiffer spring (larger k) gives faster oscillation; heavier mass gives slower. Pendulum analog (small-angle): F = -m g (x/L)."
     },
     {
-      "id": "ap-physics-1-algebra-based-153",
+      "id": "ap-physics-1-algebra-based-144",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Simple Harmonic Motion",
@@ -3371,7 +3173,7 @@
       "explanation": "Spring constant k unit: N/m (newtons per meter) — the force per unit displacement. A k = 100 N/m spring requires 100 N to stretch 1 m or 1 N to stretch 1 cm. AP FRQs (Science Practice 4: Experimental Design) often ask students to measure k by hanging known weights and recording extension: k = m g / x. Then verify the predicted T = 2 pi sqrt(m/k) by timing oscillations. Practical magnitudes: a slinky has k ~ 0.5 N/m (very soft); a car suspension spring k ~ 50,000 N/m; an atomic bond modeled as a spring k ~ 100-1000 N/m."
     },
     {
-      "id": "ap-physics-1-algebra-based-154",
+      "id": "ap-physics-1-algebra-based-145",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Simple Harmonic Motion",
@@ -3393,7 +3195,7 @@
       "explanation": "Amplitude A (meters) is the maximum displacement from equilibrium in SHM. The position oscillates between +A and -A. Note: T (period) and omega (angular frequency) are independent of A for ideal SHM — a key Galilean-isochronism property tested on AP FRQs. AP FRQs (Science Practice 6: Argumentation) test this isochronism: doubling A doubles v_max but does NOT change T (since omega = sqrt(k/m) does not contain A). Total energy E_total = (1/2) k A^2 — quadratic in A. v_max = A omega = A sqrt(k/m), reached at equilibrium where all energy is KE."
     },
     {
-      "id": "ap-physics-1-algebra-based-155",
+      "id": "ap-physics-1-algebra-based-146",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Simple Harmonic Motion",
@@ -3415,7 +3217,7 @@
       "explanation": "Period T (seconds) is the time for one complete oscillation cycle. For mass-on-spring: T = 2 pi sqrt(m/k). For small-angle pendulum: T = 2 pi sqrt(L/g). On the AP equation sheet. T = 1/f = 2 pi / omega. AP FRQs (Science Practice 6: Argumentation) test Galilean isochronism: T does NOT depend on amplitude (for ideal SHM). T does depend on m and k for springs; on L and g for pendulums. Earth's gravity pendulum (L = 1 m): T ≈ 2.0 s. On the moon (g/6), same pendulum has T ≈ 4.9 s. Galileo discovered pendulum isochronism c.1602 by timing chandelier swings against his pulse."
     },
     {
-      "id": "ap-physics-1-algebra-based-156",
+      "id": "ap-physics-1-algebra-based-147",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Period and Frequency",
@@ -3437,7 +3239,7 @@
       "explanation": "Frequency f (Hz = 1/s) is the number of complete oscillation cycles per second. Reciprocal of period: f = 1/T. Related to angular frequency: omega = 2 pi f (rad/s). AP FRQs (Science Practice 5: Calculations) connect f to physical parameters: for mass-on-spring f = (1/(2 pi)) sqrt(k/m); for pendulum f = (1/(2 pi)) sqrt(g/L). Typical magnitudes: a tuning fork at 440 Hz (concert A); a quartz crystal at 32,768 Hz (digital watch); piano middle C at 261.63 Hz. Heinrich Hertz (1857-1894) gave name to the unit after his work proving electromagnetic waves."
     },
     {
-      "id": "ap-physics-1-algebra-based-157",
+      "id": "ap-physics-1-algebra-based-148",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Period and Frequency",
@@ -3459,7 +3261,7 @@
       "explanation": "Hertz (Hz) = 1 cycle / second = 1/s. Named after Heinrich Hertz (1857-1894), who experimentally demonstrated radio waves (1887) and confirmed Maxwell's electromagnetic theory. AP FRQs (Science Practice 2: Mathematical Routines) require unit consistency: f (Hz) = 1/T (1/s) must check dimensionally. Practical magnitudes: alpha brain waves 8-13 Hz; a hummingbird wing flap ~50 Hz; AM radio 0.5-1.7 MHz; visible light ~5 * 10^14 Hz; gamma rays > 10^19 Hz. Hertz's spark-gap experiments established the unity of EM waves and light, a foundation Einstein later extended with photons."
     },
     {
-      "id": "ap-physics-1-algebra-based-158",
+      "id": "ap-physics-1-algebra-based-149",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Period and Frequency",
@@ -3481,7 +3283,7 @@
       "explanation": "Mass-on-spring period: T = 2 pi sqrt(m/k) (seconds), with m in kg and k in N/m. On the AP equation sheet. Independent of amplitude (Galilean isochronism). Derived from Hooke's Law F = -k x plus Newton's second m a = -k x, giving angular frequency omega = sqrt(k/m). AP FRQs (Science Practice 5: Calculations) commonly chain this with: a 0.5 kg mass on a 200 N/m spring has T = 2 pi sqrt(0.5/200) = 2 pi (0.05) ≈ 0.314 s, f ≈ 3.18 Hz. Limiting cases: very stiff spring (large k) gives very short T; very massive load (large m) gives long T. m and k are the ONLY parameters."
     },
     {
-      "id": "ap-physics-1-algebra-based-159",
+      "id": "ap-physics-1-algebra-based-150",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Period and Frequency",
@@ -3503,7 +3305,7 @@
       "explanation": "Small-angle pendulum period: T = 2 pi sqrt(L/g) (seconds), with L in m and g in m/s^2. On the AP equation sheet. Independent of mass and (for small theta) of amplitude (Galilean isochronism). Derived from small-angle approximation sin(theta) ≈ theta: restoring force ≈ -m g (x/L), giving omega = sqrt(g/L). For L = 1 m on Earth (g = 9.8): T = 2 pi sqrt(1/9.8) ≈ 2.0 s. AP FRQs (Science Practice 4: Experimental Design) often ask students to verify the formula by varying L and timing T. Limiting case: vary g (different planets) and predict T_new = T_Earth sqrt(g_Earth / g_new)."
     },
     {
-      "id": "ap-physics-1-algebra-based-160",
+      "id": "ap-physics-1-algebra-based-151",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Period and Frequency",
@@ -3525,7 +3327,7 @@
       "explanation": "Angular frequency omega = 2 pi f = 2 pi / T (rad/s). Connects oscillation frequency to circular-motion analog: a point moving in a circle of radius A at omega traces sinusoidal x(t) = A cos(omega t) on one axis. On the AP equation sheet. AP FRQs (Science Practice 2: Mathematical Routines) chain omega with physical parameters: omega = sqrt(k/m) for spring; omega = sqrt(g/L) for pendulum. Connects to position equation x(t) = A cos(omega t + phi) and velocity v(t) = -A omega sin(omega t + phi). The factor 2 pi arises because radians measure full circle as 2 pi, not 360."
     },
     {
-      "id": "ap-physics-1-algebra-based-161",
+      "id": "ap-physics-1-algebra-based-152",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy in SHM",
@@ -3547,7 +3349,7 @@
       "explanation": "Total energy in SHM: E_total = (1/2) k A^2 (joules), where A is amplitude. Constant throughout oscillation (no friction). Energy oscillates between KE and PE: at equilibrium (x = 0), all is KE = (1/2) m v_max^2; at maximum displacement (x = ±A), all is PE = (1/2) k A^2. AP FRQs (Science Practice 5: Calculations) chain this with v_max = A omega = A sqrt(k/m): substituting confirms (1/2) m v_max^2 = (1/2) k A^2. Quadratic in A: doubling amplitude quadruples total energy. Useful AP problem: amplitude after partially inelastic collision adds mass, reducing E_total but conserving p."
     },
     {
-      "id": "ap-physics-1-algebra-based-162",
+      "id": "ap-physics-1-algebra-based-153",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy in SHM",
@@ -3569,7 +3371,7 @@
       "explanation": "Kinetic energy is maximum at equilibrium (x = 0) in SHM, because all energy is KE at that point (PE = 0 if we set zero at equilibrium). v_max = A omega = A sqrt(k/m). AP FRQs (Science Practice 6: Argumentation) often ask students to predict KE distribution across cycle: at x = ±A, KE = 0 (object momentarily at rest at turning points); at x = ±A/2, KE = (1/2)(k A^2)(1 - 1/4) = (3/8) k A^2 (75% of max KE); at x = 0, KE = (1/2) k A^2 (100%). Used in spring-launched cart problems where the spring releases all PE as KE at equilibrium."
     },
     {
-      "id": "ap-physics-1-algebra-based-163",
+      "id": "ap-physics-1-algebra-based-154",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy in SHM",
@@ -3591,7 +3393,7 @@
       "explanation": "Potential energy is maximum at the turning points (x = ±A) in SHM, because all energy is PE at those instants (v = 0 momentarily). PE_max = (1/2) k A^2 = E_total. The object reverses direction here. AP FRQs (Science Practice 5: Calculations) use this for energy bookkeeping: between equilibrium and turning point, KE → PE; between turning point and equilibrium, PE → KE. At x = ±A/2: PE = (1/2)(k)(A/2)^2 = (1/8) k A^2 (25% of max PE). The transformation continues sinusoidally throughout each cycle, with frequency 2 * omega (energy passes through max twice per cycle)."
     },
     {
-      "id": "ap-physics-1-algebra-based-164",
+      "id": "ap-physics-1-algebra-based-155",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy in SHM",
@@ -3613,7 +3415,7 @@
       "explanation": "Spring PE U_s = (1/2) k x^2 (joules), with k the spring constant (N/m) and x displacement from equilibrium (m). On the AP equation sheet. Always non-negative due to x^2. Quadratic in x: doubling compression quadruples stored PE. Hooke's Law F = -k x integrates to U_s via W_cons = -Delta U. AP FRQs (Science Practice 5: Calculations) chain this with energy conservation in spring-mass systems: at any x, total energy E = (1/2) m v^2 + (1/2) k x^2 = (1/2) k A^2 (constant). v(x) = omega sqrt(A^2 - x^2) — sinusoidal velocity confirmed."
     },
     {
-      "id": "ap-physics-1-algebra-based-165",
+      "id": "ap-physics-1-algebra-based-156",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy in SHM",
@@ -3635,7 +3437,7 @@
       "explanation": "At equilibrium (x = 0) in SHM, ALL energy is kinetic: KE = (1/2) m v_max^2 = (1/2) k A^2. PE is zero (with conventional choice of reference at equilibrium). At x = ±A, all energy is PE: KE = 0, PE = (1/2) k A^2. Energy oscillates between these forms at frequency 2 * omega (twice per oscillation cycle). AP FRQs (Science Practice 6: Argumentation) test this conservation: a mass-on-spring released from rest at x = A has v = 0, all PE; at x = 0 all energy is KE giving v_max = A sqrt(k/m); at x = -A again all PE, v = 0, then back."
     },
     {
-      "id": "ap-physics-1-algebra-based-166",
+      "id": "ap-physics-1-algebra-based-157",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pendulum",
@@ -3657,7 +3459,7 @@
       "explanation": "A simple pendulum: a point mass m on a massless inextensible string of length L, swinging in a vertical plane. Restoring force is the tangential component of gravity: F_t = -m g sin(theta). For small theta (< 15 degrees), sin(theta) ≈ theta, giving SHM with T = 2 pi sqrt(L/g). Galileo discovered isochronism c.1602 by timing chandelier swings against his pulse; Huygens (1656) used pendulums to make the first accurate clocks. AP FRQs (Science Practice 1: Modeling) require the small-angle approximation to be stated explicitly, since beyond 15 degrees the period deviates noticeably from the formula."
     },
     {
-      "id": "ap-physics-1-algebra-based-167",
+      "id": "ap-physics-1-algebra-based-158",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pendulum",
@@ -3679,7 +3481,7 @@
       "explanation": "Small-angle approximation: sin(theta) ≈ theta (radians), valid for theta < ~15 degrees with < 1% error. Required to linearize the pendulum equation of motion and obtain SHM with T = 2 pi sqrt(L/g). For larger amplitudes, T increases slightly — for theta_0 = 30 degrees, T is ~2% longer; for theta_0 = 90 degrees, T is ~18% longer. AP FRQs (Science Practice 6: Argumentation) sometimes ask students to identify when the small-angle approximation breaks down. Real-world pendulum clocks use small amplitudes (~3-5 degrees) to maintain timekeeping accuracy. Galileo discovered the limit empirically."
     },
     {
-      "id": "ap-physics-1-algebra-based-168",
+      "id": "ap-physics-1-algebra-based-159",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pendulum",
@@ -3701,7 +3503,7 @@
       "explanation": "Pendulum period T = 2 pi sqrt(L/g) is INDEPENDENT of mass m. This Galilean-equivalence-principle result follows because m appears in BOTH the restoring force (m g sin theta) AND the inertia (m) on opposite sides of F = m a, so it cancels. Galileo demonstrated this by simultaneously dropping a heavy stone and a light feather (apocryphal Leaning Tower experiment); Hammer-and-feather on the Apollo 15 moon walk (1971) gave the modern televised confirmation. AP FRQs (Science Practice 6: Argumentation) require students to identify this mass-independence and explain it via the equivalence principle (gravitational mass = inertial mass)."
     },
     {
-      "id": "ap-physics-1-algebra-based-169",
+      "id": "ap-physics-1-algebra-based-160",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pendulum",
@@ -3723,7 +3525,7 @@
       "explanation": "Pendulum period depends ONLY on L (length) and g (local gravity): T = 2 pi sqrt(L/g). Longer L = longer T (slower); larger g = shorter T (faster). On Earth (g = 9.8 m/s^2), L = 1 m gives T ≈ 2.0 s. On the moon (g/6), same pendulum has T ≈ 4.9 s. AP FRQs (Science Practice 4: Experimental Design) use pendulums to measure g: T^2 = (4 pi^2 / g) L, so plotting T^2 vs L gives a line of slope 4 pi^2 / g, from which g is extracted. Pendulum geodesy used in 18th-19th centuries to map Earth's variable gravity."
     },
     {
-      "id": "ap-physics-1-algebra-based-170",
+      "id": "ap-physics-1-algebra-based-161",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pendulum",
@@ -3745,7 +3547,7 @@
       "explanation": "A longer pendulum has a LONGER period: T = 2 pi sqrt(L/g) scales with sqrt(L). Doubling L increases T by factor sqrt(2) ≈ 1.41. Quadrupling L doubles T. AP FRQs (Science Practice 4: Data Analysis) chain this in graph problems: students plot T vs L on log-log axes to extract the exponent (1/2). For a grandfather clock pendulum with T = 2 s (one-second tick each half-cycle), L ≈ 0.99 m on Earth — the canonical 'seconds pendulum.' Tuning a pendulum clock involves micro-adjusting L to match a reference frequency."
     },
     {
-      "id": "ap-physics-1-algebra-based-171",
+      "id": "ap-physics-1-algebra-based-162",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Resonance",
@@ -3767,7 +3569,7 @@
       "explanation": "Resonance occurs when a driving force frequency matches a system's natural frequency, causing very large amplitude buildup (limited only by damping). Galileo first studied resonance in pendulums; Hertz used it in spark-gap radio circuits. AP FRQs (Science Practice 6: Argumentation) classic example: Tacoma Narrows Bridge collapse (1940) — wind-induced oscillations matched the bridge's torsional natural frequency. Other examples: pushing a child on a swing in time with each swing (rocketing amplitude); shattering a wine glass with a sung tone matching its natural mode; MRI machines tuning radio waves to nuclear precession frequencies."
     },
     {
-      "id": "ap-physics-1-algebra-based-172",
+      "id": "ap-physics-1-algebra-based-163",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Resonance",
@@ -3789,7 +3591,7 @@
       "explanation": "Natural (resonant) frequency f_0 = (1/(2 pi)) sqrt(k_eff / m_eff) — the frequency at which a system oscillates when displaced from equilibrium and released, with no external driving. For mass-on-spring: f_0 = (1/(2 pi)) sqrt(k/m). For pendulum: f_0 = (1/(2 pi)) sqrt(g/L). AP FRQs (Science Practice 6: Argumentation) test the resonance condition: when external driving frequency f_drive = f_0, amplitude grows dramatically — the basis of musical instruments tuning to standardized pitches and of LC radio-receiver circuits selecting specific stations."
     },
     {
-      "id": "ap-physics-1-algebra-based-173",
+      "id": "ap-physics-1-algebra-based-164",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Resonance",
@@ -3811,7 +3613,7 @@
       "explanation": "Damping: progressive amplitude reduction due to dissipative forces (friction, air drag, viscous losses). Light damping reduces amplitude exponentially: A(t) = A_0 exp(-gamma t). Critical damping returns the system to equilibrium in the shortest time without oscillation (used in car shock absorbers and door closers). Overdamped systems return slowly without oscillation. AP FRQs (Science Practice 6: Argumentation) discuss damping qualitatively at the AP Physics 1 level — students should identify that a swinging pendulum eventually stops because of air friction at the pivot and air drag on the bob, converting mechanical energy to thermal energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-174",
+      "id": "ap-physics-1-algebra-based-165",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Resonance",
@@ -3833,7 +3635,7 @@
       "explanation": "Driven oscillation: an oscillator subject to a periodic external force. Steady-state amplitude depends on the driving frequency f_drive relative to natural f_0: maximum amplitude at f_drive = f_0 (resonance). With damping, the resonance peak is finite-height. Hertz (1887) used driven LC circuits to generate radio waves matching antenna resonance. AP FRQs (Science Practice 6: Argumentation) test the qualitative response: amplitude grows when driving matches natural, falls when driving differs. Engineering examples: tuning forks (resonance amplifies the sound); musical instruments (resonator amplifies string vibrations at characteristic pitches)."
     },
     {
-      "id": "ap-physics-1-algebra-based-175",
+      "id": "ap-physics-1-algebra-based-166",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Resonance",
@@ -3855,7 +3657,7 @@
       "explanation": "The Tacoma Narrows Bridge (Washington state) collapsed on November 7, 1940, four months after opening. Wind-induced torsional oscillations grew dramatically until the suspension bridge tore itself apart. Originally attributed to simple resonance, modern analysis identifies aeroelastic flutter (a more complex feedback between airflow and structure). The footage remains the most-cited textbook example of structural resonance — including in AP Physics 1 paragraph-length arguments (Science Practice 7) about engineering design to avoid mechanical resonance. Modern bridges (Golden Gate retrofit, Millennium Bridge London 2000) use tuned mass dampers to suppress dangerous modes."
     },
     {
-      "id": "ap-physics-1-algebra-based-176",
+      "id": "ap-physics-1-algebra-based-167",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Density and Pressure",
@@ -3877,7 +3679,7 @@
       "explanation": "Density rho = m / V (kg/m^3) — mass per unit volume. Water at 4 °C: rho = 1000 kg/m^3 (1 g/cm^3) — the SI standard. Air at sea level: rho = 1.225 kg/m^3 (~1000x less dense than water). Mercury: rho = 13,600 kg/m^3. AP FRQs (Science Practice 5: Calculations) chain density with buoyancy (F_b = rho_fluid V_displaced g) and pressure (P = rho g h). Density depends on temperature (water expands when heated, becoming less dense) and pressure (negligible for liquids in AP problems; large for gases — see ideal gas law in AP Physics 2 Unit 2)."
     },
     {
-      "id": "ap-physics-1-algebra-based-177",
+      "id": "ap-physics-1-algebra-based-168",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Density and Pressure",
@@ -3899,7 +3701,7 @@
       "explanation": "Pressure P = F / A (Pa = N/m^2), force exerted perpendicular to a surface divided by the contact area. Pascal (1647) studied pressure in static fluids and gave name to the SI unit. Pressure is scalar in static fluids (acts equally in all directions at a point) — this is Pascal's principle. AP FRQs (Science Practice 5: Calculations) compute pressure on submarine windows, the bottom of a deep dive (~10 atm at 90 m), and atmospheric column weights (P_atm = 1.013 * 10^5 Pa = weight of air column above per unit area). The vector force on a surface is F = P A, perpendicular to surface."
     },
     {
-      "id": "ap-physics-1-algebra-based-178",
+      "id": "ap-physics-1-algebra-based-169",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Density and Pressure",
@@ -3921,7 +3723,7 @@
       "explanation": "Pascal (Pa) = 1 N/m^2 = 1 kg / (m * s^2). Named after Blaise Pascal (1623-1662), who established the principles of fluid pressure and invented the barometer-by-proxy experiments showing atmospheric pressure decreases with altitude. AP FRQs (Science Practice 2: Mathematical Routines) require unit consistency: P = rho g h with rho in kg/m^3, g in m/s^2, h in m gives Pa automatically. Practical magnitudes: atmospheric pressure ~10^5 Pa; tire pressure ~2 * 10^5 Pa (gauge) = 3 * 10^5 Pa (absolute); blood pressure ~10^4 Pa (gauge, ~100 mmHg systolic). 1 atm = 101,325 Pa."
     },
     {
-      "id": "ap-physics-1-algebra-based-179",
+      "id": "ap-physics-1-algebra-based-170",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Density and Pressure",
@@ -3943,7 +3745,7 @@
       "explanation": "Hydrostatic pressure: P(h) = P_0 + rho g h (Pa), where h is depth below the surface, rho is fluid density, g is gravitational acceleration, and P_0 is the surface pressure (typically atmospheric ~10^5 Pa). Pascal's hydrostatic equation. On the AP equation sheet. Linear in depth — doubling h doubles the gauge pressure (excess over atmospheric). AP FRQs (Science Practice 5: Calculations) test: at 10 m depth in water, P_gauge = (1000)(9.8)(10) = 9.8 * 10^4 Pa ≈ 1 atm. So total absolute P ≈ 2 atm. Submarines withstand 30+ atm at 300 m. Derived from F = m g of a fluid column over area A: P = m g / A = rho V g / A = rho A h g / A = rho g h."
     },
     {
-      "id": "ap-physics-1-algebra-based-180",
+      "id": "ap-physics-1-algebra-based-171",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Density and Pressure",
@@ -3965,7 +3767,7 @@
       "explanation": "Standard atmospheric pressure: P_atm = 1.013 * 10^5 Pa = 101,325 Pa = 1 atm = 760 mmHg = 14.7 psi. The weight of the air column above per unit area at sea level on Earth. Torricelli (1643) discovered atmospheric pressure with his mercury-column barometer; Pascal sent his brother-in-law up a mountain (Puy-de-Dôme, 1648) to verify pressure decreases with altitude. AP FRQs (Science Practice 6: Argumentation) test: a piston exposed to vacuum on one side experiences ~10^5 N per m^2 from atmospheric pressure on the other — explaining 'suction cups' and the difficulty of opening valves against atmospheric pressure differentials."
     },
     {
-      "id": "ap-physics-1-algebra-based-181",
+      "id": "ap-physics-1-algebra-based-172",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Buoyancy",
@@ -3987,7 +3789,7 @@
       "explanation": "Buoyancy F_b is the upward force exerted by a fluid on any submerged object, arising from the pressure difference between deeper (higher P) and shallower (lower P) parts of the object. Magnitude given by Archimedes' principle: F_b = rho_fluid V_displaced g (newtons). Archimedes (c. 250 BCE) discovered this while bathing — the 'Eureka!' moment, allegedly. AP FRQs (Science Practice 5: Calculations) chain buoyancy with weight for floating/sinking analysis: if F_b > F_g, object accelerates upward; if F_b < F_g, downward; F_b = F_g means floating at equilibrium (no acceleration)."
     },
     {
-      "id": "ap-physics-1-algebra-based-182",
+      "id": "ap-physics-1-algebra-based-173",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Buoyancy",
@@ -4009,7 +3811,7 @@
       "explanation": "Archimedes' principle: the buoyant force equals the weight of the fluid displaced by the submerged object. F_b = rho_fluid V_disp g. Discovered by Archimedes (c. 250 BCE) when testing whether King Hieron's crown was pure gold. On the AP equation sheet. Independent of the object's density (depends only on fluid density and displaced volume). AP FRQs (Science Practice 6: Argumentation) classic: a steel ship floats despite steel being 8x denser than water, because the ship's hull encloses a large displaced volume of water, achieving F_b ≥ F_g. A solid steel cube of the same mass would sink because V_disp is too small."
     },
     {
-      "id": "ap-physics-1-algebra-based-183",
+      "id": "ap-physics-1-algebra-based-174",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Buoyancy",
@@ -4031,7 +3833,7 @@
       "explanation": "A floating object is in equilibrium: F_b = F_g, so rho_fluid V_displaced g = m g, giving V_displaced = m / rho_fluid. The fraction of object volume submerged: V_disp / V_object = rho_object / rho_fluid. Ice in water: rho_ice / rho_water = 917/1000 ≈ 0.917, so ~92% submerged — confirmed by the proverbial 'tip of the iceberg.' AP FRQs (Science Practice 5: Calculations) compute submerged fractions for various density combinations. A boat carrying cargo settles deeper (more V_disp) until new F_b matches new (greater) total weight."
     },
     {
-      "id": "ap-physics-1-algebra-based-184",
+      "id": "ap-physics-1-algebra-based-175",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Buoyancy",
@@ -4053,7 +3855,7 @@
       "explanation": "An object sinks when its average density exceeds the fluid density: rho_object > rho_fluid. Even when fully submerged, F_b = rho_fluid V_object g < m g = rho_object V_object g, so net force is downward. AP FRQs (Science Practice 5: Calculations): a steel ball (rho = 7850 kg/m^3) sinks in water (1000 kg/m^3) because rho_steel > rho_water. Same steel hollowed into a hull (with internal air at rho_air ~1 kg/m^3) achieves average rho_avg < rho_water, allowing it to float. Submarines control rho_avg by flooding/emptying ballast tanks — buoyancy engineering."
     },
     {
-      "id": "ap-physics-1-algebra-based-185",
+      "id": "ap-physics-1-algebra-based-176",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Buoyancy",
@@ -4075,7 +3877,7 @@
       "explanation": "A ship floats by displacing a volume of water whose weight equals the ship's total weight. The hull encloses air at low density, so the ship's average density (steel hull + air interior + cargo) is less than water's density (1000 kg/m^3). When loaded, the ship sinks deeper, displacing more water until new F_b matches new total weight. Plimsoll lines on cargo ships indicate maximum safe loading for various water densities (fresh, salt, tropical, etc.). AP FRQs (Science Practice 6: Argumentation) test this with paragraph-length arguments about why hollow steel ships float while solid steel sinks — same metal, different average density."
     },
     {
-      "id": "ap-physics-1-algebra-based-186",
+      "id": "ap-physics-1-algebra-based-177",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pascal's Principle",
@@ -4097,7 +3899,7 @@
       "explanation": "Pascal's principle (1647): in a confined incompressible fluid at rest, pressure applied at one point is transmitted undiminished to every other point. Blaise Pascal demonstrated this experimentally. Foundation of hydraulic systems. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) use Pascal's principle in hydraulic-press problems: a small piston (area A_1) under force F_1 produces pressure P_1 = F_1/A_1, transmitted through the connecting fluid to a large piston (area A_2 >> A_1), where the lifting force is F_2 = P_1 A_2 = F_1 (A_2/A_1). Mechanical advantage A_2/A_1 makes hydraulic jacks lift cars."
     },
     {
-      "id": "ap-physics-1-algebra-based-187",
+      "id": "ap-physics-1-algebra-based-178",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pascal's Principle",
@@ -4119,7 +3921,7 @@
       "explanation": "Hydraulic press: two connected fluid-filled chambers with pistons of different areas. A small force F_1 on the small piston (area A_1) creates pressure P = F_1/A_1, transmitted (Pascal's principle) to the large piston (area A_2). Output force F_2 = P A_2 = F_1 (A_2/A_1) — mechanical advantage A_2/A_1. AP FRQs (Science Practice 5: Calculations): a car-jack hydraulic lift with A_2/A_1 = 100 can lift 1000 kg car with only 98 N input. Distance trade-off: small piston moves 100x further than large piston (volume conservation V_1 = V_2 gives A_1 d_1 = A_2 d_2). Energy conserved: F_1 d_1 = F_2 d_2."
     },
     {
-      "id": "ap-physics-1-algebra-based-188",
+      "id": "ap-physics-1-algebra-based-179",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pascal's Principle",
@@ -4141,7 +3943,7 @@
       "explanation": "Mechanical advantage in a hydraulic press = A_2 / A_1 (ratio of output to input piston areas). Force amplification F_2 = F_1 (A_2/A_1). AP FRQs (Science Practice 5: Calculations): a 200:1 area ratio lifts a 20,000 N car with only 100 N input force. The cost (Science Practice 6: Argumentation): the small piston must travel 200x farther — energy is conserved, since F_1 d_1 = F_2 d_2 ⟹ both sides are work W. Hydraulics multiply force at the expense of distance, analogous to mechanical levers (Archimedes' lever principle). Used in car jacks, brake systems, construction equipment."
     },
     {
-      "id": "ap-physics-1-algebra-based-189",
+      "id": "ap-physics-1-algebra-based-180",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pascal's Principle",
@@ -4163,7 +3965,7 @@
       "explanation": "Volume is conserved in a hydraulic system because the working fluid (oil, water) is incompressible: V_1 = V_2 → A_1 d_1 = A_2 d_2, where d_1, d_2 are piston displacements. Combined with Pascal's principle F_2/F_1 = A_2/A_1, this yields F_1 d_1 = F_2 d_2 = W (work conserved). AP FRQs (Science Practice 5: Calculations) test the trade-off explicitly: a 100x force amplification requires 100x distance reduction at the output piston. Energy conservation is intact: input work equals output work (neglecting friction in the system). This is mechanical advantage at the cost of distance — Archimedes' lever principle generalized."
     },
     {
-      "id": "ap-physics-1-algebra-based-190",
+      "id": "ap-physics-1-algebra-based-181",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Pascal's Principle",
@@ -4185,7 +3987,7 @@
       "explanation": "In a hydraulic system, the smaller (input) piston travels a longer distance than the larger (output) piston, in inverse proportion to area: d_1 / d_2 = A_2 / A_1. For a 100:1 area ratio, the input piston moves 100x farther while exerting 100x less force, with energy conservation: F_1 d_1 = F_2 d_2 = W. AP FRQs (Science Practice 6: Argumentation) test this in paragraph-length arguments: students must explain why hydraulic force amplification is NOT a violation of energy conservation — the trade-off is distance. This is analogous to a long lever arm amplifying torque while requiring more arc length traveled."
     },
     {
-      "id": "ap-physics-1-algebra-based-191",
+      "id": "ap-physics-1-algebra-based-182",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluid Flow",
@@ -4207,7 +4009,7 @@
       "explanation": "Continuity equation: A_1 v_1 = A_2 v_2 (m^3/s) for incompressible fluid in steady flow through a tube. Conservation of volume flow rate Q = A v. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) apply this to garden hoses (nozzle narrows, water speed increases), river constrictions (narrow gorge = faster current), and blood-vessel narrowings (atherosclerosis). For incompressible flow (liquids, air at low speeds), rho stays constant; for compressible flow, rho A v is conserved (mass flow rate). Derived from conservation of mass: in a steady pipe, what enters at section 1 must exit at section 2."
     },
     {
-      "id": "ap-physics-1-algebra-based-192",
+      "id": "ap-physics-1-algebra-based-183",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluid Flow",
@@ -4229,7 +4031,7 @@
       "explanation": "Bernoulli's equation: P + (1/2) rho v^2 + rho g h = constant along a streamline for incompressible, inviscid, steady flow. Daniel Bernoulli (1738) derived it from conservation of energy applied to a fluid element. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) chain it with continuity (A v = constant) to solve for pressure differences in narrowing pipes, lift on airplane wings, and water-tower flow. Three forms of fluid energy per unit volume: pressure (P), kinetic ((1/2) rho v^2), and gravitational (rho g h). Conservation: faster flow → lower pressure (the Bernoulli effect)."
     },
     {
-      "id": "ap-physics-1-algebra-based-193",
+      "id": "ap-physics-1-algebra-based-184",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluid Flow",
@@ -4251,7 +4053,7 @@
       "explanation": "Bernoulli effect: pressure is lower where fluid speed is higher (along the same streamline at the same height). Direct consequence of Bernoulli's equation P + (1/2) rho v^2 = constant (for horizontal flow). Demonstrated by Daniel Bernoulli (1738). AP FRQs (Science Practice 6: Argumentation) classic applications: airfoils generate lift because air moves faster over the curved top surface than the flatter bottom, creating lower pressure above and net upward force; spinning baseballs curve because the surface drags air around, asymmetrically accelerating flow and creating pressure imbalance (Magnus effect); a vacuum-cleaner nozzle reduces pressure for suction."
     },
     {
-      "id": "ap-physics-1-algebra-based-194",
+      "id": "ap-physics-1-algebra-based-185",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluid Flow",
@@ -4273,7 +4075,7 @@
       "explanation": "Airfoil lift: air moves faster over the curved upper wing surface than the flatter lower surface (continuity + airfoil shape), so by Bernoulli's effect the upper pressure is LOWER than the lower pressure, creating a net upward force = (P_lower - P_upper) * Wing_area. AP FRQs (Science Practice 6: Argumentation) require students to explicitly invoke both continuity (which sets the speed difference) and Bernoulli (which relates speed to pressure). Note: simple Bernoulli explanation is incomplete in detail — full lift theory requires Kutta condition and circulation — but Physics 1 stays at the Bernoulli level. Lift balances gravity in level flight; lift exceeds weight in climb."
     },
     {
-      "id": "ap-physics-1-algebra-based-195",
+      "id": "ap-physics-1-algebra-based-186",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluid Flow",
@@ -4295,7 +4097,7 @@
       "explanation": "Two conservation laws in incompressible-inviscid fluid flow: (1) Mass conservation, expressed as the continuity equation A v = constant (volume flow rate constant for incompressible). (2) Energy conservation, expressed as Bernoulli's equation P + (1/2) rho v^2 + rho g h = constant along a streamline. AP FRQs (Science Practice 5: Calculations) chain them: continuity gives the speed at a narrowing; Bernoulli converts that to pressure. Together they handle most AP fluid-flow problems. Real flows also have viscous dissipation (modeled by Poiseuille's law for tubes), but AP Physics 1 stays inviscid for fluid-flow analyses."
     },
     {
-      "id": "ap-physics-1-algebra-based-196",
+      "id": "ap-physics-1-algebra-based-187",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Viscosity",
@@ -4317,7 +4119,7 @@
       "explanation": "Viscosity (eta or mu) is a measure of a fluid's internal resistance to shear flow — fluid friction between adjacent fluid layers. Newton's law of viscosity: shear stress = eta * (velocity gradient). Newton (1687) and Stokes (1851) developed the formal theory. AP Physics 1 typically treats viscosity qualitatively. AP FRQs (Science Practice 6: Argumentation) ask students to compare viscosities qualitatively: water (low viscosity, flows readily) vs. honey (high viscosity, flows slowly). Viscosity decreases with temperature for liquids (hot honey flows faster), increases with temperature for gases (rare comparison). SI unit: Pa * s (pascal-second)."
     },
     {
-      "id": "ap-physics-1-algebra-based-197",
+      "id": "ap-physics-1-algebra-based-188",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Viscosity",
@@ -4339,7 +4141,7 @@
       "explanation": "Water has low viscosity (eta = 1.0 * 10^-3 Pa * s at 20 °C) compared to many liquids. Air viscosity is even lower (1.8 * 10^-5 Pa * s). AP FRQs (Science Practice 6: Argumentation) compare fluid behaviors: low-viscosity fluids flow readily, form turbulent regimes at moderate speeds (Reynolds number Re = rho v L / eta becomes large for low eta), and minimize drag at low-Re regimes. Water's low viscosity allows efficient pipe flow, swimming, and rainfall dynamics. Inviscid (zero-viscosity) idealization underlies Bernoulli's equation — real water is approximately inviscid for AP-level problems."
     },
     {
-      "id": "ap-physics-1-algebra-based-198",
+      "id": "ap-physics-1-algebra-based-189",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Viscosity",
@@ -4361,7 +4163,7 @@
       "explanation": "Honey has high viscosity (eta ~ 10 Pa * s at room temperature) — about 10,000x more viscous than water. Other high-viscosity examples: motor oil (eta ~ 0.5 Pa * s), molasses, glycerin. AP FRQs (Science Practice 6: Argumentation) classic: pour water and honey side-by-side from cups — water flows readily, honey 'pitches' slowly. High viscosity dominates at low Reynolds numbers, where viscous forces exceed inertial forces (creeping flow). Heating honey lowers viscosity (more flowable). Pitch-drop experiment at the University of Queensland (1927-present) records pitch — extremely high-viscosity tar — dropping ~once per decade."
     },
     {
-      "id": "ap-physics-1-algebra-based-199",
+      "id": "ap-physics-1-algebra-based-190",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Viscosity",
@@ -4383,7 +4185,7 @@
       "explanation": "Laminar flow: fluid moves in parallel layers (streamlines) without lateral mixing. Stable, predictable, smooth. Reynolds number Re = rho v L / eta < ~2300 for pipe flow. Bernoulli's equation strictly applies to laminar inviscid flow. AP FRQs (Science Practice 6: Argumentation) classic: water slowly draining from a faucet shows laminar flow (smooth, transparent stream); high-velocity faucet flow becomes turbulent (chaotic, bubbly). Laminar flow has lower drag than turbulent at the same velocity; engineers minimize Re to maintain laminar flow in aircraft wings and pipelines. Osborne Reynolds (1883) experimentally distinguished laminar vs turbulent."
     },
     {
-      "id": "ap-physics-1-algebra-based-200",
+      "id": "ap-physics-1-algebra-based-191",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Viscosity",
@@ -4405,7 +4207,7 @@
       "explanation": "Turbulent flow: chaotic eddies and lateral mixing of fluid. High Reynolds number Re = rho v L / eta > ~4000 for pipe flow. AP FRQs (Science Practice 6: Argumentation) qualitatively compare: a slowly-running faucet flows laminar (smooth stream); opening it fully causes turbulent (foaming) flow. Turbulence drives the largest unsolved problem in classical physics — the Navier-Stokes turbulence problem is one of the Millennium Prize Problems. Practical effects: turbulent flow has higher drag and pressure losses than laminar (planes designed to keep wing flow laminar); turbulent mixing enables combustion and atmospheric weather dynamics."
     },
     {
-      "id": "ap-physics-1-algebra-based-201",
+      "id": "ap-physics-1-algebra-based-192",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Mechanics",
@@ -4427,7 +4229,7 @@
       "explanation": "F_net = m a (newtons = kg * m/s^2) — Newton's second law from Principia (1687). Net external force vector equals mass times acceleration vector. On the AP equation sheet. The central equation of AP Physics 1 mechanics, applied in every dynamics FRQ (Science Practice 5: Calculations). For variable mass: F = dp/dt is more general. Equilibrium: F_net = 0 ⟹ a = 0 (translational equilibrium, constant v or rest). AP FRQs require free-body diagrams (Science Practice 1: Modeling) followed by component-wise application: F_{net,x} = m a_x and F_{net,y} = m a_y."
     },
     {
-      "id": "ap-physics-1-algebra-based-202",
+      "id": "ap-physics-1-algebra-based-193",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Mechanics",
@@ -4449,7 +4251,7 @@
       "explanation": "Kinetic energy KE = (1/2) m v^2 (joules). Always non-negative; scalar. Doubling v quadruples KE. Connected to work via the work-energy theorem: W_net = Delta KE. For rotation: KE_rot = (1/2) I omega^2. For rolling without slipping: total KE = (1/2)(m + I/R^2) v_COM^2. Coriolis (1829) and Leibniz (1686) developed the modern form. AP FRQs (Science Practice 5: Calculations) chain KE with conservation of mechanical energy (KE + PE = constant when only conservative forces act) on roller coasters, pendulums, and inclines. On the AP equation sheet."
     },
     {
-      "id": "ap-physics-1-algebra-based-203",
+      "id": "ap-physics-1-algebra-based-194",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Mechanics",
@@ -4471,7 +4273,7 @@
       "explanation": "Momentum p = m v (kg * m/s) — vector with direction of velocity. On the AP equation sheet. Conserved in isolated systems (F_ext = 0). Newton originally wrote his second law as F_net = dp/dt. AP FRQs (Science Practice 5: Calculations) apply conservation of momentum to all collisions and explosions: m_1 v_{1,i} + m_2 v_{2,i} = m_1 v_{1,f} + m_2 v_{2,f}. Vector nature is critical: in 2D collisions, x and y components conserve independently. Paragraph-length arguments (Science Practice 7) require explicit justification of 'F_ext = 0' before invoking conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-204",
+      "id": "ap-physics-1-algebra-based-195",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Mechanics",
@@ -4493,7 +4295,7 @@
       "explanation": "Torque tau = r F sin(theta) (N * m) — the rotational analog of force, what causes angular acceleration: tau_net = I alpha. Vector along rotation axis (right-hand rule). On the AP equation sheet. Archimedes (c. 250 BCE) understood torque qualitatively via the lever principle. AP FRQs (Science Practice 5: Calculations) require computing each torque acting on an extended body (with sign — CCW positive convention), summing for tau_net, then applying tau_net = I alpha. Equilibrium requires tau_net = 0 in addition to F_net = 0. Maximum tau when force is perpendicular to position vector (theta = 90)."
     },
     {
-      "id": "ap-physics-1-algebra-based-205",
+      "id": "ap-physics-1-algebra-based-196",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Mechanics",
@@ -4515,7 +4317,7 @@
       "explanation": "Friction (newtons) is a contact force parallel to surfaces opposing relative motion (kinetic, f_k = mu_k N) or impending motion (static, f_s up to mu_s N). Coulomb (1785) systematized friction laws. AP FRQs (Science Practice 1: Modeling) require explicit friction force vectors on every free-body diagram, directed opposite velocity or impending motion. Friction does negative work on moving objects (W_f = -f_k * d), converting mechanical energy to thermal. On an incline: f_k = mu_k mg cos(theta). Static friction on rolling-without-slipping objects does ZERO work (contact point has zero velocity)."
     },
     {
-      "id": "ap-physics-1-algebra-based-206",
+      "id": "ap-physics-1-algebra-based-197",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy",
@@ -4537,7 +4339,7 @@
       "explanation": "Kinetic energy KE = (1/2) m v^2 (joules). Scalar, always non-negative, scales quadratically with v. AP FRQs (Science Practice 5: Calculations) chain KE with the work-energy theorem (W_net = Delta KE) and with conservation of mechanical energy (KE + PE = constant when only conservative forces act). For rotation: KE_rot = (1/2) I omega^2; total for rolling: KE = (1/2) m v_COM^2 + (1/2) I omega^2. On the AP equation sheet. Doubling v quadruples KE — explaining why stopping distances scale with v^2 for cars with constant braking friction."
     },
     {
-      "id": "ap-physics-1-algebra-based-207",
+      "id": "ap-physics-1-algebra-based-198",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy",
@@ -4559,7 +4361,7 @@
       "explanation": "Potential energy U (joules) — stored energy from position in a conservative-force field. Gravitational: U_g = m g h. Spring: U_s = (1/2) k x^2. Scalar but with sign depending on chosen reference. Term coined by Rankine (1853). On the AP equation sheet. AP FRQs (Science Practice 1: Modeling) require students to declare a reference level (U_g = 0 location) before computing U. Conservation: KE + PE = constant when only conservative forces act. Non-conservative forces (friction) drain mechanical energy to thermal — accounted via energy bookkeeping E_mech,f = E_mech,i - |W_friction|."
     },
     {
-      "id": "ap-physics-1-algebra-based-208",
+      "id": "ap-physics-1-algebra-based-199",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy",
@@ -4581,7 +4383,7 @@
       "explanation": "Work-Energy Theorem: W_net = Delta KE = KE_f - KE_i (joules). Derived by integrating F = m a over displacement. On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) apply this to find final speed when forces are non-uniform — spring-launched carts, variable-force scenarios — bypassing the need to solve F = m a directly. Linear analog of the rotational work-KE theorem: W_rot = Delta KE_rot using W_rot = tau * theta. Powerful problem-solving tool when forces vary over distance but final KE is what's needed."
     },
     {
-      "id": "ap-physics-1-algebra-based-209",
+      "id": "ap-physics-1-algebra-based-200",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy",
@@ -4603,7 +4405,7 @@
       "explanation": "A conservative force does zero net work over any closed loop — its work is path-independent. Examples: gravity, spring forces, electrostatic forces. Each conservative force has an associated PE function with F = -dU/dx. Non-conservative forces (friction, drag, applied human forces) are path-dependent. AP FRQ paragraph-length arguments (Science Practice 7) require explicit identification of conservative vs non-conservative before invoking mechanical-energy conservation. Only conservative forces contribute to PE; non-conservative forces drain mechanical energy to thermal."
     },
     {
-      "id": "ap-physics-1-algebra-based-210",
+      "id": "ap-physics-1-algebra-based-201",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Energy",
@@ -4625,7 +4427,7 @@
       "explanation": "Friction converts mechanical energy into thermal energy at contact surfaces: E_thermal = |W_friction| = f_k * d_path (joules). Joule (1840s) established the mechanical equivalent of heat (1 cal = 4.184 J) through paddle-wheel experiments — confirming conservation of total energy. AP FRQs (Science Practice 5: Calculations) require explicit thermal-energy accounting in problems with friction: E_mech,f = E_mech,i - E_thermal. Paragraph-length arguments (Science Practice 7) about car braking trace the destination: brake pads heat up, eventually radiating to surroundings, conserving total energy."
     },
     {
-      "id": "ap-physics-1-algebra-based-211",
+      "id": "ap-physics-1-algebra-based-202",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotation",
@@ -4647,7 +4449,7 @@
       "explanation": "Angular momentum L = I omega (kg * m^2 / s) for a rigid body — the rotational analog of linear momentum. For a point mass: L = m v r sin(theta). Vector along rotation axis (right-hand rule). Conserved when net external torque is zero (tau_ext = 0). AP FRQs (Science Practice 5: Calculations) chain conservation to explain skater spin-up (I decreases, omega increases), pulsar formation (I drops by factor 10^10), and Kepler's second law (equal areas in equal times — orbital L conservation). On the AP equation sheet. Newton-Euler reformulation of mechanics extended to rotation."
     },
     {
-      "id": "ap-physics-1-algebra-based-212",
+      "id": "ap-physics-1-algebra-based-203",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotation",
@@ -4669,7 +4471,7 @@
       "explanation": "Moment of inertia I (kg * m^2) — rotational analog of mass. Resistance to angular acceleration: tau_net = I alpha. Depends on mass distribution AND axis of rotation. Point mass: I = m r^2. Solid sphere about center: (2/5) m R^2. Solid cylinder/disk: (1/2) m R^2. Thin rod about end: (1/3) m L^2; about center: (1/12) m L^2. AP FRQs (Science Practice 1: Modeling) require students to identify the rotation axis before selecting the formula. Larger I means slower angular acceleration for the same applied torque; lower I/(mR^2) ratio wins rolling-down-incline races."
     },
     {
-      "id": "ap-physics-1-algebra-based-213",
+      "id": "ap-physics-1-algebra-based-204",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotation",
@@ -4691,7 +4493,7 @@
       "explanation": "tau_net = I alpha — rotational form of Newton's second law (Euler's mid-18th-century reformulation). Net external torque equals moment of inertia times angular acceleration (rad/s^2). On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) chain: compute torques (tau = r F sin theta), sum for tau_net, divide by I to find alpha. Equilibrium requires tau_net = 0 in addition to F_net = 0. Limiting case: tau_net = 0 gives alpha = 0 (constant omega or rest — rotational analog of Newton's first law). Combined with linear F = m a for problems with translation + rotation."
     },
     {
-      "id": "ap-physics-1-algebra-based-214",
+      "id": "ap-physics-1-algebra-based-205",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotation",
@@ -4713,7 +4515,7 @@
       "explanation": "Angular momentum L = I omega is conserved when net external torque on the system is zero (tau_ext = 0). Internal torques cancel pairwise by Newton's third law extended to rotation. AP FRQs (Science Practice 5: Calculations) apply: I_i omega_i = I_f omega_f. Famous applications: figure skater pulling arms in (I decreases, omega increases); pulsar formation (collapsing star's I drops by factor 10^10, omega rises to ms period); Kepler's second law for planets (equal areas swept in equal times). Paragraph-length arguments (Science Practice 7) must explicitly justify 'tau_ext = 0' before invoking conservation."
     },
     {
-      "id": "ap-physics-1-algebra-based-215",
+      "id": "ap-physics-1-algebra-based-206",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Rotation",
@@ -4735,7 +4537,7 @@
       "explanation": "Figure skater spin-up: pulling arms inward reduces I (mass closer to spin axis) by factor 2-4; since L = I omega must stay constant (no external torque), omega increases proportionally. Quantitative: I_i = 5 kg*m^2, omega_i = 2 rad/s → L = 10. If I_f = 2, then omega_f = 5 rad/s. AP FRQs (Science Practice 6: Argumentation) require students to explain that KE_rot = (1/2) I omega^2 INCREASES from 10 J to 25 J — the skater does +15 J of work pulling against centripetal forces of arms. Energy is NOT conserved; it's supplied by chemical energy in muscles. L is conserved; KE is not."
     },
     {
-      "id": "ap-physics-1-algebra-based-216",
+      "id": "ap-physics-1-algebra-based-207",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Oscillations and Waves",
@@ -4757,7 +4559,7 @@
       "explanation": "Hooke's Law: F = -k x (newtons), where k is spring constant (N/m) and x is displacement from equilibrium (m). Discovered by Robert Hooke (1660s). Negative sign indicates restoring direction (toward equilibrium). On the AP equation sheet. Linear in x — valid within elastic limit. Newton's second law with this force gives SHM: m a = -k x, with solutions x(t) = A cos(omega t + phi) where omega = sqrt(k/m). AP FRQs (Science Practice 5: Calculations) chain Hooke's Law with energy conservation: (1/2) k x_0^2 = (1/2) m v_max^2 at equilibrium. Pendulum analog (small-angle): F = -m g (x/L)."
     },
     {
-      "id": "ap-physics-1-algebra-based-217",
+      "id": "ap-physics-1-algebra-based-208",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Oscillations and Waves",
@@ -4779,7 +4581,7 @@
       "explanation": "Mass-on-spring period: T = 2 pi sqrt(m/k) (seconds). On the AP equation sheet. Independent of amplitude (Galilean isochronism). Derived from omega = sqrt(k/m). AP FRQs (Science Practice 5: Calculations): a 0.5 kg mass on a 200 N/m spring has T = 2 pi sqrt(0.5/200) ≈ 0.314 s. Limiting cases (Science Practice 6: Argumentation): stiffer spring (larger k) gives shorter T (faster oscillation); heavier mass (larger m) gives longer T (slower). Experimental-design FRQs (Science Practice 4) plot T^2 vs m to extract k = 4 pi^2 / slope."
     },
     {
-      "id": "ap-physics-1-algebra-based-218",
+      "id": "ap-physics-1-algebra-based-209",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Oscillations and Waves",
@@ -4801,7 +4603,7 @@
       "explanation": "Small-angle pendulum period: T = 2 pi sqrt(L/g) (seconds). On the AP equation sheet. Independent of mass (Galilean equivalence principle) and amplitude (small-angle approximation). For L = 1 m on Earth (g = 9.8): T ≈ 2.0 s — the 'seconds pendulum.' On the moon (g/6): same pendulum has T ≈ 4.9 s. Galileo discovered isochronism c.1602 by timing chandelier swings against his pulse; Huygens (1656) built the first pendulum clock. AP FRQs (Science Practice 4: Experimental Design) often ask students to verify T = 2 pi sqrt(L/g) by varying L and timing T."
     },
     {
-      "id": "ap-physics-1-algebra-based-219",
+      "id": "ap-physics-1-algebra-based-210",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Oscillations and Waves",
@@ -4823,7 +4625,7 @@
       "explanation": "Amplitude A (meters) is the maximum displacement from equilibrium in SHM. The oscillator's position varies between +A and -A. Total energy E_total = (1/2) k A^2 — quadratic in A, so doubling amplitude quadruples energy. v_max = A omega = A sqrt(k/m) reached at equilibrium. T and omega are INDEPENDENT of A for ideal SHM (Galilean isochronism). AP FRQs (Science Practice 6: Argumentation) test this isochronism: doubling A doubles v_max but does NOT change T (since omega = sqrt(k/m) does not contain A). Important practical limit: real systems are isochronous only for small amplitudes; large amplitudes have nonlinear corrections."
     },
     {
-      "id": "ap-physics-1-algebra-based-220",
+      "id": "ap-physics-1-algebra-based-211",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Oscillations and Waves",
@@ -4845,7 +4647,7 @@
       "explanation": "Natural (resonant) frequency f_0 = (1/(2 pi)) sqrt(k_eff / m_eff) (Hz). The frequency at which a system oscillates when displaced from equilibrium and released. When external driving frequency f_drive = f_0, resonance occurs — amplitude grows dramatically, limited only by damping. AP FRQs (Science Practice 6: Argumentation) classic: Tacoma Narrows Bridge collapse (1940) — wind-induced oscillations matched torsional natural frequency. Other examples: pushing a child on a swing in time with each swing; shattering wine glass with a sung tone matching its natural mode; LC radio-receiver circuits tuning to station frequencies."
     },
     {
-      "id": "ap-physics-1-algebra-based-221",
+      "id": "ap-physics-1-algebra-based-212",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluids",
@@ -4867,7 +4669,7 @@
       "explanation": "Density rho = m / V (kg/m^3) — mass per unit volume. Water: rho = 1000 kg/m^3. Air at sea level: rho = 1.225 kg/m^3. Mercury: rho = 13,600 kg/m^3. AP FRQs (Science Practice 5: Calculations) chain density with buoyancy (F_b = rho_fluid V_displaced g) and pressure (P = rho g h). Density depends on temperature (water expands when heated) and pressure (negligible for liquids in AP problems; large for gases — relevant in AP Physics 2 thermodynamics)."
     },
     {
-      "id": "ap-physics-1-algebra-based-222",
+      "id": "ap-physics-1-algebra-based-213",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluids",
@@ -4889,7 +4691,7 @@
       "explanation": "Pressure P = F / A (Pa = N/m^2), force perpendicular to a surface divided by contact area. Pascal (1647) gave name to the SI unit. Scalar in static fluids (acts equally in all directions at a point) — Pascal's principle. AP FRQs (Science Practice 5: Calculations) compute pressure at depth (P = P_atm + rho g h), on submarine windows (multi-atmosphere magnitudes at 100+ m depth), and on airplane wings (Bernoulli effect creates pressure differences that produce lift). Atmospheric pressure at sea level: 1.013 * 10^5 Pa = 1 atm."
     },
     {
-      "id": "ap-physics-1-algebra-based-223",
+      "id": "ap-physics-1-algebra-based-214",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluids",
@@ -4911,7 +4713,7 @@
       "explanation": "Buoyancy F_b is the upward force on any submerged object from pressure differences between deeper (high P) and shallower (low P) parts. Archimedes' principle (c. 250 BCE): F_b = rho_fluid V_displaced g (newtons). On the AP equation sheet. AP FRQs (Science Practice 5: Calculations) compare F_b with weight F_g to determine sinking/floating: F_b > F_g → upward acceleration; F_b = F_g → floating equilibrium (V_disp / V_object = rho_object / rho_fluid). Iceberg in water: rho_ice / rho_water ≈ 0.917, so ~92% submerged."
     },
     {
-      "id": "ap-physics-1-algebra-based-224",
+      "id": "ap-physics-1-algebra-based-215",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluids",
@@ -4933,7 +4735,7 @@
       "explanation": "Pascal's principle (1647): pressure applied at one point in a confined incompressible fluid is transmitted undiminished to every other point. Blaise Pascal demonstrated this experimentally. Foundation of hydraulic systems. AP FRQs (Science Practice 5: Calculations) use Pascal's principle in hydraulic-press problems: a small piston (A_1) under force F_1 produces pressure P = F_1/A_1, transmitted to a large piston (A_2 >> A_1) where F_2 = P A_2 = F_1 (A_2/A_1) — mechanical advantage A_2/A_1. Used in car jacks and braking systems. Distance trade-off (V conservation): small piston moves A_2/A_1 times farther."
     },
     {
-      "id": "ap-physics-1-algebra-based-225",
+      "id": "ap-physics-1-algebra-based-216",
       "course": "ap-physics-1-algebra-based",
       "courseLabel": "ap-physics-1-algebra-based",
       "topic": "Fluids",

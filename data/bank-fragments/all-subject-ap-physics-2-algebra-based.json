@@ -1688,28 +1688,6 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-physics-2",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "SI unit of resistance.",
-      "choices": [
-        "Ohm",
-        "Ampere",
-        "p equals h over lambda",
-        "Current"
-      ],
-      "correctText": "Ohm",
-      "explanation": "Ohm (Ω) = 1 V/A — SI unit of electrical resistance. Named after Georg Simon Ohm (1789-1854). 1 Ohm: a conductor through which 1 A flows when 1 V is applied. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency: V (volts) / I (amps) = R (ohms). Practical magnitudes: a copper wire 1 m long, 1 mm^2 cross-section: ~0.017 Ohm; AAA battery internal resistance ~0.2 Ohm; typical resistor in AP problems 10-10,000 Ohm; insulators > 10^10 Ohm; superconductors exactly 0 Ohm below critical T. Resistance depends on geometry (R = rho L/A) and material resistivity rho (Ohm*m)."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-078",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Ohm's Law",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
       "prompt": "SI unit of current.",
       "choices": [
         "Current",
@@ -1721,7 +1699,7 @@
       "explanation": "Ampere (A) = 1 C/s — SI unit of electric current. Named after André-Marie Ampère (1775-1836), pioneer of electrodynamics. 1 A: 1 coulomb of charge flowing per second past a point. Defined in 2019 SI revision in terms of elementary charge: 1 A = (1/1.602 * 10^-19) e/s ≈ 6.24 * 10^18 electrons per second. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency in I = dq/dt or I = q/t (for steady current). Practical magnitudes: AAA battery ~0.05 A in a small device; phone charger ~1 A; household circuit breaker 15-20 A; car starter motor ~200 A; lightning bolt ~10^4 A peak (50,000 A possible)."
     },
     {
-      "id": "ap-physics-2-algebra-based-079",
+      "id": "ap-physics-2-algebra-based-078",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Ohm's Law",
@@ -1743,7 +1721,7 @@
       "explanation": "Electric current I = dq/dt (amperes), the rate of charge flow past a point. Conventional current flows in the direction positive charges would flow — OPPOSITE to actual electron drift in metals (electrons are negative). Defined by Benjamin Franklin (1751) before electron discovery. AP Physics 2 FRQs (Science Practice 5: Calculations) require careful sign and direction tracking. Microscopic relation: I = n A v_d q, where n is carrier density, A cross-section, v_d drift velocity (~10^-4 m/s for typical wire — much slower than signal-propagation speed ~c, which is the rate of field changes, not particle motion)."
     },
     {
-      "id": "ap-physics-2-algebra-based-080",
+      "id": "ap-physics-2-algebra-based-079",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Ohm's Law",
@@ -1765,7 +1743,7 @@
       "explanation": "Power dissipated by a resistor: P = V^2 / R (watts), equivalently P = I^2 R = V * I. On the AP equation sheet. Derived from W = q V and P = dW/dt = (dq/dt) V = I V; substituting V = IR or I = V/R gives the alternate forms. AP Physics 2 FRQs (Science Practice 5: Calculations) test selection of correct form: V^2/R when V across resistor is known; I^2 R when current through it is known; IV otherwise. Heat dissipation in resistors (joule heating, after James Joule 1841): the lost electrical energy becomes thermal energy. Used in heaters, incandescent bulbs, electrical fuses. Higher V at same R dissipates QUADRATICALLY more power."
     },
     {
-      "id": "ap-physics-2-algebra-based-081",
+      "id": "ap-physics-2-algebra-based-080",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Series Circuits",
@@ -1787,7 +1765,7 @@
       "explanation": "Series connection: components arranged end-to-end so the same current flows through each. Resistors in series: R_total = R_1 + R_2 + ... + R_n. Voltage drops add: V_total = V_1 + V_2 + ... (Kirchhoff's Voltage Law). Current is uniform throughout. AP Physics 2 FRQs (Science Practice 5: Calculations) test series circuits with: voltage divider rule V_R = V_total * R/R_total; total resistance increases when more resistors added; if one resistor opens (R = infinity), entire circuit current goes to zero (Christmas tree light failure mode). Series capacitors: 1/C_total = sum(1/C_i) — same form as parallel resistors."
     },
     {
-      "id": "ap-physics-2-algebra-based-082",
+      "id": "ap-physics-2-algebra-based-081",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Series Circuits",
@@ -1809,7 +1787,7 @@
       "explanation": "Series resistance: R_eq = R_1 + R_2 + ... + R_n (Ohm). Resistances add directly because the same current flows through each component, and the voltage drops add (Kirchhoff's Voltage Law). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) use this in voltage-divider problems: V across each resistor = V_total * (R_i / R_total). Limiting cases (Science Practice 6: Argumentation): adding a resistor in series ALWAYS increases total resistance; equal series resistors split voltage equally. For 3 series resistors of 10, 20, 30 Ohm: R_eq = 60 Ohm; with 12 V battery, I = 0.2 A; voltage drops are 2, 4, 6 V."
     },
     {
-      "id": "ap-physics-2-algebra-based-083",
+      "id": "ap-physics-2-algebra-based-082",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Series Circuits",
@@ -1831,7 +1809,7 @@
       "explanation": "Current is the SAME at every point in a series circuit (no junctions for charge to accumulate or split). Consequence of conservation of charge applied to the simple loop. AP Physics 2 FRQs (Science Practice 6: Argumentation) test this conceptually: students must explain why I_1 = I_2 = I_n through all resistors in series, and why V drops across each are proportional to R (since V = IR and I is uniform). Loop current method (Kirchhoff): write a single equation V_battery = I R_total for series, solve for I. Practical: Christmas tree lights in series — if one bulb dies (open circuit), whole string goes out (modern strings use parallel sets to avoid this)."
     },
     {
-      "id": "ap-physics-2-algebra-based-084",
+      "id": "ap-physics-2-algebra-based-083",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Series Circuits",
@@ -1853,7 +1831,7 @@
       "explanation": "Voltage drops in a series circuit add to the source EMF: V_source = V_1 + V_2 + ... + V_n. This is Kirchhoff's Voltage Law (KVL, 1845): sum of voltage changes around any closed loop is zero. Energy conservation perspective: as a unit charge traverses the loop, the EMF source pumps it up by V_source J/C, and resistors drop it down by V_1 + V_2 + ... J/C — they must balance. AP Physics 2 FRQs (Science Practice 5: Calculations) test this in multi-loop circuits where KVL is applied loop by loop. Voltage divider rule: V across each R = V_total * R / R_total."
     },
     {
-      "id": "ap-physics-2-algebra-based-085",
+      "id": "ap-physics-2-algebra-based-084",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Series Circuits",
@@ -1875,7 +1853,7 @@
       "explanation": "Voltage divider rule: V_i = V_source * R_i / R_total — voltage across each series resistor is proportional to its share of the total resistance. Derived from V_i = I R_i with I = V_source / R_total. AP Physics 2 FRQs (Science Practice 5: Calculations): in a series circuit with 9 V battery and resistors 30, 60 Ohm, V_30 = 9 * 30/90 = 3 V; V_60 = 9 * 60/90 = 6 V (notice the 1:2 ratio matches the resistance ratio). Used in electronic engineering for reference voltages, sensor biasing, and DAC ladders. Loaded voltage dividers require careful analysis: drawing significant current through R_load alters V_out (Thevenin equivalent)."
     },
     {
-      "id": "ap-physics-2-algebra-based-086",
+      "id": "ap-physics-2-algebra-based-085",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Parallel Circuits",
@@ -1897,7 +1875,7 @@
       "explanation": "Parallel connection: components share both endpoints, providing multiple paths for current. Resistors in parallel: 1/R_total = 1/R_1 + 1/R_2 + ... + 1/R_n. Voltage is the same across each branch (KVL applied to loops sharing both nodes). Currents through branches add: I_total = I_1 + I_2 + ... (Kirchhoff's Current Law). AP Physics 2 FRQs (Science Practice 5: Calculations) test parallel: R_eq is always less than the smallest individual R (more paths → less resistance). For two equal resistors in parallel, R_eq = R/2. Parallel capacitors: C_total = sum(C_i) — opposite to series resistors. Used in household wiring."
     },
     {
-      "id": "ap-physics-2-algebra-based-087",
+      "id": "ap-physics-2-algebra-based-086",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Parallel Circuits",
@@ -1919,7 +1897,7 @@
       "explanation": "Parallel resistance: 1/R_eq = 1/R_1 + 1/R_2 + ... + 1/R_n. Reciprocals add. On the AP equation sheet. For two resistors: R_eq = R_1 R_2 / (R_1 + R_2). AP Physics 2 FRQs (Science Practice 5: Calculations) test: 10 Ohm and 30 Ohm in parallel give R_eq = (10*30)/(40) = 7.5 Ohm — LESS than the smallest individual. Each branch operates independently with V_source across it. Limiting cases (Science Practice 6: Argumentation): adding a resistor in parallel ALWAYS decreases total resistance; equal parallel resistors share current equally. R_eq for n identical R in parallel = R/n."
     },
     {
-      "id": "ap-physics-2-algebra-based-088",
+      "id": "ap-physics-2-algebra-based-087",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Parallel Circuits",
@@ -1941,7 +1919,7 @@
       "explanation": "Voltage is the SAME across each parallel branch — equal to the source EMF (for a simple parallel network). Consequence of Kirchhoff's Voltage Law applied to the loop containing each branch and the source. AP Physics 2 FRQs (Science Practice 6: Argumentation) test this conceptually: students must explain why V_1 = V_2 = ... = V_source for parallel resistors, and why I through each is proportional to 1/R (since I = V/R and V is uniform). Practical: household wiring places appliances in PARALLEL across the 120 V line — each appliance sees 120 V regardless of how many others are running, and turning one off doesn't affect others."
     },
     {
-      "id": "ap-physics-2-algebra-based-089",
+      "id": "ap-physics-2-algebra-based-088",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Parallel Circuits",
@@ -1963,7 +1941,7 @@
       "explanation": "Currents through parallel branches add: I_total = I_1 + I_2 + ... + I_n. Kirchhoff's Current Law (KCL, 1845): sum of currents into a junction equals sum out — conservation of charge. Each branch current: I_i = V / R_i (smaller R takes larger I). AP Physics 2 FRQs (Science Practice 5: Calculations) test: 10 Ohm and 30 Ohm in parallel across 12 V: I_10 = 1.2 A, I_30 = 0.4 A, I_total = 1.6 A. Check: I_total * R_eq = 1.6 * 7.5 = 12 V ✓. Current divider rule: I_i = I_total * R_other / (R_i + R_other) for two resistors — the larger R carries the smaller fraction of total I."
     },
     {
-      "id": "ap-physics-2-algebra-based-090",
+      "id": "ap-physics-2-algebra-based-089",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Parallel Circuits",
@@ -1985,7 +1963,7 @@
       "explanation": "Two parallel resistors: R_eq = R_1 R_2 / (R_1 + R_2). Algebraic shortcut for the 'product over sum' rule, derived from 1/R_eq = 1/R_1 + 1/R_2 = (R_1 + R_2)/(R_1 R_2). AP Physics 2 FRQs (Science Practice 5: Calculations): 6 Ohm and 12 Ohm in parallel: R_eq = (6*12)/(18) = 4 Ohm. Limiting cases: if R_2 >> R_1, then R_eq ≈ R_1 (the smaller resistor dominates); if R_1 = R_2, then R_eq = R/2. Useful for circuit reduction — simplify two-by-two until only one equivalent resistor remains, then use V = I R_eq to find total current."
     },
     {
-      "id": "ap-physics-2-algebra-based-091",
+      "id": "ap-physics-2-algebra-based-090",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Kirchhoff's Laws",
@@ -2007,7 +1985,7 @@
       "explanation": "Kirchhoff's Current Law (KCL, also called the Junction Rule): at any junction in a circuit, the sum of currents IN equals the sum of currents OUT — equivalently, the algebraic sum (with sign convention) equals zero. Gustav Kirchhoff (1845). Expresses conservation of charge: charge cannot accumulate at a steady-state junction. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) apply KCL to find unknown currents in multi-loop circuits: at a junction with I_1 entering, I_2 and I_3 leaving → I_1 = I_2 + I_3. Common AP setup: KCL combined with KVL gives a system of equations to solve."
     },
     {
-      "id": "ap-physics-2-algebra-based-092",
+      "id": "ap-physics-2-algebra-based-091",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Kirchhoff's Laws",
@@ -2029,7 +2007,7 @@
       "explanation": "Kirchhoff's Voltage Law (KVL, also Loop Rule): sum of voltage changes around any closed circuit loop equals zero. Gustav Kirchhoff (1845). Expresses conservation of energy: a unit charge returning to start has zero net energy change. EMF sources contribute +V (energy added by source); resistors contribute -IR (energy dropped to heat); capacitors contribute -Q/C. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) traverse each loop systematically, applying sign conventions consistently (e.g., entering a battery from -, gain V; entering from +, lose V). Combined with KCL yields a solvable system for multi-loop circuits."
     },
     {
-      "id": "ap-physics-2-algebra-based-093",
+      "id": "ap-physics-2-algebra-based-092",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Kirchhoff's Laws",
@@ -2051,7 +2029,7 @@
       "explanation": "Gustav Robert Kirchhoff (1824-1887), German physicist. Formulated his circuit laws (KCL, KVL) in 1845 at age 21. Also major contributor to spectroscopy (with Bunsen — Bunsen burner!), discovering with Bunsen that each element has a characteristic emission/absorption spectrum (Kirchhoff-Bunsen lines, 1859). Kirchhoff's law of thermal radiation (1859): emissivity = absorptivity at thermal equilibrium — foundation of blackbody radiation theory, later quantized by Planck (1900). AP Physics 2 FRQs (Science Practice 6: Argumentation) test KCL/KVL conceptually: students must justify each rule via conservation of charge (KCL) and energy (KVL) before invoking it."
     },
     {
-      "id": "ap-physics-2-algebra-based-094",
+      "id": "ap-physics-2-algebra-based-093",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Kirchhoff's Laws",
@@ -2073,7 +2051,7 @@
       "explanation": "Circuit analysis using Kirchhoff's laws: (1) Identify junctions; (2) Identify independent loops; (3) Assign current directions (guess — if you guess wrong, the answer will come out negative); (4) Apply KCL at each junction (n-1 equations for n junctions); (5) Apply KVL around each loop (one equation per loop); (6) Solve the linear system for unknown currents and voltages. AP Physics 2 FRQs (Science Practice 5: Calculations) test 2- and 3-loop circuits with multiple batteries: students must set up equations carefully and solve simultaneously. Modern PSpice/LTSpice software automates this — but AP-level expects manual analysis."
     },
     {
-      "id": "ap-physics-2-algebra-based-095",
+      "id": "ap-physics-2-algebra-based-094",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Kirchhoff's Laws",
@@ -2095,7 +2073,7 @@
       "explanation": "Kirchhoff's Voltage Law is a statement of energy conservation in circuits: a unit positive charge traversing a closed loop returns to its starting potential, so the algebraic sum of voltage gains (from EMF sources) equals the sum of voltage drops (across resistors, capacitors, inductors). If KVL were violated, the charge would gain or lose energy each loop — perpetual motion. KCL similarly expresses charge conservation. AP Physics 2 FRQs (Science Practice 6: Argumentation) require explicit invocation of conservation laws when justifying Kirchhoff's rules in paragraph-length arguments — graders look for the words 'conservation of energy' (KVL) and 'conservation of charge' (KCL)."
     },
     {
-      "id": "ap-physics-2-algebra-based-096",
+      "id": "ap-physics-2-algebra-based-095",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Capacitors",
@@ -2117,7 +2095,7 @@
       "explanation": "Capacitor: a device storing electric charge and energy in an electric field between two conductive plates separated by an insulator (dielectric). Charge stored: Q = C V (coulombs). Invented as the Leyden jar (1745, Cunaeus and von Kleist). Modern capacitors range from picofarads (radio tuning) to farads (super-capacitors for energy storage). AP Physics 2 FRQs (Science Practice 5: Calculations) test capacitor energy U = (1/2) C V^2 = (1/2) Q V = (1/2) Q^2/C and RC time constants (tau = R C for charging/discharging). Parallel-plate capacitance: C = epsilon_0 A / d, with epsilon_0 = 8.85 * 10^-12 C^2/(N*m^2). Dielectric kappa multiplier increases C by factor kappa."
     },
     {
-      "id": "ap-physics-2-algebra-based-097",
+      "id": "ap-physics-2-algebra-based-096",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Capacitors",
@@ -2139,7 +2117,7 @@
       "explanation": "Capacitance C = Q / V (farads = C/V) — charge stored per unit voltage across the plates. Property of capacitor geometry and dielectric material, NOT of the applied voltage or charge. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) test: a 10 μF capacitor charged to 9 V holds Q = 90 μC. For parallel-plate: C = kappa epsilon_0 A / d (F), with kappa the dielectric constant (kappa = 1 vacuum/air, ~3 paper, ~5 mica, ~80 water, ~7000 PZT ceramic). Increasing A or kappa raises C; increasing d lowers C. Energy stored: U = (1/2) C V^2 = (1/2) Q V = (1/2) Q^2/C. Used in oscillators, filters, energy storage."
     },
     {
-      "id": "ap-physics-2-algebra-based-098",
+      "id": "ap-physics-2-algebra-based-097",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Capacitors",
@@ -2161,7 +2139,7 @@
       "explanation": "Farad (F) = 1 C/V — SI unit of capacitance. Named after Michael Faraday (1791-1867), pioneer of electromagnetism. 1 F is enormous; typical AP-level capacitors are μF (10^-6 F) or pF (10^-12 F). A 1 F capacitor charged to 1 V stores 1 C — a huge amount of charge (>10^18 electrons). Super-capacitors (electric double-layer): up to thousands of farads but at low voltages. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency: C in F, V in V → Q in C and U = (1/2) C V^2 in J. Faraday's contributions: laws of electrolysis (1834), electromagnetic induction (1831), Faraday cage."
     },
     {
-      "id": "ap-physics-2-algebra-based-099",
+      "id": "ap-physics-2-algebra-based-098",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Capacitors",
@@ -2183,7 +2161,7 @@
       "explanation": "Energy stored in a capacitor: U_C = (1/2) C V^2 = (1/2) Q V = (1/2) Q^2/C (joules). Derived by integrating dW = V dq = (q/C) dq from 0 to Q: U = Q^2/(2C). On the AP equation sheet. Factor 1/2 because voltage rises linearly with charge during charging — energy stored is half what you'd get if V were constant at final value. AP Physics 2 FRQs (Science Practice 5: Calculations) chain with energy conservation: a 100 μF capacitor charged to 12 V stores U = (1/2)(10^-4)(144) = 0.0072 J = 7.2 mJ. Camera flashes store ~50 J; defibrillator capacitors ~360 J at 5 kV; super-capacitors enable regenerative braking in electric vehicles."
     },
     {
-      "id": "ap-physics-2-algebra-based-100",
+      "id": "ap-physics-2-algebra-based-099",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Capacitors",
@@ -2205,7 +2183,7 @@
       "explanation": "Parallel-plate capacitor: C = epsilon_0 A / d (farads) for vacuum/air dielectric, with A the plate area (m^2), d separation (m), epsilon_0 = 8.85 * 10^-12 C^2/(N*m^2). With dielectric: C = kappa epsilon_0 A / d, where kappa is the dimensionless dielectric constant (water 80, mica 5, paper 3, PZT 7000). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations): plates of area 100 cm^2 = 0.01 m^2, separation 1 mm = 0.001 m, vacuum: C = (8.85e-12)(0.01)/(0.001) ≈ 89 pF. Increase d → less C (electrons feel each other less across plates). Increase A → more C. Add dielectric → reduces internal E by kappa, allowing more charge for same V."
     },
     {
-      "id": "ap-physics-2-algebra-based-101",
+      "id": "ap-physics-2-algebra-based-100",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Force",
@@ -2227,7 +2205,7 @@
       "explanation": "Lorentz force on a moving charge: F = q v x B (newtons), with v velocity (m/s) and B magnetic field (T). Magnitude F = q v B sin(theta), where theta is the angle between v and B. Direction by right-hand rule (for positive charge). Hendrik Lorentz (1853-1928) formalized this in 1895; the full Lorentz force law F = q(E + v x B) underlies all electromagnetism. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) use it for cyclotron motion (charged particle in uniform B follows a circle of radius r = mv/(qB)), velocity selector (E and B perpendicular cancel for v = E/B), and mass spectrometer."
     },
     {
-      "id": "ap-physics-2-algebra-based-102",
+      "id": "ap-physics-2-algebra-based-101",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Force",
@@ -2249,7 +2227,7 @@
       "explanation": "Magnetic force magnitude on a moving charge: F = q v B sin(theta), where q is charge (C), v speed (m/s), B magnetic field (T), theta angle between v and B. On the AP equation sheet. Maximum F when v perpendicular to B (sin 90 = 1); zero F when v parallel to B (sin 0 = 0). Direction by right-hand rule. AP Physics 2 FRQs (Science Practice 5: Calculations) test: a proton moving at 10^6 m/s perpendicular to B = 0.1 T experiences F = (1.6e-19)(10^6)(0.1) = 1.6 * 10^-14 N — tiny but creates circular motion. Circular motion: q v B = m v^2 / r → r = mv/(qB), and period T = 2 pi m / (q B) (independent of speed!)."
     },
     {
-      "id": "ap-physics-2-algebra-based-103",
+      "id": "ap-physics-2-algebra-based-102",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Force",
@@ -2271,7 +2249,7 @@
       "explanation": "Tesla (T) = 1 N/(A*m) = 1 kg/(A*s^2) = 1 Wb/m^2 — SI unit of magnetic field B. Named after Nikola Tesla (1856-1943), inventor and electrical engineer. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency: q in C, v in m/s, B in T → F in N (matches Lorentz formula). Practical magnitudes: Earth's surface B ≈ 5 * 10^-5 T (50 μT); refrigerator magnet ~10^-2 T; typical lab electromagnet 0.1-1 T; MRI machine 1.5-7 T; world-record sustained 45 T (NHMFL); neutron star surfaces 10^8-10^11 T. Older unit: gauss (G); 1 T = 10^4 G."
     },
     {
-      "id": "ap-physics-2-algebra-based-104",
+      "id": "ap-physics-2-algebra-based-103",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Force",
@@ -2293,7 +2271,7 @@
       "explanation": "Force on a current-carrying wire in a magnetic field: F = B I L sin(theta) (N), where B is field (T), I current (A), L wire length in the field (m), theta angle between current direction and B. On the AP equation sheet. Derived from Lorentz force summed over all moving charge carriers in the wire: F = (n A L) (q v_d) B sin(theta) = I L B sin(theta). AP Physics 2 FRQs (Science Practice 5: Calculations) test: 0.5 m wire carrying 2 A perpendicular to B = 0.1 T experiences F = (0.1)(2)(0.5) = 0.1 N. Underlies all electric motors: torque on a current loop in B produces rotation, with brushes/commutators reversing I to maintain unidirectional torque."
     },
     {
-      "id": "ap-physics-2-algebra-based-105",
+      "id": "ap-physics-2-algebra-based-104",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Force",
@@ -2315,7 +2293,7 @@
       "explanation": "Right-hand rule for magnetic force F = q v x B: for positive charge, point fingers along v, curl toward B; thumb gives F direction. For negative charge, F points opposite. Equivalent: use the slap-style RHR — fingers in v direction, curl toward B, thumb gives F (for positive q). AP Physics 2 FRQs (Science Practice 1: Modeling) require explicit RHR application on every magnetic-force problem. For a positive charge moving east in a B field pointing north, F = qv x B points UP. Cyclotron motion: F always perpendicular to v → centripetal → circular motion with r = mv/(qB). Used in particle accelerators, mass spectrometers, MRI."
     },
     {
-      "id": "ap-physics-2-algebra-based-106",
+      "id": "ap-physics-2-algebra-based-105",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Field Sources",
@@ -2337,7 +2315,7 @@
       "explanation": "Magnetic field of long straight wire: B = mu_0 I / (2 pi r) (T), at perpendicular distance r from the wire carrying current I. Direction by right-hand rule: thumb along I, fingers curl in B direction (circles around wire). mu_0 = 4 pi * 10^-7 T*m/A is vacuum permeability. On the AP equation sheet. Ampère and Biot-Savart developed this in the 1820s. AP Physics 2 FRQs (Science Practice 5: Calculations) test: 10 A current in a wire, B at r = 1 cm = (4 pi * 10^-7)(10)/(2 pi * 0.01) = 2 * 10^-4 T = 0.2 mT. Falls as 1/r (not 1/r^2 — slower decay than point charges). Used in transmission-line field calculations."
     },
     {
-      "id": "ap-physics-2-algebra-based-107",
+      "id": "ap-physics-2-algebra-based-106",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Field Sources",
@@ -2359,7 +2337,7 @@
       "explanation": "Magnetic field inside a long solenoid: B = mu_0 n I (T), where n is turns per unit length (turns/m) and I is current (A). Uniform along the solenoid axis, approximately zero outside (for an ideal infinite solenoid). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) test: a solenoid with 1000 turns/m carrying 5 A produces B = (4 pi * 10^-7)(1000)(5) ≈ 6.3 mT inside. Used in MRI machines, particle accelerators, electromagnets, relays. Note: B is independent of solenoid radius (for ideal infinite case) — only depends on turns per length and current. Derived from Ampère's law applied to a rectangular Amperian loop."
     },
     {
-      "id": "ap-physics-2-algebra-based-108",
+      "id": "ap-physics-2-algebra-based-107",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Field Sources",
@@ -2381,7 +2359,7 @@
       "explanation": "Solenoid parameter n = N/L (turns per meter), with N total turns and L solenoid length (m). The B = mu_0 n I formula shows B is determined by current density (Amp-turns per meter), not by absolute current alone. AP Physics 2 FRQs (Science Practice 6: Argumentation) test: doubling turns per length doubles B at same current; doubling current at same n doubles B. Densely wound solenoids (high n) produce strong fields per amp of current. Typical AP-level solenoid: ~1000-10,000 turns/m carrying ~1-10 A produces ~1-100 mT. MRI machines achieve 1.5-7 T using superconducting solenoids (very high n, very high I)."
     },
     {
-      "id": "ap-physics-2-algebra-based-109",
+      "id": "ap-physics-2-algebra-based-108",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Field Sources",
@@ -2403,7 +2381,7 @@
       "explanation": "Permanent magnets' B field arises from aligned atomic magnetic moments — each electron has an intrinsic magnetic moment from its spin. In ferromagnetic materials (iron, nickel, cobalt), exchange interactions cause neighboring electron spins to align within microscopic 'domains'. Heating above the Curie temperature (770 °C for iron) randomizes domains, destroying magnetization. AP Physics 2 FRQs (Science Practice 6: Argumentation) explain qualitatively: students must distinguish permanent magnets (intrinsic alignment) from electromagnets (current-induced fields). Modern rare-earth magnets (NdFeB) achieve ~1.4 T surface field using exotic crystal structures. Magnetic monopoles have never been observed — Maxwell's div B = 0."
     },
     {
-      "id": "ap-physics-2-algebra-based-110",
+      "id": "ap-physics-2-algebra-based-109",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetic Field Sources",
@@ -2425,7 +2403,7 @@
       "explanation": "Magnetic field at the center of a circular current loop of radius R: B = mu_0 I / (2 R) (T). On the AP equation sheet. Direction along the loop axis (right-hand rule: curl fingers along I, thumb gives B). AP Physics 2 FRQs (Science Practice 5: Calculations) test: a 0.1 m radius loop carrying 5 A produces B = (4 pi * 10^-7)(5)/(0.2) ≈ 3.1 * 10^-5 T at center. For N stacked loops: B = mu_0 N I / (2 R). Derived from Biot-Savart law integrated over the loop. The loop's magnetic moment: mu = I A = I pi R^2 (A*m^2). Used in Helmholtz coils (two coaxial loops separated by R) to produce uniform B in a central region — laboratory standard."
     },
     {
-      "id": "ap-physics-2-algebra-based-111",
+      "id": "ap-physics-2-algebra-based-110",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electromagnetic Induction",
@@ -2447,7 +2425,7 @@
       "explanation": "Faraday's law of induction (Michael Faraday, 1831): a time-changing magnetic flux through a circuit induces an EMF: EMF = -d(Phi_B)/dt (volts), where Phi_B = integral B · dA is magnetic flux (T*m^2 = Wb). On the AP equation sheet. One of Maxwell's four equations. AP Physics 2 FRQs (Science Practice 5: Calculations) chain Faraday's law with: moving conductor (motional EMF = BLv); time-changing B (transformer EMF); changing area (loop expanding into a field). Direction of induced current: Lenz's law (opposes the flux change). Foundation of generators, transformers, induction stoves, electric guitar pickups, MRI gradient coils."
     },
     {
-      "id": "ap-physics-2-algebra-based-112",
+      "id": "ap-physics-2-algebra-based-111",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electromagnetic Induction",
@@ -2469,7 +2447,7 @@
       "explanation": "EMF = -d(Phi_B)/dt (volts) — Faraday's law. Phi_B = B A cos(theta) for uniform B (T*m^2 = Wb). On the AP equation sheet. Negative sign embodies Lenz's law (induced EMF opposes flux change — energy conservation). AP Physics 2 FRQs (Science Practice 5: Calculations) handle three causes of flux change: (1) B changes (transformer EMF), (2) A changes (sliding-rod or expanding-loop), (3) theta changes (rotating loop = generator). For N-turn coil: EMF = -N d(Phi)/dt. Used in induction cooktops (oscillating B induces eddy currents in iron pan, heating via I^2 R), wireless phone chargers, electric guitars, electromagnetic brakes."
     },
     {
-      "id": "ap-physics-2-algebra-based-113",
+      "id": "ap-physics-2-algebra-based-112",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electromagnetic Induction",
@@ -2491,7 +2469,7 @@
       "explanation": "Lenz's law (Heinrich Lenz, 1834): the direction of induced current opposes the change in magnetic flux that produced it. Consequence of conservation of energy — if current FLOWED to assist the change, energy would multiply without input (perpetual motion). AP Physics 2 FRQs (Science Practice 6: Argumentation) require students to apply Lenz's law in paragraph-length arguments: a magnet approaching a loop induces current creating a B field that REPELS the magnet (must do mechanical work to push magnet in — that work becomes the electrical energy in the loop). Lenz's law is the qualitative side of Faraday's quantitative law (the negative sign in EMF = -dPhi/dt)."
     },
     {
-      "id": "ap-physics-2-algebra-based-114",
+      "id": "ap-physics-2-algebra-based-113",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electromagnetic Induction",
@@ -2513,7 +2491,7 @@
       "explanation": "Lenz's law is required by conservation of energy: if the induced current's B field REINFORCED the flux change instead of opposing it, then the magnet would accelerate spontaneously toward the loop, gaining KE while also generating electrical energy in the loop — both energies free, violating conservation. Lenz's opposition forces external work to be done against the induced opposing force, providing the energy delivered to the circuit. AP Physics 2 FRQs (Science Practice 6: Argumentation) demand explicit invocation of energy conservation when justifying Lenz's law in paragraph-length arguments — graders look for 'conservation of energy' as the underlying reason for the negative sign."
     },
     {
-      "id": "ap-physics-2-algebra-based-115",
+      "id": "ap-physics-2-algebra-based-114",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electromagnetic Induction",
@@ -2535,7 +2513,7 @@
       "explanation": "Electric generator: a rotating coil in a magnetic field (or vice versa) that produces EMF via Faraday's law. As the coil rotates with angular velocity omega, Phi = B A cos(omega t), giving EMF = -d(Phi)/dt = B A omega sin(omega t) — sinusoidal alternating voltage of amplitude B A omega. AP Physics 2 FRQs (Science Practice 5: Calculations) test: a 100-turn coil of area 0.05 m^2 in B = 0.5 T rotating at 60 Hz produces peak EMF = 100 * 0.5 * 0.05 * 2 pi * 60 ≈ 942 V. Hydroelectric, coal, nuclear, wind, and gas turbines all convert mechanical energy to electrical via generators. Faraday built the first homopolar generator in 1831."
     },
     {
-      "id": "ap-physics-2-algebra-based-116",
+      "id": "ap-physics-2-algebra-based-115",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Inductance",
@@ -2557,29 +2535,7 @@
       "explanation": "Self-inductance L (henries) — the property of a coil to oppose changes in its own current via self-induced EMF: EMF = -L (dI/dt) (V). For a solenoid: L = mu_0 N^2 A / l, with N total turns, A cross-section, l length. AP Physics 2 FRQs (Science Practice 5: Calculations) test how inductors resist current changes: in an RL circuit, current builds up exponentially with time constant tau = L/R; when source is removed, current decays exponentially. Inductors store magnetic energy U_L = (1/2) L I^2 (J). Applications: filter chokes (smooth ripple in DC supplies), tuned LC circuits (radio), transformers (mutual inductance)."
     },
     {
-      "id": "ap-physics-2-algebra-based-117",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Inductance",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "SI unit of inductance.",
-      "choices": [
-        "Self-inductance",
-        "One",
-        "Henry",
-        "Self-inductance"
-      ],
-      "correctText": "Henry",
-      "explanation": "Henry (H) = 1 V*s/A = 1 Wb/A — SI unit of inductance. Named after Joseph Henry (1797-1878), American physicist who independently discovered electromagnetic induction (slightly before Faraday's 1831 announcement). 1 H: a coil where 1 A/s rate of current change induces 1 V opposing EMF. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency in EMF = -L dI/dt formulas. Practical magnitudes: small AP-level inductor ~1 mH (10^-3 H); large radio-tuning coil ~1 μH; MRI gradient coils ~mH; massive AC-line filter chokes ~10s of H. RL time constant tau = L/R (seconds)."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-118",
+      "id": "ap-physics-2-algebra-based-116",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Inductance",
@@ -2601,7 +2557,7 @@
       "explanation": "Energy stored in inductor: U_L = (1/2) L I^2 (joules), with L inductance (H) and I current (A). On the AP equation sheet. Stored in the magnetic field within and around the inductor's coils. Symmetric to capacitor energy U_C = (1/2) C V^2 — both quadratic in their respective storage variables. AP Physics 2 FRQs (Science Practice 5: Calculations) chain U_L with LC oscillation: in an ideal LC tank circuit, energy oscillates between U_L = (1/2) L I^2 and U_C = (1/2) C V^2 at frequency f = 1/(2 pi sqrt(LC)). Used in flyback transformers (TV CRTs), spark coils, superconducting magnetic energy storage (SMES)."
     },
     {
-      "id": "ap-physics-2-algebra-based-119",
+      "id": "ap-physics-2-algebra-based-117",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Inductance",
@@ -2623,7 +2579,7 @@
       "explanation": "Self-inductance L is the property of a circuit element (typically a coil) to oppose changes in its OWN current. EMF_self = -L (dI/dt) — Lenz-law consequence applied to self-flux. AP Physics 2 FRQs (Science Practice 6: Argumentation) test conceptually: when a switch closes in an RL circuit, current does NOT jump instantly to V/R — it grows exponentially: I(t) = (V/R)(1 - exp(-t R/L)), reaching ~63% of final value at t = tau = L/R. When the switch opens, the inductor's back-EMF can produce a huge voltage spike (sparking across contacts) — explains the snap on car ignition coils, where a sharp dI/dt creates ~10^4 V across spark plug gaps."
     },
     {
-      "id": "ap-physics-2-algebra-based-120",
+      "id": "ap-physics-2-algebra-based-118",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Inductance",
@@ -2645,7 +2601,7 @@
       "explanation": "RL circuit time constant: tau = L/R (seconds). Determines how quickly current builds up (when switch closes) or decays (when switch opens) in an inductor-resistor circuit. Current build-up: I(t) = (V/R)(1 - exp(-t/tau)) — reaches ~63% of final value at t = tau, ~99% at t = 5 tau. Symmetric to RC time constant tau_RC = R C (units of seconds in both). AP Physics 2 FRQs (Science Practice 5: Calculations) test: 10 H inductor with 100 Ohm resistor: tau = 0.1 s; current reaches 63% of V/R in 0.1 s. Inductors 'fight' rapid current changes — used to smooth power-supply ripple, prevent contact arcing, and as electromagnetic shock absorbers."
     },
     {
-      "id": "ap-physics-2-algebra-based-121",
+      "id": "ap-physics-2-algebra-based-119",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Transformers",
@@ -2667,7 +2623,7 @@
       "explanation": "Transformer: two coils (primary and secondary) magnetically coupled, often around a shared iron core, used to step up or step down AC voltage by Faraday's law. AC current in primary creates oscillating B, which couples into the secondary and induces EMF there. Faraday and Henry independently invented the principle (1831). AP Physics 2 FRQs (Science Practice 5: Calculations) test the turns-ratio formula V_s / V_p = N_s / N_p and the energy-conservation relation V_p I_p = V_s I_s (for ideal transformer). DOES NOT work on DC — requires changing flux. Used universally in power grids to step up generation voltage (~10 kV) to transmission voltage (~100s kV) and back down for consumer use (120/240 V)."
     },
     {
-      "id": "ap-physics-2-algebra-based-122",
+      "id": "ap-physics-2-algebra-based-120",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Transformers",
@@ -2689,7 +2645,7 @@
       "explanation": "Step-up transformer: more turns in secondary than primary (N_s > N_p), producing higher voltage on secondary side: V_s = V_p (N_s/N_p). By energy conservation (ideal lossless), current is correspondingly REDUCED: I_s = I_p (N_p/N_s). AP Physics 2 FRQs (Science Practice 5: Calculations) test power-grid scenarios: a 10 kV generator steps up to 200 kV for long-distance transmission (ratio 1:20), reducing I (and thus I^2 R line losses) by factor 20 — a 400x reduction in transmission losses. Tesla's championing of AC + transformers (vs. Edison's DC, 1880s) won the 'War of the Currents' because step-up enables efficient long-distance transmission."
     },
     {
-      "id": "ap-physics-2-algebra-based-123",
+      "id": "ap-physics-2-algebra-based-121",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Transformers",
@@ -2711,7 +2667,7 @@
       "explanation": "Transformer voltage ratio: V_s / V_p = N_s / N_p, where N is number of turns and V is voltage on each side (primary p, secondary s). Derived from Faraday's law applied to both coils sharing the same dPhi/dt: V_p = N_p dPhi/dt and V_s = N_s dPhi/dt, so ratio is N ratio. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) chain this with conservation of energy (ideal transformer): I_s/I_p = N_p/N_s, so V_p I_p = V_s I_s (power in = power out). Real transformers have 95-99% efficiency due to ohmic, eddy-current, and hysteresis losses in the iron core — addressed by laminations and grain-oriented steel."
     },
     {
-      "id": "ap-physics-2-algebra-based-124",
+      "id": "ap-physics-2-algebra-based-122",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Transformers",
@@ -2733,7 +2689,7 @@
       "explanation": "Transformers require ALTERNATING CURRENT (AC) to function — DC current produces a constant flux, hence zero d(Phi)/dt, hence zero induced EMF in the secondary. AC current creates the time-varying flux needed by Faraday's law. AP Physics 2 FRQs (Science Practice 6: Argumentation) test this conceptually: students explain why a DC battery cannot power a transformer (no flux change, no induction), motivating the historical adoption of AC for power transmission (Tesla, Westinghouse, late 1800s). Most household appliances using lower voltages (chargers, doorbells) contain small step-down transformers fed by 60 Hz (USA) or 50 Hz (Europe) AC. Modern switched-mode supplies use high-frequency (kHz-MHz) AC for smaller, lighter transformers."
     },
     {
-      "id": "ap-physics-2-algebra-based-125",
+      "id": "ap-physics-2-algebra-based-123",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Transformers",
@@ -2755,51 +2711,7 @@
       "explanation": "Ideal transformer power conservation: V_p I_p = V_s I_s (power in = power out). Combined with V_s/V_p = N_s/N_p (turns ratio), gives I_s/I_p = N_p/N_s (current ratio inverse to voltage ratio). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations): a step-up transformer with V_s = 10 V_p has I_s = I_p/10. Used in power grids to step up generation voltage (low I, low I^2 R loss) for long-distance transmission, then step down for consumer voltage (higher I, lower V — but consumed at appliance, so I^2 R loss is local and minimal). Real transformers ~95-99% efficient; losses go to heat in iron core (eddy currents, hysteresis)."
     },
     {
-      "id": "ap-physics-2-algebra-based-126",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Reflection and Refraction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Angle of incidence equals this.",
-      "choices": [
-        "Half C V squared",
-        "One",
-        "Refraction",
-        "Angle of reflection"
-      ],
-      "correctText": "Angle of reflection",
-      "explanation": "Law of reflection: angle of incidence = angle of reflection (both measured from the normal, the line perpendicular to the surface at the point of incidence). Hero of Alexandria (~50 CE) and later Ibn al-Haytham (c. 1000 CE) systematized this. Light reflecting off a smooth (specular) surface follows this rule; diffuse reflection from rough surfaces scatters in many directions but each microscopic reflection still obeys the law. AP Physics 2 FRQs (Science Practice 1: Modeling) require students to draw incident ray, normal, and reflected ray with equal angles for ray-tracing problems on mirrors, prisms, and total internal reflection setups."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-127",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Reflection and Refraction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Bending of light at interface.",
-      "choices": [
-        "Critical angle",
-        "One",
-        "Minus 13.6 eV",
-        "Refraction"
-      ],
-      "correctText": "Refraction",
-      "explanation": "Refraction: bending of light as it passes from one medium to another with a different refractive index, due to a change in wave speed. Light speeds up when entering a less dense medium (lower n), slowing when entering denser medium (higher n). Direction obeys Snell's Law: n_1 sin(theta_1) = n_2 sin(theta_2). Ibn Sahl (~984 CE) discovered the law before Snell rediscovered it (1621). AP Physics 2 FRQs (Science Practice 5: Calculations) test refraction in prisms (light bends toward normal entering denser glass, away when exiting), lenses (focusing via differential refraction at each curved surface), and total internal reflection (when going from dense to less dense at large angle)."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-128",
+      "id": "ap-physics-2-algebra-based-124",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Reflection and Refraction",
@@ -2821,51 +2733,7 @@
       "explanation": "Snell's Law: n_1 sin(theta_1) = n_2 sin(theta_2), where n is the refractive index, theta is measured from the normal, subscripts 1 and 2 indicate the two media. On the AP equation sheet. Originally written by Ibn Sahl (~984 CE), rediscovered by Willebrord Snell (1621) and Descartes (1637). AP Physics 2 FRQs (Science Practice 5: Calculations) test refraction angles: light going from air (n=1) into water (n=1.33) at 45° incidence: 1*sin45 = 1.33*sin(theta_2) → theta_2 ≈ 32° (light bends toward normal entering denser medium). For light exiting glass (n=1.5) into air at 30°: 1.5*sin30 = 1*sin(theta_2) → theta_2 = 48° (bends away)."
     },
     {
-      "id": "ap-physics-2-algebra-based-129",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Reflection and Refraction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Refractive index of vacuum.",
-      "choices": [
-        "n_1 sin theta_1 equals n_2 sin theta_2",
-        "Further",
-        "Refraction",
-        "One"
-      ],
-      "correctText": "One",
-      "explanation": "Refractive index of vacuum: n = 1 (exactly, by definition). Defined as n = c/v, where c is the speed of light in vacuum (~3*10^8 m/s) and v is the speed in the medium. Other indices: air ~1.0003 (close to vacuum), water 1.33, typical glass 1.5, diamond 2.42 (high n explains diamond's brilliance — strong refraction and total internal reflection). AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require n > 1 for all real materials (in the visible range — exotic metamaterials can have n < 0 or n < 1). Wavelength dependence (dispersion) causes prisms to separate white light into colors: higher n at shorter wavelengths (blue refracts more than red)."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-130",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Reflection and Refraction",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Angle giving total internal reflection.",
-      "choices": [
-        "Flux equals enclosed charge over epsilon nought",
-        "One",
-        "Refraction",
-        "Critical angle"
-      ],
-      "correctText": "Critical angle",
-      "explanation": "Critical angle: theta_c = arcsin(n_2/n_1), where light goes from medium 1 (denser, higher n_1) to medium 2 (less dense, lower n_2). For incidence angles greater than theta_c, total internal reflection (TIR) occurs — ALL light reflects back, none transmits. For water-to-air: theta_c = arcsin(1/1.33) ≈ 48.8°; for typical glass-to-air: arcsin(1/1.5) ≈ 41.8°. AP Physics 2 FRQs (Science Practice 5: Calculations) test TIR scenarios: fiber-optic cables guide light via repeated TIR; diamond's high n (2.42) gives small theta_c (~24°), trapping light inside the gem and producing brilliance after cutting. Snorkeling fish see a 'fish-eye' compressed view of the world above water."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-131",
+      "id": "ap-physics-2-algebra-based-125",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mirrors and Lenses",
@@ -2887,7 +2755,7 @@
       "explanation": "Curved mirror: spherical-section mirror, either concave (reflective surface inward, focal length f > 0, converging) or convex (reflective surface outward, f < 0, diverging). Focal length f = R/2 (radius of curvature over 2). Used in: telescopes (concave primary, Newton/Cassegrain designs), shaving mirrors (concave, magnify face when close), car-rear-view mirrors (convex, wide field of view), parabolic reflectors (perfectly focus parallel rays at the focal point — used in flashlights, satellite dishes, solar concentrators). AP Physics 2 FRQs (Science Practice 1: Modeling) require ray-tracing diagrams with parallel-axis, through-center, and through-focus rays to locate images."
     },
     {
-      "id": "ap-physics-2-algebra-based-132",
+      "id": "ap-physics-2-algebra-based-126",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mirrors and Lenses",
@@ -2909,7 +2777,7 @@
       "explanation": "Mirror (and thin-lens) equation: 1/f = 1/d_o + 1/d_i, where f is focal length, d_o is object distance, d_i is image distance (all in meters). On the AP equation sheet. Sign convention varies — AP typically uses: f > 0 for converging (concave mirror, convex lens), f < 0 for diverging; d_i > 0 for real images on the same side as object (mirror) or opposite side (lens), d_i < 0 for virtual. AP Physics 2 FRQs (Science Practice 5: Calculations) test image location: object 30 cm from a concave mirror with f = 10 cm: 1/10 = 1/30 + 1/d_i → d_i = 15 cm (real, inverted image)."
     },
     {
-      "id": "ap-physics-2-algebra-based-133",
+      "id": "ap-physics-2-algebra-based-127",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mirrors and Lenses",
@@ -2931,7 +2799,7 @@
       "explanation": "Magnification m = h_i / h_o = -d_i / d_o (dimensionless), where h_i, h_o are image and object heights, d_i, d_o are image and object distances. On the AP equation sheet. Sign: m > 0 means upright image (virtual for single mirror/lens); m < 0 means inverted (real). |m| > 1 = enlarged; |m| < 1 = reduced. AP Physics 2 FRQs (Science Practice 5: Calculations) chain m with the mirror/lens equation: object 30 cm from a converging mirror, f = 10 cm → d_i = 15 cm; m = -15/30 = -0.5 (inverted, half-size, real). Microscope: m can be -100 (highly enlarged, inverted, real). Camera: m typically much less than 1 (object far, image small on sensor)."
     },
     {
-      "id": "ap-physics-2-algebra-based-134",
+      "id": "ap-physics-2-algebra-based-128",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mirrors and Lenses",
@@ -2953,7 +2821,7 @@
       "explanation": "Convex (converging) lens: thicker in the middle than at the edges, focuses parallel incident light to a point at the focal length f > 0. AP Physics 2 FRQs (Science Practice 1: Modeling) use ray tracing with: (1) ray parallel to axis through far focal point; (2) ray through center undeflected; (3) ray through near focal point emerges parallel. Real image (on opposite side from object) for d_o > f; virtual image (same side as object, enlarged, upright) for d_o < f — magnifying-glass mode. Used in: cameras, eyeglasses for farsightedness, microscopes, telescopes (refracting type), magnifying glasses. Thin-lens approximation: ignores thickness; valid when lens thickness << f."
     },
     {
-      "id": "ap-physics-2-algebra-based-135",
+      "id": "ap-physics-2-algebra-based-129",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mirrors and Lenses",
@@ -2975,7 +2843,7 @@
       "explanation": "Concave (diverging) lens: thinner in the middle than at the edges, spreads parallel incident light as if diverging from a virtual focal point on the same side as the source (f < 0). Always produces virtual, upright, REDUCED image regardless of object distance. AP Physics 2 FRQs (Science Practice 1: Modeling) trace rays: (1) ray parallel to axis emerges as if from far focal point; (2) ray through center undeflected; (3) ray heading toward far focal point emerges parallel. Used in: eyeglasses for nearsightedness (myopia, where the eye's lens converges too strongly); binocular eyepieces (in some designs); door peepholes (wide angle, small upright image of visitor)."
     },
     {
-      "id": "ap-physics-2-algebra-based-136",
+      "id": "ap-physics-2-algebra-based-130",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Diffraction",
@@ -2997,7 +2865,7 @@
       "explanation": "Diffraction: bending of waves around obstacles or through openings. Significant when the obstacle/aperture size is comparable to the wavelength. Francesco Grimaldi (1665) discovered light diffraction; Huygens (1678) explained it via his principle (every point on a wavefront acts as a source of secondary spherical wavelets). AP Physics 2 FRQs (Science Practice 6: Argumentation) test diffraction qualitatively (sound bends around corners easily because lambda ~m is comparable to obstacles; light diffraction subtle because lambda ~500 nm is small) and quantitatively (slit diffraction angle formula). Diffraction limits resolution of optical instruments (telescopes, microscopes — Rayleigh criterion theta ~ lambda/D)."
     },
     {
-      "id": "ap-physics-2-algebra-based-137",
+      "id": "ap-physics-2-algebra-based-131",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Diffraction",
@@ -3019,7 +2887,7 @@
       "explanation": "Young's double-slit experiment (Thomas Young, 1801): coherent monochromatic light passing through two narrow parallel slits produces an alternating bright-dark interference pattern on a screen beyond, conclusively demonstrating the wave nature of light against Newton's particle theory. Path differences delta = d sin(theta), with d the slit separation. Bright fringes (constructive) at delta = m lambda (m = 0, ±1, ±2,...); dark (destructive) at delta = (m + 1/2) lambda. Fringe spacing on screen: y_m = m lambda L / d, with L the slit-to-screen distance. AP Physics 2 FRQs (Science Practice 5: Calculations) test this pattern. Extended to electrons (Davisson-Germer, 1927) — wave-particle duality."
     },
     {
-      "id": "ap-physics-2-algebra-based-138",
+      "id": "ap-physics-2-algebra-based-132",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Diffraction",
@@ -3041,7 +2909,7 @@
       "explanation": "Two-slit fringe spacing on a screen: Delta y = lambda L / d (meters), where lambda is wavelength, L is slit-to-screen distance, d is slit separation. On the AP equation sheet. Derived from y_m = m lambda L / d (position of m-th bright fringe) using small-angle approximation. AP Physics 2 FRQs (Science Practice 5: Calculations) test: red laser (lambda = 633 nm) through slits d = 0.1 mm, screen L = 1 m gives Delta y = (633e-9)(1)/(1e-4) = 6.33 mm — fringes ~ 6 mm apart. Closer slits (smaller d) → wider fringes (more diffraction). Longer wavelength → wider fringes. Used to measure lambda of unknown light: measure Delta y, L, d, solve for lambda."
     },
     {
-      "id": "ap-physics-2-algebra-based-139",
+      "id": "ap-physics-2-algebra-based-133",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Diffraction",
@@ -3063,7 +2931,7 @@
       "explanation": "Single-slit diffraction is governed by lambda/a, where a is slit width. The first dark fringe occurs at sin(theta) = lambda/a (one-slit, first minimum). When lambda << a (small ratio): minimal diffraction, wave passes straight through (geometric-optics regime). When lambda ~ a: significant diffraction, light spreads widely behind slit. When lambda >> a: extreme diffraction, but most light blocked. AP Physics 2 FRQs (Science Practice 6: Argumentation) test the geometry-optics-to-wave-optics transition: a tiny slit (~lambda wide) spreads light like a Huygens point source; a wide slit (>> lambda) makes a geometric shadow. Important: distinguishes diffraction (single-slit, lambda/a) from interference (two-slit, lambda/d)."
     },
     {
-      "id": "ap-physics-2-algebra-based-140",
+      "id": "ap-physics-2-algebra-based-134",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Diffraction",
@@ -3085,7 +2953,7 @@
       "explanation": "Single-slit diffraction minima (dark fringes): a sin(theta) = m lambda, where a is slit width, theta is angle from central axis, m = ±1, ±2, ... (m=0 is the central MAXIMUM, not minimum). On the AP equation sheet. Note: identical form as double-slit max formula d sin(theta) = m lambda but here a is slit width, not separation, and the formula gives MINIMA, not maxima. AP Physics 2 FRQs (Science Practice 5: Calculations) test: lambda = 500 nm through a = 0.1 mm slit, first minimum at sin(theta) = 500e-9 / 1e-4 = 5e-3 → theta = 0.29°. Central maximum width = 2 lambda/a (angular extent to first minima on each side). Many slits (diffraction grating) give very sharp maxima — used in spectroscopy."
     },
     {
-      "id": "ap-physics-2-algebra-based-141",
+      "id": "ap-physics-2-algebra-based-135",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Interference",
@@ -3107,7 +2975,7 @@
       "explanation": "Interference: the superposition (addition) of two or more waves at a point. Linear waves obey the superposition principle: total displacement is the algebraic sum of individual displacements. Constructive interference (in phase) gives maximum amplitude (loud sound, bright spot); destructive interference (out of phase by half wavelength) gives zero amplitude (silence, dark spot). Young's 1801 double-slit experiment proved light is a wave by exhibiting interference. AP Physics 2 FRQs (Science Practice 5: Calculations) test interference for: light (Young's), sound (beats, antinodes), water waves, and matter waves (electrons, beyond AP — but conceptually identical). Phase shift on reflection at higher-n boundary adds 180° (lambda/2 path equivalent)."
     },
     {
-      "id": "ap-physics-2-algebra-based-142",
+      "id": "ap-physics-2-algebra-based-136",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Interference",
@@ -3129,7 +2997,7 @@
       "explanation": "Constructive interference: two coherent waves arrive at a point IN PHASE (path difference = integer multiple of lambda), so amplitudes ADD — total intensity = 4x single-wave intensity (intensity scales with amplitude squared). Bright fringes in Young's experiment; loud spots near speakers playing tones in phase. Condition: path difference Delta = m lambda, m = 0, 1, 2,... AP Physics 2 FRQs (Science Practice 5: Calculations) test: two slits 0.5 mm apart, screen 2 m away, lambda = 600 nm — central bright fringe at theta = 0, next bright fringes at sin(theta) = lambda/d = 1.2e-3, y = L tan(theta) = 2.4 mm. Pattern uniformly spaced at small angles."
     },
     {
-      "id": "ap-physics-2-algebra-based-143",
+      "id": "ap-physics-2-algebra-based-137",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Interference",
@@ -3151,7 +3019,7 @@
       "explanation": "Destructive interference: two coherent waves of EQUAL amplitude arrive at a point OUT OF PHASE by 180° (path difference = half-integer multiple of lambda), canceling completely. Dark fringes in Young's experiment; quiet spots between speakers. Condition: path difference Delta = (m + 1/2) lambda, m = 0, 1, 2,... AP Physics 2 FRQs (Science Practice 5: Calculations) test: anti-reflective lens coatings work by destructive interference of light reflected from the coating's two surfaces, requiring a thin film of thickness lambda/(4n) (quarter-wave coating); active noise-canceling headphones generate inverted sound to cancel ambient noise. Sound speakers wired out of phase produce dead zones in the room."
     },
     {
-      "id": "ap-physics-2-algebra-based-144",
+      "id": "ap-physics-2-algebra-based-138",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Interference",
@@ -3173,7 +3041,7 @@
       "explanation": "Constructive interference condition: path difference Delta = m lambda, with m = 0, 1, 2, 3,... (integer multiples of wavelength). The two waves arrive in phase after traveling different distances. Equivalently, phase difference is 2 pi m (multiple of full cycles). AP Physics 2 FRQs (Science Practice 5: Calculations) chain Delta = d sin(theta) = m lambda (Young's bright fringes) or Delta = 2 t n (thin-film constructive). For two-source interference at distance L from sources separated by d: Delta = d sin(theta), and bright fringes appear at angles sin(theta_m) = m lambda / d — equally spaced for small angles. m = 0 is the central maximum (zero path difference, always bright)."
     },
     {
-      "id": "ap-physics-2-algebra-based-145",
+      "id": "ap-physics-2-algebra-based-139",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Interference",
@@ -3195,7 +3063,7 @@
       "explanation": "Destructive interference condition: path difference Delta = (m + 1/2) lambda, with m = 0, 1, 2, 3,... (half-integer multiples of wavelength). Phase difference is pi (180°) plus full cycles. AP Physics 2 FRQs (Science Practice 5: Calculations) test: first dark fringe in Young's pattern at sin(theta) = (1/2) lambda / d = lambda/(2d); next at 3 lambda/(2d), etc. Equally spaced between bright fringes. Thin-film destructive condition: 2 t n = (m + 1/2) lambda (no phase shift) OR 2 t n = m lambda (with one 180° phase shift on reflection from higher-n surface) — depends on the coating's optical thickness and reflection-phase scenarios."
     },
     {
-      "id": "ap-physics-2-algebra-based-146",
+      "id": "ap-physics-2-algebra-based-140",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Polarization",
@@ -3217,7 +3085,7 @@
       "explanation": "Polarization: restriction of light's E-field oscillation to a single direction (linear), elliptical or circular motion (circular/elliptical polarization). Etienne-Louis Malus (1808) discovered polarization by reflection. Light from typical sources (sun, bulbs) is unpolarized (random orientation). Reflection off non-metallic surfaces preferentially polarizes light parallel to the surface (Brewster's angle gives total polarization). AP Physics 2 FRQs (Science Practice 6: Argumentation) test: polarized sunglasses reduce glare from road/water by blocking horizontally-polarized reflected light. 3D movies use circular polarization (or linear with orthogonal axes) to send different images to each eye via polarized glasses."
     },
     {
-      "id": "ap-physics-2-algebra-based-147",
+      "id": "ap-physics-2-algebra-based-141",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Polarization",
@@ -3239,7 +3107,7 @@
       "explanation": "Polarizer: a filter that transmits only the component of light's E-field along its transmission axis, blocking the perpendicular component. Edwin Land invented the practical sheet polarizer (Polaroid, 1929) using aligned long-chain molecules. AP Physics 2 FRQs (Science Practice 5: Calculations) test Malus's law: unpolarized light through one polarizer → I_0/2 (linearly polarized along axis). Polarized light through a second polarizer at angle theta to the first: I = I_0 cos^2(theta). Crossed polarizers (90°) block all transmission. Used in: polarized sunglasses, LCD displays (where liquid crystals rotate polarization to selectively block/transmit pixel-by-pixel), stress analysis (photoelasticity)."
     },
     {
-      "id": "ap-physics-2-algebra-based-148",
+      "id": "ap-physics-2-algebra-based-142",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Polarization",
@@ -3261,7 +3129,7 @@
       "explanation": "Malus's Law: I = I_0 cos^2(theta), where I_0 is the intensity of polarized light incident on a polarizer, theta is the angle between light's polarization direction and the polarizer's transmission axis, and I is transmitted intensity. Étienne-Louis Malus (1808). AP Physics 2 FRQs (Science Practice 5: Calculations) test: polarized light at I_0 = 100 W/m^2 through a polarizer at 30° to its polarization: I = 100 cos^2(30°) = 100 * 0.75 = 75 W/m^2. At theta = 90°, I = 0 (crossed). At theta = 0°, I = I_0 (parallel). When unpolarized light hits the first polarizer, half is transmitted: I_1 = I_0/2; Malus's law applies for second and subsequent polarizers."
     },
     {
-      "id": "ap-physics-2-algebra-based-149",
+      "id": "ap-physics-2-algebra-based-143",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Polarization",
@@ -3283,7 +3151,7 @@
       "explanation": "Light is a TRANSVERSE wave: the E-field oscillates PERPENDICULAR to the direction of propagation. (Sound is longitudinal — vibration parallel to propagation.) Only transverse waves can be polarized — longitudinal waves have only one vibration direction (along propagation) and cannot be 'restricted' further. Maxwell (1865) showed light is a transverse EM wave from his equations: E and B oscillate perpendicular to each other and to the propagation direction. AP Physics 2 FRQs (Science Practice 6: Argumentation) use the transverse nature to explain why polarization filters work for light but not for sound. Demonstrated by Young (1817) and verified by Fresnel (1820s)."
     },
     {
-      "id": "ap-physics-2-algebra-based-150",
+      "id": "ap-physics-2-algebra-based-144",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Polarization",
@@ -3305,7 +3173,7 @@
       "explanation": "Unpolarized light through an ideal polarizer transmits exactly HALF the intensity (I = I_0/2), regardless of polarizer orientation. Reason (Science Practice 6: Argumentation): unpolarized light has random E-field orientations; the polarizer accepts the parallel component, blocks the perpendicular. Averaged over all random orientations, half passes. AP Physics 2 FRQs (Science Practice 5: Calculations) chain this with Malus's law for subsequent polarizers: unpolarized I_0 → first polarizer → I_0/2 polarized → second polarizer at theta → (I_0/2) cos^2(theta). Three-polarizer paradox: unpolarized → 0° → 45° → 90° transmits I_0/2 * cos^2(45) * cos^2(45) = I_0/8, even though first and last are crossed."
     },
     {
-      "id": "ap-physics-2-algebra-based-151",
+      "id": "ap-physics-2-algebra-based-145",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photons",
@@ -3327,7 +3195,7 @@
       "explanation": "Photon: the elementary particle (quantum) of electromagnetic radiation. Energy E = h f = h c / lambda (joules), where h = 6.626 * 10^-34 J*s is Planck's constant. Zero rest mass; travels at c = 3 * 10^8 m/s always. Einstein (1905) proposed photons to explain the photoelectric effect (Nobel 1921); Compton (1923) confirmed via X-ray scattering off electrons. AP Physics 2 FRQs (Science Practice 5: Calculations) chain photon energies with photoelectric effect (KE_max = hf - phi), atomic transitions (h f = E_n - E_m), and momentum (p = h/lambda). Wave-particle duality: photons exhibit both wave (interference, diffraction) and particle (single-photon counting, photoelectric) behavior."
     },
     {
-      "id": "ap-physics-2-algebra-based-152",
+      "id": "ap-physics-2-algebra-based-146",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photons",
@@ -3349,7 +3217,7 @@
       "explanation": "Photon energy: E = h f (joules), where h = 6.626 * 10^-34 J*s is Planck's constant and f is the EM wave frequency (Hz). Equivalently E = h c / lambda, with c the speed of light and lambda the wavelength. On the AP equation sheet. Planck (1900) introduced quantization to fit blackbody radiation; Einstein (1905) extended it to photons in the photoelectric effect. AP Physics 2 FRQs (Science Practice 5: Calculations) test: red light (lambda = 700 nm) has f = c/lambda = 4.29 * 10^14 Hz, E = (6.626e-34)(4.29e14) = 2.84 * 10^-19 J = 1.77 eV. UV (lambda = 200 nm) has E = 6.2 eV — enough to ionize many molecules (explains sunburn risk)."
     },
     {
-      "id": "ap-physics-2-algebra-based-153",
+      "id": "ap-physics-2-algebra-based-147",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photons",
@@ -3371,7 +3239,7 @@
       "explanation": "Planck's constant h = 6.626 * 10^-34 J*s (or 4.136 * 10^-15 eV*s — useful for atomic-scale problems). The fundamental constant of quantum mechanics, introduced by Max Planck (1900) in his blackbody radiation formula to avoid the ultraviolet catastrophe. Defined to convert frequency (Hz) to energy (J): E = h f. Reduced Planck constant h-bar = h/(2 pi) = 1.055 * 10^-34 J*s appears in angular-momentum quantization (L = n h-bar) and Heisenberg uncertainty (Delta x Delta p >= h-bar / 2). AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require this value in photoelectric and atomic-transition calculations."
     },
     {
-      "id": "ap-physics-2-algebra-based-154",
+      "id": "ap-physics-2-algebra-based-148",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photons",
@@ -3393,7 +3261,7 @@
       "explanation": "Wave-particle duality: light (and all quantum entities) exhibit both wave-like (interference, diffraction, polarization) and particle-like (photoelectric effect, Compton scattering, single-photon counting) properties. Different experiments reveal different aspects. Einstein (1905, photoelectric — Nobel 1921), de Broglie (1924, matter waves — Nobel 1929) and Davisson-Germer (1927, electron diffraction). AP Physics 2 FRQs (Science Practice 6: Argumentation) test this conceptually: students must explain WHEN to use wave model (diffraction patterns, interference) vs particle model (photon counts, photoelectric threshold). de Broglie wavelength of matter: lambda = h/p, where p = m v. Electron in a Bohr orbit: lambda matches orbital circumference."
     },
     {
-      "id": "ap-physics-2-algebra-based-155",
+      "id": "ap-physics-2-algebra-based-149",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photons",
@@ -3415,7 +3283,7 @@
       "explanation": "Photon momentum: p = h / lambda = h f / c = E / c (kg*m/s). Compton (1923) verified this through X-ray scattering off electrons: scattered photons lose energy and gain longer wavelength after collision, with shift Delta lambda = (h/mc)(1 - cos theta) — the Compton wavelength of the electron (Nobel 1927). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) test radiation pressure and solar-sail propulsion: photons carry momentum, transferring impulse on absorption or reflection. Sunlight at Earth orbit exerts ~10^-5 N/m^2 on absorbing surfaces (small but useful for spacecraft — Japan's IKAROS solar sail, 2010). de Broglie generalized: any particle has lambda = h/p."
     },
     {
-      "id": "ap-physics-2-algebra-based-156",
+      "id": "ap-physics-2-algebra-based-150",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photoelectric Effect",
@@ -3437,7 +3305,7 @@
       "explanation": "Photoelectric effect: light striking a metal surface ejects electrons (photoelectrons). Observed by Hertz (1887). Einstein (1905, Nobel 1921) explained it with photons: each photon delivers E = h f to a single electron; if h f exceeds the metal's work function phi (binding energy), the electron escapes with KE_max = h f - phi. AP Physics 2 FRQs (Science Practice 5: Calculations) test the threshold frequency f_0 = phi/h (below which NO electrons are emitted, regardless of intensity). Classical wave theory fails: predicts gradual energy accumulation with intensity (longer wait times), but observation shows instantaneous emission at any intensity above threshold. Confirmed photons. Foundation of solar cells, photodiodes, image sensors."
     },
     {
-      "id": "ap-physics-2-algebra-based-157",
+      "id": "ap-physics-2-algebra-based-151",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photoelectric Effect",
@@ -3459,7 +3327,7 @@
       "explanation": "Work function phi (joules or eV) — the minimum energy required to liberate an electron from a metal surface. Material-dependent. Cesium: phi = 2.1 eV (low — used in old photomultiplier tubes); aluminum: 4.1 eV; gold: 5.4 eV; platinum: 5.6 eV. On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) chain phi with photon energy: KE_max = h f - phi. Threshold frequency: f_0 = phi/h (below which photoelectric effect doesn't occur). Threshold wavelength: lambda_0 = h c / phi. Determines cutoff color: for phi = 2 eV, lambda_0 = 620 nm (visible red); for phi = 5 eV, lambda_0 = 248 nm (UV). Solar-cell engineering selects materials by phi."
     },
     {
-      "id": "ap-physics-2-algebra-based-158",
+      "id": "ap-physics-2-algebra-based-152",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photoelectric Effect",
@@ -3481,7 +3349,7 @@
       "explanation": "Einstein's photoelectric equation: KE_max = h f - phi (joules), the maximum kinetic energy of ejected photoelectrons. On the AP equation sheet. h f is energy delivered by one photon; phi is binding energy (work function); the difference becomes electron's KE. Einstein (1905) — Nobel 1921. AP Physics 2 FRQs (Science Practice 5: Calculations) test: blue light (lambda = 450 nm, E = 2.76 eV) on potassium (phi = 2.3 eV) gives KE_max = 0.46 eV. Measured via stopping potential: KE_max = e V_stop, where V_stop is the reverse voltage that just halts photoelectron current. Plotting KE_max vs f gives slope = h and intercept = -phi (Millikan's experimental verification, 1916, Nobel 1923)."
     },
     {
-      "id": "ap-physics-2-algebra-based-159",
+      "id": "ap-physics-2-algebra-based-153",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photoelectric Effect",
@@ -3503,7 +3371,7 @@
       "explanation": "Threshold frequency f_0 = phi/h (Hz), the minimum frequency for photoelectric emission. Below f_0, NO photoelectrons are emitted regardless of light intensity (a strong wave-theory failure — wave intensity should always eject electrons given enough time). AP Physics 2 FRQs (Science Practice 5: Calculations): for cesium phi = 2.1 eV: f_0 = 2.1 * 1.6e-19 / 6.626e-34 = 5.1 * 10^14 Hz → lambda_0 = c/f_0 ≈ 590 nm (yellow). Threshold wavelength lambda_0 = h c / phi. Photoelectric effect cannot occur for lambda > lambda_0 — independent of intensity. Einstein's 1905 prediction of this linear photon-particle relationship contradicted classical EM and earned him the 1921 Nobel."
     },
     {
-      "id": "ap-physics-2-algebra-based-160",
+      "id": "ap-physics-2-algebra-based-154",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Photoelectric Effect",
@@ -3525,7 +3393,7 @@
       "explanation": "Classical wave theory of light predicts that any intensity (even very dim) should eventually eject electrons IF given enough time — energy from the wave accumulates on the electron. Observations CONTRADICT this: (1) below threshold frequency, no electrons EVER emit (regardless of intensity or duration); (2) above threshold, emission is INSTANTANEOUS; (3) electron KE depends on FREQUENCY (color), not on intensity. AP Physics 2 FRQs (Science Practice 6: Argumentation) require students to lay out the three classical failures in paragraph-length arguments, then explain how Einstein's photon model resolves all three: each photon either has enough energy (h f ≥ phi) to eject a single electron, or it doesn't — intensity affects only the NUMBER of photons, not the energy per photon."
     },
     {
-      "id": "ap-physics-2-algebra-based-161",
+      "id": "ap-physics-2-algebra-based-155",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Atomic Structure",
@@ -3547,7 +3415,7 @@
       "explanation": "Bohr model (Niels Bohr, 1913, Nobel 1922): hydrogen-like atom with discrete electron orbits of quantized energy E_n = -13.6/n^2 eV (n = 1, 2, 3, ...), where n = 1 is ground state. Electrons jump between levels by absorbing/emitting photons of energy h f = |E_m - E_n|. Reconciled Rutherford's nuclear atom (1911) with discrete emission lines observed by Balmer (1885) and Rydberg. AP Physics 2 FRQs (Science Practice 5: Calculations) chain photon emission/absorption: a hydrogen electron drop from n=3 to n=2 emits photon E = 13.6(1/4 - 1/9) = 1.89 eV → lambda = 656 nm (H-alpha red line, Balmer series). Failed for multi-electron atoms; superseded by quantum mechanics (Schrödinger 1925)."
     },
     {
-      "id": "ap-physics-2-algebra-based-162",
+      "id": "ap-physics-2-algebra-based-156",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Atomic Structure",
@@ -3569,7 +3437,7 @@
       "explanation": "Quantum jump: an electron in an atom transitioning between discrete energy levels, emitting (E_n > E_m) or absorbing (E_n < E_m) a photon of energy h f = |E_n - E_m|. Bohr (1913) postulated these as instantaneous, non-classical transitions. AP Physics 2 FRQs (Science Practice 5: Calculations) test specific hydrogen transitions: Lyman series (n_final = 1, all UV: 91-122 nm), Balmer series (n_final = 2, visible: 365-657 nm), Paschen (n_final = 3, IR). Spectral lines are FINGERPRINTS of atoms — Helium first identified in Sun's spectrum (Lockyer, 1868) before discovery on Earth. Fluorescent lights, neon signs, sodium-vapor street lamps all exploit quantum transitions for specific colors."
     },
     {
-      "id": "ap-physics-2-algebra-based-163",
+      "id": "ap-physics-2-algebra-based-157",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Atomic Structure",
@@ -3591,7 +3459,7 @@
       "explanation": "Ground-state energy of hydrogen: E_1 = -13.6 eV (= Rydberg energy). Negative because the electron is bound (need +13.6 eV to ionize hydrogen). Bohr's formula: E_n = -13.6/n^2 eV. Excited states: E_2 = -3.4 eV, E_3 = -1.51 eV, E_4 = -0.85 eV, etc. The Rydberg constant R = 13.6 eV / hc = 1.097 * 10^7 /m governs spectral line wavelengths via 1/lambda = R(1/n_f^2 - 1/n_i^2). AP Physics 2 FRQs (Science Practice 5: Calculations) test photon emission: H electron drop from n=2 to n=1 → E = -3.4 - (-13.6) = 13.6 - 3.4 = 10.2 eV → UV photon (lambda = 122 nm, Lyman-alpha). Used in interstellar gas observations."
     },
     {
-      "id": "ap-physics-2-algebra-based-164",
+      "id": "ap-physics-2-algebra-based-158",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Atomic Structure",
@@ -3613,7 +3481,7 @@
       "explanation": "Balmer series: hydrogen spectral lines from transitions to n=2 final state, in the visible range (364-657 nm). Discovered by Johann Balmer (1885) as a numerical pattern: lambda_m = 364.5 nm * m^2/(m^2 - 4) for m = 3, 4, 5, ... Later derived from Bohr's model: 1/lambda = R(1/4 - 1/m^2). Major lines: H-alpha 656 nm (red, m=3 → n=2), H-beta 486 nm (blue-green, m=4 → 2), H-gamma 434 nm (violet, m=5 → 2). AP Physics 2 FRQs (Science Practice 5: Calculations) test wavelength predictions. Other series: Lyman (n_final = 1, UV), Paschen (n_final = 3, IR), Brackett (n_final = 4, far-IR). Hydrogen-alpha used in solar telescopy for prominence imaging."
     },
     {
-      "id": "ap-physics-2-algebra-based-165",
+      "id": "ap-physics-2-algebra-based-159",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Nuclear Decay",
@@ -3635,7 +3503,7 @@
       "explanation": "Radioactivity: spontaneous emission of particles (alpha, beta) or photons (gamma) from unstable atomic nuclei. Discovered by Henri Becquerel (1896, Nobel 1903 with Curies); Marie and Pierre Curie isolated radium and polonium (1898). Three types: alpha (helium-4 nucleus, low penetration, blocked by paper); beta (electron, blocked by aluminum); gamma (high-energy photon, requires lead/concrete). AP Physics 2 FRQs (Science Practice 5: Calculations) test decay equations: U-238 → Th-234 + alpha (A decreases by 4, Z by 2); C-14 → N-14 + beta- (Z increases by 1, A unchanged). Half-life is characteristic of each isotope. Used in medical imaging, radiotherapy, smoke detectors, archaeology (C-14 dating)."
     },
     {
-      "id": "ap-physics-2-algebra-based-166",
+      "id": "ap-physics-2-algebra-based-160",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Nuclear Decay",
@@ -3657,7 +3525,7 @@
       "explanation": "Alpha particle: a helium-4 nucleus, two protons + two neutrons. Charge +2e, mass ~4 u. Highly ionizing but easily stopped (paper, skin, a few cm of air). Emitted by heavy nuclei (Z > 82) like uranium-238, radium-226, polonium-210. AP Physics 2 FRQs (Science Practice 5: Calculations) test decay equations: U-238 → Th-234 + alpha (mass number decreases by 4, atomic number by 2). Conservation of mass-energy: kinetic energy of alpha + Th-234 = mass defect c^2 (~4.3 MeV for U-238 alpha). Rutherford (1911) used alphas as projectiles to discover the atomic nucleus (Geiger-Marsden experiment — most alphas pass through, few bounce back at large angles)."
     },
     {
-      "id": "ap-physics-2-algebra-based-167",
+      "id": "ap-physics-2-algebra-based-161",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Nuclear Decay",
@@ -3679,7 +3547,7 @@
       "explanation": "Beta-minus particle: an electron emitted from a nucleus when a neutron decays into a proton, electron, and antineutrino: n → p + e- + nu-bar. Cock penetration: blocked by ~1 cm aluminum. Common in neutron-rich isotopes (C-14, Sr-90, Co-60, K-40 in human body). Beta-plus (positron) emission also occurs: p → n + e+ + nu, for proton-rich isotopes. AP Physics 2 FRQs (Science Practice 5: Calculations) test: C-14 → N-14 + e- + nu-bar (A unchanged at 14, Z increases from 6 to 7). The neutrino was postulated by Pauli (1930) to conserve energy and angular momentum in beta decay — its later detection (Cowan & Reines, 1956) confirmed the weak nuclear force model."
     },
     {
-      "id": "ap-physics-2-algebra-based-168",
+      "id": "ap-physics-2-algebra-based-162",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Nuclear Decay",
@@ -3701,29 +3569,7 @@
       "explanation": "Gamma radiation: high-energy photons (typically >100 keV) emitted from excited nuclei. Highest penetration of the three radiation types — requires several cm of lead or thick concrete to attenuate. Emitted following alpha or beta decay when the daughter nucleus relaxes from an excited state to ground (analogous to atomic photon emission, but nuclear-scale energies). AP Physics 2 FRQs (Science Practice 5: Calculations) test: Cobalt-60 beta-decays to Ni-60 excited state, which then emits two gamma photons (1.17 MeV and 1.33 MeV) as it relaxes — used in medical radiotherapy. Gamma photons have lambda ~ 10^-12 m, well below atomic spacing — pass through ordinary matter, scattering by Compton/Photoelectric/Pair-production mechanisms."
     },
     {
-      "id": "ap-physics-2-algebra-based-169",
-      "course": "ap-physics-2-algebra-based",
-      "courseLabel": "ap-physics-2-algebra-based",
-      "topic": "Nuclear Decay",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-physics-2",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "Time for half nuclei to decay.",
-      "choices": [
-        "Half-life",
-        "Electron",
-        "Ohm",
-        "Photon"
-      ],
-      "correctText": "Half-life",
-      "explanation": "Half-life t_1/2: time for HALF of a sample's radioactive nuclei to decay. N(t) = N_0 (1/2)^(t/t_1/2) = N_0 exp(-lambda_decay t), with lambda_decay = ln(2)/t_1/2. Characteristic of each isotope, ranging from microseconds (Po-214: 164 μs) to billions of years (U-238: 4.5 * 10^9 yr). AP Physics 2 FRQs (Science Practice 5: Calculations) test: after 3 half-lives, 1/8 of original nuclei remain. C-14 (t_1/2 = 5730 yr) used in archaeology — bone with 25% original C-14 is two half-lives old, ~11,460 yr. I-131 (t_1/2 = 8 days) used in thyroid imaging. Decay is statistical — individual nuclei have random lifetimes, but a large sample exhibits exponential decay."
-    },
-    {
-      "id": "ap-physics-2-algebra-based-170",
+      "id": "ap-physics-2-algebra-based-163",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mass-Energy",
@@ -3745,7 +3591,7 @@
       "explanation": "Einstein's mass-energy equation: E = m c^2 (joules), with m in kg and c = 3 * 10^8 m/s. Published 1905. On the AP equation sheet. States that mass and energy are equivalent — one can be converted into the other. A 1 kg mass corresponds to E = (1)(3e8)^2 = 9 * 10^16 J ≈ 21 megatons TNT equivalent. AP Physics 2 FRQs (Science Practice 5: Calculations) test mass-energy conversion in: nuclear fission/fusion (mass defect → released energy); particle-antiparticle annihilation (electron + positron → 2 gamma photons of 511 keV each); the binding energy of atoms and nuclei. Total relativistic energy: E = sqrt((mc^2)^2 + (pc)^2). For photon (m=0): E = pc."
     },
     {
-      "id": "ap-physics-2-algebra-based-171",
+      "id": "ap-physics-2-algebra-based-164",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mass-Energy",
@@ -3767,7 +3613,7 @@
       "explanation": "Mass defect: the difference between the sum of constituent particle masses and the actual mass of a nucleus. For deuterium (H-2): mass of (proton + neutron) - mass of deuteron ≈ 2.388 * 10^-30 kg ≈ 2.224 MeV/c^2 — this is the binding energy. AP Physics 2 FRQs (Science Practice 5: Calculations) chain mass defect with E = mc^2 to compute binding energy per nucleon — peaks at ~8.8 MeV/nucleon around iron-56 (most tightly bound nucleus). Fission (heavy nuclei → smaller fragments) releases energy because the fragments are MORE tightly bound. Fusion (light nuclei → heavier) releases energy for nuclei lighter than iron. Powers stars (fusion) and nuclear reactors (fission)."
     },
     {
-      "id": "ap-physics-2-algebra-based-172",
+      "id": "ap-physics-2-algebra-based-165",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mass-Energy",
@@ -3789,7 +3635,7 @@
       "explanation": "Nuclear fission energy: a heavy nucleus (e.g., U-235) splits into smaller fragments, releasing binding energy via mass defect. Each U-235 fission releases ~200 MeV (3.2 * 10^-11 J) — ~50 million times more energy per atom than chemical reactions (eV scale). 1 kg of U-235 (full fission) releases ~8 * 10^13 J = 80 TJ ≈ 20 kilotons TNT. Discovered by Hahn-Strassmann-Meitner (1938-39); first sustained chain reaction by Fermi (1942, Chicago Pile-1). AP Physics 2 FRQs (Science Practice 5: Calculations) test mass-energy conservation: Delta m c^2 = released energy. Used in fission reactors (controlled chain) and weapons (uncontrolled chain reaction). Products include radioactive fission fragments — the nuclear-waste problem."
     },
     {
-      "id": "ap-physics-2-algebra-based-173",
+      "id": "ap-physics-2-algebra-based-166",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mass-Energy",
@@ -3811,7 +3657,7 @@
       "explanation": "Fusion: light nuclei combine into heavier ones, releasing energy via mass defect (since binding energy per nucleon increases up to iron-56). The Sun powers itself via the proton-proton chain: 4 H → He-4 + 2 e+ + 2 nu + ~26.7 MeV per cycle. Solar core conditions: T ~1.5 * 10^7 K, P ~10^16 Pa. Coulomb repulsion must be overcome (~1 keV barrier) — only achievable at stellar temperatures or in fusion reactors with magnetic confinement (tokamaks, ITER) or inertial confinement (NIF). AP Physics 2 FRQs (Science Practice 6: Argumentation): students explain why fusion requires extreme conditions but releases more energy per kg than fission. Eddington (1920) first proposed fusion as the solar energy source."
     },
     {
-      "id": "ap-physics-2-algebra-based-174",
+      "id": "ap-physics-2-algebra-based-167",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Mass-Energy",
@@ -3833,7 +3679,7 @@
       "explanation": "Fission: a heavy nucleus (U-235, U-233, Pu-239) splits when struck by a neutron, releasing 2-3 more neutrons (sustaining a chain reaction in critical mass) and ~200 MeV per event. Discovered by Hahn-Strassmann-Meitner-Frisch (1938-39). Mass defect provides the energy via E = Delta m c^2. AP Physics 2 FRQs (Science Practice 5: Calculations) chain mass-energy: U-235 + n → Ba-141 + Kr-92 + 3n + ~200 MeV. First reactor: Fermi's Chicago Pile-1 (December 1942). Modern reactor types: PWR/BWR (water-moderated, U-235 fuel), CANDU (heavy water), fast-breeder (Pu fuel). Fission products are intensely radioactive (some half-lives of decades-millennia) — the nuclear-waste challenge. Weapons: uncontrolled supercritical chain reaction."
     },
     {
-      "id": "ap-physics-2-algebra-based-175",
+      "id": "ap-physics-2-algebra-based-168",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Fluids and Thermo",
@@ -3855,7 +3701,7 @@
       "explanation": "Density rho = m / V (kg/m^3) — mass per unit volume. Water: rho = 1000 kg/m^3; air at sea level: 1.225 kg/m^3; mercury: 13,600 kg/m^3. AP Physics 2 FRQs (Science Practice 5: Calculations) chain density with buoyancy (F_b = rho_fluid V_disp g), pressure (P = rho g h), and ideal gas law (rho = PM/RT for gases). Density depends on T (water expands when heated, driving convection) and P (negligible for liquids, large for gases). Foundation of fluid mechanics and central to floating/sinking, atmospheric structure, and thermodynamic state-equation derivations."
     },
     {
-      "id": "ap-physics-2-algebra-based-176",
+      "id": "ap-physics-2-algebra-based-169",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Fluids and Thermo",
@@ -3877,7 +3723,7 @@
       "explanation": "Buoyancy F_b: upward force on submerged objects from pressure differences between deep (high-P) and shallow (low-P) surfaces. Archimedes' principle (c. 250 BCE): F_b = rho_fluid V_disp g (newtons). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) compare F_b with weight F_g: F_b > F_g → upward acceleration; F_b = F_g → floating equilibrium; F_b < F_g → sinks. Floating fraction: V_disp/V_obj = rho_obj/rho_fluid (ice in water: 0.92). Paragraph-length arguments (Science Practice 7) about ships, submarines, hot-air balloons require explicit invocation of Archimedes' principle."
     },
     {
-      "id": "ap-physics-2-algebra-based-177",
+      "id": "ap-physics-2-algebra-based-170",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Fluids and Thermo",
@@ -3899,7 +3745,7 @@
       "explanation": "Bernoulli's equation: P + (1/2) rho v^2 + rho g h = constant along a streamline (Pa) for incompressible inviscid steady flow. Daniel Bernoulli (1738). On the AP equation sheet. Three energy-density forms: pressure (P), kinetic ((1/2) rho v^2), gravitational (rho g h). AP Physics 2 FRQs (Science Practice 5: Calculations) chain Bernoulli with continuity (A v = constant) for: airplane lift (faster flow above wing → lower P → upward force), venturi meters, blood-flow analysis, Torricelli's tank drainage v = sqrt(2 g h). Bernoulli effect: faster flow → lower pressure."
     },
     {
-      "id": "ap-physics-2-algebra-based-178",
+      "id": "ap-physics-2-algebra-based-171",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Fluids and Thermo",
@@ -3921,7 +3767,7 @@
       "explanation": "First Law of Thermodynamics: Delta U = Q - W (joules), with AP sign convention Q > 0 for heat added, W > 0 for work done BY gas. On the AP equation sheet. Established by Mayer (1842), Joule (paddle-wheel, 1840s), Helmholtz (1847), Clausius. AP Physics 2 FRQs (Science Practice 5: Calculations) chain across PV-cycle legs: isobaric (W = P Delta V), isochoric (W = 0), isothermal (Delta U = 0 for ideal gas → Q = W), adiabatic (Q = 0). Closed cycle: Delta U = 0, Q_net = W_net = enclosed PV area. Foundation of all thermodynamic energy bookkeeping including heat engines and refrigerators."
     },
     {
-      "id": "ap-physics-2-algebra-based-179",
+      "id": "ap-physics-2-algebra-based-172",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Fluids and Thermo",
@@ -3943,7 +3789,7 @@
       "explanation": "Entropy S (J/K): a measure of disorder or microstate count, with Boltzmann's formula S = k_B ln(W). Clausius (1865) coined the term and stated the Second Law: total entropy of the universe is non-decreasing (Delta S_universe >= 0). AP Physics 2 FRQs (Science Practice 6: Argumentation) use entropy qualitatively at AP level: gas expanding to fill a container, fluids mixing, heat flowing from hot to cold — all increase total entropy. Reversible processes maintain entropy; irreversible (real-world) processes increase it. Implications: heat flows spontaneously hot to cold; no engine 100% efficient (Carnot bound eta = 1 - T_c/T_h)."
     },
     {
-      "id": "ap-physics-2-algebra-based-180",
+      "id": "ap-physics-2-algebra-based-173",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electricity",
@@ -3965,7 +3811,7 @@
       "explanation": "Coulomb's law (Charles-Augustin de Coulomb, 1785): F = k q_1 q_2 / r^2 (newtons), with k = 8.99 * 10^9 N*m^2/C^2. On the AP equation sheet. Inverse-square law analogous to gravity but ~10^39 times stronger for electrons/protons. AP Physics 2 FRQs (Science Practice 5: Calculations) chain Coulomb's law with the superposition principle for multi-charge systems. Foundation of electrostatics. Limiting cases: like charges repel (positive product), unlike attract (negative product). Combined with Gauss's law and the field/potential concepts (Faraday/Maxwell), constitutes the electrostatic toolkit at AP Physics 2."
     },
     {
-      "id": "ap-physics-2-algebra-based-181",
+      "id": "ap-physics-2-algebra-based-174",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electricity",
@@ -3987,7 +3833,7 @@
       "explanation": "Ohm's Law: V = I R (volts), with I current (A), R resistance (Ohm). Georg Ohm (1827). On the AP equation sheet. Strictly applies to 'ohmic' materials (metals at constant T). AP Physics 2 FRQs (Science Practice 5: Calculations) chain Ohm's law with Kirchhoff's rules (KCL/KVL) in multi-loop circuits, with power formulas (P = IV = I^2 R = V^2/R), and with capacitor charging dynamics (tau = RC). Series: R_total = sum R_i; parallel: 1/R_total = sum 1/R_i. Microscopic origin: drift velocity proportional to applied E, mediated by collisions with the lattice (Drude model, 1900)."
     },
     {
-      "id": "ap-physics-2-algebra-based-182",
+      "id": "ap-physics-2-algebra-based-175",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electricity",
@@ -4009,7 +3855,7 @@
       "explanation": "Capacitor: a charge-storage device with capacitance C = Q/V (farads). Parallel-plate: C = kappa epsilon_0 A / d. Energy stored: U_C = (1/2) C V^2 (joules). On the AP equation sheet. Invented as the Leyden jar (1745). AP Physics 2 FRQs (Science Practice 5: Calculations) test RC time constants: charging current decays as I(t) = (V_0/R) exp(-t/RC), with tau = RC. Series capacitors: 1/C_total = sum 1/C_i. Parallel: C_total = sum C_i. Used in: power-supply filters, camera flashes (~50 J at ~300 V), defibrillators (~360 J at ~5 kV), super-capacitors for regenerative braking in hybrid vehicles."
     },
     {
-      "id": "ap-physics-2-algebra-based-183",
+      "id": "ap-physics-2-algebra-based-176",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electricity",
@@ -4031,7 +3877,7 @@
       "explanation": "Kirchhoff's Current Law (KCL, 1845): at any junction, sum of currents in = sum out (conservation of charge). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) apply KCL to find branch currents in multi-loop circuits — combined with KVL gives a solvable system. For a node with I_1 entering, I_2 and I_3 leaving: I_1 = I_2 + I_3. Foundation of circuit analysis. Gustav Kirchhoff also contributed to spectroscopy (1859, with Bunsen) and thermal radiation theory (1859 — laid groundwork for Planck's blackbody law)."
     },
     {
-      "id": "ap-physics-2-algebra-based-184",
+      "id": "ap-physics-2-algebra-based-177",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Electricity",
@@ -4053,7 +3899,7 @@
       "explanation": "Kirchhoff's Voltage Law (KVL, 1845): sum of voltage changes around any closed loop = 0 (conservation of energy). On the AP equation sheet. EMF sources contribute +V (energy added per coulomb); resistors contribute -IR (energy dropped to heat); capacitors -Q/C; inductors -L dI/dt. AP Physics 2 FRQs (Science Practice 5: Calculations) traverse each loop systematically with consistent sign convention. Combined with KCL solves any linear circuit. Paragraph-length arguments (Science Practice 7) must invoke 'conservation of energy' as the underlying physics for KVL."
     },
     {
-      "id": "ap-physics-2-algebra-based-185",
+      "id": "ap-physics-2-algebra-based-178",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetism",
@@ -4075,7 +3921,7 @@
       "explanation": "Lorentz force F = q v x B (newtons), magnitude q v B sin(theta), direction by right-hand rule. Hendrik Lorentz (1895) formalized the full F = q(E + v x B). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) use it for: cyclotron motion (r = mv/(qB), period T = 2 pi m/(qB) independent of speed), velocity selector (E/B for chosen v), mass spectrometer. Force on a current-carrying wire: F = I L x B, magnitude B I L sin(theta) — derives from Lorentz force on moving charge carriers. Foundation of electric motors, MRI machines, particle accelerators."
     },
     {
-      "id": "ap-physics-2-algebra-based-186",
+      "id": "ap-physics-2-algebra-based-179",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetism",
@@ -4097,7 +3943,7 @@
       "explanation": "Faraday's law: EMF = -d(Phi_B)/dt (volts), where Phi_B = integral B · dA (T*m^2 = Wb). Michael Faraday (1831). On the AP equation sheet. One of Maxwell's four equations. Negative sign encodes Lenz's law (induced EMF opposes flux change — conservation of energy). AP Physics 2 FRQs (Science Practice 5: Calculations) chain with: motional EMF = BLv (sliding conductor), generators (rotating loop produces sinusoidal EMF), transformers (V_s/V_p = N_s/N_p). N-turn coil: EMF = -N dPhi/dt. Underlies generators, transformers, induction stoves, electric guitar pickups."
     },
     {
-      "id": "ap-physics-2-algebra-based-187",
+      "id": "ap-physics-2-algebra-based-180",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetism",
@@ -4119,7 +3965,7 @@
       "explanation": "Lenz's law (Heinrich Lenz, 1834): the direction of induced current opposes the change in magnetic flux that produced it. Required by conservation of energy — if current REINFORCED the flux change, energy would multiply without input (perpetual motion). AP Physics 2 FRQs (Science Practice 6: Argumentation) require paragraph-length arguments: a magnet approaching a loop induces current creating a B field that REPELS the magnet (work done against this opposition becomes electrical energy in the loop). Lenz's law is the qualitative side of Faraday's quantitative law (the negative sign in EMF = -dPhi/dt). Used in eddy-current brakes and metal detectors."
     },
     {
-      "id": "ap-physics-2-algebra-based-188",
+      "id": "ap-physics-2-algebra-based-181",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetism",
@@ -4141,7 +3987,7 @@
       "explanation": "Transformer: two magnetically-coupled coils (primary, secondary) — AC current in primary creates oscillating B, inducing EMF in secondary by Faraday's law. Turns ratio V_s/V_p = N_s/N_p. Ideal: V_p I_p = V_s I_s (energy conservation). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) test power-grid voltage manipulation: step up to ~hundreds of kV for transmission (minimizing I^2 R losses over thousands of km), step down to 120/240 V for consumers. Requires AC — DC produces no flux change, no induction. Tesla championed AC + transformers (vs Edison's DC, 1880s). Real transformers ~95-99% efficient."
     },
     {
-      "id": "ap-physics-2-algebra-based-189",
+      "id": "ap-physics-2-algebra-based-182",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Magnetism",
@@ -4163,7 +4009,7 @@
       "explanation": "Tesla (T) = 1 N/(A*m) = 1 Wb/m^2 — SI unit of magnetic field B. Named after Nikola Tesla (1856-1943), pioneer of AC power and electromagnetic engineering. AP Physics 2 FRQs (Science Practice 2: Mathematical Routines) require unit consistency in Lorentz force (qvB → N) and Faraday's law (B A → Wb → V*s). Practical magnitudes: Earth's surface field ~50 μT; refrigerator magnet ~10 mT; lab electromagnet 0.1-1 T; MRI machine 1.5-7 T; world-record sustained continuous field ~45 T; neutron star surfaces 10^8-10^11 T. Older unit: gauss (1 T = 10^4 G). Defines the strength of magnetic phenomena in SI units."
     },
     {
-      "id": "ap-physics-2-algebra-based-190",
+      "id": "ap-physics-2-algebra-based-183",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Optics",
@@ -4185,7 +4031,7 @@
       "explanation": "Refraction: bending of light as it crosses an interface between media with different refractive indices, due to a change in wave speed. Direction obeys Snell's Law: n_1 sin(theta_1) = n_2 sin(theta_2). Ibn Sahl (~984 CE), Snell (1621). AP Physics 2 FRQs (Science Practice 5: Calculations) test refraction in: prisms (dispersion separates colors by lambda-dependent n), lenses (focusing via differential refraction), total internal reflection (when going from dense to less dense at theta > theta_c). Light bends TOWARD the normal when entering a denser medium (higher n), away from normal when entering less dense (lower n)."
     },
     {
-      "id": "ap-physics-2-algebra-based-191",
+      "id": "ap-physics-2-algebra-based-184",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Optics",
@@ -4207,7 +4053,7 @@
       "explanation": "Snell's Law: n_1 sin(theta_1) = n_2 sin(theta_2). Originally written by Ibn Sahl (~984 CE), rediscovered by Snell (1621) and Descartes (1637). On the AP equation sheet. AP Physics 2 FRQs (Science Practice 5: Calculations) chain Snell's law with: total internal reflection (theta_c = arcsin(n_2/n_1) when n_1 > n_2), prism dispersion, lens optics. Limiting cases: normal incidence (theta_1 = 0) gives no bending; equal indices give no bending (theta_2 = theta_1). Foundation of all geometric optics. Light from air (n=1) into water (n=1.33) at 45°: refracts to ~32° (toward normal)."
     },
     {
-      "id": "ap-physics-2-algebra-based-192",
+      "id": "ap-physics-2-algebra-based-185",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Optics",
@@ -4229,7 +4075,7 @@
       "explanation": "Young's double-slit experiment (Thomas Young, 1801): coherent monochromatic light through two narrow slits produces an alternating bright-dark interference pattern, conclusively demonstrating light's wave nature against Newton's particle theory. Bright fringes at d sin(theta) = m lambda; fringe spacing on screen Delta y = lambda L/d. AP Physics 2 FRQs (Science Practice 5: Calculations) compute fringe positions and intensities. Extended to electrons (Davisson-Germer, 1927) and even single photons one at a time — building the interference pattern statistically, demonstrating wave-particle duality at its most counterintuitive. Foundation of interference-based instrumentation (LIGO, holography)."
     },
     {
-      "id": "ap-physics-2-algebra-based-193",
+      "id": "ap-physics-2-algebra-based-186",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Optics",
@@ -4251,7 +4097,7 @@
       "explanation": "Polarization: restriction of light's E-field oscillation to a single direction (linear) or rotating pattern (circular/elliptical). Étienne-Louis Malus (1808). Polarizers transmit only the component along their axis: Malus's Law I = I_0 cos^2(theta) for polarized incident light. Unpolarized → polarizer: I_0/2 transmitted regardless of orientation. AP Physics 2 FRQs (Science Practice 5: Calculations) test multi-polarizer setups: three polarizers at 0°, 45°, 90° transmit I_0/2 * cos^2(45°) * cos^2(45°) = I_0/8 — non-zero despite crossed end polarizers. Applications: polarized sunglasses, LCDs, 3D movies, photoelasticity stress analysis."
     },
     {
-      "id": "ap-physics-2-algebra-based-194",
+      "id": "ap-physics-2-algebra-based-187",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Optics",
@@ -4273,7 +4119,7 @@
       "explanation": "Light is a TRANSVERSE electromagnetic wave: E and B fields oscillate PERPENDICULAR to the direction of propagation (and perpendicular to each other). Maxwell (1865) derived this from his four equations. Sound, in contrast, is a longitudinal wave (compression and rarefaction along propagation direction). Only transverse waves can be polarized — longitudinal waves have only one possible vibration direction. AP Physics 2 FRQs (Science Practice 6: Argumentation) use the transverse nature to explain why polarization filters work for light but not sound. Maxwell's prediction confirmed by Hertz (1887), who generated and detected radio waves matching the wave equation derived from his four equations."
     },
     {
-      "id": "ap-physics-2-algebra-based-195",
+      "id": "ap-physics-2-algebra-based-188",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Modern Physics",
@@ -4295,7 +4141,7 @@
       "explanation": "Photon: the elementary particle (quantum) of electromagnetic radiation. Energy E = h f = h c/lambda (joules). Zero rest mass; travels at c. Einstein (1905, Nobel 1921) proposed photons to explain photoelectric effect; Compton (1923, Nobel 1927) confirmed via X-ray scattering. AP Physics 2 FRQs (Science Practice 5: Calculations) chain photon energies with photoelectric effect (KE_max = hf - phi), atomic transitions (h f = |E_m - E_n|), and momentum (p = h/lambda). Wave-particle duality: photons exhibit interference (wave) and quantized energy (particle) — modeling depends on context. Foundation of quantum optics and modern physics."
     },
     {
-      "id": "ap-physics-2-algebra-based-196",
+      "id": "ap-physics-2-algebra-based-189",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Modern Physics",
@@ -4317,7 +4163,7 @@
       "explanation": "Albert Einstein (1879-1955) explained the photoelectric effect (1905, Nobel 1921 for this work — not relativity!) by proposing light is quantized into photons of energy E = h f. Each photon either ejects one electron (if h f >= phi, the work function) or doesn't — intensity affects photon NUMBER, not energy per photon. Resolved classical wave-theory's predicted gradual electron emission with continuous accumulation. AP Physics 2 FRQs (Science Practice 6: Argumentation) require explicit reference to Einstein's photon model when explaining: threshold frequency, instantaneous emission, KE-vs-frequency linearity. Einstein's other 1905 papers: special relativity, mass-energy (E = mc^2), Brownian motion."
     },
     {
-      "id": "ap-physics-2-algebra-based-197",
+      "id": "ap-physics-2-algebra-based-190",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Modern Physics",
@@ -4339,7 +4185,7 @@
       "explanation": "Hydrogen — the simplest atom (1 proton, 1 electron), where the Bohr model (1913) provides exact energy levels E_n = -13.6/n^2 eV. Niels Bohr (Nobel 1922) reconciled Rutherford's nuclear atom (1911) with Balmer's empirical spectral-line formula (1885), explaining hydrogen's discrete emission/absorption spectrum. AP Physics 2 FRQs (Science Practice 5: Calculations) test transitions: Lyman series (n_final = 1, UV), Balmer (n_final = 2, visible: H-alpha at 656 nm, H-beta 486 nm), Paschen (IR). Bohr model fails for multi-electron atoms — superseded by Schrödinger's quantum mechanics (1925), but remains pedagogically essential for first-principles understanding."
     },
     {
-      "id": "ap-physics-2-algebra-based-198",
+      "id": "ap-physics-2-algebra-based-191",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Modern Physics",
@@ -4361,7 +4207,7 @@
       "explanation": "Einstein's mass-energy equation: E = m c^2 (joules). Einstein (1905). On the AP equation sheet. Mass and energy are equivalent — interconvertible. 1 kg ↔ 9 * 10^16 J ≈ 21 megatons TNT. AP Physics 2 FRQs (Science Practice 5: Calculations) test: nuclear fusion (Sun: 4 H → He releases 26.7 MeV per cycle), fission (U-235 fission ~200 MeV per event), particle-antiparticle annihilation (electron+positron → 2 gamma photons at 511 keV each). Total relativistic energy: E = sqrt((mc^2)^2 + (pc)^2). For photon (m=0): E = pc. Foundation of nuclear physics, cosmology, and high-energy particle physics."
     },
     {
-      "id": "ap-physics-2-algebra-based-199",
+      "id": "ap-physics-2-algebra-based-192",
       "course": "ap-physics-2-algebra-based",
       "courseLabel": "ap-physics-2-algebra-based",
       "topic": "Modern Physics",

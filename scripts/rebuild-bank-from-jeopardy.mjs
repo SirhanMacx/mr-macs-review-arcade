@@ -133,11 +133,25 @@ function buildFragment(slug, bankSlug, clues) {
     if (!byTopic.has(c.topic)) byTopic.set(c.topic, []);
     byTopic.get(c.topic).push(c);
   }
+  // Reject answers that make bad distractors: empty, too short, pure-digit,
+  // or duplicate the correct answer (case-insensitive). Without this filter
+  // the MCQ shows things like "1 / 2 / 28 / (empty)" which looks broken
+  // even when each value was a legitimate Jeopardy answer somewhere.
+  const isUsableDistractor = (s, correct) => {
+    if (typeof s !== "string") return false;
+    const t = s.trim();
+    if (!t) return false;
+    if (t.length < 4) return false;
+    if (/^\d{1,2}$/.test(t)) return false;
+    if (t.toLowerCase() === String(correct || "").toLowerCase()) return false;
+    return true;
+  };
   const allAnswers = clues.map(c => c.answer);
   function distractors(correct, topic, n=3) {
     const sameTopic = (byTopic.get(topic) || []).map(c => c.answer)
-      .filter(a => a !== correct);
-    const others = allAnswers.filter(a => a !== correct && !sameTopic.includes(a));
+      .filter(a => isUsableDistractor(a, correct));
+    const others = allAnswers
+      .filter(a => isUsableDistractor(a, correct) && !sameTopic.includes(a));
     // Shuffle
     function pick(arr, k) {
       const out = []; const used = new Set();
