@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>NYS ELA Practice Exam — Mr. Mac's Review Arcade</title>
+<title>AP Computer Science A Practice Exam — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam · NYS English Language Arts Regents</span></div>
-      <h1>NYS ELA Practice Exam</h1>
-      <p class="subtitle">40-question practice test covering reading comprehension and writing/language skills, modeled on the Part 1 + Part 3 question types on the June Regents ELA exam.</p>
+      <div class="kicker"><span>Practice Exam</span><span>AP Computer Science A</span></div>
+      <h1>AP Computer Science A Practice Exam</h1>
+      <p class="subtitle">40-question practice test covering all 10 units (Java syntax through inheritance + recursion), modeled on Section I MCQ format.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,540 +1524,536 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled ELA questions across reading + writing skills</span>
-    <span class="pill" id="topicStatus">Reading literature, informational text, language, and vocabulary in context</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 MCQ items across all 10 AP CS A units</span>
+    <span class="pill" id="topicStatus">Java syntax · OOP · arrays · ArrayList · 2D arrays · inheritance · recursion</span>
     <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
   {
-    id: "ela-001",
-    topic: "Reading Literature: Theme + Tone + Mood",
-    prompt: "Read this passage:\n\n'The lighthouse stood as it always had — patient, alone, its single eye turning over the black water. Below, the keeper counted the pages of his last almanac and listened to a wind that did not answer him.'\n\nWhich phrase best captures the mood of this passage?",
+    id: "ghii-001",
+    topic: "Unit 1: World in 1750",
+    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
-      "Bright and energetic anticipation",
-      "Solitary, quiet melancholy",
-      "Comedic and lighthearted irony",
-      "Furious, panicked dread",
+      "All three had embraced parliamentary democracy.",
+      "All three were multiethnic land-based empires governed by hereditary rulers.",
+      "All three had abolished traditional religious practices.",
+      "All three controlled overseas colonies in the Americas.",
     ],
-    correctText: "Solitary, quiet melancholy",
-    explanation: "Mood is the emotional atmosphere a text creates. Words like 'patient, alone,' 'last almanac,' and a wind that 'did not answer him' produce a quiet, melancholy isolation rather than panic or comedy."
+    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
+    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
   },
   {
-    id: "ela-002",
-    topic: "Reading Literature: Theme + Tone + Mood",
-    prompt: "Read this passage:\n\n'Maya had practiced the speech for weeks, but standing now at the podium, the words sat in her throat like small, polished stones. She breathed in, and reminded herself that her grandmother had crossed an ocean with nothing in her pockets but courage.'\n\nWhich statement best identifies a central theme suggested by the passage?",
+    id: "ghii-002",
+    topic: "Unit 1: World in 1750",
+    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
     choices: [
-      "Travel is dangerous and should be avoided whenever possible.",
-      "Strength is often inherited from those who came before us.",
-      "Public speaking is unnecessary in modern life.",
-      "Memorizing a speech guarantees a successful performance.",
+      "Promote global trade with European powers.",
+      "Spread Christianity across East Asia.",
+      "Preserve internal stability by limiting foreign contact.",
+      "Expand Japanese colonies in the Americas.",
     ],
-    correctText: "Strength is often inherited from those who came before us.",
-    explanation: "Theme is the underlying message. Maya draws courage by remembering her grandmother's crossing, suggesting that resilience is passed down — the textual evidence is the explicit comparison to her grandmother's ocean journey."
+    correctText: "Preserve internal stability by limiting foreign contact.",
+    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
   },
   {
-    id: "ela-003",
-    topic: "Reading Literature: Theme + Tone + Mood",
-    prompt: "Read this passage:\n\n'Of course Mr. Hollings was thrilled to spend another Saturday cleaning the gutters. He whistled a cheerful tune as cold rainwater ran down his sleeves and a squirrel, watching from the maple, judged him silently.'\n\nWhich word best describes the author's tone?",
+    id: "ghii-003",
+    topic: "Unit 1: World in 1750",
+    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
     choices: [
-      "Reverent",
-      "Sarcastic",
-      "Grief-stricken",
-      "Indifferent",
+      "Laissez-faire capitalism",
+      "Mercantilism",
+      "Socialism",
+      "Command economy",
     ],
-    correctText: "Sarcastic",
-    explanation: "Tone is the author's attitude toward the subject. The phrase 'Of course... thrilled' paired with cold rainwater and a judging squirrel signals verbal irony — the narrator clearly does not mean Mr. Hollings is actually thrilled."
+    correctText: "Mercantilism",
+    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
   },
   {
-    id: "ela-004",
-    topic: "Reading Literature: Theme + Tone + Mood",
-    prompt: "Read this passage:\n\n'The town meeting had begun in shouts and ended in shouts, but in between there had been one moment — when Mrs. Alvarez stood up and read the names of the children — when even the loudest men remembered they had grown up here too.'\n\nWhich line provides the strongest textual evidence that the passage's central idea is about shared community memory tempering conflict?",
+    id: "ghii-004",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
     choices: [
-      "'The town meeting had begun in shouts and ended in shouts'",
-      "'when Mrs. Alvarez stood up and read the names of the children'",
-      "'even the loudest men remembered they had grown up here too'",
-      "'but in between there had been one moment'",
+      "Thomas Hobbes",
+      "John Locke",
+      "Niccolò Machiavelli",
+      "Karl Marx",
     ],
-    correctText: "'even the loudest men remembered they had grown up here too'",
-    explanation: "The strongest evidence directly links shared memory ('grown up here too') to the cooling of conflict ('the loudest men remembered'). The other lines describe context but do not name the cause-effect link the question asks about."
+    correctText: "John Locke",
+    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
   },
   {
-    id: "ela-005",
-    topic: "Reading Literature: Theme + Tone + Mood",
-    prompt: "Read this passage:\n\n'The morning came in slow and gold. Birds tested the air with small, curious notes. Even the river, usually impatient, seemed to pause and listen.'\n\nWhich phrase best describes the overall tone of this passage?",
+    id: "ghii-005",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
     choices: [
-      "Anxious and rushed",
-      "Bitter and resentful",
-      "Reverent and peaceful",
-      "Mocking and bitter",
+      "Free public education",
+      "Separation of powers among three branches",
+      "Universal suffrage",
+      "Direct election of judges",
     ],
-    correctText: "Reverent and peaceful",
-    explanation: "Tone reflects how the writer feels about what is described. The slow gold morning, the 'small, curious notes' of birds, and a river that pauses to 'listen' establish a hushed, reverent peace rather than urgency or bitterness."
+    correctText: "Separation of powers among three branches",
+    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
   },
   {
-    id: "ela-006",
-    topic: "Reading Literature: Character + Plot + Setting",
-    prompt: "Read this passage:\n\n'Devon hated parties, but his sister had begged him to come. He stood by the punch bowl for the first hour, then — to his own surprise — found himself laughing in a circle of strangers, the room suddenly smaller and warmer than he had remembered any room being in a long time.'\n\nDevon is best described as a:",
+    id: "ghii-006",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
     choices: [
-      "Static character whose attitudes do not change",
-      "Dynamic character who undergoes an internal shift",
-      "Antagonist who opposes the main character",
-      "Foil who exists only to contrast with someone else",
+      "It restored a monarchy after a brief republican experiment.",
+      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+      "It ended without significant political change.",
+      "It established a constitutional monarchy under European supervision.",
     ],
-    correctText: "Dynamic character who undergoes an internal shift",
-    explanation: "A dynamic character changes over the course of a narrative. Devon begins reluctant ('hated parties') and ends 'laughing in a circle of strangers' with the room feeling warmer — an internal change in attitude, the hallmark of a dynamic character."
+    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
   },
   {
-    id: "ela-007",
-    topic: "Reading Literature: Character + Plot + Setting",
-    prompt: "Read this passage:\n\n'For three nights the storm had hammered the cabin. On the fourth morning Jonas pulled on his father's boots, shouldered the empty water pail, and stepped into the snow. The nearest neighbor was five miles down the ridge.'\n\nThe primary type of conflict driving this passage is:",
+    id: "ghii-007",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
     choices: [
-      "Person vs. society",
-      "Person vs. self",
-      "Person vs. nature",
-      "Person vs. supernatural",
+      "Britain had the most extensive colonial empire in Asia.",
+      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+      "Britain was the only European country with a literate workforce.",
+      "Britain was the first nation to outlaw all forms of forced labor.",
     ],
-    correctText: "Person vs. nature",
-    explanation: "Conflict types describe the obstacle a character faces. Jonas's antagonist is the storm and the cold five-mile distance — environmental forces — which is the textbook definition of person-versus-nature conflict."
+    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
   },
   {
-    id: "ela-008",
-    topic: "Reading Literature: Character + Plot + Setting",
-    prompt: "In a typical plot diagram, which element directly follows the climax?",
+    id: "ghii-008",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
     choices: [
-      "Exposition",
-      "Rising action",
-      "Falling action",
-      "Inciting incident",
+      "Workers gained shorter hours and immediate political rights.",
+      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+      "Workers transitioned from factories back to small craft workshops.",
+      "Workers were guaranteed employment by national governments.",
     ],
-    correctText: "Falling action",
-    explanation: "The standard plot structure runs exposition, rising action, climax, falling action, resolution. Falling action follows the climax, showing the consequences of the turning point and leading toward resolution."
+    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
   },
   {
-    id: "ela-009",
-    topic: "Reading Literature: Character + Plot + Setting",
-    prompt: "Read this passage:\n\n'The hallway was narrow and the bulbs hummed like trapped wasps. Paint peeled in soft strips. Every door was numbered, and every number was wrong: 13B, 13B, 13B, as if the building itself could not remember how to count.'\n\nHow does the setting most directly contribute to the passage?",
+    id: "ghii-009",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
     choices: [
-      "It establishes a comedic, festive mood.",
-      "It creates an unsettling, disorienting mood that mirrors a sense of psychological unease.",
-      "It signals that the story takes place in the distant past.",
-      "It indicates the character is about to receive good news.",
+      "Religious revival across industrial societies",
+      "A class struggle leading to revolution by the proletariat",
+      "Voluntary government regulation of industries",
+      "A return to feudal economic relationships",
     ],
-    correctText: "It creates an unsettling, disorienting mood that mirrors a sense of psychological unease.",
-    explanation: "Setting often shapes mood and theme. Repeated wrong numbers and wasplike bulbs make the building feel broken and uncanny — the setting itself produces dread rather than festivity or historical signaling."
+    correctText: "A class struggle leading to revolution by the proletariat",
+    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
   },
   {
-    id: "ela-010",
-    topic: "Reading Literature: Character + Plot + Setting",
-    prompt: "Read this passage:\n\n'Captain Reyes was the kind of woman who never gave an order twice. She did not raise her voice. She did not need to. When she said 'lower the boats,' the boats came down before she finished the sentence.'\n\nWhich aspect of the captain does this passage most directly characterize?",
+    id: "ghii-010",
+    topic: "Unit 4: Imperialism",
+    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
     choices: [
-      "Her physical appearance",
-      "Her authority and presence",
-      "Her childhood and family history",
-      "Her hobbies and personal interests",
+      "African leaders would have veto power over all colonial boundaries.",
+      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+      "African colonies would gain independence within 25 years.",
+      "All European nations would withdraw from the African continent.",
     ],
-    correctText: "Her authority and presence",
-    explanation: "Indirect characterization shows traits through behavior and others' reactions. The crew's instant obedience — boats coming down before the order finishes — characterizes the captain's authority, not her appearance, history, or hobbies."
+    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
   },
   {
-    id: "ela-011",
-    topic: "Reading Literature: Figurative Language + Diction",
-    prompt: "Read this line:\n\n'The old printing press groaned through one last page, a tired animal refusing to die quietly.'\n\nWhich figurative-language device is primarily at work?",
+    id: "ghii-011",
+    topic: "Unit 4: Imperialism",
+    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
     choices: [
-      "Metaphor",
-      "Hyperbole",
-      "Allusion",
-      "Onomatopoeia",
+      "Indian soldiers refused to fight against the Ottoman Empire.",
+      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+      "Sepoys demanded equal pay with British officers.",
+      "British missionaries had been expelled from India.",
     ],
-    correctText: "Metaphor",
-    explanation: "A metaphor states a direct equivalence without 'like' or 'as.' Here the press is called 'a tired animal' — a direct identification of one thing as another, which is metaphor (not the comparative form of simile)."
+    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
   },
   {
-    id: "ela-012",
-    topic: "Reading Literature: Figurative Language + Diction",
-    prompt: "Consider this line from Robert Frost's 'Stopping by Woods on a Snowy Evening' (1923, public domain):\n\n'The woods are lovely, dark, and deep, / But I have promises to keep.'\n\nWhich form of irony is most relevant if a fire chief, sprinting late to a five-alarm fire, mutters this line to himself?",
+    id: "ghii-012",
+    topic: "Unit 4: Imperialism",
+    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
     choices: [
-      "Dramatic irony",
-      "Verbal irony",
-      "Situational irony",
-      "Cosmic irony",
+      "China had invaded British India.",
+      "China refused to allow British ships into the Mediterranean.",
+      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+      "China demanded that Britain abolish slavery in its colonies.",
     ],
-    correctText: "Situational irony",
-    explanation: "Situational irony is a gap between what we expect and what actually occurs. A fire chief — whose 'promises to keep' should be urgent rescue — quoting a quiet pastoral poem about lingering creates the ironic mismatch."
+    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
   },
   {
-    id: "ela-013",
-    topic: "Reading Literature: Figurative Language + Diction",
-    prompt: "Read this line:\n\n'I've told you a thousand times — don't slam the door!'\n\nWhich figurative device best describes this statement?",
+    id: "ghii-013",
+    topic: "Unit 4: Imperialism",
+    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
     choices: [
-      "Personification",
-      "Hyperbole",
-      "Alliteration",
-      "Simile",
+      "Embraced Western technology, industry, and military methods while preserving its emperor.",
+      "Permanently closed its borders to all foreign contact.",
+      "Was conquered and ruled directly by Western powers until 1945.",
+      "Refused to make any changes to its traditional samurai society.",
     ],
-    correctText: "Hyperbole",
-    explanation: "Hyperbole is intentional exaggeration for effect. 'A thousand times' is not literal; it dramatizes the speaker's frustration. Personification would give a non-human thing human qualities, and a simile would use 'like' or 'as.'"
+    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
+    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
   },
   {
-    id: "ela-014",
-    topic: "Reading Literature: Figurative Language + Diction",
-    prompt: "Read this line:\n\n'The wind tugged at her sleeve and whispered that it was time to go home.'\n\nWhich figurative device is primarily used?",
+    id: "ghii-014",
+    topic: "Unit 5: World War I",
+    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
     choices: [
-      "Personification",
-      "Simile",
-      "Metaphor",
-      "Allusion",
+      "Marxism, agriculture, isolationism, neutrality",
+      "Militarism, alliances, imperialism, nationalism",
+      "Monarchy, anarchism, industry, navy",
+      "Modernization, autocracy, individualism, neocolonialism",
     ],
-    correctText: "Personification",
-    explanation: "Personification gives human qualities (tugging, whispering, urging) to non-human things. Here the wind acts like a person, which distinguishes personification from simile (which would require 'like'/'as') and metaphor (a direct equivalence)."
+    correctText: "Militarism, alliances, imperialism, nationalism",
+    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
   },
   {
-    id: "ela-015",
-    topic: "Reading Literature: Figurative Language + Diction",
-    prompt: "Two adjectives may share a denotation but differ in connotation. Which pair best illustrates this difference, with the second word carrying a clearly more negative connotation than the first?",
+    id: "ghii-015",
+    topic: "Unit 5: World War I",
+    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
     choices: [
-      "Frugal / stingy",
-      "Loud / loud",
-      "Small / tiny",
-      "Run / sprint",
+      "Russia won early victories in WWI that inspired political reform.",
+      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+      "Western powers sent armies to depose Nicholas II.",
+      "The Tsar voluntarily turned over power to the peasantry.",
     ],
-    correctText: "Frugal / stingy",
-    explanation: "Denotation is the literal meaning; connotation is the emotional shading. 'Frugal' and 'stingy' both denote spending little, but 'frugal' is admiring while 'stingy' is judgmental — the cleanest example of differing connotation here."
+    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
   },
   {
-    id: "ela-016",
-    topic: "Reading Informational: Main Idea + Argument",
-    prompt: "Read this paragraph:\n\n'Cities that invest in safe, separated bike lanes consistently see lower rates of traffic injury, reduced air pollution, and stronger small-business performance on adjacent streets. The data, drawn from a decade of municipal studies across North America and Europe, point in the same direction: well-designed bike infrastructure makes urban life healthier and more economically vibrant.'\n\nWhich sentence best states the author's central claim?",
+    id: "ghii-016",
+    topic: "Unit 5: World War I",
+    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
     choices: [
-      "Air pollution is dangerous in major cities.",
-      "Cities should invest in well-designed, separated bike infrastructure because it produces health, safety, and economic benefits.",
-      "Bicycles were invented in the 19th century.",
-      "Most Europeans prefer biking to driving.",
+      "Germany's loss of its colonies in Africa",
+      "The 'war guilt' clause (Article 231) and crushing reparations payments",
+      "The reduction of the German navy",
+      "The redrawing of borders in the Middle East",
     ],
-    correctText: "Cities should invest in well-designed, separated bike infrastructure because it produces health, safety, and economic benefits.",
-    explanation: "The central claim is the main argument the author wants accepted. Every sentence supports the value of bike infrastructure across three benefit categories — health, safety, and economy — making that the controlling claim."
+    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
+    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
   },
   {
-    id: "ela-017",
-    topic: "Reading Informational: Main Idea + Argument",
-    prompt: "An argument has three core parts: a claim, evidence, and reasoning. Which best defines 'reasoning' in this context?",
+    id: "ghii-017",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
     choices: [
-      "A statement of personal opinion offered without support",
-      "The factual data, statistics, or examples that support the claim",
-      "The logical link explaining why the evidence supports the claim",
-      "A rhetorical question intended to challenge the reader",
+      "All world currencies were physically stored in U.S. banks.",
+      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+      "Only the United States used a banking system in 1929.",
+      "European nations were forced to convert to communism in response.",
     ],
-    correctText: "The logical link explaining why the evidence supports the claim",
-    explanation: "Reasoning is the bridge between evidence and claim — the explanation of why the data matter. Evidence is the data itself; a claim is the position; reasoning is the analytical glue."
+    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
   },
   {
-    id: "ela-018",
-    topic: "Reading Informational: Main Idea + Argument",
-    prompt: "In a strong argumentative essay, why does an author include a counterclaim?",
+    id: "ghii-018",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
     choices: [
-      "To confuse the reader and weaken the essay",
-      "To acknowledge opposing views and then refute or qualify them, strengthening the author's credibility",
-      "To copy the introduction word-for-word in the conclusion",
-      "To replace evidence with personal anecdotes",
+      "Demilitarize the Soviet Union",
+      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+      "Restore private property to peasants",
+      "Establish democratic elections",
     ],
-    correctText: "To acknowledge opposing views and then refute or qualify them, strengthening the author's credibility",
-    explanation: "A counterclaim is a deliberate acknowledgment of the opposing position. By naming it and then responding, a writer shows fairness and reasoning — increasing the persuasive weight of the original claim."
+    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
   },
   {
-    id: "ela-019",
-    topic: "Reading Informational: Main Idea + Argument",
-    prompt: "A student is evaluating two sources for a research paper on vaccine safety. Which source is most likely to be credible?",
+    id: "ghii-019",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
     choices: [
-      "An anonymous social-media post written last week",
-      "A peer-reviewed article in a medical journal, authored by physicians and citing clinical data",
-      "A celebrity podcast episode with no cited sources",
-      "A satirical newspaper column written for humor",
+      "Free press and competitive elections",
+      "A one-party state, suppression of dissent, and a personality cult around the leader",
+      "Decentralized economic decision-making",
+      "Voluntary collective decision-making by citizens' councils",
     ],
-    correctText: "A peer-reviewed article in a medical journal, authored by physicians and citing clinical data",
-    explanation: "Credibility hinges on author expertise, evidence, and editorial review. A peer-reviewed medical journal beats anonymous posts, uncited podcasts, and satire — each of which lacks one or more of those credibility markers."
+    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
+    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
   },
   {
-    id: "ela-020",
-    topic: "Reading Informational: Main Idea + Argument",
-    prompt: "Read this paragraph:\n\n'Critics argue that homework consumes time better spent on sleep, family, and play. They have a point — for elementary students, the research is mixed at best. But for high-school students, modest, focused homework remains one of the most reliable predictors of college readiness.'\n\nWhich sentence functions as the counterclaim?",
+    id: "ghii-020",
+    topic: "Unit 7: World War II",
+    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
     choices: [
-      "'Critics argue that homework consumes time better spent on sleep, family, and play.'",
-      "'But for high-school students, modest, focused homework remains one of the most reliable predictors of college readiness.'",
-      "'They have a point — for elementary students, the research is mixed at best.'",
-      "'Modest, focused homework predicts college readiness.'",
+      "France and Britain went to war with Hitler over Czechoslovakia.",
+      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+      "Hitler returned previously seized territory to Czechoslovakia.",
+      "The League of Nations sanctioned Germany for aggression.",
     ],
-    correctText: "'Critics argue that homework consumes time better spent on sleep, family, and play.'",
-    explanation: "The counterclaim is the opposing position the author acknowledges. The first sentence names what critics argue; the author then partially concedes and finally pivots back to the main claim about high-school students."
+    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
   },
   {
-    id: "ela-021",
-    topic: "Reading Informational: Text Structure",
-    prompt: "Read this paragraph:\n\n'When demand for cheap fast fashion soared in the 2000s, garment factories pushed wages lower and shortened production timelines. The result was a string of preventable disasters, most notoriously the 2013 Rana Plaza collapse, which killed more than 1,100 workers.'\n\nWhich text structure does this paragraph use?",
+    id: "ghii-021",
+    topic: "Unit 7: World War II",
+    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
     choices: [
-      "Chronological order",
-      "Cause and effect",
-      "Compare and contrast",
-      "Problem and solution",
+      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
+      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+      "The United States had declared war on Japan one week earlier.",
+      "Japan was honoring a defensive treaty with China.",
     ],
-    correctText: "Cause and effect",
-    explanation: "Cause-and-effect structures link an action (rising fast-fashion demand, lower wages, faster timelines) to a consequence (preventable disasters and Rana Plaza). Signal words like 'when' and 'the result was' confirm the structure."
+    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
   },
   {
-    id: "ela-022",
-    topic: "Reading Informational: Text Structure",
-    prompt: "Read this paragraph:\n\n'Public libraries and bookstores both connect readers to books, but the relationship differs sharply. A library lends; a bookstore sells. A library serves anyone with a card; a bookstore serves anyone with a wallet. One survives on tax dollars; the other on revenue.'\n\nThis paragraph is organized using:",
+    id: "ghii-022",
+    topic: "Unit 7: World War II",
+    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
     choices: [
-      "Chronological order",
-      "Compare and contrast",
-      "Problem and solution",
-      "Definition",
+      "100,000 people, primarily Polish soldiers",
+      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+      "Only Jewish residents of Germany",
+      "Twelve million ethnic Germans",
     ],
-    correctText: "Compare and contrast",
-    explanation: "Compare-and-contrast structures present similarities and differences in parallel. The repeated 'A library X; a bookstore Y' construction is a classic point-by-point contrast pattern."
+    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
   },
   {
-    id: "ela-023",
-    topic: "Reading Informational: Text Structure",
-    prompt: "Read this paragraph:\n\n'Urban heat islands raise summer temperatures, drive up energy use, and worsen air quality. Cities can blunt these effects by planting tree canopy along major streets, requiring cool-roof coatings on new construction, and converting unused lots into pocket parks.'\n\nThis paragraph uses which structure?",
+    id: "ghii-023",
+    topic: "Unit 7: World War II",
+    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
     choices: [
-      "Compare and contrast",
-      "Chronological order",
-      "Problem and solution",
-      "Spatial description",
+      "A test of the new weapon under combat conditions",
+      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+      "Retaliation for the Holocaust in Europe",
+      "A response to a Japanese atomic weapons program",
     ],
-    correctText: "Problem and solution",
-    explanation: "Problem-and-solution structures first define an issue, then propose responses. The paragraph defines the urban-heat-island problem in sentence one and lists three concrete solutions in sentence two."
+    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
   },
   {
-    id: "ela-024",
-    topic: "Reading Informational: Text Structure",
-    prompt: "A textbook chapter on the Industrial Revolution organizes its content as: '1769 — Watt's improved steam engine; 1793 — cotton gin; 1825 — first public passenger railway; 1869 — completion of the U.S. transcontinental railroad.' This is an example of which text structure?",
+    id: "ghii-024",
+    topic: "Unit 8: Cold War",
+    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
     choices: [
-      "Cause and effect",
-      "Definition",
-      "Chronological order",
-      "Spatial order",
+      "Returning to isolationism",
+      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+      "Direct military conquest of the Soviet Union",
+      "Sharing nuclear technology with all U.S. allies",
     ],
-    correctText: "Chronological order",
-    explanation: "Chronological organization arranges events by time. The listed inventions and milestones move from 1769 to 1869 in sequence — the defining feature of chronological structure."
+    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
   },
   {
-    id: "ela-025",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: "Read this short passage:\n\n'Skipping breakfast is not a neutral choice. Decades of nutrition research show that students who eat a balanced morning meal score higher on standardized tests, miss fewer school days, and report better focus by mid-morning. If we want our children to learn, we must feed them first.'\n\nThe author's primary purpose is to:",
+    id: "ghii-025",
+    topic: "Unit 8: Cold War",
+    prompt: "Which Cold War event came closest to triggering nuclear war?",
     choices: [
-      "Entertain the reader with a humorous anecdote",
-      "Persuade the reader that schools and families should prioritize breakfast",
-      "Describe how cereal is manufactured",
-      "Inform the reader about the history of breakfast foods",
+      "The 1948 Berlin Blockade",
+      "The 1962 Cuban Missile Crisis",
+      "The 1953 Korean armistice",
+      "The 1957 Sputnik launch",
     ],
-    correctText: "Persuade the reader that schools and families should prioritize breakfast",
-    explanation: "Author's purpose is generally to inform, persuade, or entertain. The directive call ('we must feed them first') paired with research-as-support marks this as persuasive writing rather than neutral information."
+    correctText: "The 1962 Cuban Missile Crisis",
+    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
   },
   {
-    id: "ela-026",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: "A speaker says: 'As a registered nurse who has worked in pediatric emergency rooms for twenty years, I have seen what happens when families ignore vaccination guidelines.' Which rhetorical appeal is the speaker primarily using?",
+    id: "ghii-026",
+    topic: "Unit 8: Cold War",
+    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
     choices: [
-      "Pathos (appeal to emotion)",
-      "Ethos (appeal to credibility)",
-      "Logos (appeal to logic)",
-      "Kairos (appeal to timing)",
+      "Promote free trade across Europe",
+      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+      "Coordinate scientific space programs",
+      "Govern post-war reconstruction in Asia",
     ],
-    correctText: "Ethos (appeal to credibility)",
-    explanation: "Ethos establishes the speaker's authority. Naming a relevant professional background ('registered nurse... twenty years') is a textbook ethos move — building trust before making a claim."
+    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
   },
   {
-    id: "ela-027",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: "A campaign ad shows a worried child looking out a window while a voiceover says, 'Imagine her growing up in a world we did nothing to protect.' Which rhetorical appeal is the ad primarily using?",
+    id: "ghii-027",
+    topic: "Unit 8: Cold War",
+    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
     choices: [
-      "Logos (appeal to logic)",
-      "Ethos (appeal to credibility)",
-      "Pathos (appeal to emotion)",
-      "Anaphora (repetition for effect)",
+      "The U.S. sought to annex Vietnam as a territory.",
+      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+      "The Vietnamese government formally requested annexation.",
+      "Vietnam had attacked the United States directly in 1960.",
     ],
-    correctText: "Pathos (appeal to emotion)",
-    explanation: "Pathos targets the audience's feelings. A worried child plus a future-tense imperative ('imagine her growing up') is designed to evoke parental fear and protectiveness, not data or speaker credentials."
+    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
   },
   {
-    id: "ela-028",
-    topic: "Reading Informational: Author's Purpose",
-    prompt: "Which propaganda technique is being used in this campaign slogan: 'Everyone in town is voting yes on Proposition 4 — don't be left behind'?",
+    id: "ghii-028",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
     choices: [
-      "Bandwagon",
-      "Testimonial",
-      "Glittering generalities",
-      "Plain folks",
+      "Through armed military rebellion against British troops",
+      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+      "By accepting all British demands without protest",
+      "By forming a violent partnership with Japan during WWII",
     ],
-    correctText: "Bandwagon",
-    explanation: "Bandwagon urges agreement because 'everyone' is doing it, fueling fear of being left out. The slogan explicitly invokes the crowd ('Everyone in town') rather than offering a celebrity (testimonial) or vague positive terms (glittering generalities)."
+    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
   },
   {
-    id: "ela-029",
-    topic: "Writing + Language: Grammar + Usage",
-    prompt: "Which sentence demonstrates correct subject-verb agreement?",
+    id: "ghii-029",
+    topic: "Unit 9: Decolonization",
+    prompt: "What was the immediate result of the 1947 Partition of British India?",
     choices: [
-      "Each of the players have a locker assigned for the season.",
-      "Each of the players has a locker assigned for the season.",
-      "Each of the players are having a locker assigned for the season.",
-      "Each of the players were having a locker assigned for the season.",
+      "India and Pakistan formed a single unified democracy.",
+      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+      "India remained a British colony until 1960.",
+      "The partition created peace across South Asia.",
     ],
-    correctText: "Each of the players has a locker assigned for the season.",
-    explanation: "The subject is 'Each,' which is singular, not the plural object of the preposition ('players'). A singular subject takes a singular verb: 'has,' not 'have' or 'are.'"
+    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
   },
   {
-    id: "ela-030",
-    topic: "Writing + Language: Grammar + Usage",
-    prompt: "Which sentence uses correct pronoun-antecedent agreement?",
+    id: "ghii-030",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
     choices: [
-      "Every student should bring their own pencil to the exam.",
-      "Every student should bring his or her own pencil to the exam.",
-      "Every student should bring its own pencil to the exam.",
-      "Every student should brings their own pencil to the exam.",
+      "He led a foreign army that invaded South Africa.",
+      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+      "He restored a system of racial segregation under a new name.",
+      "He oversaw the colonization of South Africa by a European power.",
     ],
-    correctText: "Every student should bring his or her own pencil to the exam.",
-    explanation: "Formal Regents-style usage treats 'every student' as singular and pairs it with a singular pronoun ('his or her'). Singular 'they' is increasingly accepted in modern usage, but the most consistently correct formal-register option here is 'his or her.'"
+    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
   },
   {
-    id: "ela-031",
-    topic: "Writing + Language: Grammar + Usage",
-    prompt: "Which sentence demonstrates correct parallel structure?",
+    id: "ghii-031",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "What is the European Union (EU)?",
     choices: [
-      "On weekends, Mira enjoys hiking, swimming, and to read mystery novels.",
-      "On weekends, Mira enjoys hiking, swimming, and reading mystery novels.",
-      "On weekends, Mira enjoys to hike, swimming, and reading mystery novels.",
-      "On weekends, Mira enjoys hiked, swimming, and to read mystery novels.",
+      "A military alliance to replace NATO",
+      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+      "An international religious organization",
+      "A short-lived 19th-century trade league",
     ],
-    correctText: "On weekends, Mira enjoys hiking, swimming, and reading mystery novels.",
-    explanation: "Parallel structure requires items in a list to share the same grammatical form. Three gerunds — hiking, swimming, reading — are parallel. Mixing infinitives ('to read') breaks parallelism."
+    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
   },
   {
-    id: "ela-032",
-    topic: "Writing + Language: Grammar + Usage",
-    prompt: "Which sentence avoids a misplaced modifier?",
+    id: "ghii-032",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
     choices: [
-      "Running across the field, the soccer ball was kicked by Jordan.",
-      "Running across the field, Jordan kicked the soccer ball.",
-      "The soccer ball was kicked by Jordan running across the field, which was wet.",
-      "Across the field, the running soccer ball was kicked Jordan.",
+      "It granted multi-party democracy.",
+      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+      "It abolished the Communist Party.",
+      "It allowed the protests to continue indefinitely.",
     ],
-    correctText: "Running across the field, Jordan kicked the soccer ball.",
-    explanation: "The introductory participial phrase 'Running across the field' must modify the noun that immediately follows. Only the second option places Jordan — the actual runner — in that position; the first attaches the action to the ball."
+    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
   },
   {
-    id: "ela-033",
-    topic: "Writing + Language: Grammar + Usage",
-    prompt: "Which option is a complete sentence (neither a fragment nor a run-on)?",
+    id: "ghii-033",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
     choices: [
-      "Because the rain finally stopped after three days.",
-      "The rain finally stopped after three days, and the soccer game was rescheduled.",
-      "The rain finally stopped after three days the soccer game was rescheduled.",
-      "Finally stopping, after three days of rain.",
+      "French colonial troops",
+      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+      "United Nations peacekeepers",
+      "American military forces",
     ],
-    correctText: "The rain finally stopped after three days, and the soccer game was rescheduled.",
-    explanation: "A complete sentence needs at least one independent clause. The correct answer joins two independent clauses with a comma plus the coordinating conjunction 'and.' The other options are a fragment, a run-on (comma splice / fused), and another fragment."
+    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
   },
   {
-    id: "ela-034",
-    topic: "Writing + Language: Mechanics + Conventions",
-    prompt: "Which sentence uses commas correctly?",
+    id: "ghii-034",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "Which statement best describes the scientific consensus on climate change?",
     choices: [
-      "Before the concert, we ate sandwiches at the deli on Main Street.",
-      "Before the concert we ate, sandwiches at the deli on Main Street.",
-      "Before the concert we, ate sandwiches at the deli on Main Street.",
-      "Before, the concert we ate sandwiches, at the deli on Main Street.",
+      "Earth's climate has not changed in recorded history.",
+      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+      "Climate change affects only the polar regions.",
+      "Climate change is caused exclusively by natural solar cycles.",
     ],
-    correctText: "Before the concert, we ate sandwiches at the deli on Main Street.",
-    explanation: "An introductory prepositional phrase of four or more words takes a comma before the main clause. Only the first option places the comma in that correct position; the others split subject from verb or chop the sentence randomly."
+    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
   },
   {
-    id: "ela-035",
-    topic: "Writing + Language: Mechanics + Conventions",
-    prompt: "Which sentence uses the semicolon correctly?",
+    id: "ghii-035",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
     choices: [
-      "We packed sandwiches, water; and a first-aid kit.",
-      "Snow fell all night; by morning the road was impassable.",
-      "Because it snowed all night; the road was impassable.",
-      "Snow fell; all night; by morning; the road was impassable.",
+      "Tokugawa daimyo system and South African apartheid",
+      "The printing press and the steam engine",
+      "Monsoon winds and the Nile River",
+      "Pasta and pizza",
     ],
-    correctText: "Snow fell all night; by morning the road was impassable.",
-    explanation: "A semicolon links two closely related independent clauses without a conjunction. Only the second option joins two complete sentences in that way; the others use the semicolon mid-list, after a fragment, or scattered randomly."
+    correctText: "Tokugawa daimyo system and South African apartheid",
+    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
   },
   {
-    id: "ela-036",
-    topic: "Writing + Language: Mechanics + Conventions",
-    prompt: "Which sentence uses the apostrophe correctly?",
+    id: "ghii-036",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
     choices: [
-      "The dog's water bowl needs to be refilled.",
-      "The dogs' is hungry again.",
-      "The dog's are barking at the mail carrier.",
-      "The dog water bowl' needs to be refilled.",
+      "Gutenberg's printing press and the Industrial Revolution's steam engine",
+      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
+      "Confucian filial piety and feudal serfdom",
+      "The Treaty of Westphalia and the Truman Doctrine",
     ],
-    correctText: "The dog's water bowl needs to be refilled.",
-    explanation: "An apostrophe + s shows singular possession ('the dog's bowl' = the bowl belonging to the dog). The other options misuse the apostrophe for plurals or place it in nonsensical positions."
+    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
+    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
   },
   {
-    id: "ela-037",
-    topic: "Writing + Language: Mechanics + Conventions",
-    prompt: "Which sentence correctly punctuates dialogue?",
+    id: "ghii-037",
+    topic: "Enduring Issues",
+    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
     choices: [
-      "\"Don't forget the umbrella,\" said Mom as the clouds gathered.",
-      "\"Don't forget the umbrella\" said Mom, as the clouds gathered.",
-      "Don't forget the umbrella, \"said Mom as the clouds gathered.\"",
-      "\"Don't forget the umbrella.\" said Mom, as the clouds gathered.",
+      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+      "The Code of Hammurabi and the Treaty of Versailles",
+      "The Edict of Nantes and the Smoot-Hawley Tariff",
+      "The Edict of Worms and the Cuban Missile Crisis briefings",
     ],
-    correctText: "\"Don't forget the umbrella,\" said Mom as the clouds gathered.",
-    explanation: "Standard dialogue punctuation places the comma inside the closing quotation mark when a speaker tag follows. The first option uses that comma-inside, dialogue-tag pattern correctly; the others misplace or omit the punctuation."
+    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
   },
   {
-    id: "ela-038",
-    topic: "Vocabulary in Context",
-    prompt: "Read this sentence:\n\n'Although the new principal was famously brusque in meetings, the staff quickly learned that she could be unexpectedly kind in one-on-one conversations.'\n\nAs used in the sentence, the word 'brusque' most nearly means:",
+    id: "ghii-038",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
     choices: [
-      "Generous and welcoming",
-      "Abrupt and curt in manner",
-      "Quiet and thoughtful",
-      "Confused and uncertain",
+      "Ancient African kingdoms and ethnic boundaries",
+      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+      "Geographic features like rivers and mountains",
+      "Borders established by the Ottoman Empire",
     ],
-    correctText: "Abrupt and curt in manner",
-    explanation: "Context clues — the contrast signaled by 'Although' and the surprise of being 'unexpectedly kind' one-on-one — show that 'brusque' must mean the opposite of warm and patient. 'Abrupt and curt' fits that contrast."
+    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
   },
   {
-    id: "ela-039",
-    topic: "Vocabulary in Context",
-    prompt: "Read this sentence:\n\n'The committee's recommendation was so innocuous that even the most argumentative board members had nothing to object to.'\n\nAs used in the sentence, 'innocuous' most nearly means:",
+    id: "ghii-039",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
     choices: [
-      "Harmful and provocative",
-      "Mysterious and complicated",
-      "Harmless and inoffensive",
-      "Expensive and risky",
+      "Confucian philosophy",
+      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+      "Medieval feudal contracts",
+      "Mercantilist economic theory",
     ],
-    correctText: "Harmless and inoffensive",
-    explanation: "The clue is that 'even the most argumentative' members had nothing to object to. A recommendation that draws no objections is harmless and bland — the meaning of 'innocuous.'"
+    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
   },
   {
-    id: "ela-040",
-    topic: "Vocabulary in Context",
-    prompt: "Read this sentence:\n\n'After three months of practice, Marcus's once tentative cello playing had grown confident and resonant.'\n\nAs used in the sentence, the word 'tentative' most nearly means:",
+    id: "ghii-040",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "Which sequence of 20th-century events is in correct chronological order?",
     choices: [
-      "Bold and decisive",
-      "Loud and showy",
-      "Hesitant and uncertain",
-      "Skilled and polished",
+      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
+      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
+      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
     ],
-    correctText: "Hesitant and uncertain",
-    explanation: "The contrast with 'confident and resonant' after practice tells us 'tentative' must describe the opposite — uncertainty before improvement. 'Hesitant and uncertain' is the precise opposite of confident playing."
+    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
 
-// Derive the correctIdx for each question from its correctText, so the runtime
-// can identify the correct choice after the choices array is shuffled.
-QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
-
-const STORAGE_KEY = "regents-ela-practice-exam-state-v1";
+const STORAGE_KEY = "ap-csa-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2171,13 +2167,14 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">Regents Practice · 40 Items</div>
+      <div class="exam-topic">AP CS A Practice · 40 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions modeled on the NYS ELA Regents — reading literature,
-        reading informational text, writing/language conventions, and vocabulary in context. Each question
-        gives instant feedback with a short explanation. At the end, you'll see your overall score plus a
-        per-topic mastery breakdown so you know exactly where to focus your review for the June Regents.
+        You'll see 40 multiple-choice questions drawn from all 10 units of the AP Computer Science A curriculum —
+        Java primitive types, using objects, Boolean expressions, iteration, writing classes, arrays, ArrayList,
+        2D arrays, inheritance, and recursion. Many items include short Java code traces. Each question gives
+        instant feedback with a short explanation. At the end, you'll see your overall score plus a per-topic
+        mastery breakdown so you know exactly where to focus your review for the May AP exam.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2314,13 +2311,13 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · NYS ELA</div>
+      <div class="results-eyebrow">Practice Exam Complete · AP Computer Science A</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
+          ? "Strong work — you're tracking toward a 4 or 5 on the AP exam. The breakdown below shows where to push higher."
           : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
       </p>
 
@@ -2400,7 +2397,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/regents-ela/ → root index.html
+  // Walk up the path: games/ap-csa-practice/ → root index.html
   window.location.href = "../../index.html";
 }
 

@@ -2052,6 +2052,7 @@ const QUESTIONS = [
     explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
+  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
 const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
