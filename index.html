@@ -10419,73 +10419,81 @@ function uniq(values) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 }
 
+// Canonical sort order — only courses with an MCQ exam (NYS Regents, NYS
+// Grade 3-8 state test, or AP MCQ exam). See ARCADE_FORMAT_SPEC.md §1.
+// Order: Social Studies → ELA → Math → Science (grade-ascending within each).
 const BASE_COURSE_ORDER = [
+  // Grade 5-8 Social Studies + Grade 8 NYS Social Studies investigation
   "Grade 5 Social Studies",
   "Grade 6 Social Studies",
   "Grade 7 U.S. History I",
   "Grade 8 U.S. History II",
+  // HS Social Studies Regents
   "Grade 9 Global History I",
   "Grade 10 Global History II",
   "Grade 11 U.S. History",
+  // Grade 5-8 ELA
   "Grade 5 ELA",
   "Grade 6 ELA",
   "Grade 7 ELA",
   "Grade 8 ELA",
-  "English 9",
-  "English 10",
-  "English 11",
-  "English 12",
-  "Grade 5 Mathematics",
-  "Grade 6 Mathematics",
-  "Grade 7 Mathematics",
-  "Grade 8 Mathematics",
+  // HS ELA Regents
+  "Grade 9 ELA",
+  "Grade 10 ELA",
+  "Grade 11 ELA",
+  "Grade 12 ELA",
+  // Grade 5-8 Math
+  "Grade 5 Math",
+  "Grade 6 Math",
+  "Grade 7 Math",
+  "Grade 8 Math",
+  // HS Math Regents + PreCalc
   "Algebra I",
   "Geometry",
   "Algebra II",
-  "Precalculus",
-  "Calculus",
-  "Statistics and Data Science",
+  "PreCalculus",
+  // Grade 5-8 Science + HS Science Regents
   "Grade 5 Science",
   "Grade 6 Science",
   "Grade 7 Science",
   "Grade 8 Science",
   "Earth and Space Sciences",
-  "Life Science: Biology",
+  "Living Environment",
   "Chemistry",
-  "Physics",
-  "Environmental Science",
-  "Economics",
-  "Civics and Participation in Government",
-  "Personal Finance",
-  "Media Literacy and Digital Citizenship",
-  "World Languages Checkpoint A",
-  "World Languages Checkpoint B",
-  "World Languages Checkpoint C",
-  "Career Development and Occupational Studies",
-  "Technology Education",
-  "Family and Consumer Sciences",
-  "Middle School Computer Science and Digital Fluency",
-  "High School Computer Science and Digital Fluency",
-  "Middle School Health",
-  "High School Health",
-  "Middle School Physical Education",
-  "High School Physical Education",
-  "Middle School Visual Arts",
-  "High School Visual Arts",
-  "Media Arts",
-  "Middle School Music",
-  "High School Music",
-  "Dance",
-  "Theater"
+  "Physics"
+  // AP courses follow alphabetically after these via courseSortKey
 ];
 const COURSE_LABEL_ALIASES = {
+  // Normalize older / variant labels to canonical
   "AP United States Government and Politics": "AP U.S. Government and Politics",
   "Global History 9 (Ancient–Medieval)": "Grade 9 Global History I",
   "Global History 10 (Cold War–Modern)": "Grade 10 Global History II",
   "Grade 7 US History": "Grade 7 U.S. History I",
   "Grade 8 US History": "Grade 8 U.S. History II",
-  "US Government & Civics": "Civics and Participation in Government",
-  "US History (Cold War-Modern)": "Grade 11 U.S. History"
+  "US History (Cold War-Modern)": "Grade 11 U.S. History",
+  // ELA naming uniformity (Grade 7/8 historically used "English Language Arts")
+  "Grade 7 English Language Arts": "Grade 7 ELA",
+  "Grade 8 English Language Arts": "Grade 8 ELA",
+  // Math naming uniformity (older "Mathematics" → "Math")
+  "Grade 5 Mathematics": "Grade 5 Math",
+  "Grade 6 Mathematics": "Grade 6 Math",
+  "Grade 7 Mathematics": "Grade 7 Math",
+  "Grade 8 Mathematics": "Grade 8 Math",
+  // ELA: legacy "English 9-12" → "Grade N ELA"
+  "English 9": "Grade 9 ELA",
+  "English 10": "Grade 10 ELA",
+  "English 11": "Grade 11 ELA",
+  "English 12": "Grade 12 ELA",
+  // Bio: NYS Regents name
+  "Life Science: Biology": "Living Environment",
+  // Precalc naming
+  "Precalculus": "PreCalculus",
+  "AP Precalculus": "PreCalculus",
+  // Physics naming
+  "AP Physics 1: Algebra-Based": "AP Physics 1",
+  "AP Physics 2: Algebra-Based": "AP Physics 2",
+  "AP Physics C: Mechanics": "AP Physics C Mechanics",
+  "AP Physics C: Electricity and Magnetism": "AP Physics C E&M"
 };
 function displayCourseLabel(course) {
   const value = String(course || "").trim();
