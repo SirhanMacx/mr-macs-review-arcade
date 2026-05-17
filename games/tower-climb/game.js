@@ -1190,7 +1190,11 @@
   // -- Scholar question modal ------------------------------------------------
   function openQuestion(tome) {
     pendingScholarTome = tome;
-    activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 10× for a valid inline question
+    activeQuestion = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () { return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]; }, 10)
+      : null;
+    if (!activeQuestion) activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
     sfx.scholarGrab();
     state.score += 0; // grant base via correct/skip handler
     prevPhase = phase;

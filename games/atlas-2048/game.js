@@ -1724,13 +1724,19 @@
   function openQuestion() {
     // _MMRM_PATCHED_ — review-mix resurfaces wrong-answer queue
 
+    // MRMAC_QUESTION_VALIDATOR_V1 — validate every candidate; retry up to 10× via inline bank
+    var __mrmacIsValid = (typeof window !== "undefined" && window.MrMacsValidQuestion) || function () { return true; };
+    activeQuestion = null;
     try {
-
       var __mmrm = window.MrMacsReviewMix && window.MrMacsReviewMix.maybeDue();
-
-      if (__mmrm) { activeQuestion = __mmrm; } else { activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]; }
-
-    } catch (__e) { activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]; }
+      if (__mmrm && __mrmacIsValid(__mmrm)) activeQuestion = __mmrm;
+    } catch (__e) {}
+    if (!activeQuestion && window.MrMacsPickValidQuestion) {
+      activeQuestion = window.MrMacsPickValidQuestion(function () {
+        return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+      }, 10);
+    }
+    if (!activeQuestion) activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
     prevPhase = phase;
     phase = "question";
     renderQuestion();

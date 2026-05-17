@@ -293,6 +293,7 @@
     </section>
   </main>
   <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script> <!-- MRMAC_QUESTION_VALIDATOR_V1 -->
   <script src="../../assets/document-viewer.js?v=20260516-generated-practice-pages"></script>
   <script>
     const params = new URLSearchParams(location.search);
@@ -364,7 +365,10 @@
         if (requestedUnit && q.topic !== requestedUnit) return;
         if (!wanted.find((item) => item.id === q.id)) wanted.push(q);
       });
-      return wanted.slice(0, count).map((q, index) => Object.assign({
+      // MRMAC_QUESTION_VALIDATOR_V1 — defense-in-depth: drop any broken/template-leaked items
+      const isValid = (typeof window !== "undefined" && window.MrMacsValidQuestion) || (() => true);
+      const clean = wanted.filter(isValid);
+      return clean.slice(0, count).map((q, index) => Object.assign({
         examIndex: index,
         examUnit: q.examUnit || q.topic || q.set || "Course Review"
       }, q));

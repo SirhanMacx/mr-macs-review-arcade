@@ -1842,6 +1842,17 @@
   var activeQuestion = null;
 
   function pickQuestion() {
+    // MRMAC_QUESTION_VALIDATOR_V1 — INLINE_BANK uses {q,choices,correct:idx} shape
+    // (not prompt/correctText). Retry 5× to skip any obviously-broken entries.
+    for (var i = 0; i < 5; i++) {
+      var q = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+      if (q && q.q && typeof q.q === "string" && q.q.length >= 8
+          && Array.isArray(q.choices) && q.choices.length >= 2
+          && typeof q.correct === "number"
+          && q.choices[q.correct]
+          && typeof q.choices[q.correct] === "string"
+          && q.choices[q.correct].trim().length >= 1) return q;
+    }
     return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
   }
 

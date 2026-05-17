@@ -1431,20 +1431,30 @@
       if (__mmrm) return __mmrm;
     } catch (e) {}
 
-    try {
-      var bank = window.DIAG_BANK_BY_COURSE;
-      if (bank && typeof bank === "object") {
-        var pool = [];
-        for (var c in bank) {
-          if (Array.isArray(bank[c])) pool = pool.concat(bank[c]);
-        }
-        if (pool.length) {
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 15× for a valid bank question
+    var __mrmacBank = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () {
+          var bank = window.DIAG_BANK_BY_COURSE;
+          if (!bank || typeof bank !== "object") return null;
+          var pool = [];
+          for (var c in bank) {
+            if (Array.isArray(bank[c])) pool = pool.concat(bank[c]);
+          }
+          if (!pool.length) return null;
           var q = pool[Math.floor(Math.random() * pool.length)];
-          var norm = normalizeBankQuestion(q);
-          if (norm) return norm;
-        }
-      }
-    } catch (e) {}
+          return normalizeBankQuestion(q);
+        }, 15)
+      : null;
+    if (__mrmacBank) return __mrmacBank;
+    // Inline-bank fallback — validate before returning so a malformed inline
+    // question can't slip through either. If everything is broken, return the
+    // first inline question as a last resort (game stays playable).
+    var __mrmacInline = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () {
+          return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+        }, 10)
+      : null;
+    if (__mrmacInline) return __mrmacInline;
     return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
   }
   function normalizeBankQuestion(q) {

@@ -1581,21 +1581,22 @@
       if (__mmrm) return __mmrm;
     } catch (e) {}
 
-    // Try DIAG_BANK_BY_COURSE if available (external bank loaded by host page)
-    try {
-      var bank = window.DIAG_BANK_BY_COURSE;
-      if (bank && typeof bank === "object") {
-        var pool = [];
-        for (var c in bank) {
-          if (Array.isArray(bank[c])) pool = pool.concat(bank[c]);
-        }
-        if (pool.length) {
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 15× for a valid bank question
+    var __mrmacIsValid = (typeof window !== "undefined" && window.MrMacsValidQuestion) || function () { return true; };
+    var __mrmacBank = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () {
+          var bank = window.DIAG_BANK_BY_COURSE;
+          if (!bank || typeof bank !== "object") return null;
+          var pool = [];
+          for (var c in bank) {
+            if (Array.isArray(bank[c])) pool = pool.concat(bank[c]);
+          }
+          if (!pool.length) return null;
           var q = pool[Math.floor(Math.random() * pool.length)];
-          var norm = normalizeBankQuestion(q);
-          if (norm) return norm;
-        }
-      }
-    } catch (e) {}
+          return normalizeBankQuestion(q);
+        }, 15)
+      : null;
+    if (__mrmacBank) return __mrmacBank;
 
     // Inline bank — prefer era-matching questions, fall back to whole pool.
     // Skip prompts we've already shown this session unless we've burned through
@@ -1605,18 +1606,20 @@
       : [];
     var basePool = (eraMatches.length >= 3) ? eraMatches : INLINE_BANK;
 
-    // Filter out previously-shown prompts
-    var freshPool = basePool.filter(function (q) { return !shownPrompts[q.prompt]; });
+    // Filter out previously-shown prompts AND invalid ones
+    var freshPool = basePool.filter(function (q) { return !shownPrompts[q.prompt] && __mrmacIsValid(q); });
 
     // If era pool exhausted but global has fresh ones, expand
     if (!freshPool.length && basePool !== INLINE_BANK) {
-      freshPool = INLINE_BANK.filter(function (q) { return !shownPrompts[q.prompt]; });
+      freshPool = INLINE_BANK.filter(function (q) { return !shownPrompts[q.prompt] && __mrmacIsValid(q); });
     }
-    // If absolutely everything has been shown, reset and start over (still pick fresh)
+    // If absolutely everything has been shown, reset and start over (still pick fresh+valid)
     if (!freshPool.length) {
       shownPrompts = Object.create(null);
-      freshPool = basePool.length ? basePool : INLINE_BANK;
+      freshPool = (basePool.length ? basePool : INLINE_BANK).filter(__mrmacIsValid);
     }
+    // Last resort: don't return null — pick anything from the inline bank.
+    if (!freshPool.length) freshPool = INLINE_BANK;
 
     var picked = freshPool[Math.floor(Math.random() * freshPool.length)];
     if (picked) shownPrompts[picked.prompt] = true;

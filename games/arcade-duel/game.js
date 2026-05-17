@@ -589,11 +589,49 @@ function startQuestion(move) {
 }
 
 function pickQuestion() {
+  // MRMAC_QUESTION_VALIDATOR_V1 — skip malformed duel items (own shape: stem/choices/correct)
   const m = G.run;
-  if (m.itemCursor >= m.items.length) return null;
-  const q = m.items[m.itemCursor];
-  m.itemCursor++;
-  return q;
+  const TEMPLATE_NEEDLES = [
+    "Specific evidence that proves a claim",
+    "ignoring the source or data in the prompt",
+    "describing a topic without explaining why it matters",
+    "choosing an answer because it uses familiar words",
+    "In an AP CED-aligned exam task",
+    "In a NYS Framework-aligned exam task",
+    "which concept is the best anchor for a NYS standards-aligned",
+    "best avoids a common mistake about",
+    "named anchor for this",
+    "is a core idea in",
+    "Synthesis response linking",
+    "Foundational idea students identify",
+  ];
+  function isValidDuelQ(q) {
+    if (!q || typeof q !== "object") return false;
+    if (!q.stem || typeof q.stem !== "string" || q.stem.length < 8) return false;
+    if (!Array.isArray(q.choices) || q.choices.length < 2 || q.choices.length > 6) return false;
+    if (!q.correct) return false;
+    let blob = q.stem + " " + String(q.correct);
+    for (let ci = 0; ci < q.choices.length; ci++) {
+      const c = q.choices[ci];
+      if (!c || typeof c !== "object" || !c.label || !c.text || String(c.text).trim().length < 1) return false;
+      blob += " " + c.text;
+    }
+    // Correct label must match one of the choice labels
+    if (!q.choices.some((c) => c.label === q.correct)) return false;
+    for (let ni = 0; ni < TEMPLATE_NEEDLES.length; ni++) {
+      if (blob.indexOf(TEMPLATE_NEEDLES[ni]) !== -1) return false;
+    }
+    return true;
+  }
+  // Skip up to 10 malformed items before giving up.
+  let tries = 0;
+  while (m.itemCursor < m.items.length && tries < 10) {
+    const q = m.items[m.itemCursor];
+    m.itemCursor++;
+    if (isValidDuelQ(q)) return q;
+    tries++;
+  }
+  return null;
 }
 
 function renderQuestionCard(q) {

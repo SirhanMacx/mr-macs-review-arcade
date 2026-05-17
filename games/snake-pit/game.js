@@ -2400,6 +2400,8 @@
       if (__mmrm) return __mmrm;
     } catch (e) {}
 
+    // MRMAC_QUESTION_VALIDATOR_V1 — validate every candidate before returning
+    var __mrmacIsValid = (typeof window !== "undefined" && window.MrMacsValidQuestion) || function () { return true; };
     var pool = SNAKE_PIT_REVIEW_BANK.slice();
     try {
       var bank = window.DIAG_BANK_BY_COURSE;
@@ -2414,14 +2416,23 @@
     for (var i = 0; i < tries; i++) {
       var q = pool[Math.floor(Math.random() * pool.length)];
       var norm = normalizeBankQuestion(q);
-      if (!norm) continue;
+      if (!norm || !__mrmacIsValid(norm)) continue;
       var key = questionKey(norm);
       if (!questionSeenSet[key] || questionSeen.length > Math.max(80, Math.floor(pool.length * 0.7))) {
         markQuestionSeen(key);
         return norm;
       }
     }
-    var fallback = normalizeBankQuestion(pool[Math.floor(Math.random() * pool.length)]) || INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    // Fallback: search the whole pool for ANY valid question before giving up.
+    for (var fi = 0; fi < pool.length; fi++) {
+      var fnorm = normalizeBankQuestion(pool[fi]);
+      if (fnorm && __mrmacIsValid(fnorm)) {
+        markQuestionSeen(questionKey(fnorm));
+        return fnorm;
+      }
+    }
+    // Absolute last resort — return an inline question (game stays playable).
+    var fallback = normalizeBankQuestion(INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]) || INLINE_BANK[0];
     markQuestionSeen(questionKey(fallback));
     return fallback;
   }

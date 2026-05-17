@@ -1559,7 +1559,11 @@
   var activeQuestion = null;
   function openScholarQuestion() {
     if (phase === "question" || phase === "ended") return;
-    var q = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 10× for a valid inline question
+    var q = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () { return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]; }, 10)
+      : null;
+    if (!q) q = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
     if (!q) return;
     activeQuestion = q;
     state.questionsAnsweredTotal += 1;

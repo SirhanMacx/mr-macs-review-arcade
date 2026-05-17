@@ -1589,17 +1589,24 @@
 
   // -- Scholar review --------------------------------------------------------
   function pickQuestion() {
-    // Use INLINE_BANK first; fall back to MrMacsQuestionBank if available.
-    if (INLINE_BANK && INLINE_BANK.length) {
-      var q = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 10× for a valid inline question
+    if (!INLINE_BANK || !INLINE_BANK.length) return null;
+    function buildShape(raw) {
       return {
-        prompt: q.prompt,
-        choices: q.choices.slice(),
-        correctText: q.correctText,
-        hint: q.hint
+        prompt: raw.prompt,
+        choices: raw.choices.slice(),
+        correctText: raw.correctText,
+        hint: raw.hint
       };
     }
-    return null;
+    var picked = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () {
+          return buildShape(INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]);
+        }, 10)
+      : null;
+    if (picked) return picked;
+    var q = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    return buildShape(q);
   }
 
   function openScholarQuestion(a, b) {

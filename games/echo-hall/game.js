@@ -858,7 +858,11 @@
     }
     prevPhase = phase;
     phase = "question";
-    activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
+    // MRMAC_QUESTION_VALIDATOR_V1 — retry up to 10× for a valid inline question
+    activeQuestion = (typeof window !== "undefined" && window.MrMacsPickValidQuestion)
+      ? window.MrMacsPickValidQuestion(function () { return INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)]; }, 10)
+      : null;
+    if (!activeQuestion) activeQuestion = INLINE_BANK[Math.floor(Math.random() * INLINE_BANK.length)];
     var choices = activeQuestion.choices.slice();
     // Shuffle answer choices for variety
     for (var i = choices.length - 1; i > 0; i--) {
