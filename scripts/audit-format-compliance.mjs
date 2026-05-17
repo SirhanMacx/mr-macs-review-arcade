@@ -71,7 +71,12 @@ const FORBIDDEN_LABELS = new Set([
   "High School Computer Science and Digital Fluency",
   "Middle School Computer Science and Digital Fluency",
   "World Languages Checkpoint A", "World Languages Checkpoint B",
-  "World Languages Checkpoint C"
+  "World Languages Checkpoint C",
+  // NYS HS graduation requirements without a standardized exam
+  "Civics and Participation in Government",
+  "Economics",
+  // Redundant — superseded by separate AP Macroeconomics + AP Microeconomics
+  "AP Macro/Micro Combined"
 ]);
 
 const ALLOWED_GAME_TYPES = new Set(["Jeopardy", "Practice Exam", "Arcade"]);
