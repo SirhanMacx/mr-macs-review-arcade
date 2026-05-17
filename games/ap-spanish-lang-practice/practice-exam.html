@@ -2069,6 +2069,7 @@ const QUESTIONS = [
   },
 ];
 
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 /* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF helpers === */
 function buildPrintableExam() {
   var section = document.getElementById('printableExam');
@@ -2102,7 +2103,6 @@ function downloadPDF() {
   try { window.print(); } catch (e) { console.error('window.print failed', e); }
 }
 
-  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
 const STORAGE_KEY = "ap-spanish-lang-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;

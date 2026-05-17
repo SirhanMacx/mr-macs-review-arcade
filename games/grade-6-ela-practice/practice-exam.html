@@ -1963,9 +1963,8 @@ const QUESTIONS = [
     explanation: "All four words can describe someone who asks lots of questions (denotation). But 'nosy' carries a negative feeling — it suggests prying into things that are not the person's business. The other three feel neutral or positive."
   },
 ];
-  QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 /* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF helpers === */
 function buildPrintableExam() {
   var section = document.getElementById('printableExam');

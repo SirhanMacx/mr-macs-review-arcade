@@ -2143,6 +2143,7 @@ const QUESTIONS = [
   },
 ];
 
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 /* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF helpers === */
 function buildPrintableExam() {
   var section = document.getElementById('printableExam');
@@ -2177,12 +2178,6 @@ function downloadPDF() {
 }
 
 
-// Normalize correctText → correctIdx so the runtime (which reads q.correctIdx) works.
-QUESTIONS.forEach((q) => {
-  if (typeof q.correctIdx !== "number") {
-    q.correctIdx = q.choices.indexOf(q.correctText);
-  }
-});
 
 const STORAGE_KEY = "ap-gov-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;

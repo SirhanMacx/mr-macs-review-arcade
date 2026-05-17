@@ -1,4 +1,4 @@
-const CACHE_NAME = "v86-bank-expansion-from-practice-exams";
+const CACHE_NAME = "v89-practice-exam-quality-audit";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -58,6 +58,7 @@ const CACHE_FILES = [
   "./assets/arcade-quick-launcher.js",
   "./assets/arcade-quick-stats-panel.js",
   "./assets/arcade-recommender.js",
+  "./assets/arcade-question-validator.js",
   "./assets/arcade-quiz-gauntlet.js",
   "./assets/arcade-review-mix.js",
   "./assets/arcade-replay.js",

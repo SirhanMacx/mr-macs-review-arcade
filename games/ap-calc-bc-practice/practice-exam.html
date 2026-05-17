@@ -2134,6 +2134,7 @@ const QUESTIONS = [
   },
 ];
 
+QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 /* === MRMAC_PRINTABLE_EXAM_V1 — printable PDF helpers === */
 function buildPrintableExam() {
   var section = document.getElementById('printableExam');
@@ -2169,10 +2170,6 @@ function downloadPDF() {
 
 
 const STORAGE_KEY = "ap-calc-bc-practice-exam-state-v1";
-// Normalize: derive correctIdx from correctText so runtime grading works.
-QUESTIONS.forEach((q) => {
-  q.correctIdx = q.choices.indexOf(q.correctText);
-});
 const TOTAL = QUESTIONS.length;
 
 const els = {
