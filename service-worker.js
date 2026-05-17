@@ -1,4 +1,4 @@
-const CACHE_NAME = "v58-unified-jeopardy-thumbnails";
+const CACHE_NAME = "v59-bank-from-jeopardy-only-plus-3-exams";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to

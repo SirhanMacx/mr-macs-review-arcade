@@ -16,14 +16,14 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java single-character type.",
+      "prompt": "Java integer type using 32 bits.",
       "choices": [
+        "Zero",
         "double",
         "boolean",
-        "Enhanced for loop",
-        "char"
+        "int"
       ],
-      "correctText": "char",
+      "correctText": "int",
       "explanation": "AP CSA Unit 1."
     },
     {
@@ -38,21 +38,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java type for 'true' or 'false' values.",
+      "prompt": "Java floating-point type using 64 bits.",
       "choices": [
         "boolean",
-        "char",
-        "equals()",
-        "double"
+        "boolean",
+        "double",
+        "size()"
       ],
-      "correctText": "boolean",
+      "correctText": "double",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-003",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Variables",
+      "topic": "Java Primitives",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -60,21 +60,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Naming a variable.",
+      "prompt": "Java boolean type.",
       "choices": [
-        "n minus 1",
-        "camelCase",
-        "final",
-        "Declaration"
+        "boolean",
+        "null",
+        "char",
+        "double"
       ],
-      "correctText": "Declaration",
+      "correctText": "boolean",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-004",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Variables",
+      "topic": "Java Primitives",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -82,21 +82,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Setting variable's initial value.",
+      "prompt": "Java single-character type.",
       "choices": [
-        "ALL_CAPS",
-        "final",
-        "Initialization",
-        "O(n)"
+        "double",
+        "Each row separately",
+        "boolean",
+        "char"
       ],
-      "correctText": "Initialization",
+      "correctText": "char",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-005",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Variables",
+      "topic": "Java Primitives",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -104,14 +104,14 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java keyword for unchangeable value.",
+      "prompt": "Java type for 'true' or 'false' values.",
       "choices": [
-        "substring()",
-        "Initialization",
-        "final",
-        "camelCase"
+        "double",
+        "char",
+        "boolean",
+        "ArrayList"
       ],
-      "correctText": "final",
+      "correctText": "boolean",
       "explanation": "AP CSA Unit 1."
     },
     {
@@ -126,21 +126,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java variable naming convention.",
+      "prompt": "Naming a variable.",
       "choices": [
-        "Enhanced for",
-        "Initialization",
-        "camelCase",
-        "Declaration"
+        "Declaration",
+        "ALL_CAPS",
+        "ArrayList",
+        "Initialization"
       ],
-      "correctText": "camelCase",
+      "correctText": "Declaration",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-007",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Arithmetic",
+      "topic": "Variables",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -148,21 +148,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java division of two ints gives.",
+      "prompt": "Setting variable's initial value.",
       "choices": [
-        "Integer",
-        "for loop",
-        "Plus plus",
-        "Wraps around"
+        "Arrays.asList",
+        "final",
+        "camelCase",
+        "Initialization"
       ],
-      "correctText": "Integer",
-      "explanation": "7/2 equals 3. AP CSA Unit 1."
+      "correctText": "Initialization",
+      "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-008",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Arithmetic",
+      "topic": "Variables",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -170,21 +170,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Java modulus operator symbol.",
+      "prompt": "Java keyword for unchangeable value.",
       "choices": [
-        "O(n)",
-        "Plus plus",
-        "Percent",
-        "Integer"
+        "Initialization",
+        "final",
+        "camelCase",
+        "else if"
       ],
-      "correctText": "Percent",
+      "correctText": "final",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-009",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Arithmetic",
+      "topic": "Variables",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -192,21 +192,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Integer overflow result in Java.",
+      "prompt": "Java variable naming convention.",
       "choices": [
-        "Plus equals",
-        "Class",
-        "Percent",
-        "Wraps around"
+        "Declaration",
+        "camelCase",
+        "Double equals",
+        "ALL_CAPS"
       ],
-      "correctText": "Wraps around",
+      "correctText": "camelCase",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-010",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Arithmetic",
+      "topic": "Variables",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -214,14 +214,14 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Increment operator.",
+      "prompt": "Constants written in this format.",
       "choices": [
-        "Less than symbol",
-        "Plus plus",
-        "Plus equals",
-        "Percent"
+        "Declaration",
+        "Initialization",
+        "ALL_CAPS",
+        "O(1)"
       ],
-      "correctText": "Plus plus",
+      "correctText": "ALL_CAPS",
       "explanation": "AP CSA Unit 1."
     },
     {
@@ -236,21 +236,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Compound assignment for addition.",
+      "prompt": "Java division of two ints gives.",
       "choices": [
-        "Percent",
-        "Check head then recurse on tail",
+        "break",
+        "Wraps around",
         "Integer",
-        "Plus equals"
+        "Percent"
       ],
-      "correctText": "Plus equals",
-      "explanation": "AP CSA Unit 1."
+      "correctText": "Integer",
+      "explanation": "7/2 equals 3. AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-012",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Casting",
+      "topic": "Arithmetic",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -258,21 +258,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Converting between types.",
+      "prompt": "Java modulus operator symbol.",
       "choices": [
-        "clear()",
-        "Narrowing conversion",
-        "Seven",
-        "Casting"
+        "Plus equals",
+        "Return type",
+        "Percent",
+        "Integer"
       ],
-      "correctText": "Casting",
+      "correctText": "Percent",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-013",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Casting",
+      "topic": "Arithmetic",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -280,21 +280,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Implicit conversion to larger type.",
+      "prompt": "Integer overflow result in Java.",
       "choices": [
-        "Parenthesis int",
-        "Casting",
-        "Upcasting",
-        "Widening conversion"
+        "Avoid NullPointerException",
+        "Plus plus",
+        "Wraps around",
+        "Integer"
       ],
-      "correctText": "Widening conversion",
+      "correctText": "Wraps around",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-014",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Casting",
+      "topic": "Arithmetic",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -302,21 +302,21 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Explicit conversion to smaller type.",
+      "prompt": "Increment operator.",
       "choices": [
-        "Abstract method",
-        "Narrowing conversion",
-        "Casting",
-        "Seven"
+        "Plus plus",
+        "Wraps around",
+        "Method overloading",
+        "Percent"
       ],
-      "correctText": "Narrowing conversion",
+      "correctText": "Plus plus",
       "explanation": "AP CSA Unit 1."
     },
     {
       "id": "ap-computer-science-a-015",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
-      "topic": "Casting",
+      "topic": "Arithmetic",
       "domain": "Review",
       "subjectArea": "Review",
       "gradeBand": "Multi",
@@ -324,14 +324,14 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Cast double to int syntax.",
+      "prompt": "Compound assignment for addition.",
       "choices": [
-        "Rows",
-        "Widening conversion",
-        "Parenthesis int",
-        "Narrowing conversion"
+        "Bang",
+        "Wraps around",
+        "Plus equals",
+        "Integer"
       ],
-      "correctText": "Parenthesis int",
+      "correctText": "Plus equals",
       "explanation": "AP CSA Unit 1."
     },
     {
@@ -346,18 +346,106 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "Result of (int) 7.9.",
+      "prompt": "Converting between types.",
       "choices": [
         "Casting",
+        "else if",
         "Seven",
-        "Pipe pipe",
+        "Parenthesis int"
+      ],
+      "correctText": "Casting",
+      "explanation": "AP CSA Unit 1."
+    },
+    {
+      "id": "ap-computer-science-a-017",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Casting",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Implicit conversion to larger type.",
+      "choices": [
+        "NOT (A OR B) equals NOT A AND NOT B",
+        "Casting",
+        "Narrowing conversion",
+        "Widening conversion"
+      ],
+      "correctText": "Widening conversion",
+      "explanation": "AP CSA Unit 1."
+    },
+    {
+      "id": "ap-computer-science-a-018",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Casting",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Explicit conversion to smaller type.",
+      "choices": [
+        "Parenthesis int",
+        "Less than symbol",
+        "Widening conversion",
         "Narrowing conversion"
+      ],
+      "correctText": "Narrowing conversion",
+      "explanation": "AP CSA Unit 1."
+    },
+    {
+      "id": "ap-computer-science-a-019",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Casting",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Cast double to int syntax.",
+      "choices": [
+        "length",
+        "Casting",
+        "Parenthesis int",
+        "Widening conversion"
+      ],
+      "correctText": "Parenthesis int",
+      "explanation": "AP CSA Unit 1."
+    },
+    {
+      "id": "ap-computer-science-a-020",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Casting",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Result of (int) 7.9.",
+      "choices": [
+        "Narrowing conversion",
+        "Casting",
+        "Plus",
+        "Seven"
       ],
       "correctText": "Seven",
       "explanation": "Truncates. AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-017",
+      "id": "ap-computer-science-a-021",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Operators",
@@ -370,16 +458,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Equality operator.",
       "choices": [
-        "Bang",
-        "super dot method",
         "Multiplication first",
+        "Pipe pipe",
+        "O(n squared)",
         "Double equals"
       ],
       "correctText": "Double equals",
       "explanation": "AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-018",
+      "id": "ap-computer-science-a-022",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Operators",
@@ -394,14 +482,14 @@
       "choices": [
         "Ampersand ampersand",
         "Bang",
-        "private",
-        "Pipe pipe"
+        "Multiplication first",
+        "Postorder"
       ],
       "correctText": "Ampersand ampersand",
       "explanation": "AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-019",
+      "id": "ap-computer-science-a-023",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Operators",
@@ -414,16 +502,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical OR operator.",
       "choices": [
-        "Double equals",
-        "Pipe pipe",
-        "Object",
-        "Bang"
+        "Ampersand ampersand",
+        "Bang",
+        "Polymorphism",
+        "Pipe pipe"
       ],
       "correctText": "Pipe pipe",
       "explanation": "AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-020",
+      "id": "ap-computer-science-a-024",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Operators",
@@ -436,16 +524,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Logical NOT operator.",
       "choices": [
-        "Pipe pipe",
         "Ampersand ampersand",
+        "Postorder",
         "Bang",
-        "True"
+        "Pipe pipe"
       ],
       "correctText": "Bang",
       "explanation": "AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-021",
+      "id": "ap-computer-science-a-025",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Operators",
@@ -458,101 +546,13 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Operator precedence: multiplication vs addition.",
       "choices": [
-        "Multiplication first",
-        "Constructor",
-        "Bang",
-        "Ampersand ampersand"
+        "arr[0].length",
+        "Double equals",
+        "Pipe pipe",
+        "Multiplication first"
       ],
       "correctText": "Multiplication first",
       "explanation": "AP CSA Unit 1."
-    },
-    {
-      "id": "ap-computer-science-a-022",
-      "course": "ap-computer-science-a",
-      "courseLabel": "ap-computer-science-a",
-      "topic": "String Methods",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-computer-science-a",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "String method returning character count.",
-      "choices": [
-        "indexOf()",
-        "equalsIgnoreCase()",
-        "null",
-        "length()"
-      ],
-      "correctText": "length()",
-      "explanation": "AP CSA Unit 2."
-    },
-    {
-      "id": "ap-computer-science-a-023",
-      "course": "ap-computer-science-a",
-      "courseLabel": "ap-computer-science-a",
-      "topic": "String Methods",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-computer-science-a",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "String method extracting substring.",
-      "choices": [
-        "indexOf()",
-        "Base case",
-        "equalsIgnoreCase()",
-        "substring()"
-      ],
-      "correctText": "substring()",
-      "explanation": "AP CSA Unit 2."
-    },
-    {
-      "id": "ap-computer-science-a-024",
-      "course": "ap-computer-science-a",
-      "courseLabel": "ap-computer-science-a",
-      "topic": "String Methods",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-computer-science-a",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "String method comparing case-insensitively.",
-      "choices": [
-        "length()",
-        "remove()",
-        "indexOf()",
-        "equalsIgnoreCase()"
-      ],
-      "correctText": "equalsIgnoreCase()",
-      "explanation": "AP CSA Unit 2."
-    },
-    {
-      "id": "ap-computer-science-a-025",
-      "course": "ap-computer-science-a",
-      "courseLabel": "ap-computer-science-a",
-      "topic": "String Methods",
-      "domain": "Review",
-      "subjectArea": "Review",
-      "gradeBand": "Multi",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-jeopardy",
-      "assessmentSourceId": "jeopardy-ap-computer-science-a",
-      "itemMode": "real-content-from-jeopardy",
-      "prompt": "String method for character at index.",
-      "choices": [
-        "n times factorial of n minus 1",
-        "indexOf()",
-        "charAt()",
-        "equalsIgnoreCase()"
-      ],
-      "correctText": "charAt()",
-      "explanation": "AP CSA Unit 2."
     },
     {
       "id": "ap-computer-science-a-026",
@@ -566,18 +566,128 @@
       "sourceAuthority": "mr-macs-jeopardy",
       "assessmentSourceId": "jeopardy-ap-computer-science-a",
       "itemMode": "real-content-from-jeopardy",
-      "prompt": "String method finding index of substring.",
+      "prompt": "String method returning character count.",
+      "choices": [
+        "length()",
+        "equalsIgnoreCase()",
+        "Binary search",
+        "substring()"
+      ],
+      "correctText": "length()",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-027",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "String Methods",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "String method extracting substring.",
+      "choices": [
+        "equalsIgnoreCase()",
+        "length()",
+        "substring()",
+        "Exponential"
+      ],
+      "correctText": "substring()",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-028",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "String Methods",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "String method comparing case-insensitively.",
       "choices": [
         "indexOf()",
         "equalsIgnoreCase()",
+        "Upcasting",
+        "length()"
+      ],
+      "correctText": "equalsIgnoreCase()",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-029",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "String Methods",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "String method for character at index.",
+      "choices": [
+        "equalsIgnoreCase()",
+        "Math.random()",
         "substring()",
-        "Less than symbol"
+        "charAt()"
+      ],
+      "correctText": "charAt()",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-030",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "String Methods",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "String method finding index of substring.",
+      "choices": [
+        "boolean",
+        "indexOf()",
+        "substring()",
+        "equalsIgnoreCase()"
       ],
       "correctText": "indexOf()",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-027",
+      "id": "ap-computer-science-a-031",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Math Class",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Static Math class method for absolute value.",
+      "choices": [
+        "Use braces",
+        "Math.abs()",
+        "Math.random()",
+        "Math.sqrt()"
+      ],
+      "correctText": "Math.abs()",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-032",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Math Class",
@@ -590,16 +700,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for square root.",
       "choices": [
-        "Arrays.asList",
-        "Math.sqrt()",
-        "Zero to one exclusive",
-        "Math.random()"
+        "Math.abs()",
+        "O(rows times cols)",
+        "Math.pow()",
+        "Math.sqrt()"
       ],
       "correctText": "Math.sqrt()",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-028",
+      "id": "ap-computer-science-a-033",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Math Class",
@@ -612,16 +722,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for x to a power.",
       "choices": [
+        "else if",
+        "Math.random()",
         "Math.pow()",
-        "Zero to one exclusive",
-        "Math.sqrt()",
-        "False"
+        "Zero to one exclusive"
       ],
       "correctText": "Math.pow()",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-029",
+      "id": "ap-computer-science-a-034",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Math Class",
@@ -634,16 +744,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Math class method for random number.",
       "choices": [
+        "Bang",
+        "Math.pow()",
         "Math.random()",
-        "Math.sqrt()",
-        "Zero to one exclusive",
-        "Binary search"
+        "Zero to one exclusive"
       ],
       "correctText": "Math.random()",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-030",
+      "id": "ap-computer-science-a-035",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Math Class",
@@ -656,16 +766,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Range of Math.random output.",
       "choices": [
+        "void method",
         "Math.random()",
-        "Math.pow()",
         "Zero to one exclusive",
-        "2D structures"
+        "Math.abs()"
       ],
       "correctText": "Zero to one exclusive",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-031",
+      "id": "ap-computer-science-a-036",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Wrapper Classes",
@@ -678,16 +788,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wrapper class for int.",
       "choices": [
+        "Autoboxing",
         "Integer",
-        "Less than symbol",
-        "Unboxing",
-        "Autoboxing"
+        "Double",
+        "Reference equality"
       ],
       "correctText": "Integer",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-032",
+      "id": "ap-computer-science-a-037",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Wrapper Classes",
@@ -700,16 +810,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wrapper class for double.",
       "choices": [
+        "Unboxing",
         "Double",
-        "Cannot modify array",
-        "Boolean",
-        "Unboxing"
+        "Integer",
+        "Casting"
       ],
       "correctText": "Double",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-033",
+      "id": "ap-computer-science-a-038",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Wrapper Classes",
@@ -722,16 +832,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Wrapper class for boolean.",
       "choices": [
-        "Autoboxing",
         "Unboxing",
+        "Curly braces",
         "Boolean",
-        "Mutator method"
+        "Double"
       ],
       "correctText": "Boolean",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-034",
+      "id": "ap-computer-science-a-039",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Wrapper Classes",
@@ -744,16 +854,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from primitive to wrapper.",
       "choices": [
-        "boolean",
-        "Double",
         "Autoboxing",
-        "Unboxing"
+        "Double",
+        "Boolean",
+        "Integer.parseInt()"
       ],
       "correctText": "Autoboxing",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-035",
+      "id": "ap-computer-science-a-040",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Wrapper Classes",
@@ -766,16 +876,126 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from wrapper to primitive.",
       "choices": [
-        "Recursive case",
+        "Unboxing",
+        "Nearest unmatched if",
         "Double",
-        "Boolean",
-        "Unboxing"
+        "Autoboxing"
       ],
       "correctText": "Unboxing",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-036",
+      "id": "ap-computer-science-a-041",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Reference Types",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Variable referring to object.",
+      "choices": [
+        "Reference",
+        "Equality check with null",
+        "Reference equality",
+        "NullPointerException"
+      ],
+      "correctText": "Reference",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-042",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Reference Types",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Java value for missing reference.",
+      "choices": [
+        "null",
+        "NullPointerException",
+        "Reference",
+        "size()"
+      ],
+      "correctText": "null",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-043",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Reference Types",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Error when null reference is used.",
+      "choices": [
+        "NullPointerException",
+        "null",
+        "Reference",
+        "ArrayList"
+      ],
+      "correctText": "NullPointerException",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-044",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Reference Types",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Method to test if reference is null.",
+      "choices": [
+        "Reference",
+        "Equality check with null",
+        "NullPointerException",
+        "public"
+      ],
+      "correctText": "Equality check with null",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-045",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Reference Types",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Java keyword to create object.",
+      "choices": [
+        "n times factorial of n minus 1",
+        "Reference",
+        "null",
+        "new"
+      ],
+      "correctText": "new",
+      "explanation": "AP CSA Unit 2."
+    },
+    {
+      "id": "ap-computer-science-a-046",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Strings",
@@ -788,16 +1008,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java type representing text.",
       "choices": [
+        "Immutable",
         "String",
-        "False",
-        "Plus",
-        "Integer.parseInt()"
+        "Integer.parseInt()",
+        "final"
       ],
       "correctText": "String",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-037",
+      "id": "ap-computer-science-a-047",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Strings",
@@ -810,16 +1030,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Strings are this type.",
       "choices": [
-        "StringBuilder",
-        "n minus 1",
         "Immutable",
-        "Plus"
+        "Plus",
+        "Integer.parseInt()",
+        "Rows"
       ],
       "correctText": "Immutable",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-038",
+      "id": "ap-computer-science-a-048",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Strings",
@@ -832,16 +1052,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Concatenation operator.",
       "choices": [
-        "String",
         "Immutable",
-        "Plus",
-        "instanceof"
+        "StringBuilder",
+        "boolean",
+        "Plus"
       ],
       "correctText": "Plus",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-039",
+      "id": "ap-computer-science-a-049",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Strings",
@@ -854,16 +1074,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Mutable string class.",
       "choices": [
-        "Immutable",
-        "Integer.parseInt()",
-        "Recursive",
-        "StringBuilder"
+        "StringBuilder",
+        "Plus",
+        "O(n)",
+        "String"
       ],
       "correctText": "StringBuilder",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-040",
+      "id": "ap-computer-science-a-050",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Strings",
@@ -876,7 +1096,7 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java method for string-int conversion.",
       "choices": [
-        "Zero to length minus 1",
+        "do-while loop",
         "Immutable",
         "StringBuilder",
         "Integer.parseInt()"
@@ -885,7 +1105,7 @@
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-041",
+      "id": "ap-computer-science-a-051",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Boolean Logic",
@@ -898,16 +1118,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Truth value of true AND true.",
       "choices": [
-        "Nested traversal sum",
-        "NOT (A AND B) equals NOT A OR NOT B",
+        "True",
         "False",
-        "True"
+        "NOT (A AND B) equals NOT A OR NOT B",
+        "break"
       ],
       "correctText": "True",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-042",
+      "id": "ap-computer-science-a-052",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Boolean Logic",
@@ -921,15 +1141,15 @@
       "prompt": "Truth value of true OR false.",
       "choices": [
         "True",
-        "equalsIgnoreCase()",
+        "Loop counter",
         "False",
-        "NOT (A OR B) equals NOT A AND NOT B"
+        "NOT (A AND B) equals NOT A OR NOT B"
       ],
       "correctText": "True",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-043",
+      "id": "ap-computer-science-a-053",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Boolean Logic",
@@ -942,16 +1162,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Truth value of NOT true.",
       "choices": [
-        "NOT (A AND B) equals NOT A OR NOT B",
+        "Double",
         "True",
-        "break",
-        "False"
+        "False",
+        "True"
       ],
       "correctText": "False",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-044",
+      "id": "ap-computer-science-a-054",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Boolean Logic",
@@ -965,15 +1185,15 @@
       "prompt": "De Morgan's first law.",
       "choices": [
         "True",
-        "True",
-        "Bang equals",
+        "NOT (A OR B) equals NOT A AND NOT B",
+        "Each row separately",
         "NOT (A AND B) equals NOT A OR NOT B"
       ],
       "correctText": "NOT (A AND B) equals NOT A OR NOT B",
       "explanation": "De Morgan 1860. AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-045",
+      "id": "ap-computer-science-a-055",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Boolean Logic",
@@ -986,16 +1206,60 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "De Morgan's second law.",
       "choices": [
+        "True",
+        "True",
         "NOT (A OR B) equals NOT A AND NOT B",
-        "Curly braces",
-        "False",
-        "True"
+        "Unboxing"
       ],
       "correctText": "NOT (A OR B) equals NOT A AND NOT B",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-046",
+      "id": "ap-computer-science-a-056",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "If Statements",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Conditional statement keyword.",
+      "choices": [
+        "if",
+        "remove()",
+        "Curly braces",
+        "else"
+      ],
+      "correctText": "if",
+      "explanation": "AP CSA Unit 3."
+    },
+    {
+      "id": "ap-computer-science-a-057",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "If Statements",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Branch for false condition.",
+      "choices": [
+        "else",
+        "Curly braces",
+        "break",
+        "else if"
+      ],
+      "correctText": "else",
+      "explanation": "AP CSA Unit 3."
+    },
+    {
+      "id": "ap-computer-science-a-058",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "If Statements",
@@ -1008,16 +1272,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multiple conditions chained.",
       "choices": [
+        "O(n squared)",
         "else if",
-        "Curly braces",
-        "O(log n)",
-        "else"
+        "else",
+        "Curly braces"
       ],
       "correctText": "else if",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-047",
+      "id": "ap-computer-science-a-059",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "If Statements",
@@ -1030,16 +1294,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java braces around if body.",
       "choices": [
-        "switch statement",
-        "get()",
+        "Curly braces",
+        "for-each loop",
         "else",
-        "Curly braces"
+        "else if"
       ],
       "correctText": "Curly braces",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-048",
+      "id": "ap-computer-science-a-060",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "If Statements",
@@ -1052,16 +1316,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multi-branch alternative to many else-ifs.",
       "choices": [
-        "O(rows times cols)",
-        "switch statement",
         "else if",
-        "Curly braces"
+        "else",
+        "Traversal with max variable",
+        "switch statement"
       ],
       "correctText": "switch statement",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-049",
+      "id": "ap-computer-science-a-061",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Comparison Operators",
@@ -1076,14 +1340,14 @@
       "choices": [
         "Greater than equals",
         "Double equals",
-        "Bang equals",
-        "Declaration"
+        "Parenthesis int",
+        "Bang equals"
       ],
       "correctText": "Double equals",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-050",
+      "id": "ap-computer-science-a-062",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Comparison Operators",
@@ -1096,16 +1360,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inequality operator.",
       "choices": [
-        "Double equals",
-        "Bang equals",
+        "Binary search",
+        "Greater than equals",
         "equals method",
-        "double"
+        "Bang equals"
       ],
       "correctText": "Bang equals",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-051",
+      "id": "ap-computer-science-a-063",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Comparison Operators",
@@ -1118,16 +1382,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Less than operator.",
       "choices": [
+        "Bang equals",
         "Double equals",
-        "Greater than equals",
         "Less than symbol",
-        "True"
+        "clear()"
       ],
       "correctText": "Less than symbol",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-052",
+      "id": "ap-computer-science-a-064",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Comparison Operators",
@@ -1140,16 +1404,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Greater than or equal operator.",
       "choices": [
-        "Greater than equals",
-        "equals method",
-        "The class type",
-        "Double equals"
+        "Short-circuit",
+        "Double equals",
+        "Less than symbol",
+        "Greater than equals"
       ],
       "correctText": "Greater than equals",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-053",
+      "id": "ap-computer-science-a-065",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Comparison Operators",
@@ -1162,16 +1426,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Comparing strings.",
       "choices": [
+        "Less than symbol",
+        "ALL_CAPS",
         "equals method",
-        "Greater than equals",
-        "Double equals",
-        "null"
+        "Double equals"
       ],
       "correctText": "equals method",
       "explanation": "== checks reference. AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-054",
+      "id": "ap-computer-science-a-066",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Short-Circuit Evaluation",
@@ -1184,16 +1448,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Property of && skipping right if left false.",
       "choices": [
-        "False",
-        "Avoid NullPointerException",
-        "Optimized to iteration",
-        "Short-circuit"
+        "Left to right",
+        "Short-circuit",
+        "Array",
+        "False"
       ],
       "correctText": "Short-circuit",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-055",
+      "id": "ap-computer-science-a-067",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Short-Circuit Evaluation",
@@ -1206,16 +1470,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "OR operator stops if left is.",
       "choices": [
-        "double",
-        "Avoid NullPointerException",
         "Short-circuit",
-        "True"
+        "True",
+        "Left to right",
+        "Ampersand ampersand"
       ],
       "correctText": "True",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-056",
+      "id": "ap-computer-science-a-068",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Short-Circuit Evaluation",
@@ -1228,16 +1492,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "AND operator stops if left is.",
       "choices": [
+        "Dynamic versus fixed",
         "False",
-        "public",
         "Short-circuit",
-        "Left to right"
+        "Avoid NullPointerException"
       ],
       "correctText": "False",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-057",
+      "id": "ap-computer-science-a-069",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Short-Circuit Evaluation",
@@ -1250,16 +1514,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Use of short-circuit with null check.",
       "choices": [
-        "Nearest unmatched if",
-        "Avoid NullPointerException",
+        "False",
         "Left to right",
-        "True"
+        "Math.sqrt()",
+        "Avoid NullPointerException"
       ],
       "correctText": "Avoid NullPointerException",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-058",
+      "id": "ap-computer-science-a-070",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Short-Circuit Evaluation",
@@ -1273,15 +1537,15 @@
       "prompt": "Order of evaluation in && or ||.",
       "choices": [
         "Left to right",
-        "at Override",
-        "Short-circuit",
-        "Avoid NullPointerException"
+        "Avoid NullPointerException",
+        "False",
+        "arr[i][j]"
       ],
       "correctText": "Left to right",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-059",
+      "id": "ap-computer-science-a-071",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Nested If",
@@ -1294,16 +1558,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "If inside another if.",
       "choices": [
-        "Cannot modify array",
+        "Use braces",
+        "Big-O notation",
         "Nearest unmatched if",
-        "Nested if",
-        "Braces"
+        "Nested if"
       ],
       "correctText": "Nested if",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-060",
+      "id": "ap-computer-science-a-072",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Nested If",
@@ -1316,16 +1580,60 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Common error in if-else chain.",
       "choices": [
-        "Nested if",
-        "Dangling else",
         "Use braces",
-        "Override abstract methods"
+        "Dangling else",
+        "clear()",
+        "Nearest unmatched if"
       ],
       "correctText": "Dangling else",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-061",
+      "id": "ap-computer-science-a-073",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested If",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Else binds to this if.",
+      "choices": [
+        "Nearest unmatched if",
+        "Braces",
+        "private",
+        "Dangling else"
+      ],
+      "correctText": "Nearest unmatched if",
+      "explanation": "AP CSA Unit 3."
+    },
+    {
+      "id": "ap-computer-science-a-074",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested If",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Way to disambiguate else.",
+      "choices": [
+        "Braces",
+        "Fixed size",
+        "Use braces",
+        "Dangling else"
+      ],
+      "correctText": "Braces",
+      "explanation": "AP CSA Unit 3."
+    },
+    {
+      "id": "ap-computer-science-a-075",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Nested If",
@@ -1338,16 +1646,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Best practice in conditional chains.",
       "choices": [
+        "Nearest unmatched if",
+        "Instance variables",
         "Dangling else",
-        "Breadth-first",
-        "Use braces",
-        "Nearest unmatched if"
+        "Use braces"
       ],
       "correctText": "Use braces",
       "explanation": "AP CSA Unit 3."
     },
     {
-      "id": "ap-computer-science-a-062",
+      "id": "ap-computer-science-a-076",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "While Loops",
@@ -1360,16 +1668,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop checking condition before each iteration.",
       "choices": [
+        "Loop counter",
+        "break",
         "while loop",
-        "Getter or accessor",
-        "do-while loop",
-        "break"
+        "Assigns to instance variable"
       ],
       "correctText": "while loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-063",
+      "id": "ap-computer-science-a-077",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "While Loops",
@@ -1382,16 +1690,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop checking condition after first iteration.",
       "choices": [
-        "Infinite loop",
         "do-while loop",
-        "Preorder",
-        "Loop counter"
+        "Loop counter",
+        "break",
+        "Greatest common divisor"
       ],
       "correctText": "do-while loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-064",
+      "id": "ap-computer-science-a-078",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "While Loops",
@@ -1404,16 +1712,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variable controlling loop iteration.",
       "choices": [
+        "No index access",
         "break",
         "Loop counter",
-        "do-while loop",
-        "O(log n)"
+        "do-while loop"
       ],
       "correctText": "Loop counter",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-065",
+      "id": "ap-computer-science-a-079",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "While Loops",
@@ -1427,15 +1735,15 @@
       "prompt": "Loop that never terminates.",
       "choices": [
         "while loop",
-        "Loop with counter",
-        "Loop counter",
+        "References",
+        "break",
         "Infinite loop"
       ],
       "correctText": "Infinite loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-066",
+      "id": "ap-computer-science-a-080",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "While Loops",
@@ -1448,16 +1756,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Statement breaking out of loop.",
       "choices": [
-        "2D structures",
-        "while loop",
-        "Infinite loop",
-        "break"
+        "Encapsulation",
+        "break",
+        "do-while loop",
+        "Infinite loop"
       ],
       "correctText": "break",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-067",
+      "id": "ap-computer-science-a-081",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "For Loops",
@@ -1471,15 +1779,15 @@
       "prompt": "Loop with three-part header.",
       "choices": [
         "for loop",
-        "i plus plus",
-        "Enhanced for loop",
-        "Zero"
+        "continue",
+        "equalsIgnoreCase()",
+        "Init, condition, update"
       ],
       "correctText": "for loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-068",
+      "id": "ap-computer-science-a-082",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "For Loops",
@@ -1492,16 +1800,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Three parts of for loop header.",
       "choices": [
+        "continue",
+        "Enhanced for loop",
         "Init, condition, update",
-        "for loop",
-        "n minus 1",
-        "Enhanced for loop"
+        "equals()"
       ],
       "correctText": "Init, condition, update",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-069",
+      "id": "ap-computer-science-a-083",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "For Loops",
@@ -1515,15 +1823,15 @@
       "prompt": "Loop iterating over collection.",
       "choices": [
         "continue",
-        "Enhanced for loop",
-        "i plus plus",
-        "else if"
+        "The class type",
+        "for loop",
+        "Enhanced for loop"
       ],
       "correctText": "Enhanced for loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-070",
+      "id": "ap-computer-science-a-084",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "For Loops",
@@ -1537,15 +1845,15 @@
       "prompt": "Statement skipping rest of iteration.",
       "choices": [
         "continue",
-        "i plus plus",
-        "Method overriding",
+        "Object",
+        "for loop",
         "Init, condition, update"
       ],
       "correctText": "continue",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-071",
+      "id": "ap-computer-science-a-085",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "For Loops",
@@ -1558,16 +1866,126 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Counter modification pattern.",
       "choices": [
+        "Init, condition, update",
         "i plus plus",
-        "continue",
-        "for loop",
-        "Use braces"
+        "Rows",
+        "continue"
       ],
       "correctText": "i plus plus",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-072",
+      "id": "ap-computer-science-a-086",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested Loops",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Loop inside another loop.",
+      "choices": [
+        "O(n squared)",
+        "ArrayList",
+        "Nested loop",
+        "2D structures"
+      ],
+      "correctText": "Nested loop",
+      "explanation": "AP CSA Unit 4."
+    },
+    {
+      "id": "ap-computer-science-a-087",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested Loops",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Use of nested loops.",
+      "choices": [
+        "O(n squared)",
+        "ArrayList",
+        "Nested loop",
+        "2D structures"
+      ],
+      "correctText": "2D structures",
+      "explanation": "AP CSA Unit 4."
+    },
+    {
+      "id": "ap-computer-science-a-088",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested Loops",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Time complexity of nested loop.",
+      "choices": [
+        "Use braces",
+        "Nested loop",
+        "O(n squared)",
+        "2D structures"
+      ],
+      "correctText": "O(n squared)",
+      "explanation": "AP CSA Unit 4."
+    },
+    {
+      "id": "ap-computer-science-a-089",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested Loops",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Outer loop variable in nested pattern.",
+      "choices": [
+        "Method overloading",
+        "i",
+        "O(n squared)",
+        "Nested loop"
+      ],
+      "correctText": "i",
+      "explanation": "AP CSA Unit 4."
+    },
+    {
+      "id": "ap-computer-science-a-090",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Nested Loops",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Inner loop variable in nested pattern.",
+      "choices": [
+        "j",
+        "2D structures",
+        "Nested loop",
+        "Use braces"
+      ],
+      "correctText": "j",
+      "explanation": "AP CSA Unit 4."
+    },
+    {
+      "id": "ap-computer-science-a-091",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithm Analysis",
@@ -1580,16 +1998,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method counting operations.",
       "choices": [
-        "Big-O notation",
         "O(n)",
-        "Array",
-        "O(log n)"
+        "Big-O notation",
+        "O(n squared)",
+        "ArrayList"
       ],
       "correctText": "Big-O notation",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-073",
+      "id": "ap-computer-science-a-092",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithm Analysis",
@@ -1602,16 +2020,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Linear search complexity.",
       "choices": [
-        "Arrays.fill",
+        "Linear search",
+        "O(1)",
         "O(n)",
-        "O(n squared)",
         "O(log n)"
       ],
       "correctText": "O(n)",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-074",
+      "id": "ap-computer-science-a-093",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithm Analysis",
@@ -1624,16 +2042,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Binary search complexity.",
       "choices": [
+        "O(n)",
+        "arr[0].length",
         "O(log n)",
-        "Curly braces",
-        "Big-O notation",
-        "O(n)"
+        "O(n squared)"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-075",
+      "id": "ap-computer-science-a-094",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithm Analysis",
@@ -1646,16 +2064,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Bubble sort complexity.",
       "choices": [
+        "Big-O notation",
         "O(n squared)",
-        "Unboxing",
         "O(1)",
-        "Big-O notation"
+        "Method overloading"
       ],
       "correctText": "O(n squared)",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-076",
+      "id": "ap-computer-science-a-095",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithm Analysis",
@@ -1668,16 +2086,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Best case for binary search.",
       "choices": [
-        "References",
         "O(1)",
         "O(log n)",
-        "Big-O notation"
+        "Big-O notation",
+        "Linear nested search"
       ],
       "correctText": "O(1)",
       "explanation": "Found on first check. AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-077",
+      "id": "ap-computer-science-a-096",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "String Traversal",
@@ -1690,16 +2108,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating each character.",
       "choices": [
-        "O(1)",
-        "Character iteration",
         "Loop with counter",
-        "s.length()"
+        "ArrayList",
+        "Character iteration",
+        "Build new from end"
       ],
       "correctText": "Character iteration",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-078",
+      "id": "ap-computer-science-a-097",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "String Traversal",
@@ -1712,16 +2130,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method counting occurrences.",
       "choices": [
+        "Character iteration",
+        "The class type",
         "Loop with counter",
-        "size()",
-        "s.length()",
-        "Character iteration"
+        "s.length()"
       ],
       "correctText": "Loop with counter",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-079",
+      "id": "ap-computer-science-a-098",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "String Traversal",
@@ -1734,16 +2152,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reversing a string approach.",
       "choices": [
-        "Loop with counter",
-        "Build new from end",
-        "Character iteration",
-        "Loop with remove"
+        "Autoboxing",
+        "String traversal loop",
+        "s.length()",
+        "Build new from end"
       ],
       "correctText": "Build new from end",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-080",
+      "id": "ap-computer-science-a-099",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "String Traversal",
@@ -1756,16 +2174,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Common pattern testing all characters.",
       "choices": [
+        "No index access",
         "String traversal loop",
         "s.length()",
-        "Loop with counter",
-        "x times power of (n minus 1)"
+        "Build new from end"
       ],
       "correctText": "String traversal loop",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-081",
+      "id": "ap-computer-science-a-100",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "String Traversal",
@@ -1778,16 +2196,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop counter limit for String s.",
       "choices": [
-        "Autoboxing",
-        "Build new from end",
-        "Loop with counter",
-        "s.length()"
+        "s.length()",
+        "Iterate backwards",
+        "Character iteration",
+        "String traversal loop"
       ],
       "correctText": "s.length()",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-082",
+      "id": "ap-computer-science-a-101",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Class Anatomy",
@@ -1800,16 +2218,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Blueprint for objects.",
       "choices": [
-        "Class",
-        "Character iteration",
+        "private",
         "Object",
-        "Instance variables"
+        "Class",
+        "Count plus recurse n minus 2"
       ],
       "correctText": "Class",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-083",
+      "id": "ap-computer-science-a-102",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Class Anatomy",
@@ -1822,16 +2240,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Instance of a class.",
       "choices": [
-        "Arrays.copyOf",
-        "Instance variables",
         "Constructor",
-        "Object"
+        "Nested for-each",
+        "Object",
+        "Instance variables"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-084",
+      "id": "ap-computer-science-a-103",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Class Anatomy",
@@ -1844,16 +2262,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method initializing object.",
       "choices": [
+        "Declaration",
         "private",
-        "Math.abs()",
-        "Constructor",
-        "Class"
+        "Object",
+        "Constructor"
       ],
       "correctText": "Constructor",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-085",
+      "id": "ap-computer-science-a-104",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Class Anatomy",
@@ -1866,16 +2284,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Variables in object's state.",
       "choices": [
-        "private",
-        "else",
-        "Instance variables",
-        "Class"
+        "Object",
+        "True",
+        "Constructor",
+        "Instance variables"
       ],
       "correctText": "Instance variables",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-086",
+      "id": "ap-computer-science-a-105",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Class Anatomy",
@@ -1888,16 +2306,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Access modifier for instance variables.",
       "choices": [
-        "private",
-        "for-each loop",
-        "Instance variables",
-        "Constructor"
+        "Class",
+        "Interfaces",
+        "Object",
+        "private"
       ],
       "correctText": "private",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-087",
+      "id": "ap-computer-science-a-106",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -1910,16 +2328,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Function inside class.",
       "choices": [
-        "Constructor",
-        "Accessor",
         "Method",
-        "instanceof"
+        "Static",
+        "1 on diagonal, 0 elsewhere",
+        "Mutator"
       ],
       "correctText": "Method",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-088",
+      "id": "ap-computer-science-a-107",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -1932,16 +2350,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying object state.",
       "choices": [
-        "toString()",
+        "Mutator",
+        "s.length()",
         "Mutator method",
-        "Accessor",
-        "Constructor"
+        "void method"
       ],
       "correctText": "Mutator method",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-089",
+      "id": "ap-computer-science-a-108",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -1955,15 +2373,15 @@
       "prompt": "Method retrieving object state.",
       "choices": [
         "Recursive",
-        "Breadth-first",
-        "Accessor method",
-        "Method"
+        "Constructor",
+        "private",
+        "Accessor method"
       ],
       "correctText": "Accessor method",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-090",
+      "id": "ap-computer-science-a-109",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -1976,16 +2394,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method belonging to class itself.",
       "choices": [
-        "static method",
-        "Method",
-        "Accessor method",
-        "Math.pow()"
+        "void method",
+        "Constructor",
+        "Wraps around",
+        "static method"
       ],
       "correctText": "static method",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-091",
+      "id": "ap-computer-science-a-110",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -1998,16 +2416,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning nothing.",
       "choices": [
+        "1 on diagonal, 0 elsewhere",
         "void method",
-        "Reference equality",
-        "Accessor",
-        "Static"
+        "Accessor method",
+        "Mutator"
       ],
       "correctText": "void method",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-092",
+      "id": "ap-computer-science-a-111",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Encapsulation",
@@ -2020,16 +2438,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Hiding implementation behind interface.",
       "choices": [
+        "2D array",
+        "private",
         "Setter or mutator",
-        "Encapsulation",
-        "public",
-        "equals()"
+        "Encapsulation"
       ],
       "correctText": "Encapsulation",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-093",
+      "id": "ap-computer-science-a-112",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Encapsulation",
@@ -2042,16 +2460,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Access modifier hiding from outside.",
       "choices": [
-        "Preorder",
-        "Getter or accessor",
+        "Encapsulation",
         "Setter or mutator",
-        "private"
+        "private",
+        "ArrayList"
       ],
       "correctText": "private",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-094",
+      "id": "ap-computer-science-a-113",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Encapsulation",
@@ -2064,16 +2482,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Access modifier allowing access everywhere.",
       "choices": [
-        "True",
-        "Getter or accessor",
+        "Setter or mutator",
+        "Short-circuit",
         "public",
-        "Setter or mutator"
+        "Encapsulation"
       ],
       "correctText": "public",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-095",
+      "id": "ap-computer-science-a-114",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Encapsulation",
@@ -2086,8 +2504,8 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying private variable.",
       "choices": [
-        "for-each loop",
         "public",
+        "Math.pow()",
         "Encapsulation",
         "Setter or mutator"
       ],
@@ -2095,7 +2513,7 @@
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-096",
+      "id": "ap-computer-science-a-115",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Encapsulation",
@@ -2108,16 +2526,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method reading private variable.",
       "choices": [
-        "private",
-        "for loop",
         "Getter or accessor",
-        "Encapsulation"
+        "Math.random()",
+        "Encapsulation",
+        "Setter or mutator"
       ],
       "correctText": "Getter or accessor",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-097",
+      "id": "ap-computer-science-a-116",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "this Keyword",
@@ -2130,16 +2548,82 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reference to current object.",
       "choices": [
-        "this",
-        "while loop",
+        "Assigns to instance variable",
+        "Optimized to iteration",
         "Disambiguate parameter from field",
-        "Assigns to instance variable"
+        "this"
       ],
       "correctText": "this",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-098",
+      "id": "ap-computer-science-a-117",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "this Keyword",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Use of this in constructor.",
+      "choices": [
+        "Assigns to instance variable",
+        "this",
+        "Instance variables",
+        "Disambiguate parameter from field"
+      ],
+      "correctText": "Disambiguate parameter from field",
+      "explanation": "AP CSA Unit 5."
+    },
+    {
+      "id": "ap-computer-science-a-118",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "this Keyword",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "this.field assignment.",
+      "choices": [
+        "The class type",
+        "Assigns to instance variable",
+        "Downcasting",
+        "Disambiguate parameter from field"
+      ],
+      "correctText": "Assigns to instance variable",
+      "explanation": "AP CSA Unit 5."
+    },
+    {
+      "id": "ap-computer-science-a-119",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "this Keyword",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Static methods can use this?",
+      "choices": [
+        "this",
+        "Bang",
+        "No",
+        "Disambiguate parameter from field"
+      ],
+      "correctText": "No",
+      "explanation": "No instance to reference. AP CSA Unit 5."
+    },
+    {
+      "id": "ap-computer-science-a-120",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "this Keyword",
@@ -2152,16 +2636,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "this as method parameter type.",
       "choices": [
-        "Compare-then-insert",
-        "The class type",
-        "Assigns to instance variable",
-        "Disambiguate parameter from field"
+        "Disambiguate parameter from field",
+        "this",
+        "First plus sum of rest",
+        "The class type"
       ],
       "correctText": "The class type",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-099",
+      "id": "ap-computer-science-a-121",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Overloading",
@@ -2174,16 +2658,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Multiple methods with same name.",
       "choices": [
-        "Subclass",
-        "Unlimited",
         "Method overloading",
-        "Return type"
+        "Unlimited",
+        "Overloaded plus",
+        "isEmpty()"
       ],
       "correctText": "Method overloading",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-100",
+      "id": "ap-computer-science-a-122",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Overloading",
@@ -2196,16 +2680,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Constructors overloaded by these.",
       "choices": [
-        "Inorder",
         "Parameter list",
-        "Overloaded plus",
-        "Unlimited"
+        "Method overloading",
+        "Unlimited",
+        "Greatest common divisor"
       ],
       "correctText": "Parameter list",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-101",
+      "id": "ap-computer-science-a-123",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Overloading",
@@ -2218,16 +2702,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cannot overload by changing this only.",
       "choices": [
-        "Overloaded plus",
-        "Unlimited",
+        "Parameter list",
         "Return type",
-        "True"
+        "Cannot modify array",
+        "Method overloading"
       ],
       "correctText": "Return type",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-102",
+      "id": "ap-computer-science-a-124",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Overloading",
@@ -2240,16 +2724,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java's String concatenation.",
       "choices": [
-        "Layer-by-layer",
-        "Unlimited",
+        "Overloaded plus",
         "Return type",
-        "Overloaded plus"
+        "Parameter list",
+        "Big-O"
       ],
       "correctText": "Overloaded plus",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-103",
+      "id": "ap-computer-science-a-125",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Overloading",
@@ -2262,16 +2746,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of allowed overloads.",
       "choices": [
-        "Method overloading",
-        "Parameter list",
-        "Seven",
+        "Return type",
+        "Overloaded plus",
+        "Count plus recurse n minus 2",
         "Unlimited"
       ],
       "correctText": "Unlimited",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-104",
+      "id": "ap-computer-science-a-126",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Basics",
@@ -2284,16 +2768,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fixed-size container of elements.",
       "choices": [
-        "Zero to length minus 1",
-        "Iterate backwards",
         "Array",
-        "new int[n]"
+        "ArrayIndexOutOfBoundsException",
+        "length",
+        "Nested traversal sum"
       ],
       "correctText": "Array",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-105",
+      "id": "ap-computer-science-a-127",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Basics",
@@ -2306,16 +2790,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array length property.",
       "choices": [
+        "Zero to length minus 1",
         "ArrayIndexOutOfBoundsException",
-        "new int[n]",
-        "Polymorphism",
+        "equals method",
         "length"
       ],
       "correctText": "length",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-106",
+      "id": "ap-computer-science-a-128",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Basics",
@@ -2328,16 +2812,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array index range.",
       "choices": [
-        "Zero to length minus 1",
-        "length",
         "Array",
-        "Greater than equals"
+        "new int[n]",
+        "Enhanced for loop",
+        "Zero to length minus 1"
       ],
       "correctText": "Zero to length minus 1",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-107",
+      "id": "ap-computer-science-a-129",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Basics",
@@ -2351,15 +2835,15 @@
       "prompt": "Error when index out of range.",
       "choices": [
         "length",
-        "Bang equals",
         "ArrayIndexOutOfBoundsException",
+        "Cache subproblem results",
         "Zero to length minus 1"
       ],
       "correctText": "ArrayIndexOutOfBoundsException",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-108",
+      "id": "ap-computer-science-a-130",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Basics",
@@ -2372,16 +2856,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Creating array of size n syntax.",
       "choices": [
+        "Plus equals",
         "length",
-        "Object",
-        "new int[n]",
-        "Array"
+        "Zero to length minus 1",
+        "new int[n]"
       ],
       "correctText": "new int[n]",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-109",
+      "id": "ap-computer-science-a-131",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Traversal",
@@ -2394,16 +2878,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating over array indices.",
       "choices": [
+        "O(log n)",
+        "Cannot modify array",
         "for loop",
-        "n minus 1",
-        "length()",
-        "Cannot modify array"
+        "n minus 1"
       ],
       "correctText": "for loop",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-110",
+      "id": "ap-computer-science-a-132",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Traversal",
@@ -2416,16 +2900,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Loop iterating elements directly.",
       "choices": [
+        "Iterator",
+        "Cannot modify array",
         "Enhanced for loop",
-        "No index access",
-        "n minus 1",
-        "First plus sum of rest"
+        "n minus 1"
       ],
       "correctText": "Enhanced for loop",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-111",
+      "id": "ap-computer-science-a-133",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Traversal",
@@ -2438,16 +2922,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limitation of enhanced for.",
       "choices": [
+        "Enhanced for loop",
         "n minus 1",
-        "No index access",
-        "Big-O notation",
-        "Enhanced for loop"
+        "Avoid NullPointerException",
+        "No index access"
       ],
       "correctText": "No index access",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-112",
+      "id": "ap-computer-science-a-134",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Traversal",
@@ -2460,16 +2944,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Limitation of enhanced for modifying.",
       "choices": [
-        "for loop",
+        "n minus 1",
+        "Enhanced for loop",
         "Cannot modify array",
-        "Nested loop",
-        "Enhanced for loop"
+        "ArrayIndexOutOfBoundsException"
       ],
       "correctText": "Cannot modify array",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-113",
+      "id": "ap-computer-science-a-135",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Traversal",
@@ -2482,16 +2966,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Last valid index for array of size n.",
       "choices": [
+        "Rectangular versus jagged",
+        "Cannot modify array",
         "n minus 1",
-        "for loop",
-        "Inheritance",
-        "Enhanced for loop"
+        "No index access"
       ],
       "correctText": "n minus 1",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-114",
+      "id": "ap-computer-science-a-136",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Algorithms",
@@ -2504,16 +2988,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding maximum in array.",
       "choices": [
-        "Selection or insertion sort",
-        "remove()",
+        "Dangling else",
         "Binary search",
+        "Selection or insertion sort",
         "Linear traversal"
       ],
       "correctText": "Linear traversal",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-115",
+      "id": "ap-computer-science-a-137",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Algorithms",
@@ -2526,16 +3010,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching element in unsorted array.",
       "choices": [
-        "Binary search",
-        "Selection or insertion sort",
+        "2D array",
+        "O(log n)",
         "Linear search",
-        "Zero to one exclusive"
+        "Linear traversal"
       ],
       "correctText": "Linear search",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-116",
+      "id": "ap-computer-science-a-138",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Algorithms",
@@ -2548,16 +3032,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching element in sorted array.",
       "choices": [
-        "Binary search",
-        "Nested loop",
-        "O(log n)",
-        "Linear traversal"
+        "Linear traversal",
+        "Selection or insertion sort",
+        "Rows",
+        "Binary search"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-117",
+      "id": "ap-computer-science-a-139",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Algorithms",
@@ -2570,16 +3054,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of binary search.",
       "choices": [
-        "Seven",
-        "Linear traversal",
         "O(log n)",
-        "Linear search"
+        "Linear search",
+        "Linear traversal",
+        "Bang"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-118",
+      "id": "ap-computer-science-a-140",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Algorithms",
@@ -2592,16 +3076,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Sorting algorithm tested on AP CSA.",
       "choices": [
-        "Selection or insertion sort",
         "Linear search",
-        "Mutator",
+        "for-each loop",
+        "Selection or insertion sort",
         "Linear traversal"
       ],
       "correctText": "Selection or insertion sort",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-119",
+      "id": "ap-computer-science-a-141",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Initialization",
@@ -2615,15 +3099,15 @@
       "prompt": "Initialize with curly braces.",
       "choices": [
         "Array literal",
-        "Equality check with null",
-        "Zero",
-        "null"
+        "Stack memory",
+        "References",
+        "Zero"
       ],
       "correctText": "Array literal",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-120",
+      "id": "ap-computer-science-a-142",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Initialization",
@@ -2637,15 +3121,15 @@
       "prompt": "Default value for new int array.",
       "choices": [
         "Array literal",
-        "Zero",
+        "void method",
         "References",
-        "O(n)"
+        "Zero"
       ],
       "correctText": "Zero",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-121",
+      "id": "ap-computer-science-a-143",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Initialization",
@@ -2658,16 +3142,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Default value for new boolean array.",
       "choices": [
-        "Zero",
-        "Plus equals",
-        "null",
-        "false"
+        "false",
+        "NullPointerException",
+        "Array literal",
+        "Zero"
       ],
       "correctText": "false",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-122",
+      "id": "ap-computer-science-a-144",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Initialization",
@@ -2680,16 +3164,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Default value for new String array.",
       "choices": [
+        "null",
         "Array literal",
-        "Overloaded plus",
-        "References",
-        "null"
+        "Rectangular versus jagged",
+        "false"
       ],
       "correctText": "null",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-123",
+      "id": "ap-computer-science-a-145",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Initialization",
@@ -2702,16 +3186,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of objects holds these.",
       "choices": [
-        "Zero",
-        "remove()",
+        "References",
         "null",
-        "References"
+        "false",
+        "Widening conversion"
       ],
       "correctText": "References",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-124",
+      "id": "ap-computer-science-a-146",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Array Manipulation",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Method copying array.",
+      "choices": [
+        "Two-pointer swap",
+        "Character iteration",
+        "ArrayList",
+        "Arrays.copyOf"
+      ],
+      "correctText": "Arrays.copyOf",
+      "explanation": "AP CSA Unit 6."
+    },
+    {
+      "id": "ap-computer-science-a-147",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Manipulation",
@@ -2725,15 +3231,15 @@
       "prompt": "Method filling array with value.",
       "choices": [
         "Arrays.fill",
+        "Build new from end",
         "Arrays.copyOf",
-        "Two-pointer swap",
-        "Cannot be changed"
+        "Fixed size"
       ],
       "correctText": "Arrays.fill",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-125",
+      "id": "ap-computer-science-a-148",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Manipulation",
@@ -2746,16 +3252,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Cannot resize Java array.",
       "choices": [
-        "ArrayList",
+        "Arrays.fill",
+        "Integer",
         "Two-pointer swap",
-        "Fixed size",
-        "arr.length"
+        "Fixed size"
       ],
       "correctText": "Fixed size",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-126",
+      "id": "ap-computer-science-a-149",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Manipulation",
@@ -2768,16 +3274,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Alternative to fixed array.",
       "choices": [
-        "Fixed size",
+        "Two-pointer swap",
+        "Method overloading",
         "Arrays.fill",
-        "StackOverflowError",
         "ArrayList"
       ],
       "correctText": "ArrayList",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-127",
+      "id": "ap-computer-science-a-150",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Array Manipulation",
@@ -2790,16 +3296,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reversing array in place.",
       "choices": [
+        "Arrays.fill",
+        "Two-pointer swap",
         "Arrays.copyOf",
-        "O(1)",
-        "ArrayList",
-        "Two-pointer swap"
+        "Arrays of arrays"
       ],
       "correctText": "Two-pointer swap",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-128",
+      "id": "ap-computer-science-a-151",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "ArrayList Basics",
@@ -2812,16 +3318,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Resizable list class.",
       "choices": [
-        "add()",
-        "Bang equals",
         "ArrayList of Integer",
-        "ArrayList"
+        "ArrayList",
+        "Integer",
+        "java.util"
       ],
       "correctText": "ArrayList",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-129",
+      "id": "ap-computer-science-a-152",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "ArrayList Basics",
@@ -2834,16 +3340,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Package containing ArrayList.",
       "choices": [
-        "java.util",
-        "Double equals",
         "add()",
+        "java.util",
+        "Rows times columns",
         "ArrayList"
       ],
       "correctText": "java.util",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-130",
+      "id": "ap-computer-science-a-153",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "ArrayList Basics",
@@ -2856,16 +3362,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Generic type for ArrayList of integers.",
       "choices": [
-        "size()",
         "ArrayList",
+        "do-while loop",
         "ArrayList of Integer",
-        "Left to right"
+        "add()"
       ],
       "correctText": "ArrayList of Integer",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-131",
+      "id": "ap-computer-science-a-154",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "ArrayList Basics",
@@ -2878,16 +3384,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting size.",
       "choices": [
-        "O(n)",
-        "ArrayList of Integer",
+        "add()",
         "size()",
-        "add()"
+        "Curly braces",
+        "java.util"
       ],
       "correctText": "size()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-132",
+      "id": "ap-computer-science-a-155",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "ArrayList Basics",
@@ -2900,16 +3406,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method adding element.",
       "choices": [
-        "Row 0, Row 1, etc.",
-        "java.util",
-        "ArrayList",
+        "ALL_CAPS",
+        "size()",
+        "ArrayList of Integer",
         "add()"
       ],
       "correctText": "add()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-133",
+      "id": "ap-computer-science-a-156",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Methods",
@@ -2922,16 +3428,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting element at index.",
       "choices": [
-        "Casting",
+        "remove()",
         "get()",
         "isEmpty()",
-        "clear()"
+        "Recursive"
       ],
       "correctText": "get()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-134",
+      "id": "ap-computer-science-a-157",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Methods",
@@ -2944,16 +3450,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method setting element at index.",
       "choices": [
-        "Selection or insertion sort",
-        "get()",
-        "set()",
-        "isEmpty()"
+        "remove()",
+        "false",
+        "clear()",
+        "set()"
       ],
       "correctText": "set()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-135",
+      "id": "ap-computer-science-a-158",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Methods",
@@ -2966,16 +3472,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method removing element at index.",
       "choices": [
-        "clear()",
+        "isEmpty()",
         "remove()",
-        "Multiplication first",
-        "isEmpty()"
+        "Downcasting",
+        "clear()"
       ],
       "correctText": "remove()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-136",
+      "id": "ap-computer-science-a-159",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Methods",
@@ -2988,16 +3494,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method checking if empty.",
       "choices": [
-        "isEmpty()",
         "remove()",
-        "clear()",
-        "length()"
+        "Accessor",
+        "get()",
+        "isEmpty()"
       ],
       "correctText": "isEmpty()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-137",
+      "id": "ap-computer-science-a-160",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Common Methods",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Method clearing all elements.",
+      "choices": [
+        "void method",
+        "remove()",
+        "get()",
+        "clear()"
+      ],
+      "correctText": "clear()",
+      "explanation": "AP CSA Unit 7."
+    },
+    {
+      "id": "ap-computer-science-a-161",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Differences from Arrays",
@@ -3010,16 +3538,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList versus array: size.",
       "choices": [
-        "Polymorphism",
-        "Double",
         "Dynamic versus fixed",
-        "Objects only"
+        "Objects only",
+        "Arrays.asList",
+        "clear()"
       ],
       "correctText": "Dynamic versus fixed",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-138",
+      "id": "ap-computer-science-a-162",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Differences from Arrays",
@@ -3032,16 +3560,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList holds these types.",
       "choices": [
+        "Double",
         "Objects only",
-        "Dynamic versus fixed",
-        "Greatest common divisor",
-        "Double"
+        "Arrays.asList",
+        "First plus sum of rest"
       ],
       "correctText": "Objects only",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-139",
+      "id": "ap-computer-science-a-163",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Differences from Arrays",
@@ -3054,16 +3582,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Type parameter for ArrayList of doubles.",
       "choices": [
-        "Dynamic versus fixed",
-        "n minus 1",
-        "Arrays.asList",
-        "Double"
+        "Objects only",
+        "Double",
+        "O(n)",
+        "Dynamic versus fixed"
       ],
       "correctText": "Double",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-140",
+      "id": "ap-computer-science-a-164",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Differences from Arrays",
@@ -3076,16 +3604,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList method for length.",
       "choices": [
-        "size()",
         "Dynamic versus fixed",
-        "Static",
-        "Double"
+        "x times power of (n minus 1)",
+        "Double",
+        "size()"
       ],
       "correctText": "size()",
       "explanation": "Array uses length, ArrayList uses size. AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-141",
+      "id": "ap-computer-science-a-165",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Differences from Arrays",
@@ -3098,16 +3626,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Conversion from array to ArrayList.",
       "choices": [
+        "Downcasting",
+        "Double",
         "Arrays.asList",
-        "Dynamic versus fixed",
-        "size()",
-        "instanceof"
+        "Dynamic versus fixed"
       ],
       "correctText": "Arrays.asList",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-142",
+      "id": "ap-computer-science-a-166",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Traversal",
@@ -3120,16 +3648,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Enhanced for loop on ArrayList.",
       "choices": [
-        "Iterator",
-        "Selection or insertion sort",
+        "for loop with size",
+        "for-each loop",
         "Concurrent modification",
-        "for-each loop"
+        "Subclass"
       ],
       "correctText": "for-each loop",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-143",
+      "id": "ap-computer-science-a-167",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Traversal",
@@ -3142,16 +3670,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Indexed loop on ArrayList.",
       "choices": [
+        "Iterate backwards",
+        "for loop with size",
         "for-each loop",
-        "Concurrent modification",
-        "n times factorial of n minus 1",
-        "for loop with size"
+        "ArrayList"
       ],
       "correctText": "for loop with size",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-144",
+      "id": "ap-computer-science-a-168",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Traversal",
@@ -3164,16 +3692,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Removing during traversal pitfall.",
       "choices": [
-        "Iterate backwards",
-        "break",
-        "Concurrent modification",
-        "for loop with size"
+        "for loop with size",
+        "for loop",
+        "for-each loop",
+        "Concurrent modification"
       ],
       "correctText": "Concurrent modification",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-145",
+      "id": "ap-computer-science-a-169",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Traversal",
@@ -3186,16 +3714,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Safe way to remove during traversal.",
       "choices": [
-        "char",
+        "ArrayList of Integer",
         "Iterate backwards",
-        "for-each loop",
-        "Concurrent modification"
+        "Iterator",
+        "for-each loop"
       ],
       "correctText": "Iterate backwards",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-146",
+      "id": "ap-computer-science-a-170",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Traversal",
@@ -3208,16 +3736,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Iterator class for traversal.",
       "choices": [
-        "for loop with size",
-        "Recursion",
-        "Concurrent modification",
-        "Iterator"
+        "Narrowing conversion",
+        "Iterator",
+        "for-each loop",
+        "Concurrent modification"
       ],
       "correctText": "Iterator",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-147",
+      "id": "ap-computer-science-a-171",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms with ArrayList",
@@ -3232,14 +3760,14 @@
       "choices": [
         "Compare-then-insert",
         "Two-pointer swap",
-        "Row's length property",
-        "Linear search"
+        "Linear search",
+        "x times power of (n minus 1)"
       ],
       "correctText": "Linear search",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-148",
+      "id": "ap-computer-science-a-172",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms with ArrayList",
@@ -3252,16 +3780,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding maximum.",
       "choices": [
-        "Compare-then-insert",
         "Traversal with max variable",
-        "NOT (A OR B) equals NOT A AND NOT B",
-        "Two-pointer swap"
+        "Loop with remove",
+        "Two-pointer swap",
+        "Greater than equals"
       ],
       "correctText": "Traversal with max variable",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-149",
+      "id": "ap-computer-science-a-173",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms with ArrayList",
@@ -3274,16 +3802,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Removing all instances of a value.",
       "choices": [
-        "Equality check with null",
-        "Linear search",
         "Loop with remove",
-        "Compare-then-insert"
+        "Compare-then-insert",
+        "get()",
+        "Two-pointer swap"
       ],
       "correctText": "Loop with remove",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-150",
+      "id": "ap-computer-science-a-174",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms with ArrayList",
@@ -3296,16 +3824,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inserting in sorted order.",
       "choices": [
-        "2D structures",
-        "Compare-then-insert",
-        "Two-pointer swap",
-        "Loop with remove"
+        "Constructor",
+        "Traversal with max variable",
+        "Loop with remove",
+        "Compare-then-insert"
       ],
       "correctText": "Compare-then-insert",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-151",
+      "id": "ap-computer-science-a-175",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms with ArrayList",
@@ -3318,16 +3846,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Reversing ArrayList.",
       "choices": [
-        "Linear search",
-        "Loop with remove",
+        "Traversal with max variable",
+        "Compare-then-insert",
         "Two-pointer swap",
-        "Exponential"
+        "Math.sqrt()"
       ],
       "correctText": "Two-pointer swap",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-152",
+      "id": "ap-computer-science-a-176",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Array Basics",
@@ -3340,16 +3868,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of arrays.",
       "choices": [
-        "i equals j elements",
-        "arr.length",
+        "Casting",
         "2D array",
-        "arr[i][j]"
+        "arr[i][j]",
+        "arr[0].length"
       ],
       "correctText": "2D array",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-153",
+      "id": "ap-computer-science-a-177",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Array Basics",
@@ -3362,16 +3890,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of rows.",
       "choices": [
-        "Nested for-each",
-        "arr[i][j]",
-        "Rows times columns",
-        "arr.length"
+        "2D array",
+        "Enhanced for",
+        "arr.length",
+        "arr[0].length"
       ],
       "correctText": "arr.length",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-154",
+      "id": "ap-computer-science-a-178",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Array Basics",
@@ -3384,16 +3912,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Number of columns.",
       "choices": [
-        "Big-O",
-        "2D array",
         "arr[i][j]",
-        "arr[0].length"
+        "Casting",
+        "arr[0].length",
+        "arr.length"
       ],
       "correctText": "arr[0].length",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-155",
+      "id": "ap-computer-science-a-179",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Array Basics",
@@ -3406,16 +3934,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Accessing element at row i, column j.",
       "choices": [
-        "arr.length",
-        "arr[i][j]",
+        "2D array",
         "Rows times columns",
-        "java.util"
+        "i equals j elements",
+        "arr[i][j]"
       ],
       "correctText": "arr[i][j]",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-156",
+      "id": "ap-computer-science-a-180",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Array Basics",
@@ -3428,16 +3956,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Total elements in 2D array.",
       "choices": [
-        "length()",
+        "arr[0].length",
+        "Reference",
         "Rows times columns",
-        "arr[i][j]",
-        "2D array"
+        "arr[i][j]"
       ],
       "correctText": "Rows times columns",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-157",
+      "id": "ap-computer-science-a-181",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Row-Major Traversal",
@@ -3450,16 +3978,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Outer loop iterates over.",
       "choices": [
-        "Row 0, Row 1, etc.",
-        "Dangling else",
         "Rows",
-        "Nested for-each"
+        "Column 0, Column 1, etc.",
+        "Nested for-each",
+        "at Override"
       ],
       "correctText": "Rows",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-158",
+      "id": "ap-computer-science-a-182",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Row-Major Traversal",
@@ -3472,16 +4000,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Inner loop iterates over.",
       "choices": [
-        "Object",
-        "Row 0, Row 1, etc.",
         "Columns",
-        "Rows"
+        "Row 0, Row 1, etc.",
+        "ALL_CAPS",
+        "Nested for-each"
       ],
       "correctText": "Columns",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-159",
+      "id": "ap-computer-science-a-183",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Row-Major Traversal",
@@ -3494,16 +4022,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Row-major order.",
       "choices": [
+        "Column 0, Column 1, etc.",
+        "size()",
         "Row 0, Row 1, etc.",
-        "null",
-        "Nested for-each",
-        "Column 0, Column 1, etc."
+        "Columns"
       ],
       "correctText": "Row 0, Row 1, etc.",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-160",
+      "id": "ap-computer-science-a-184",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Row-Major Traversal",
@@ -3516,16 +4044,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Column-major order.",
       "choices": [
-        "Row 0, Row 1, etc.",
         "Rows",
-        "Plus plus",
+        "Nested for-each",
+        "Init, condition, update",
         "Column 0, Column 1, etc."
       ],
       "correctText": "Column 0, Column 1, etc.",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-161",
+      "id": "ap-computer-science-a-185",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Row-Major Traversal",
@@ -3539,15 +4067,15 @@
       "prompt": "Enhanced for on 2D array.",
       "choices": [
         "Nested for-each",
-        "switch statement",
-        "Row 0, Row 1, etc.",
-        "Rows"
+        "Column 0, Column 1, etc.",
+        "Math.abs()",
+        "Row 0, Row 1, etc."
       ],
       "correctText": "Nested for-each",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-162",
+      "id": "ap-computer-science-a-186",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Algorithms",
@@ -3560,16 +4088,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Finding max in 2D array.",
       "choices": [
+        "Nested loop max",
         "Nested traversal counter",
-        "String",
         "O(rows times cols)",
-        "Nested loop max"
+        "Constructor"
       ],
       "correctText": "Nested loop max",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-163",
+      "id": "ap-computer-science-a-187",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Algorithms",
@@ -3582,16 +4110,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Searching in 2D unsorted.",
       "choices": [
+        "Linear nested search",
+        "Object",
         "Nested loop max",
-        "O(rows times cols)",
-        "Traversal with max variable",
-        "Linear nested search"
+        "O(rows times cols)"
       ],
       "correctText": "Linear nested search",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-164",
+      "id": "ap-computer-science-a-188",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Algorithms",
@@ -3604,16 +4132,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of 2D linear search.",
       "choices": [
-        "O(rows times cols)",
-        "size()",
         "Nested traversal counter",
-        "Nested traversal sum"
+        "O(rows times cols)",
+        "Subclass",
+        "Linear nested search"
       ],
       "correctText": "O(rows times cols)",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-165",
+      "id": "ap-computer-science-a-189",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Algorithms",
@@ -3626,16 +4154,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Summing 2D array.",
       "choices": [
+        "Nested loop max",
         "Linear nested search",
-        "O(rows times cols)",
-        "Greatest common divisor",
+        "Arrays.asList",
         "Nested traversal sum"
       ],
       "correctText": "Nested traversal sum",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-166",
+      "id": "ap-computer-science-a-190",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "2D Algorithms",
@@ -3648,16 +4176,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Counting matches in 2D.",
       "choices": [
+        "Recursion",
+        "Linear nested search",
         "Nested traversal counter",
-        "Nested traversal sum",
-        "Zero",
-        "O(rows times cols)"
+        "Nested loop max"
       ],
       "correctText": "Nested traversal counter",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-167",
+      "id": "ap-computer-science-a-191",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Jagged Arrays",
@@ -3672,14 +4200,14 @@
       "choices": [
         "Arrays of arrays",
         "Each row separately",
-        "Arrays.asList",
+        "size()",
         "Jagged array"
       ],
       "correctText": "Jagged array",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-168",
+      "id": "ap-computer-science-a-192",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Jagged Arrays",
@@ -3692,16 +4220,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Accessing row length in jagged.",
       "choices": [
-        "Each row separately",
         "Rectangular versus jagged",
+        "Greater than equals",
         "Row's length property",
-        "camelCase"
+        "Jagged array"
       ],
       "correctText": "Row's length property",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-169",
+      "id": "ap-computer-science-a-193",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Jagged Arrays",
@@ -3714,16 +4242,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java arrays are array of these.",
       "choices": [
-        "Two-pointer swap",
-        "Arrays of arrays",
         "Rectangular versus jagged",
-        "Each row separately"
+        "size()",
+        "Row's length property",
+        "Arrays of arrays"
       ],
       "correctText": "Arrays of arrays",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-170",
+      "id": "ap-computer-science-a-194",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Jagged Arrays",
@@ -3736,16 +4264,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Initialize jagged 2D.",
       "choices": [
-        "Encapsulation",
         "Row's length property",
+        "Rectangular versus jagged",
         "Each row separately",
-        "Rectangular versus jagged"
+        "O(log n)"
       ],
       "correctText": "Each row separately",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-171",
+      "id": "ap-computer-science-a-195",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Jagged Arrays",
@@ -3758,16 +4286,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Symmetric versus jagged.",
       "choices": [
-        "Plus",
-        "Each row separately",
         "Rectangular versus jagged",
+        "Integer",
+        "Jagged array",
         "Arrays of arrays"
       ],
       "correctText": "Rectangular versus jagged",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-172",
+      "id": "ap-computer-science-a-196",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Tasks",
@@ -3780,16 +4308,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Transposing 2D array.",
       "choices": [
-        "Swap rows and cols",
-        "toString()",
-        "Track i, j during traversal",
-        "1 on diagonal, 0 elsewhere"
+        "Encapsulation",
+        "Layer-by-layer",
+        "i equals j elements",
+        "Swap rows and cols"
       ],
       "correctText": "Swap rows and cols",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-173",
+      "id": "ap-computer-science-a-197",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Tasks",
@@ -3802,16 +4330,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Spiral traversal.",
       "choices": [
-        "Swap rows and cols",
-        "Track i, j during traversal",
         "Layer-by-layer",
-        "O(n squared)"
+        "1 on diagonal, 0 elsewhere",
+        "Swap rows and cols",
+        "public"
       ],
       "correctText": "Layer-by-layer",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-174",
+      "id": "ap-computer-science-a-198",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Tasks",
@@ -3824,16 +4352,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Summing diagonal.",
       "choices": [
-        "Arrays.asList",
+        "i equals j elements",
+        "1 on diagonal, 0 elsewhere",
         "Track i, j during traversal",
-        "Swap rows and cols",
-        "i equals j elements"
+        "Fixed size"
       ],
       "correctText": "i equals j elements",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-175",
+      "id": "ap-computer-science-a-199",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Common Tasks",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Identity matrix.",
+      "choices": [
+        "i equals j elements",
+        "Layer-by-layer",
+        "Reference",
+        "1 on diagonal, 0 elsewhere"
+      ],
+      "correctText": "1 on diagonal, 0 elsewhere",
+      "explanation": "AP CSA Unit 8."
+    },
+    {
+      "id": "ap-computer-science-a-200",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Tasks",
@@ -3846,16 +4396,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Largest element location.",
       "choices": [
-        "1 on diagonal, 0 elsewhere",
+        "Zero to length minus 1",
         "Swap rows and cols",
-        "Track i, j during traversal",
-        "Nested loop max"
+        "i equals j elements",
+        "Track i, j during traversal"
       ],
       "correctText": "Track i, j during traversal",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-176",
+      "id": "ap-computer-science-a-201",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Inheritance Basics",
@@ -3868,16 +4418,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class extending another class.",
       "choices": [
-        "Subclass",
-        "Superclass",
+        "extends",
         "Object",
-        "while loop"
+        "Recursion",
+        "Subclass"
       ],
       "correctText": "Subclass",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-177",
+      "id": "ap-computer-science-a-202",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Inheritance Basics",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Class being extended.",
+      "choices": [
+        "extends",
+        "Superclass",
+        "Object",
+        "Integer"
+      ],
+      "correctText": "Superclass",
+      "explanation": "AP CSA Unit 9."
+    },
+    {
+      "id": "ap-computer-science-a-203",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Inheritance Basics",
@@ -3890,16 +4462,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java keyword for inheritance.",
       "choices": [
-        "clear()",
         "extends",
-        "Superclass",
+        "Plus",
+        "Object",
         "Subclass"
       ],
       "correctText": "extends",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-178",
+      "id": "ap-computer-science-a-204",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Inheritance Basics",
@@ -3912,16 +4484,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Root class of all Java classes.",
       "choices": [
-        "Row 0, Row 1, etc.",
         "Object",
-        "Superclass",
-        "extends"
+        "Subclass",
+        "extends",
+        "camelCase"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-179",
+      "id": "ap-computer-science-a-205",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Inheritance Basics",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Number of classes a Java class can extend.",
+      "choices": [
+        "One",
+        "Subclass",
+        "O(1)",
+        "extends"
+      ],
+      "correctText": "One",
+      "explanation": "Java single inheritance. AP CSA Unit 9."
+    },
+    {
+      "id": "ap-computer-science-a-206",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Polymorphism",
@@ -3934,16 +4528,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method invocation based on object type.",
       "choices": [
-        "Polymorphism",
-        "super dot method",
+        "super",
         "Method overriding",
-        "equals method"
+        "Mutator",
+        "Polymorphism"
       ],
       "correctText": "Polymorphism",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-180",
+      "id": "ap-computer-science-a-207",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Polymorphism",
@@ -3956,16 +4550,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subclass method replacing superclass.",
       "choices": [
-        "Polymorphism",
-        "Method overriding",
+        "super",
         "at Override",
-        "n minus 1"
+        "Objects only",
+        "Method overriding"
       ],
       "correctText": "Method overriding",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-181",
+      "id": "ap-computer-science-a-208",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Polymorphism",
@@ -3978,16 +4572,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Annotation for override.",
       "choices": [
-        "super dot method",
+        "Avoid NullPointerException",
+        "super",
         "at Override",
-        "Method overriding",
-        "Abstract class"
+        "Method overriding"
       ],
       "correctText": "at Override",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-182",
+      "id": "ap-computer-science-a-209",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Polymorphism",
@@ -4000,16 +4594,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Call to parent constructor.",
       "choices": [
-        "Columns",
-        "super",
         "at Override",
-        "Polymorphism"
+        "super dot method",
+        "super",
+        "Double equals"
       ],
       "correctText": "super",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-183",
+      "id": "ap-computer-science-a-210",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Polymorphism",
@@ -4022,16 +4616,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Calling parent method.",
       "choices": [
-        "Pipe pipe",
         "Method overriding",
-        "at Override",
-        "super dot method"
+        "super dot method",
+        "Polymorphism",
+        "hashCode()"
       ],
       "correctText": "super dot method",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-184",
+      "id": "ap-computer-science-a-211",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Abstract Classes",
@@ -4044,16 +4638,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class that cannot be instantiated.",
       "choices": [
+        "isEmpty()",
         "Interfaces",
-        "Abstract method",
-        "getClass()",
-        "Abstract class"
+        "Abstract class",
+        "Override abstract methods"
       ],
       "correctText": "Abstract class",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-185",
+      "id": "ap-computer-science-a-212",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Abstract Classes",
@@ -4066,16 +4660,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method declared without body.",
       "choices": [
-        "camelCase",
-        "abstract",
+        "Dynamic versus fixed",
         "Abstract method",
+        "abstract",
         "Abstract class"
       ],
       "correctText": "Abstract method",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-186",
+      "id": "ap-computer-science-a-213",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Abstract Classes",
@@ -4089,15 +4683,15 @@
       "prompt": "Keyword for abstract.",
       "choices": [
         "Abstract method",
-        "Abstract class",
-        "False",
+        "Disambiguate parameter from field",
+        "Override abstract methods",
         "abstract"
       ],
       "correctText": "abstract",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-187",
+      "id": "ap-computer-science-a-214",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Abstract Classes",
@@ -4110,16 +4704,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Subclass of abstract must do this.",
       "choices": [
+        "The class type",
+        "Interfaces",
         "Override abstract methods",
-        "abstract",
-        "Array literal",
-        "Interfaces"
+        "abstract"
       ],
       "correctText": "Override abstract methods",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-188",
+      "id": "ap-computer-science-a-215",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Abstract Classes",
@@ -4132,16 +4726,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java alternative for multiple inheritance.",
       "choices": [
-        "Polymorphism",
-        "abstract",
         "Interfaces",
-        "Abstract class"
+        "Abstract method",
+        "Abstract class",
+        "Percent"
       ],
       "correctText": "Interfaces",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-189",
+      "id": "ap-computer-science-a-216",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Object Methods",
@@ -4154,16 +4748,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning string representation.",
       "choices": [
-        "equals()",
-        "Percent",
+        "getClass()",
         "toString()",
-        "hashCode()"
+        "Preorder",
+        "equals()"
       ],
       "correctText": "toString()",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-190",
+      "id": "ap-computer-science-a-217",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Object Methods",
@@ -4176,16 +4770,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method comparing objects.",
       "choices": [
-        "hashCode()",
-        "Enhanced for",
-        "getClass()",
+        "Reference equality",
+        "toString()",
+        "Bang equals",
         "equals()"
       ],
       "correctText": "equals()",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-191",
+      "id": "ap-computer-science-a-218",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Object Methods",
@@ -4198,16 +4792,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Default equals behavior.",
       "choices": [
-        "equals()",
-        "toString()",
+        "hashCode()",
         "Reference equality",
-        "public"
+        "toString()",
+        "Arrays of arrays"
       ],
       "correctText": "Reference equality",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-192",
+      "id": "ap-computer-science-a-219",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Object Methods",
@@ -4220,16 +4814,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method returning hash code.",
       "choices": [
-        "hashCode()",
         "getClass()",
-        "Selection or insertion sort",
+        "hashCode()",
+        "Abstract class",
         "toString()"
       ],
       "correctText": "hashCode()",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-193",
+      "id": "ap-computer-science-a-220",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Object Methods",
@@ -4242,16 +4836,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method getting class type.",
       "choices": [
-        "hashCode()",
-        "equals()",
+        "false",
         "getClass()",
-        "F(n) equals F(n-1) plus F(n-2)"
+        "toString()",
+        "hashCode()"
       ],
       "correctText": "getClass()",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-194",
+      "id": "ap-computer-science-a-221",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Casting Objects",
@@ -4264,16 +4858,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Casting subclass to superclass.",
       "choices": [
-        "ClassCastException",
         "instanceof",
-        "null",
-        "Upcasting"
+        "set()",
+        "Upcasting",
+        "ClassCastException"
       ],
       "correctText": "Upcasting",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-195",
+      "id": "ap-computer-science-a-222",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Casting Objects",
@@ -4287,15 +4881,15 @@
       "prompt": "Casting superclass to subclass.",
       "choices": [
         "ClassCastException",
-        "O(n squared)",
         "Upcasting",
+        "boolean",
         "Downcasting"
       ],
       "correctText": "Downcasting",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-196",
+      "id": "ap-computer-science-a-223",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Casting Objects",
@@ -4308,16 +4902,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Implicit casting allowed.",
       "choices": [
-        "instanceof",
+        "public",
         "Upcasting",
-        "Row 0, Row 1, etc.",
+        "Downcasting",
         "ClassCastException"
       ],
       "correctText": "Upcasting",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-197",
+      "id": "ap-computer-science-a-224",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Casting Objects",
@@ -4330,16 +4924,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Operator to check object type.",
       "choices": [
-        "super",
-        "instanceof",
-        "ClassCastException",
-        "Upcasting"
+        "Downcasting",
+        "arr[i][j]",
+        "Upcasting",
+        "instanceof"
       ],
       "correctText": "instanceof",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-198",
+      "id": "ap-computer-science-a-225",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Casting Objects",
@@ -4352,16 +4946,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Error from invalid downcast.",
       "choices": [
-        "instanceof",
-        "Subclass",
-        "ClassCastException",
-        "Downcasting"
+        "No index access",
+        "Upcasting",
+        "Upcasting",
+        "ClassCastException"
       ],
       "correctText": "ClassCastException",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-199",
+      "id": "ap-computer-science-a-226",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Basics",
@@ -4374,16 +4968,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method calling itself.",
       "choices": [
-        "Stack memory",
-        "Recursive case",
         "Recursion",
-        "Array"
+        "ArrayIndexOutOfBoundsException",
+        "StackOverflowError",
+        "Base case"
       ],
       "correctText": "Recursion",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-200",
+      "id": "ap-computer-science-a-227",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Basics",
@@ -4396,16 +4990,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Condition stopping recursion.",
       "choices": [
-        "StackOverflowError",
-        "Base case",
-        "switch statement",
-        "Recursion"
+        "arr.length",
+        "Stack memory",
+        "Recursive case",
+        "Base case"
       ],
       "correctText": "Base case",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-201",
+      "id": "ap-computer-science-a-228",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Basics",
@@ -4418,16 +5012,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive method call.",
       "choices": [
-        "StackOverflowError",
-        "O(n squared)",
-        "Recursive case",
-        "Base case"
+        "Nested traversal counter",
+        "Recursion",
+        "Stack memory",
+        "Recursive case"
       ],
       "correctText": "Recursive case",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-202",
+      "id": "ap-computer-science-a-229",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Basics",
@@ -4440,16 +5034,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Error from missing base case.",
       "choices": [
-        "StackOverflowError",
+        "Autoboxing",
         "Base case",
-        "Linear search",
-        "Recursive case"
+        "Stack memory",
+        "StackOverflowError"
       ],
       "correctText": "StackOverflowError",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-203",
+      "id": "ap-computer-science-a-230",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Basics",
@@ -4462,16 +5056,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursion versus iteration trade-off.",
       "choices": [
-        "StackOverflowError",
-        "Base case",
+        "Superclass",
         "Stack memory",
-        "Greatest common divisor"
+        "Recursive case",
+        "Base case"
       ],
       "correctText": "Stack memory",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-204",
+      "id": "ap-computer-science-a-231",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Examples",
@@ -4484,16 +5078,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive factorial definition.",
       "choices": [
+        "reverse(s[1:]) plus s[0]",
+        "x times power of (n minus 1)",
         "n times factorial of n minus 1",
-        "F(n) equals F(n-1) plus F(n-2)",
-        "First plus sum of rest",
-        "static method"
+        "equals method"
       ],
       "correctText": "n times factorial of n minus 1",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-205",
+      "id": "ap-computer-science-a-232",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Examples",
@@ -4506,16 +5100,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fibonacci recursive definition.",
       "choices": [
-        "Cannot modify array",
-        "First plus sum of rest",
-        "x times power of (n minus 1)",
-        "F(n) equals F(n-1) plus F(n-2)"
+        "Arrays of arrays",
+        "reverse(s[1:]) plus s[0]",
+        "F(n) equals F(n-1) plus F(n-2)",
+        "x times power of (n minus 1)"
       ],
       "correctText": "F(n) equals F(n-1) plus F(n-2)",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-206",
+      "id": "ap-computer-science-a-233",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Examples",
@@ -4528,16 +5122,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Power recursive definition.",
       "choices": [
-        "F(n) equals F(n-1) plus F(n-2)",
-        "x times power of (n minus 1)",
-        "Return type",
-        "First plus sum of rest"
+        "null",
+        "reverse(s[1:]) plus s[0]",
+        "n times factorial of n minus 1",
+        "x times power of (n minus 1)"
       ],
       "correctText": "x times power of (n minus 1)",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-207",
+      "id": "ap-computer-science-a-234",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Examples",
@@ -4550,16 +5144,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive sum of list.",
       "choices": [
+        "F(n) equals F(n-1) plus F(n-2)",
         "First plus sum of rest",
-        "Cache subproblem results",
-        "reverse(s[1:]) plus s[0]",
-        "x times power of (n minus 1)"
+        "Exponential",
+        "n times factorial of n minus 1"
       ],
       "correctText": "First plus sum of rest",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-208",
+      "id": "ap-computer-science-a-235",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Common Examples",
@@ -4572,16 +5166,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive reverse of string.",
       "choices": [
-        "Linear traversal",
-        "x times power of (n minus 1)",
         "reverse(s[1:]) plus s[0]",
-        "First plus sum of rest"
+        "F(n) equals F(n-1) plus F(n-2)",
+        "n times factorial of n minus 1",
+        "Method overloading"
       ],
       "correctText": "reverse(s[1:]) plus s[0]",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-209",
+      "id": "ap-computer-science-a-236",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Search",
@@ -4594,16 +5188,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive binary search structure.",
       "choices": [
+        "Cache subproblem results",
         "Mid then halve",
-        "Big-O",
-        "O(log n)",
-        "Cache subproblem results"
+        "Check head then recurse on tail",
+        "O(n squared)"
       ],
       "correctText": "Mid then halve",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-210",
+      "id": "ap-computer-science-a-237",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Search",
@@ -4616,16 +5210,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Time complexity of recursive binary search.",
       "choices": [
+        "Check head then recurse on tail",
         "O(log n)",
-        "Exponential",
-        "Mid then halve",
-        "Object"
+        "Cache subproblem results",
+        "Double equals"
       ],
       "correctText": "O(log n)",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-211",
+      "id": "ap-computer-science-a-238",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Recursive Search",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Recursive linear search.",
+      "choices": [
+        "Mid then halve",
+        "Cache subproblem results",
+        "Check head then recurse on tail",
+        "Preorder"
+      ],
+      "correctText": "Check head then recurse on tail",
+      "explanation": "AP CSA Unit 10."
+    },
+    {
+      "id": "ap-computer-science-a-239",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Search",
@@ -4639,15 +5255,15 @@
       "prompt": "Memoization technique.",
       "choices": [
         "Cache subproblem results",
-        "Check head then recurse on tail",
+        "Mid then halve",
         "2D structures",
-        "Mid then halve"
+        "Exponential"
       ],
       "correctText": "Cache subproblem results",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-212",
+      "id": "ap-computer-science-a-240",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Search",
@@ -4660,16 +5276,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive Fibonacci complexity.",
       "choices": [
-        "ArrayList",
+        "O(log n)",
+        "Mutator",
         "Exponential",
-        "Mid then halve",
-        "O(log n)"
+        "Check head then recurse on tail"
       ],
       "correctText": "Exponential",
       "explanation": "Without memoization. AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-213",
+      "id": "ap-computer-science-a-241",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Tree Traversal",
@@ -4682,16 +5298,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Visiting all nodes in tree.",
       "choices": [
-        "Tree traversal",
-        "hashCode()",
         "Breadth-first",
-        "Postorder"
+        "Preorder",
+        "Tree traversal",
+        "Base case"
       ],
       "correctText": "Tree traversal",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-214",
+      "id": "ap-computer-science-a-242",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Tree Traversal",
@@ -4704,16 +5320,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tree traversal type: node before children.",
       "choices": [
-        "Postorder",
-        "Arrays.copyOf",
+        "Preorder",
+        "Tree traversal",
         "Breadth-first",
-        "Preorder"
+        "public"
       ],
       "correctText": "Preorder",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-215",
+      "id": "ap-computer-science-a-243",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Tree Traversal",
@@ -4727,15 +5343,15 @@
       "prompt": "Tree traversal type: left, node, right.",
       "choices": [
         "Preorder",
-        "Percent",
+        "Inorder",
         "Breadth-first",
-        "Inorder"
+        "Integer"
       ],
       "correctText": "Inorder",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-216",
+      "id": "ap-computer-science-a-244",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Tree Traversal",
@@ -4748,16 +5364,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tree traversal type: children before node.",
       "choices": [
-        "Breadth-first",
         "Postorder",
-        "Downcasting",
-        "Tree traversal"
+        "Big-O",
+        "Inorder",
+        "Breadth-first"
       ],
       "correctText": "Postorder",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-217",
+      "id": "ap-computer-science-a-245",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursive Tree Traversal",
@@ -4770,16 +5386,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Tree traversal level by level.",
       "choices": [
-        "null",
-        "Breadth-first",
         "Preorder",
+        "Breadth-first",
+        "Math.sqrt()",
         "Tree traversal"
       ],
       "correctText": "Breadth-first",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-218",
+      "id": "ap-computer-science-a-246",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Patterns",
@@ -4792,16 +5408,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive sorting algorithm.",
       "choices": [
+        "Merge sort or quicksort",
+        "2D array",
         "Greatest common divisor",
-        "Count plus recurse n minus 2",
-        "Enhanced for loop",
-        "Merge sort or quicksort"
+        "Optimized to iteration"
       ],
       "correctText": "Merge sort or quicksort",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-219",
+      "id": "ap-computer-science-a-247",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Patterns",
@@ -4814,16 +5430,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive math example.",
       "choices": [
+        "Cannot be changed",
         "Greatest common divisor",
-        "Binary search",
-        "Optimized to iteration",
-        "Class"
+        "Count plus recurse n minus 2",
+        "Optimized to iteration"
       ],
       "correctText": "Greatest common divisor",
       "explanation": "Euclid c. 300 BCE. AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-220",
+      "id": "ap-computer-science-a-248",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Patterns",
@@ -4836,16 +5452,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive search example.",
       "choices": [
-        "Optimized to iteration",
-        "clear()",
+        "Binary search",
         "Greatest common divisor",
-        "Binary search"
+        "Constructor",
+        "Merge sort or quicksort"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-221",
+      "id": "ap-computer-science-a-249",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Patterns",
@@ -4858,16 +5474,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive count: even integers from 1 to n.",
       "choices": [
+        "Optimized to iteration",
         "Count plus recurse n minus 2",
         "Binary search",
-        "Subclass",
-        "Greatest common divisor"
+        "Arrays.fill"
       ],
       "correctText": "Count plus recurse n minus 2",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-222",
+      "id": "ap-computer-science-a-250",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Recursion Patterns",
@@ -4880,16 +5496,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method type tail-recursive optimized.",
       "choices": [
-        "Merge sort or quicksort",
-        "Binary search",
+        "Greatest common divisor",
         "Optimized to iteration",
-        "Superclass"
+        "instanceof",
+        "Merge sort or quicksort"
       ],
       "correctText": "Optimized to iteration",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-223",
+      "id": "ap-computer-science-a-251",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "Basics",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Java integer type.",
+      "choices": [
+        "Object",
+        "Zero to one exclusive",
+        "int",
+        "Enhanced for"
+      ],
+      "correctText": "int",
+      "explanation": "AP CSA Unit 1."
+    },
+    {
+      "id": "ap-computer-science-a-252",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Basics",
@@ -4903,15 +5541,15 @@
       "prompt": "Equality operator.",
       "choices": [
         "Cannot be changed",
+        "Two-pointer swap",
         "Double equals",
-        "Object",
-        "at Override"
+        "Enhanced for"
       ],
       "correctText": "Double equals",
       "explanation": "AP CSA Unit 1."
     },
     {
-      "id": "ap-computer-science-a-224",
+      "id": "ap-computer-science-a-253",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Basics",
@@ -4924,16 +5562,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java for-each loop.",
       "choices": [
-        "Double equals",
-        "Return type",
         "Enhanced for",
-        "Object"
+        "Cannot be changed",
+        "Double equals",
+        "O(n squared)"
       ],
       "correctText": "Enhanced for",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-225",
+      "id": "ap-computer-science-a-254",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Basics",
@@ -4946,16 +5584,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class blueprint instance.",
       "choices": [
-        "Object",
-        "Cannot be changed",
         "Enhanced for",
-        "arr[i][j]"
+        "Cannot be changed",
+        "Polymorphism",
+        "Object"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-226",
+      "id": "ap-computer-science-a-255",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Basics",
@@ -4968,16 +5606,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java string immutability.",
       "choices": [
-        "Cannot be changed",
-        "Column 0, Column 1, etc.",
+        "Parameter list",
+        "Enhanced for",
         "Double equals",
-        "Enhanced for"
+        "Cannot be changed"
       ],
       "correctText": "Cannot be changed",
       "explanation": "AP CSA Unit 2."
     },
     {
-      "id": "ap-computer-science-a-227",
+      "id": "ap-computer-science-a-256",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms",
@@ -4990,16 +5628,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Search algorithm O(log n).",
       "choices": [
-        "O(n)",
-        "Object",
         "O(n squared)",
+        "Base case",
+        "Assigns to instance variable",
         "Binary search"
       ],
       "correctText": "Binary search",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-228",
+      "id": "ap-computer-science-a-257",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms",
@@ -5012,16 +5650,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Linear search complexity.",
       "choices": [
+        "Binary search",
+        "Big-O",
         "O(n)",
-        "Nested traversal counter",
-        "Base case",
-        "Binary search"
+        "Double"
       ],
       "correctText": "O(n)",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-229",
+      "id": "ap-computer-science-a-258",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms",
@@ -5034,16 +5672,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Bubble sort complexity.",
       "choices": [
-        "length",
-        "O(n squared)",
         "O(n)",
-        "Binary search"
+        "O(log n)",
+        "O(n squared)",
+        "Big-O"
       ],
       "correctText": "O(n squared)",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-230",
+      "id": "ap-computer-science-a-259",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms",
@@ -5056,16 +5694,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Notation for algorithm analysis.",
       "choices": [
-        "O(n squared)",
+        "O(n)",
+        "Binary search",
         "Big-O",
-        "i plus plus",
-        "Binary search"
+        "Cache subproblem results"
       ],
       "correctText": "Big-O",
       "explanation": "AP CSA Unit 4."
     },
     {
-      "id": "ap-computer-science-a-231",
+      "id": "ap-computer-science-a-260",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Algorithms",
@@ -5078,16 +5716,38 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Recursive method requires this.",
       "choices": [
-        "O(n)",
+        "Method",
         "Binary search",
-        "Exponential",
-        "Base case"
+        "Base case",
+        "Big-O"
       ],
       "correctText": "Base case",
       "explanation": "AP CSA Unit 10."
     },
     {
-      "id": "ap-computer-science-a-232",
+      "id": "ap-computer-science-a-261",
+      "course": "ap-computer-science-a",
+      "courseLabel": "ap-computer-science-a",
+      "topic": "OOP",
+      "domain": "Review",
+      "subjectArea": "Review",
+      "gradeBand": "Multi",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-jeopardy",
+      "assessmentSourceId": "jeopardy-ap-computer-science-a",
+      "itemMode": "real-content-from-jeopardy",
+      "prompt": "Hiding fields with getters/setters.",
+      "choices": [
+        "Inheritance",
+        "Object",
+        "Encapsulation",
+        "Method"
+      ],
+      "correctText": "Encapsulation",
+      "explanation": "AP CSA Unit 5."
+    },
+    {
+      "id": "ap-computer-science-a-262",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "OOP",
@@ -5100,16 +5760,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Class extending another.",
       "choices": [
-        "Bang",
-        "Inheritance",
-        "Object",
-        "instanceof"
+        "Polymorphism",
+        "Arrays.fill",
+        "instanceof",
+        "Inheritance"
       ],
       "correctText": "Inheritance",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-233",
+      "id": "ap-computer-science-a-263",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "OOP",
@@ -5122,16 +5782,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method dispatch by object type.",
       "choices": [
-        "Accessor method",
-        "Object",
-        "Inheritance",
-        "Polymorphism"
+        "instanceof",
+        "Polymorphism",
+        "Encapsulation",
+        "Iterator"
       ],
       "correctText": "Polymorphism",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-234",
+      "id": "ap-computer-science-a-264",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "OOP",
@@ -5144,16 +5804,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Java root class.",
       "choices": [
-        "Recursive case",
-        "Inheritance",
         "Object",
+        "public",
+        "Inheritance",
         "Encapsulation"
       ],
       "correctText": "Object",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-235",
+      "id": "ap-computer-science-a-265",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "OOP",
@@ -5166,16 +5826,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Operator checking object type.",
       "choices": [
-        "instanceof",
+        "StringBuilder",
         "Encapsulation",
-        "Inheritance",
-        "private"
+        "Object",
+        "instanceof"
       ],
       "correctText": "instanceof",
       "explanation": "AP CSA Unit 9."
     },
     {
-      "id": "ap-computer-science-a-236",
+      "id": "ap-computer-science-a-266",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Data Structures",
@@ -5188,16 +5848,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Fixed-size container.",
       "choices": [
-        "ArrayList",
         "Array",
+        "Upcasting",
         "size()",
-        "O(log n)"
+        "ArrayList"
       ],
       "correctText": "Array",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-237",
+      "id": "ap-computer-science-a-267",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Data Structures",
@@ -5210,16 +5870,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Resizable list.",
       "choices": [
-        "F(n) equals F(n-1) plus F(n-2)",
-        "size()",
         "ArrayList",
-        "Zero"
+        "Zero",
+        "super dot method",
+        "Array"
       ],
       "correctText": "ArrayList",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-238",
+      "id": "ap-computer-science-a-268",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Data Structures",
@@ -5232,16 +5892,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array of arrays.",
       "choices": [
-        "2D array",
-        "Zero",
+        "Array",
+        "size()",
         "Encapsulation",
-        "Array"
+        "2D array"
       ],
       "correctText": "2D array",
       "explanation": "AP CSA Unit 8."
     },
     {
-      "id": "ap-computer-science-a-239",
+      "id": "ap-computer-science-a-269",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Data Structures",
@@ -5254,16 +5914,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Array indexing starts at.",
       "choices": [
-        "Array",
         "Zero",
+        "Bang",
         "ArrayList",
-        "for-each loop"
+        "Array"
       ],
       "correctText": "Zero",
       "explanation": "AP CSA Unit 6."
     },
     {
-      "id": "ap-computer-science-a-240",
+      "id": "ap-computer-science-a-270",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Data Structures",
@@ -5276,16 +5936,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "ArrayList size method.",
       "choices": [
-        "Init, condition, update",
-        "2D array",
         "ArrayList",
-        "size()"
+        "arr.length",
+        "size()",
+        "2D array"
       ],
       "correctText": "size()",
       "explanation": "AP CSA Unit 7."
     },
     {
-      "id": "ap-computer-science-a-241",
+      "id": "ap-computer-science-a-271",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -5299,15 +5959,15 @@
       "prompt": "Method that initializes object.",
       "choices": [
         "Accessor",
-        "Subclass",
-        "Mutator method",
-        "Constructor"
+        "Method",
+        "Constructor",
+        "Zero"
       ],
       "correctText": "Constructor",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-242",
+      "id": "ap-computer-science-a-272",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -5320,16 +5980,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method modifying object state.",
       "choices": [
-        "Constructor",
-        "Mutator method",
         "Mutator",
-        "Dynamic versus fixed"
+        "Accessor",
+        "void method",
+        "Widening conversion"
       ],
       "correctText": "Mutator",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-243",
+      "id": "ap-computer-science-a-273",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -5342,16 +6002,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method reading object state.",
       "choices": [
-        "Accessor method",
-        "Accessor",
-        "Recursive",
-        "Iterator"
+        "at Override",
+        "Method",
+        "Constructor",
+        "Accessor"
       ],
       "correctText": "Accessor",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-244",
+      "id": "ap-computer-science-a-274",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -5364,16 +6024,16 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method belonging to class.",
       "choices": [
-        "Method overloading",
-        "static method",
         "Static",
-        "Mutator method"
+        "Method",
+        "java.util",
+        "Recursive"
       ],
       "correctText": "Static",
       "explanation": "AP CSA Unit 5."
     },
     {
-      "id": "ap-computer-science-a-245",
+      "id": "ap-computer-science-a-275",
       "course": "ap-computer-science-a",
       "courseLabel": "ap-computer-science-a",
       "topic": "Methods",
@@ -5386,10 +6046,10 @@
       "itemMode": "real-content-from-jeopardy",
       "prompt": "Method calling itself.",
       "choices": [
-        "Recursive",
+        "Accessor",
+        "Row 0, Row 1, etc.",
         "Accessor method",
-        "Pipe pipe",
-        "Constructor"
+        "Recursive"
       ],
       "correctText": "Recursive",
       "explanation": "AP CSA Unit 10."
