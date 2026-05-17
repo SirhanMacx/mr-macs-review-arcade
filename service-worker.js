@@ -1,4 +1,4 @@
-const CACHE_NAME = "mr-macs-arcade-v56-2026-05-16-bank-validator-runtime-self-clean";
+const CACHE_NAME = "v57-regents-global-2-practice-exam";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -12,6 +12,8 @@ const CACHE_FILES = [
   "./games/generated-jeopardy/index.html",
   "./games/generated-practice-exam/",
   "./games/generated-practice-exam/index.html",
+  "./games/regents-global-2/",
+  "./games/regents-global-2/practice-exam.html",
   "./data/all-subject-course-taxonomy.json",
   "./data/released-assessment-source-catalog.json",
   "./data/generated-jeopardy-index.json",
