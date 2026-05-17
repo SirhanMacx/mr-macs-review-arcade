@@ -1530,526 +1530,537 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
   </section>
 </main>
 <script>
-const QUESTIONS_REPLACED_BELOW = [
+const QUESTIONS = [
+  // ── Período 1: La Edad Media (4) ──
   {
-    id: "ghii-001",
-    topic: "Unit 1: World in 1750",
-    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
+    id: "apspanlit-001",
+    topic: "Período 1: La Edad Media",
+    prompt: "En El Conde Lucanor de Don Juan Manuel, ¿cuál es la función estructural de Patronio dentro de cada exemplo?",
     choices: [
-      "All three had embraced parliamentary democracy.",
-      "All three were multiethnic land-based empires governed by hereditary rulers.",
-      "All three had abolished traditional religious practices.",
-      "All three controlled overseas colonies in the Americas.",
+      "Es el protagonista que vive la aventura central del cuento.",
+      "Es el consejero que responde a la consulta del Conde mediante un cuento ejemplar.",
+      "Es un narrador omnisciente que juzga las acciones del Conde desde fuera.",
+      "Es un personaje cómico que ridiculiza las decisiones nobiliarias.",
     ],
-    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
-    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
+    correctText: "Es el consejero que responde a la consulta del Conde mediante un cuento ejemplar.",
+    explanation: "Cada exemplo de El Conde Lucanor sigue una estructura fija: el Conde plantea un problema, Patronio responde con un cuento didáctico, y Don Juan Manuel cierra con una moraleja en pareados. Patronio es el ayo/consejero, no el protagonista."
   },
   {
-    id: "ghii-002",
-    topic: "Unit 1: World in 1750",
-    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
+    id: "apspanlit-002",
+    topic: "Período 1: La Edad Media",
+    prompt: "En \"Lo que sucedió a un mozo que casó con una mujer muy fuerte y muy brava\" (Exemplo XXXV), ¿qué estrategia usa el mozo durante la primera noche de bodas?",
     choices: [
-      "Promote global trade with European powers.",
-      "Spread Christianity across East Asia.",
-      "Preserve internal stability by limiting foreign contact.",
-      "Expand Japanese colonies in the Americas.",
+      "Pide ayuda a su suegro para someter a la novia.",
+      "Mata violentamente a varios animales delante de la novia para inspirar miedo y obediencia.",
+      "Huye de la casa y abandona el matrimonio.",
+      "Negocia un pacto de igualdad con la novia desde el primer día.",
     ],
-    correctText: "Preserve internal stability by limiting foreign contact.",
-    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
+    correctText: "Mata violentamente a varios animales delante de la novia para inspirar miedo y obediencia.",
+    explanation: "El mozo ordena al perro, al gato y finalmente al caballo que le traigan agua; cuando no obedecen, los mata. La esposa, aterrorizada, le obedece. El cuento refleja la ideología patriarcal medieval y se discute hoy en clase con perspectiva crítica."
   },
   {
-    id: "ghii-003",
-    topic: "Unit 1: World in 1750",
-    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
+    id: "apspanlit-003",
+    topic: "Período 1: La Edad Media",
+    prompt: "Las Coplas por la muerte de su padre de Jorge Manrique se organizan en estrofas de pie quebrado. ¿Qué tema central recorre todo el poema?",
     choices: [
-      "Laissez-faire capitalism",
-      "Mercantilism",
-      "Socialism",
-      "Command economy",
+      "La celebración de las hazañas militares de la Reconquista.",
+      "La sátira de los vicios cortesanos del siglo XV.",
+      "La meditación sobre la fugacidad de la vida y la fama eterna ganada con virtud.",
+      "La descripción amorosa de una dama idealizada.",
     ],
-    correctText: "Mercantilism",
-    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
+    correctText: "La meditación sobre la fugacidad de la vida y la fama eterna ganada con virtud.",
+    explanation: "Manrique elegía a su padre Rodrigo y medita sobre las tres vidas: la terrenal (efímera), la de la fama (perdurable entre los hombres) y la eterna (lograda con virtud cristiana). La imagen de los ríos que van a dar en la mar sintetiza la fugacidad."
   },
   {
-    id: "ghii-004",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
+    id: "apspanlit-004",
+    topic: "Período 1: La Edad Media",
+    prompt: "En el \"Romance del rey moro que perdió Alhama\", el estribillo \"¡Ay de mi Alhama!\" funciona principalmente como recurso de:",
     choices: [
-      "Thomas Hobbes",
-      "John Locke",
-      "Niccolò Machiavelli",
-      "Karl Marx",
+      "Hipérbole burlesca que ridiculiza al rey moro.",
+      "Lamento lírico que intensifica el tono elegíaco y refuerza la oralidad del romance.",
+      "Alegoría política a favor del trono castellano.",
+      "Ironía dramática para anticipar la victoria cristiana.",
     ],
-    correctText: "John Locke",
-    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
+    correctText: "Lamento lírico que intensifica el tono elegíaco y refuerza la oralidad del romance.",
+    explanation: "El estribillo repetido cumple función mnemotécnica (propia del romancero, transmitido oralmente) y emocional, marcando el duelo del rey moro Boabdil tras la caída de Alhama (1482). El romance es noticiero-elegíaco, no satírico."
+  },
+
+  // ── Período 2: Siglo de Oro (10) ──
+  {
+    id: "apspanlit-005",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "El Lazarillo de Tormes inaugura el género picaresco. ¿Cuál de las siguientes NO es una característica estructural típica de este género?",
+    choices: [
+      "Narración autobiográfica en primera persona.",
+      "Protagonista de origen humilde que sirve a varios amos.",
+      "Estructura episódica y crítica social a través de la sátira.",
+      "Héroe noble que culmina su viaje con la conquista del amor cortés.",
+    ],
+    correctText: "Héroe noble que culmina su viaje con la conquista del amor cortés.",
+    explanation: "El pícaro es antihéroe: humilde, marginal, narrador-protagonista de su propia vida, que sobrevive sirviendo a amos sucesivos en una estructura episódica. El amor cortés y el héroe noble corresponden a la novela de caballerías, que Lazarillo precisamente parodia."
   },
   {
-    id: "ghii-005",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
+    id: "apspanlit-006",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "En el Tratado I del Lazarillo, el episodio del toro de piedra en el puente de Salamanca marca un momento clave porque:",
     choices: [
-      "Free public education",
-      "Separation of powers among three branches",
-      "Universal suffrage",
-      "Direct election of judges",
+      "Lázaro decide entregarse a la justicia tras un robo.",
+      "El ciego le golpea la cabeza contra el toro y Lázaro despierta a la malicia del mundo.",
+      "Lázaro descubre la riqueza oculta del ciego.",
+      "El ciego confiesa haber sido noble en su juventud.",
     ],
-    correctText: "Separation of powers among three branches",
-    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
+    correctText: "El ciego le golpea la cabeza contra el toro y Lázaro despierta a la malicia del mundo.",
+    explanation: "Es la \"calabazada\" iniciática: el ciego le dice que el mozo de ciego debe saber un punto más que el diablo. Marca el paso de la inocencia infantil a la astucia picaresca. Es un episodio de iniciación, no de robo ni de revelación social."
   },
   {
-    id: "ghii-006",
-    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
-    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
+    id: "apspanlit-007",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "Al final del Lazarillo, Lázaro se casa con la criada del Arcipreste de San Salvador y declara estar \"en la cumbre de toda buena fortuna\". El tono predominante de este desenlace es:",
     choices: [
-      "It restored a monarchy after a brief republican experiment.",
-      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-      "It ended without significant political change.",
-      "It established a constitutional monarchy under European supervision.",
+      "Sinceramente celebratorio y heroico.",
+      "Trágico, pues Lázaro muere arruinado.",
+      "Irónico y ambiguo, ya que el lector entiende que es un matrimonio de conveniencia que encubre el adulterio.",
+      "Religioso, pues Lázaro entra en la vida monástica.",
     ],
-    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
-    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
+    correctText: "Irónico y ambiguo, ya que el lector entiende que es un matrimonio de conveniencia que encubre el adulterio.",
+    explanation: "La \"cumbre de buena fortuna\" es ironía sostenida: Lázaro vive de la deshonra (su mujer es amante del Arcipreste). La obra usa la ironía como crítica al concepto rígido de honra y a la hipocresía clerical del siglo XVI."
   },
   {
-    id: "ghii-007",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
+    id: "apspanlit-008",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "En el Capítulo 8 de Don Quijote I, el episodio de los molinos de viento se ha convertido en el emblema de la novela porque:",
     choices: [
-      "Britain had the most extensive colonial empire in Asia.",
-      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-      "Britain was the only European country with a literate workforce.",
-      "Britain was the first nation to outlaw all forms of forced labor.",
+      "Don Quijote derrota a treinta gigantes y se consagra como caballero.",
+      "Sancho Panza vence a Don Quijote en combate singular.",
+      "Don Quijote confunde molinos con gigantes y, tras ser derribado, insiste en que un encantador transformó a los gigantes en molinos.",
+      "El cura y el barbero queman finalmente la biblioteca del hidalgo.",
     ],
-    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
-    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
+    correctText: "Don Quijote confunde molinos con gigantes y, tras ser derribado, insiste en que un encantador transformó a los gigantes en molinos.",
+    explanation: "Es el episodio cumbre del choque entre idealismo (el mundo caballeresco que Don Quijote proyecta) y realidad (Sancho ve molinos). Cervantes introduce el motivo del \"encantador\" para que Don Quijote pueda mantener su visión sin admitir el error: clave de la locura quijotesca."
   },
   {
-    id: "ghii-008",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
+    id: "apspanlit-009",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "La figura de Dulcinea del Toboso es fundamental en Don Quijote porque representa:",
     choices: [
-      "Workers gained shorter hours and immediate political rights.",
-      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-      "Workers transitioned from factories back to small craft workshops.",
-      "Workers were guaranteed employment by national governments.",
+      "Una dama real con la que Don Quijote mantiene correspondencia.",
+      "La hermana de Sancho Panza.",
+      "Una idealización del amor cortés: Aldonza Lorenzo, labradora real, transfigurada por la imaginación caballeresca de Don Quijote.",
+      "La esposa legítima de Alonso Quijano antes de su locura.",
     ],
-    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
-    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
+    correctText: "Una idealización del amor cortés: Aldonza Lorenzo, labradora real, transfigurada por la imaginación caballeresca de Don Quijote.",
+    explanation: "Dulcinea nunca aparece físicamente; es construcción mental del protagonista, que necesita una dama según el código caballeresco. Cervantes parodia el amor cortés mostrando que el objeto idealizado es una campesina común a la que el héroe nunca ha hablado."
   },
   {
-    id: "ghii-009",
-    topic: "Unit 3: Industrial Revolution",
-    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
+    id: "apspanlit-010",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "El narrador de Don Quijote afirma haber traducido la historia de un manuscrito arábigo de Cide Hamete Benengeli. Este recurso metaliterario sirve para:",
     choices: [
-      "Religious revival across industrial societies",
-      "A class struggle leading to revolution by the proletariat",
-      "Voluntary government regulation of industries",
-      "A return to feudal economic relationships",
+      "Documentar históricamente la vida del hidalgo manchego.",
+      "Crear distancia irónica y poner en duda la veracidad del relato, jugando con los niveles narrativos.",
+      "Defender la cultura morisca expulsada en 1609.",
+      "Atribuir la obra a otro autor para evitar la Inquisición.",
     ],
-    correctText: "A class struggle leading to revolution by the proletariat",
-    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
+    correctText: "Crear distancia irónica y poner en duda la veracidad del relato, jugando con los niveles narrativos.",
+    explanation: "El \"autor árabe\" es ficción dentro de la ficción: Cervantes (autor real) → narrador-traductor → Cide Hamete (cronista ficticio) → personajes. Genera ironía, perspectivismo y el cuestionamiento moderno de quién narra la verdad."
   },
   {
-    id: "ghii-010",
-    topic: "Unit 4: Imperialism",
-    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
+    id: "apspanlit-011",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "En El burlador de Sevilla de Tirso de Molina, Don Juan Tenorio es definitivamente condenado al infierno por:",
     choices: [
-      "African leaders would have veto power over all colonial boundaries.",
-      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-      "African colonies would gain independence within 25 years.",
-      "All European nations would withdraw from the African continent.",
+      "Engañar a varias mujeres de distinta clase social.",
+      "Aceptar la mano de piedra del Comendador (Don Gonzalo de Ulloa) en el convite ultraterreno, sin arrepentirse a tiempo.",
+      "Asesinar al rey de Nápoles.",
+      "Renunciar a la fe católica delante del Papa.",
     ],
-    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
-    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
+    correctText: "Aceptar la mano de piedra del Comendador (Don Gonzalo de Ulloa) en el convite ultraterreno, sin arrepentirse a tiempo.",
+    explanation: "Don Juan posterga el arrepentimiento con su muletilla \"¡Qué largo me lo fiáis!\". La estatua del Comendador, a quien había matado, lo arrastra al infierno. El tema teológico central es la justicia divina contra la presunción y la falta de contrición."
   },
   {
-    id: "ghii-011",
-    topic: "Unit 4: Imperialism",
-    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
+    id: "apspanlit-012",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "El Soneto XXIII de Garcilaso de la Vega, \"En tanto que de rosa y azucena\", desarrolla principalmente el tópico clásico de:",
     choices: [
-      "Indian soldiers refused to fight against the Ottoman Empire.",
-      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-      "Sepoys demanded equal pay with British officers.",
-      "British missionaries had been expelled from India.",
+      "Beatus ille (alabanza de la vida retirada).",
+      "Carpe diem (aprovecha la juventud antes de que llegue la vejez).",
+      "Ubi sunt (¿dónde están los que vivieron antes que nosotros?).",
+      "Memento mori en clave religiosa.",
     ],
-    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
-    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
+    correctText: "Carpe diem (aprovecha la juventud antes de que llegue la vejez).",
+    explanation: "Garcilaso adapta a Horacio y Ausonio: invita a la dama a gozar de su belleza juvenil (rosa, azucena, cabello de oro) antes que el tiempo airado la cubra de nieve. Tópico petrarquista renacentista por excelencia."
   },
   {
-    id: "ghii-012",
-    topic: "Unit 4: Imperialism",
-    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
+    id: "apspanlit-013",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "El soneto culterano \"Mientras por competir con tu cabello\" de Góngora termina con la imagen \"en tierra, en humo, en polvo, en sombra, en nada\". Esta secuencia es ejemplo de:",
     choices: [
-      "China had invaded British India.",
-      "China refused to allow British ships into the Mediterranean.",
-      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-      "China demanded that Britain abolish slavery in its colonies.",
+      "Hipérbaton sintáctico.",
+      "Gradación descendente que culmina en aniquilación, propia del desengaño barroco.",
+      "Aliteración sin valor temático.",
+      "Encabalgamiento abrupto que rompe el endecasílabo.",
     ],
-    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
-    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
+    correctText: "Gradación descendente que culmina en aniquilación, propia del desengaño barroco.",
+    explanation: "La serie va de lo concreto (tierra) a lo intangible (sombra, nada) y disuelve la belleza juvenil. Frente al carpe diem renacentista de Garcilaso, Góngora extrema la conclusión: la muerte no es solo amenaza, es aniquilación total. Es el desengaño barroco."
   },
   {
-    id: "ghii-013",
-    topic: "Unit 4: Imperialism",
-    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
+    id: "apspanlit-014",
+    topic: "Período 2: Siglo de Oro",
+    prompt: "En \"Hombres necios que acusáis\" de Sor Juana Inés de la Cruz, ¿cuál es la denuncia central de la redondilla?",
     choices: [
-      "Embraced Western technology, industry, and military methods while preserving its emperor.",
-      "Permanently closed its borders to all foreign contact.",
-      "Was conquered and ruled directly by Western powers until 1945.",
-      "Refused to make any changes to its traditional samurai society.",
+      "Que las mujeres son inferiores intelectualmente a los hombres.",
+      "Que los hombres exigen virtud a las mujeres mientras las inducen al pecado, contradiciéndose moralmente.",
+      "Que la Iglesia debe permitir a las mujeres acceder a las órdenes mayores.",
+      "Que el matrimonio es una institución indisoluble.",
     ],
-    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
-    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
+    correctText: "Que los hombres exigen virtud a las mujeres mientras las inducen al pecado, contradiciéndose moralmente.",
+    explanation: "Sor Juana invierte la culpa: el hombre solicita y reprocha, pidiendo casta a la que tienta. Es uno de los textos protofeministas más célebres del Barroco hispanoamericano y se estudia junto a la Respuesta a Sor Filotea como defensa del derecho de la mujer al saber."
+  },
+
+  // ── Período 3: Siglo XIX (6) ──
+  {
+    id: "apspanlit-015",
+    topic: "Período 3: Siglo XIX",
+    prompt: "En \"El hijo\" de Horacio Quiroga, la estructura narrativa se basa en una alternancia entre:",
+    choices: [
+      "Pasado feliz y futuro utópico.",
+      "Tiempo objetivo (la realidad de la muerte del hijo) y tiempo subjetivo-alucinatorio (la negación paterna).",
+      "Voz del padre y voz del hijo en diálogo.",
+      "Naturaleza apacible y ciudad opresiva.",
+    ],
+    correctText: "Tiempo objetivo (la realidad de la muerte del hijo) y tiempo subjetivo-alucinatorio (la negación paterna).",
+    explanation: "Quiroga construye el horror final mediante el contraste: el lector intuye que el hijo murió en el monte, pero el padre lo \"ve\" caminar a su lado. El desdoblamiento temporal es recurso clave del cuento, ambientado en la selva misionera."
   },
   {
-    id: "ghii-014",
-    topic: "Unit 5: World War I",
-    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
+    id: "apspanlit-016",
+    topic: "Período 3: Siglo XIX",
+    prompt: "Horacio Quiroga es conocido por su \"Decálogo del perfecto cuentista\". ¿Cuál de estos principios refleja mejor su poética?",
     choices: [
-      "Marxism, agriculture, isolationism, neutrality",
-      "Militarism, alliances, imperialism, nationalism",
-      "Monarchy, anarchism, industry, navy",
-      "Modernization, autocracy, individualism, neocolonialism",
+      "Privilegiar la descripción ornamental sobre la acción.",
+      "Escribir como si el relato tuviera interés solo para el escritor.",
+      "Apuntar a la unidad de efecto: economía de palabras y final intenso, en la línea de Poe y Maupassant.",
+      "Incluir reflexiones filosóficas extensas en cada cuento.",
     ],
-    correctText: "Militarism, alliances, imperialism, nationalism",
-    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
+    correctText: "Apuntar a la unidad de efecto: economía de palabras y final intenso, en la línea de Poe y Maupassant.",
+    explanation: "Quiroga, influido por Poe, defiende la concentración, la economía verbal y el final demoledor. \"El hijo\" ejemplifica ese ideal: un párrafo final basta para devastar al lector con la verdad que se había anticipado."
   },
   {
-    id: "ghii-015",
-    topic: "Unit 5: World War I",
-    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
+    id: "apspanlit-017",
+    topic: "Período 3: Siglo XIX",
+    prompt: "En \"Las medias rojas\" de Emilia Pardo Bazán, ¿qué simbolizan las medias rojas que Ildara intenta lucir?",
     choices: [
-      "Russia won early victories in WWI that inspired political reform.",
-      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-      "Western powers sent armies to depose Nicholas II.",
-      "The Tsar voluntarily turned over power to the peasantry.",
+      "La fidelidad de Ildara a su padre.",
+      "El deseo de Ildara de emigrar y escapar de la miseria rural, asociado a la coquetería y la juventud.",
+      "La pertenencia religiosa de la familia.",
+      "La riqueza heredada de la madre.",
     ],
-    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
-    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
+    correctText: "El deseo de Ildara de emigrar y escapar de la miseria rural, asociado a la coquetería y la juventud.",
+    explanation: "Las medias rojas son signo de modernidad y de la ilusión migratoria (la indiana América). El padre, el tío Clodio, reacciona con violencia patriarcal y le destroza el rostro y el ojo, frustrando el viaje al exigirse \"buena presencia\" en el barco."
   },
   {
-    id: "ghii-016",
-    topic: "Unit 5: World War I",
-    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
+    id: "apspanlit-018",
+    topic: "Período 3: Siglo XIX",
+    prompt: "\"Las medias rojas\" se inscribe en la corriente del naturalismo. ¿Qué rasgo naturalista es más evidente en el cuento?",
     choices: [
-      "Germany's loss of its colonies in Africa",
-      "The 'war guilt' clause (Article 231) and crushing reparations payments",
-      "The reduction of the German navy",
-      "The redrawing of borders in the Middle East",
+      "La idealización romántica del campo gallego.",
+      "El determinismo social y biológico que condena a Ildara a la miseria hereditaria.",
+      "El uso de un narrador en primera persona confesional.",
+      "La presencia de elementos sobrenaturales.",
     ],
-    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
-    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
+    correctText: "El determinismo social y biológico que condena a Ildara a la miseria hereditaria.",
+    explanation: "Pardo Bazán, introductora del naturalismo en España, muestra cómo la violencia del padre, la pobreza, la enfermedad (la mordedura, el ojo perdido) y la estructura patriarcal cierran toda posibilidad de fuga. El medio determina el destino."
   },
   {
-    id: "ghii-017",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
+    id: "apspanlit-019",
+    topic: "Período 3: Siglo XIX",
+    prompt: "En la Rima LIII de Bécquer (\"Volverán las oscuras golondrinas\"), el yo poético insiste en que las golondrinas y las madreselvas volverán, pero \"aquellas\" no. ¿Qué efecto retórico domina la composición?",
     choices: [
-      "All world currencies were physically stored in U.S. banks.",
-      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-      "Only the United States used a banking system in 1929.",
-      "European nations were forced to convert to communism in response.",
+      "Anáfora y paralelismo que enfatizan la unicidad e irrepetibilidad del amor perdido.",
+      "Sátira política contra la monarquía isabelina.",
+      "Hipérbole cómica.",
+      "Encabalgamientos que aceleran el ritmo narrativo.",
     ],
-    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
-    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
+    correctText: "Anáfora y paralelismo que enfatizan la unicidad e irrepetibilidad del amor perdido.",
+    explanation: "Bécquer repite la estructura \"Volverán... pero aquellas... ¡ésas... no volverán!\". El paralelismo construye una progresión emocional hacia el clímax: el amor concreto no se repite, aunque la naturaleza sí lo haga. Es romanticismo intimista."
   },
   {
-    id: "ghii-018",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
+    id: "apspanlit-020",
+    topic: "Período 3: Siglo XIX",
+    prompt: "En \"Nuestra América\" (1891), José Martí defiende que los americanos deben:",
     choices: [
-      "Demilitarize the Soviet Union",
-      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-      "Restore private property to peasants",
-      "Establish democratic elections",
+      "Imitar las constituciones europeas y norteamericanas para modernizarse.",
+      "Gobernarse según la realidad propia, conociendo al indio y al campesino, y prevenir la expansión del coloso del norte.",
+      "Volver al modelo colonial español como antídoto contra el imperialismo.",
+      "Renunciar al mestizaje como condición para el progreso.",
     ],
-    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
-    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
+    correctText: "Gobernarse según la realidad propia, conociendo al indio y al campesino, y prevenir la expansión del coloso del norte.",
+    explanation: "Martí postula una América con \"injerto\" propio: vino de plátano, gobiernos nacidos del país. Critica al \"sietemesino\" que importa modelos ajenos y advierte sobre el imperialismo estadounidense en vísperas de la guerra del 98."
+  },
+
+  // ── Período 4: Vanguardia y Siglo XX (8) ──
+  {
+    id: "apspanlit-021",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En \"Mi caballo mago\" de Sabine R. Ulibarrí, la captura final del caballo blanco simboliza para el joven narrador:",
+    choices: [
+      "Un triunfo absoluto e inalterable que lo convierte en hombre.",
+      "Un rito de paso ambiguo: alcanza la madurez pero pierde el mito al ver al caballo enjaulado y luego huido.",
+      "La traición del padre que le impide quedarse con el animal.",
+      "El descubrimiento de que el caballo nunca existió.",
+    ],
+    correctText: "Un rito de paso ambiguo: alcanza la madurez pero pierde el mito al ver al caballo enjaulado y luego huido.",
+    explanation: "El joven chicano de Nuevo México atrapa al mítico caballo mago, pero al amanecer este ha escapado. El relato celebra la libertad del mito sobre la posesión y reflexiona sobre la herencia hispana del suroeste estadounidense."
   },
   {
-    id: "ghii-019",
-    topic: "Unit 6: Interwar + Totalitarianism",
-    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
+    id: "apspanlit-022",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "\"Walking around\" de Pablo Neruda pertenece a Residencia en la tierra. El célebre verso \"Sucede que me canso de ser hombre\" introduce un hablante lírico que:",
     choices: [
-      "Free press and competitive elections",
-      "A one-party state, suppression of dissent, and a personality cult around the leader",
-      "Decentralized economic decision-making",
-      "Voluntary collective decision-making by citizens' councils",
+      "Celebra la modernidad urbana y el progreso industrial.",
+      "Expresa el hastío existencial frente a una ciudad mecanizada, deshumanizada y monótona.",
+      "Pide perdón a Dios por sus pecados.",
+      "Defiende la revolución comunista de modo explícito.",
     ],
-    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
-    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
+    correctText: "Expresa el hastío existencial frente a una ciudad mecanizada, deshumanizada y monótona.",
+    explanation: "El poema, surrealista en su imaginería (sastrerías, raíces, dientes olvidados), expresa la náusea del hablante ante objetos cotidianos absurdos. Pertenece a la etapa hermética de Neruda, anterior a su poesía comprometida posterior."
   },
   {
-    id: "ghii-020",
-    topic: "Unit 7: World War II",
-    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
+    id: "apspanlit-023",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En \"He andado muchos caminos\" de Antonio Machado (Soledades), el hablante distingue entre la gente \"que danza o juega\" y otra gente \"buena\". ¿Cuál es la actitud del yo poético?",
     choices: [
-      "France and Britain went to war with Hitler over Czechoslovakia.",
-      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-      "Hitler returned previously seized territory to Czechoslovakia.",
-      "The League of Nations sanctioned Germany for aggression.",
+      "Desprecio aristocrático hacia el pueblo trabajador.",
+      "Solidaridad humilde y democrática con los hombres sencillos que viven, trabajan y mueren con dignidad.",
+      "Defensa de la jerarquía social tradicional.",
+      "Llamado a la insurrección armada.",
     ],
-    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
-    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
+    correctText: "Solidaridad humilde y democrática con los hombres sencillos que viven, trabajan y mueren con dignidad.",
+    explanation: "Machado, voz ética del 98, contrapone a los vanidosos con la gente humilde que duerme en la tierra y trabaja sin presumir. Anticipa su poesía cívica de Campos de Castilla y su posterior compromiso republicano."
   },
   {
-    id: "ghii-021",
-    topic: "Unit 7: World War II",
-    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
+    id: "apspanlit-024",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En \"Balada de los dos abuelos\" de Nicolás Guillén, los dos abuelos (don Federico y taita Facundo) representan respectivamente:",
     choices: [
-      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
-      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-      "The United States had declared war on Japan one week earlier.",
-      "Japan was honoring a defensive treaty with China.",
+      "Dos generaciones de españoles peninsulares.",
+      "El abuelo español (blanco, conquistador) y el abuelo africano (negro, esclavizado), que se reconcilian en el mestizaje cubano del hablante.",
+      "Dos colonizadores europeos rivales.",
+      "Dos abuelos africanos de distintas tribus.",
     ],
-    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
-    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
+    correctText: "El abuelo español (blanco, conquistador) y el abuelo africano (negro, esclavizado), que se reconcilian en el mestizaje cubano del hablante.",
+    explanation: "El poema afro-cubano de Sóngoro cosongo construye la identidad mulata del Caribe: la lanza con cuero y la gola, el ingenio y el tambor. La síntesis final (\"los dos del mismo tamaño\") afirma el mestizaje como base de lo cubano."
   },
   {
-    id: "ghii-022",
-    topic: "Unit 7: World War II",
-    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
+    id: "apspanlit-025",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En \"Borges y yo\" de Jorge Luis Borges, ¿qué relación se establece entre los dos \"Borges\"?",
     choices: [
-      "100,000 people, primarily Polish soldiers",
-      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-      "Only Jewish residents of Germany",
-      "Twelve million ethnic Germans",
+      "Son padre e hijo del autor.",
+      "Son el Borges íntimo y privado frente al Borges público y literario, en una meditación sobre la identidad y la autoría.",
+      "Son dos hermanos gemelos reales.",
+      "Son el autor joven y el autor anciano dialogando.",
     ],
-    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
-    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
+    correctText: "Son el Borges íntimo y privado frente al Borges público y literario, en una meditación sobre la identidad y la autoría.",
+    explanation: "El microrrelato desdobla al yo: uno camina por Buenos Aires y disfruta cosas comunes; el otro es el escritor que se apropia de la vida del primero. La ambigüedad final (\"no sé cuál de los dos escribe esta página\") es metaliteraria pura."
   },
   {
-    id: "ghii-023",
-    topic: "Unit 7: World War II",
-    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
+    id: "apspanlit-026",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En La casa de Bernarda Alba de Federico García Lorca, el bastón que Bernarda usa y luego rompe Adela simboliza:",
     choices: [
-      "A test of the new weapon under combat conditions",
-      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-      "Retaliation for the Holocaust in Europe",
-      "A response to a Japanese atomic weapons program",
+      "La autoridad de la Iglesia católica.",
+      "El poder patriarcal y autoritario de Bernarda, que Adela desafía al romperlo en el tercer acto.",
+      "La vejez física de Bernarda.",
+      "La pobreza del pueblo andaluz.",
     ],
-    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
-    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
+    correctText: "El poder patriarcal y autoritario de Bernarda, que Adela desafía al romperlo en el tercer acto.",
+    explanation: "Bernarda impone ocho años de luto con el bastón en mano. Cuando Adela lo parte en dos al rebelarse por Pepe el Romano, ejecuta un acto simbólico de emancipación que precipita la tragedia: cree falsamente que Pepe ha muerto y se ahorca."
   },
   {
-    id: "ghii-024",
-    topic: "Unit 8: Cold War",
-    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
+    id: "apspanlit-027",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "El verso final de La casa de Bernarda Alba —\"¡Silencio!\"— pronunciado por Bernarda tras el suicidio de Adela, revela que el tema central de la obra es:",
     choices: [
-      "Returning to isolationism",
-      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-      "Direct military conquest of the Soviet Union",
-      "Sharing nuclear technology with all U.S. allies",
+      "El amor romántico triunfante.",
+      "El conflicto entre el deseo individual de libertad y la represión social impuesta por la honra, las apariencias y el luto.",
+      "La crisis económica de la posguerra civil.",
+      "La emigración rural a Madrid.",
     ],
-    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
-    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
+    correctText: "El conflicto entre el deseo individual de libertad y la represión social impuesta por la honra, las apariencias y el luto.",
+    explanation: "Bernarda exige silencio para preservar la apariencia: que se diga que Adela murió virgen. Lorca denuncia la tiranía de la honra y el patriarcado en la España rural. La obra se estrenó póstumamente; Lorca fue asesinado en 1936."
   },
   {
-    id: "ghii-025",
-    topic: "Unit 8: Cold War",
-    prompt: "Which Cold War event came closest to triggering nuclear war?",
+    id: "apspanlit-028",
+    topic: "Período 4: Vanguardia y Siglo XX",
+    prompt: "En La casa de Bernarda Alba, los nombres de algunos personajes son simbólicos. ¿Qué connota el nombre \"Angustias\" (la hija mayor)?",
     choices: [
-      "The 1948 Berlin Blockade",
-      "The 1962 Cuban Missile Crisis",
-      "The 1953 Korean armistice",
-      "The 1957 Sputnik launch",
+      "Su belleza física que despierta envidia.",
+      "Su edad avanzada, su enfermedad y la angustia de ser la única heredera con dote, prometida con Pepe el Romano por interés.",
+      "Su devoción religiosa profunda.",
+      "Su capacidad de mediación familiar.",
     ],
-    correctText: "The 1962 Cuban Missile Crisis",
-    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
+    correctText: "Su edad avanzada, su enfermedad y la angustia de ser la única heredera con dote, prometida con Pepe el Romano por interés.",
+    explanation: "Lorca elige nombres con valor connotativo: Angustias (39 años, fea, rica), Magdalena (llorona), Martirio (sufre), Amelia (sin miel), Adela (noble, rebelde). El nombre anticipa el destino emocional de cada hermana."
+  },
+
+  // ── Período 5: Boom y posboom latinoamericano (8) ──
+  {
+    id: "apspanlit-029",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En el primer capítulo de Cien años de soledad de Gabriel García Márquez, los gitanos liderados por Melquíades llevan a Macondo varios inventos. ¿Cuál de estos es central para introducir el realismo mágico desde la primera línea?",
+    choices: [
+      "Un telescopio que muestra el futuro de la familia.",
+      "El hielo, presentado como una maravilla insólita ante la cual José Arcadio Buendía paga por tocarlo.",
+      "La pólvora, que destruye el pueblo en el primer capítulo.",
+      "La rueda, desconocida en Macondo.",
+    ],
+    correctText: "El hielo, presentado como una maravilla insólita ante la cual José Arcadio Buendía paga por tocarlo.",
+    explanation: "La novela abre con la memoria del coronel Aureliano Buendía recordando aquella tarde remota en que su padre lo llevó a conocer el hielo. Invertir lo cotidiano (hielo = prodigio) y lo prodigioso (imán = ciencia natural) es el motor del realismo mágico."
   },
   {
-    id: "ghii-026",
-    topic: "Unit 8: Cold War",
-    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
+    id: "apspanlit-030",
+    topic: "Período 5: Boom y posboom",
+    prompt: "El célebre inicio de Cien años de soledad utiliza una estructura temporal característica de García Márquez. ¿Cuál?",
     choices: [
-      "Promote free trade across Europe",
-      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-      "Coordinate scientific space programs",
-      "Govern post-war reconstruction in Asia",
+      "Narración estrictamente cronológica desde la fundación hasta la destrucción.",
+      "Salto temporal que mezcla un futuro lejano (el pelotón de fusilamiento), un pasado remoto (la tarde del hielo) y un presente narrativo, en un mismo párrafo.",
+      "Monólogo interior continuo sin marcas temporales.",
+      "Narración exclusivamente en presente histórico.",
     ],
-    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
-    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
+    correctText: "Salto temporal que mezcla un futuro lejano (el pelotón de fusilamiento), un pasado remoto (la tarde del hielo) y un presente narrativo, en un mismo párrafo.",
+    explanation: "La primera oración condensa tres tiempos: \"muchos años después\", \"había de recordar\", \"aquella tarde remota\". Esta polifonía temporal anticipa la estructura cíclica de la novela y los 100 años de la estirpe Buendía en Macondo."
   },
   {
-    id: "ghii-027",
-    topic: "Unit 8: Cold War",
-    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
+    id: "apspanlit-031",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En \"La siesta del martes\" de García Márquez (Los funerales de la Mamá Grande), la madre que viaja con su hija al pueblo va a:",
     choices: [
-      "The U.S. sought to annex Vietnam as a territory.",
-      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-      "The Vietnamese government formally requested annexation.",
-      "Vietnam had attacked the United States directly in 1960.",
+      "Asistir a la boda de un sobrino.",
+      "Visitar la tumba de su hijo, muerto a tiros confundido con un ladrón, y exige las llaves del cementerio con dignidad inquebrantable.",
+      "Vender una herencia familiar.",
+      "Buscar trabajo como costurera.",
     ],
-    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
-    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
+    correctText: "Visitar la tumba de su hijo, muerto a tiros confundido con un ladrón, y exige las llaves del cementerio con dignidad inquebrantable.",
+    explanation: "El cuento, que García Márquez consideró su mejor relato, retrata la dignidad estoica de la madre frente al cura y al pueblo hostil. La escena no muestra emoción explícita: la fuerza está en el contenido del gesto, en la línea del iceberg de Hemingway."
   },
   {
-    id: "ghii-028",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
+    id: "apspanlit-032",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En \"El sur\" de Jorge Luis Borges (Ficciones / Artificios), el protagonista Juan Dahlmann sufre un accidente y luego viaja al sur, donde muere en un duelo a cuchillo. Una lectura clave del final propone que:",
     choices: [
-      "Through armed military rebellion against British troops",
-      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-      "By accepting all British demands without protest",
-      "By forming a violent partnership with Japan during WWII",
+      "Dahlmann sobrevive al accidente y se convierte en estanciero.",
+      "El duelo es real y desplaza al personaje a un destino criollo heroico que se opone a la muerte gris del sanatorio.",
+      "Toda la segunda parte podría ser una alucinación del moribundo en el sanatorio, ofreciéndole la muerte que habría preferido.",
+      "Ambas lecturas (real y alucinada) son válidas y se sostienen simultáneamente en la ambigüedad borgeana.",
     ],
-    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
-    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
+    correctText: "Ambas lecturas (real y alucinada) son válidas y se sostienen simultáneamente en la ambigüedad borgeana.",
+    explanation: "Borges plantea un doble final irresoluble: o Dahlmann muere en duelo real, o lo imagina en agonía. La crítica destaca esta duplicidad como rasgo borgeano: el cuento permite ambas lecturas a la vez. El sur encarna la tradición gauchesca y criolla argentina."
   },
   {
-    id: "ghii-029",
-    topic: "Unit 9: Decolonization",
-    prompt: "What was the immediate result of the 1947 Partition of British India?",
+    id: "apspanlit-033",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En \"La noche boca arriba\" de Julio Cortázar (Final del juego), la estructura del cuento se basa en:",
     choices: [
-      "India and Pakistan formed a single unified democracy.",
-      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-      "India remained a British colony until 1960.",
-      "The partition created peace across South Asia.",
+      "Un único plano realista del motociclista herido.",
+      "La alternancia entre dos planos: el motociclista moderno en el hospital y un moteca perseguido por aztecas para el sacrificio, con un giro final que invierte cuál es el sueño.",
+      "Un único plano onírico azteca sin marco contemporáneo.",
+      "Una narración en segunda persona dirigida al lector.",
     ],
-    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
-    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
+    correctText: "La alternancia entre dos planos: el motociclista moderno en el hospital y un moteca perseguido por aztecas para el sacrificio, con un giro final que invierte cuál es el sueño.",
+    explanation: "Cortázar construye dos realidades paralelas que se intercalan. El giro final revela que el plano \"real\" era el del moteca a punto de ser sacrificado, y que la moto y el hospital eran su sueño previo a la muerte. Es relato fantástico clásico."
   },
   {
-    id: "ghii-030",
-    topic: "Unit 9: Decolonization",
-    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
+    id: "apspanlit-034",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En \"Chac Mool\" de Carlos Fuentes (Los días enmascarados), Filiberto compra una estatua precolombina del dios de la lluvia, que cobra vida y termina dominándolo. La obra dialoga con:",
     choices: [
-      "He led a foreign army that invaded South Africa.",
-      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-      "He restored a system of racial segregation under a new name.",
-      "He oversaw the colonization of South Africa by a European power.",
+      "El existencialismo francés y la novela psicológica europea.",
+      "La tensión entre el México moderno y un pasado prehispánico vivo que irrumpe en el presente, propia del realismo mágico y la búsqueda de identidad nacional.",
+      "La novela picaresca del Siglo de Oro.",
+      "El nouveau roman francés.",
     ],
-    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
-    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
+    correctText: "La tensión entre el México moderno y un pasado prehispánico vivo que irrumpe en el presente, propia del realismo mágico y la búsqueda de identidad nacional.",
+    explanation: "Fuentes plantea que México arrastra estratos culturales coexistentes: el burócrata moderno no puede contener al dios mexica que despierta. Es el mismo eje de su novela posterior Aura y de la obra ensayística sobre identidad mexicana."
   },
   {
-    id: "ghii-031",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "What is the European Union (EU)?",
+    id: "apspanlit-035",
+    topic: "Período 5: Boom y posboom",
+    prompt: "En \"Dos palabras\" de Isabel Allende (Cuentos de Eva Luna), Belisa Crepusculario es:",
     choices: [
-      "A military alliance to replace NATO",
-      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-      "An international religious organization",
-      "A short-lived 19th-century trade league",
+      "Una soldado revolucionaria.",
+      "Una vendedora ambulante de palabras (discursos, cartas, secretos) cuyo poder verbal transforma al Coronel y al país.",
+      "Una niña huérfana abandonada en un convento.",
+      "Una pintora callejera analfabeta.",
     ],
-    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
-    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
+    correctText: "Una vendedora ambulante de palabras (discursos, cartas, secretos) cuyo poder verbal transforma al Coronel y al país.",
+    explanation: "Belisa, que aprendió a leer y se inventó el nombre de \"Crepusculario\", vende palabras como mercancía. Cuando le entrega al Coronel dos palabras secretas, lo somete amorosamente. El cuento celebra el poder transformador del lenguaje y de la voz femenina."
   },
   {
-    id: "ghii-032",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
+    id: "apspanlit-036",
+    topic: "Período 5: Boom y posboom",
+    prompt: "La generación del Boom latinoamericano (años 1960-70) se caracteriza por todos los siguientes rasgos EXCEPTO:",
     choices: [
-      "It granted multi-party democracy.",
-      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-      "It abolished the Communist Party.",
-      "It allowed the protests to continue indefinitely.",
+      "Experimentación con la estructura temporal y los puntos de vista narrativos.",
+      "Adhesión obligatoria al realismo social decimonónico y rechazo de toda fantasía.",
+      "Diálogo con el modernismo internacional (Joyce, Faulkner, Kafka).",
+      "Incorporación de lo mítico y lo prehispánico como capas del presente americano.",
     ],
-    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
-    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
+    correctText: "Adhesión obligatoria al realismo social decimonónico y rechazo de toda fantasía.",
+    explanation: "El Boom (García Márquez, Cortázar, Fuentes, Vargas Llosa) rompe precisamente con el realismo decimonónico: incorpora lo fantástico, lo mágico, el monólogo interior, los saltos temporales y el perspectivismo. Toma a Faulkner y Joyce como modelos."
+  },
+
+  // ── Período 6: Contexto + Géneros (4) ──
+  {
+    id: "apspanlit-037",
+    topic: "Período 6: Contexto + Géneros",
+    prompt: "En narratología, ¿cuál es la diferencia fundamental entre un narrador omnisciente en tercera persona y un narrador-protagonista en primera persona?",
+    choices: [
+      "El omnisciente solo puede narrar el pasado; el de primera persona solo el presente.",
+      "El omnisciente conoce los pensamientos de todos los personajes y tiene perspectiva externa; el de primera persona limita el conocimiento a su propia experiencia y subjetividad.",
+      "El de primera persona siempre es objetivo y fiable; el omnisciente siempre es subjetivo.",
+      "No existe diferencia significativa entre ambos.",
+    ],
+    correctText: "El omnisciente conoce los pensamientos de todos los personajes y tiene perspectiva externa; el de primera persona limita el conocimiento a su propia experiencia y subjetividad.",
+    explanation: "Distinción narratológica clave (Genette): la focalización cero (omnisciente) accede a múltiples conciencias; la focalización interna (primera persona) restringe el saber a un solo personaje y abre la puerta al narrador no fiable (Lazarillo, Borges, Cortázar)."
   },
   {
-    id: "ghii-033",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
+    id: "apspanlit-038",
+    topic: "Período 6: Contexto + Géneros",
+    prompt: "El término \"realismo mágico\" describe una estética narrativa hispanoamericana del siglo XX. ¿Cuál de estas definiciones lo describe con mayor precisión?",
     choices: [
-      "French colonial troops",
-      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-      "United Nations peacekeepers",
-      "American military forces",
+      "Pura fantasía sin relación con la realidad cotidiana.",
+      "La narración de hechos extraordinarios o mágicos integrados al mundo cotidiano sin asombro por parte de los personajes ni del narrador.",
+      "La defensa explícita de creencias religiosas católicas.",
+      "Una rama del realismo decimonónico europeo aplicada a temas americanos.",
     ],
-    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
-    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
+    correctText: "La narración de hechos extraordinarios o mágicos integrados al mundo cotidiano sin asombro por parte de los personajes ni del narrador.",
+    explanation: "Lo mágico convive con lo real sin que nadie lo cuestione: Remedios la Bella asciende al cielo entre sábanas, llueve flores amarillas, los muertos conversan. El asombro queda reservado para el lector, no para los habitantes de Macondo o de otros mundos del realismo mágico."
   },
   {
-    id: "ghii-034",
-    topic: "Unit 10: Globalization + Contemporary",
-    prompt: "Which statement best describes the scientific consensus on climate change?",
+    id: "apspanlit-039",
+    topic: "Período 6: Contexto + Géneros",
+    prompt: "¿Cuál es la diferencia formal central entre un soneto y un romance en la tradición poética española?",
     choices: [
-      "Earth's climate has not changed in recorded history.",
-      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-      "Climate change affects only the polar regions.",
-      "Climate change is caused exclusively by natural solar cycles.",
+      "El soneto siempre es trágico; el romance siempre es cómico.",
+      "El soneto es composición culta de 14 versos endecasílabos en dos cuartetos y dos tercetos con rima consonante; el romance es popular, en octosílabos con rima asonante en los versos pares y extensión variable.",
+      "Ambos son composiciones de extensión fija de 14 versos.",
+      "El romance es exclusivamente de tema amoroso; el soneto es exclusivamente religioso.",
     ],
-    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
-    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
+    correctText: "El soneto es composición culta de 14 versos endecasílabos en dos cuartetos y dos tercetos con rima consonante; el romance es popular, en octosílabos con rima asonante en los versos pares y extensión variable.",
+    explanation: "Distinción canónica: soneto (culto, italiano, fijo, endecasílabo, rima consonante) vs. romance (tradicional español, octosílabo, asonancia en pares, sin estrofa fija). Ambos aparecen en el syllabus de AP: Garcilaso/Góngora vs. Romancero/Bécquer."
   },
   {
-    id: "ghii-035",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
+    id: "apspanlit-040",
+    topic: "Período 6: Contexto + Géneros",
+    prompt: "El verso de Don Juan Tenorio en El burlador de Sevilla \"¡Qué largo me lo fiáis!\" es ejemplo claro de:",
     choices: [
-      "Tokugawa daimyo system and South African apartheid",
-      "The printing press and the steam engine",
-      "Monsoon winds and the Nile River",
-      "Pasta and pizza",
+      "Aliteración consonántica.",
+      "Ironía dramática, porque el espectador sabe que Don Juan morirá pronto sin tiempo para arrepentirse, mientras él cree disponer de toda una vida.",
+      "Metáfora pura sobre el tiempo.",
+      "Hipérbaton extremo.",
     ],
-    correctText: "Tokugawa daimyo system and South African apartheid",
-    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
-  },
-  {
-    id: "ghii-036",
-    topic: "Enduring Issues",
-    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
-    choices: [
-      "Gutenberg's printing press and the Industrial Revolution's steam engine",
-      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
-      "Confucian filial piety and feudal serfdom",
-      "The Treaty of Westphalia and the Truman Doctrine",
-    ],
-    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
-    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
-  },
-  {
-    id: "ghii-037",
-    topic: "Enduring Issues",
-    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
-    choices: [
-      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-      "The Code of Hammurabi and the Treaty of Versailles",
-      "The Edict of Nantes and the Smoot-Hawley Tariff",
-      "The Edict of Worms and the Cuban Missile Crisis briefings",
-    ],
-    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
-    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
-  },
-  {
-    id: "ghii-038",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
-    choices: [
-      "Ancient African kingdoms and ethnic boundaries",
-      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-      "Geographic features like rivers and mountains",
-      "Borders established by the Ottoman Empire",
-    ],
-    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
-    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
-  },
-  {
-    id: "ghii-039",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
-    choices: [
-      "Confucian philosophy",
-      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-      "Medieval feudal contracts",
-      "Mercantilist economic theory",
-    ],
-    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
-    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
-  },
-  {
-    id: "ghii-040",
-    topic: "Skills: Geography + Sourcing",
-    prompt: "Which sequence of 20th-century events is in correct chronological order?",
-    choices: [
-      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
-      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
-      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
-    ],
-    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
-    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
+    correctText: "Ironía dramática, porque el espectador sabe que Don Juan morirá pronto sin tiempo para arrepentirse, mientras él cree disponer de toda una vida.",
+    explanation: "La ironía dramática (o trágica) ocurre cuando el público sabe algo que el personaje ignora. El espectador del Siglo de Oro conoce la teología: la postergación del arrepentimiento es peligrosa. La muletilla repetida construye toda la condena final."
   },
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });

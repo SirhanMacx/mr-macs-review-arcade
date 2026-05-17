@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="data:,">
-<title>AP Spanish Language Practice Exam — Mr. Mac's Review Arcade</title>
+<title>NYS Global History II Practice Exam — Mr. Mac's Review Arcade</title>
 <script id="MRMAC_PERF_LITE_BOOT">
 (function(){
   try {
@@ -1504,9 +1504,9 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
 <main class="app">
   <section class="topbar">
     <div class="titleblock">
-      <div class="kicker"><span>Practice Exam</span><span>AP Spanish Language and Culture</span></div>
-      <h1>AP Spanish Language Practice Exam</h1>
-      <p class="subtitle">40-question practice test covering all 6 themes, modeled on Section I reading comprehension + interpretive communication items.</p>
+      <div class="kicker"><span>Practice Exam</span><span>NYS Global History II Regents</span></div>
+      <h1>NYS Global History II Practice Exam</h1>
+      <p class="subtitle">40-question practice test modeled on the June Regents exam format. Multiple choice with instant feedback and per-topic scoring.</p>
     </div>
     <div class="controls">
       <button class="btn primary" id="startBtn">Start Exam</button>
@@ -1524,537 +1524,537 @@ button:focus-visible, [role="button"]:focus-visible, a:focus-visible, select:foc
     <div id="examStage"></div>
   </section>
   <section class="statusline">
-    <span class="pill" id="examStatus">Press START EXAM to begin · 40 AP-modeled questions across 6 themes</span>
-    <span class="pill" id="topicStatus">Reading comprehension + vocabulary + culture + grammar skills included</span>
-    <span class="pill">Choices randomize each attempt · Per-theme mastery shown at the end</span>
+    <span class="pill" id="examStatus">Press START EXAM to begin · 40 Regents-modeled questions across 10 units</span>
+    <span class="pill" id="topicStatus">Cross-unit Enduring Issues + Geography/Sourcing skills included</span>
+    <span class="pill">Choices randomize each attempt · Per-topic mastery shown at the end</span>
   </section>
 </main>
 <script>
 const QUESTIONS = [
   {
-    id: "apspanlang-001",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "En muchas familias hispanas, la celebración de los quince años de una hija tiene un significado especial. ¿Cuál de las siguientes opciones describe MEJOR el propósito tradicional de la quinceañera?",
+    id: "ghii-001",
+    topic: "Unit 1: World in 1750",
+    prompt: "By 1750, which characteristic was shared by the Ottoman, Mughal, and Qing empires?",
     choices: [
-      "Marca la transición de la niñez a la edad adulta de la joven dentro de su comunidad.",
-      "Celebra la graduación de la escuela secundaria de la joven.",
-      "Reconoce el compromiso matrimonial de la joven con su novio.",
-      "Anuncia que la joven ha terminado sus estudios religiosos.",
+      "All three had embraced parliamentary democracy.",
+      "All three were multiethnic land-based empires governed by hereditary rulers.",
+      "All three had abolished traditional religious practices.",
+      "All three controlled overseas colonies in the Americas.",
     ],
-    correctText: "Marca la transición de la niñez a la edad adulta de la joven dentro de su comunidad.",
-    explanation: "La quinceañera es un rito de paso que celebra simbólicamente el paso de niña a mujer adulta a los 15 años. Incluye misa, vals con el padre, y reunión familiar amplia. Aunque tiene raíces religiosas, su función primaria es social y comunitaria, no matrimonial ni académica."
+    correctText: "All three were multiethnic land-based empires governed by hereditary rulers.",
+    explanation: "Each was a land-based, multiethnic empire ruled by a hereditary sultan, emperor, or shah, administering large contiguous territories through provincial bureaucracies. Regents items frequently group these three as a comparison set."
   },
   {
-    id: "apspanlang-002",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "Lee el siguiente fragmento de un correo electrónico:\n\n«Querida abuela, te escribo desde Chicago. Aquí, mis hijos hablan inglés en la escuela pero en casa insisto en que hablemos español. Quiero que mantengan la conexión con nuestras raíces oaxaqueñas.»\n\n¿Cuál es la preocupación principal de la persona que escribe?",
+    id: "ghii-002",
+    topic: "Unit 1: World in 1750",
+    prompt: "What was the primary goal of Japan's Tokugawa sakoku (closed country) policy?",
     choices: [
-      "El costo elevado de la educación en Estados Unidos.",
-      "La transmisión del idioma y la cultura a la siguiente generación.",
-      "La dificultad de aprender inglés siendo adulto.",
-      "La falta de comunicación con su abuela.",
+      "Promote global trade with European powers.",
+      "Spread Christianity across East Asia.",
+      "Preserve internal stability by limiting foreign contact.",
+      "Expand Japanese colonies in the Americas.",
     ],
-    correctText: "La transmisión del idioma y la cultura a la siguiente generación.",
-    explanation: "El emisor expresa la voluntad consciente de preservar el español en casa para que sus hijos no pierdan la herencia oaxaqueña. Es un tema central del bilingüismo en familias inmigrantes hispanas en EE.UU.: la lengua como vehículo de identidad cultural."
+    correctText: "Preserve internal stability by limiting foreign contact.",
+    explanation: "Sakoku edicts (1633–39) expelled most foreigners and restricted trade to a small Dutch outpost at Dejima to maintain political and cultural stability under the shogunate."
   },
   {
-    id: "apspanlang-003",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "El Día de los Muertos, celebrado principalmente el 1 y 2 de noviembre, combina tradiciones prehispánicas con elementos católicos. ¿Cuál de los siguientes elementos NO es típico de un altar u ofrenda?",
+    id: "ghii-003",
+    topic: "Unit 1: World in 1750",
+    prompt: "Which economic system shaped Atlantic colonial relationships in 1750?",
     choices: [
-      "Fotografías de los seres queridos fallecidos",
-      "Pan de muerto y comidas favoritas del difunto",
-      "Calaveras de azúcar y flores de cempasúchil",
-      "Árbol de Navidad decorado con luces y esferas",
+      "Laissez-faire capitalism",
+      "Mercantilism",
+      "Socialism",
+      "Command economy",
     ],
-    correctText: "Árbol de Navidad decorado con luces y esferas",
-    explanation: "El árbol de Navidad pertenece a otra festividad cristiana, no al Día de los Muertos. Los elementos tradicionales de la ofrenda son fotos, comida favorita del difunto, pan de muerto, calaveritas de azúcar, copal, velas y flores de cempasúchil (cuyo aroma se cree que guía a las almas)."
+    correctText: "Mercantilism",
+    explanation: "Mercantilism required colonies to supply raw materials to the mother country and buy its manufactured goods, ensuring a favorable balance of trade — enforced in Britain by the Navigation Acts."
   },
   {
-    id: "apspanlang-004",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "El dicho popular «Dime con quién andas y te diré quién eres» significa que:",
+    id: "ghii-004",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which Enlightenment thinker argued that government's purpose is to protect citizens' natural rights to life, liberty, and property?",
     choices: [
-      "Las personas con muchos amigos son las más felices.",
-      "El carácter de una persona se refleja en las amistades que elige.",
-      "Es mejor caminar acompañado que solo por la calle.",
-      "Las personas siempre cambian de opinión según su compañía.",
+      "Thomas Hobbes",
+      "John Locke",
+      "Niccolò Machiavelli",
+      "Karl Marx",
     ],
-    correctText: "El carácter de una persona se refleja en las amistades que elige.",
-    explanation: "Es un refrán castellano clásico que advierte sobre la influencia del entorno social: las compañías que uno frecuenta revelan (y moldean) su carácter. Equivale al inglés «You are known by the company you keep»."
+    correctText: "John Locke",
+    explanation: "Locke's Two Treatises of Government (1689) established that governments derive legitimacy from the consent of the governed to protect natural rights — language Thomas Jefferson borrowed for the Declaration of Independence."
   },
   {
-    id: "apspanlang-005",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "En comparación con muchas familias estadounidenses tradicionales, las familias hispanas tienden a:",
+    id: "ghii-005",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "Which feature of the United States Constitution most directly reflects Montesquieu's writings?",
     choices: [
-      "Vivir como familia nuclear separada de los abuelos y tíos.",
-      "Mantener vínculos estrechos con la familia extendida, a menudo con varias generaciones compartiendo vivienda o reuniéndose con frecuencia.",
-      "Limitar la comunicación familiar a las festividades anuales.",
-      "Animar a los hijos a vivir independientemente desde los 18 años.",
+      "Free public education",
+      "Separation of powers among three branches",
+      "Universal suffrage",
+      "Direct election of judges",
     ],
-    correctText: "Mantener vínculos estrechos con la familia extendida, a menudo con varias generaciones compartiendo vivienda o reuniéndose con frecuencia.",
-    explanation: "Una característica cultural ampliamente documentada es la importancia de la familia extendida (abuelos, tíos, primos, padrinos) y el valor del «familismo». No significa que cada familia hispana sea idéntica, pero es una tendencia comparativa frente al modelo nuclear independiente predominante en EE.UU."
+    correctText: "Separation of powers among three branches",
+    explanation: "Montesquieu's The Spirit of the Laws (1748) argued that liberty is preserved by dividing power among legislative, executive, and judicial branches — the framers built this into the U.S. Constitution as the system of checks and balances."
   },
   {
-    id: "apspanlang-006",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "Una comunidad hispana muy grande y consolidada en Miami, Florida, proviene principalmente de:",
+    id: "ghii-006",
+    topic: "Unit 2: Enlightenment + Atlantic Revolutions",
+    prompt: "What outcome makes the 1791 Haitian Revolution historically distinctive?",
     choices: [
-      "Argentina",
-      "Cuba",
-      "Bolivia",
-      "Paraguay",
+      "It restored a monarchy after a brief republican experiment.",
+      "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+      "It ended without significant political change.",
+      "It established a constitutional monarchy under European supervision.",
     ],
-    correctText: "Cuba",
-    explanation: "Tras la Revolución Cubana de 1959, oleadas de exiliados cubanos se establecieron en Miami, especialmente en el barrio de la Pequeña Habana (Calle Ocho). Hoy Miami es uno de los principales centros culturales y políticos de la comunidad cubanoamericana en EE.UU."
+    correctText: "It produced the first successful large-scale slave revolt and the first Black-led republic in the Western Hemisphere.",
+    explanation: "Led by Toussaint L'Ouverture and completed by Jean-Jacques Dessalines in 1804, the Haitian Revolution defeated French forces and abolished slavery — the only successful nation-scale slave revolt in modern history."
   },
   {
-    id: "apspanlang-007",
-    topic: "Tema 1: Las familias y las comunidades",
-    prompt: "En una conversación familiar, una madre le dice a su hijo adolescente: «¡No te juntes con esos chicos! En boca cerrada no entran moscas.» ¿Qué le está aconsejando?",
+    id: "ghii-007",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "Why did the Industrial Revolution begin in Britain rather than elsewhere in Europe?",
     choices: [
-      "Que coma con la boca cerrada para no atraer insectos.",
-      "Que sea prudente y hable menos cuando esté con esa gente.",
-      "Que vaya al médico porque tiene problemas de salud.",
-      "Que abra la ventana para que salgan las moscas.",
+      "Britain had the most extensive colonial empire in Asia.",
+      "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+      "Britain was the only European country with a literate workforce.",
+      "Britain was the first nation to outlaw all forms of forced labor.",
     ],
-    correctText: "Que sea prudente y hable menos cuando esté con esa gente.",
-    explanation: "El refrán «En boca cerrada no entran moscas» es un consejo de prudencia: callando se evitan problemas. La madre advierte a su hijo que cuide lo que dice cuando esté con esos amigos, no que cierre la boca literalmente."
+    correctText: "Britain combined abundant coal and iron, capital from trade, navigable rivers, and a stable government.",
+    explanation: "Britain's coal and iron deposits, Atlantic trade profits, navigable rivers and canals, stable Parliamentary government, and agricultural surplus created the unique conditions for sustained industrial growth beginning in the 1760s."
   },
   {
-    id: "apspanlang-008",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "Lee el siguiente fragmento de un artículo:\n\n«Según un estudio reciente, más del 70% de los jóvenes españoles entre 16 y 24 años revisa su teléfono móvil antes de los cinco minutos de despertarse. Los expertos alertan sobre los efectos del uso excesivo de redes sociales en el sueño y la concentración.»\n\n¿Cuál es la idea principal del texto?",
+    id: "ghii-008",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "How did the factory system change the daily lives of urban workers in the 1800s?",
     choices: [
-      "Los jóvenes españoles duermen más horas que los adultos.",
-      "El uso temprano y excesivo del móvil entre los jóvenes preocupa a los expertos.",
-      "El 70% de los españoles no tiene teléfono móvil.",
-      "Los expertos recomiendan dormir con el móvil bajo la almohada.",
+      "Workers gained shorter hours and immediate political rights.",
+      "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+      "Workers transitioned from factories back to small craft workshops.",
+      "Workers were guaranteed employment by national governments.",
     ],
-    correctText: "El uso temprano y excesivo del móvil entre los jóvenes preocupa a los expertos.",
-    explanation: "El texto presenta un dato (70% revisa el móvil al despertar) y luego nombra explícitamente la preocupación de los expertos sobre el sueño y la concentración. Las otras opciones contradicen o tergiversan el texto."
+    correctText: "Workers labored on rigid clock-based schedules in crowded factories, often for low wages in unsafe conditions.",
+    explanation: "The factory system imposed long shifts (12–16 hours), low wages, and dangerous machinery on a workforce that included children. Urbanization created overcrowded tenements with poor sanitation."
   },
   {
-    id: "apspanlang-009",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "En el contexto tecnológico, la palabra «la nube» se refiere a:",
+    id: "ghii-009",
+    topic: "Unit 3: Industrial Revolution",
+    prompt: "In The Communist Manifesto (1848), what did Karl Marx and Friedrich Engels argue would inevitably end capitalism?",
     choices: [
-      "Una formación meteorológica en el cielo.",
-      "El almacenamiento y los servicios informáticos accesibles a través de internet en lugar del disco duro local.",
-      "Un tipo de virus informático muy común.",
-      "Una red social exclusiva para meteorólogos.",
+      "Religious revival across industrial societies",
+      "A class struggle leading to revolution by the proletariat",
+      "Voluntary government regulation of industries",
+      "A return to feudal economic relationships",
     ],
-    correctText: "El almacenamiento y los servicios informáticos accesibles a través de internet en lugar del disco duro local.",
-    explanation: "«La nube» (the cloud) es la traducción establecida del término informático para servicios remotos como Google Drive, iCloud o Dropbox. Aunque la palabra base es meteorológica, el contexto tecnológico fija el significado especializado."
+    correctText: "A class struggle leading to revolution by the proletariat",
+    explanation: "Marx and Engels predicted that exploited workers (the proletariat) would overthrow the owning class (bourgeoisie), abolish private property, and establish a classless society — a response to the inequalities of industrial capitalism."
   },
   {
-    id: "apspanlang-010",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "El ingeniero peruano Pedro Paulet (1874-1945) es considerado pionero en el desarrollo de:",
+    id: "ghii-010",
+    topic: "Unit 4: Imperialism",
+    prompt: "At the 1884–85 Berlin Conference, European powers agreed to which principle for dividing Africa?",
     choices: [
-      "La energía hidroeléctrica andina",
-      "La propulsión a reacción y los motores de cohetes",
-      "La radio de onda corta",
-      "Las vacunas contra enfermedades tropicales",
+      "African leaders would have veto power over all colonial boundaries.",
+      "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+      "African colonies would gain independence within 25 years.",
+      "All European nations would withdraw from the African continent.",
     ],
-    correctText: "La propulsión a reacción y los motores de cohetes",
-    explanation: "Pedro Paulet experimentó con motores de propulsión a reacción a fines del siglo XIX, antes que otros pioneros más conocidos. Por eso es reivindicado en Perú y en Hispanoamérica como precursor de la astronáutica."
+    correctText: "Colonization required 'effective occupation,' and powers had to notify each other of claims.",
+    explanation: "No African leaders were present. The conference required colonial powers to demonstrate 'effective occupation' and notify others of claims — accelerating the Scramble for Africa and ignoring existing African political boundaries."
   },
   {
-    id: "apspanlang-011",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "Lee el siguiente comentario de un foro:\n\n«Es preocupante: cada vez más fábricas vierten residuos químicos al río. Los peces mueren y la gente que vive cerca se enferma. ¿Hasta cuándo vamos a permitir que las empresas pongan las ganancias por encima del medio ambiente?»\n\n¿Cuál es el tono del autor?",
+    id: "ghii-011",
+    topic: "Unit 4: Imperialism",
+    prompt: "What was the central cause of the 1857 Sepoy Mutiny in India?",
     choices: [
-      "Entusiasta y optimista",
-      "Indiferente y neutral",
-      "Crítico e indignado",
-      "Humorístico y juguetón",
+      "Indian soldiers refused to fight against the Ottoman Empire.",
+      "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+      "Sepoys demanded equal pay with British officers.",
+      "British missionaries had been expelled from India.",
     ],
-    correctText: "Crítico e indignado",
-    explanation: "El autor describe una situación negativa (vertidos, peces muertos, enfermedad), usa el adjetivo «preocupante» y cierra con una pregunta retórica de denuncia. El tono es claramente crítico e indignado contra las prácticas corporativas."
+    correctText: "Indian sepoys believed new rifle cartridges were greased with cow and pig fat, violating both Hindu and Muslim religious practice.",
+    explanation: "The immediate spark was the cartridge controversy, but underlying grievances included British annexation of Indian states, taxation policy, and cultural disrespect. After the revolt, the British Crown ended East India Company rule and ruled India directly (the Raj)."
   },
   {
-    id: "apspanlang-012",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "¿Cuál de los siguientes pares de palabras representa un debate ético frecuente en la ciencia contemporánea?",
+    id: "ghii-012",
+    topic: "Unit 4: Imperialism",
+    prompt: "Why did Britain fight the Opium Wars (1839–42, 1856–60) against Qing China?",
     choices: [
-      "La gastronomía y la moda",
-      "La clonación y la manipulación genética",
-      "El fútbol y el baloncesto",
-      "El cine mudo y el teatro clásico",
+      "China had invaded British India.",
+      "China refused to allow British ships into the Mediterranean.",
+      "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+      "China demanded that Britain abolish slavery in its colonies.",
     ],
-    correctText: "La clonación y la manipulación genética",
-    explanation: "La clonación y la edición genética (CRISPR, transgénicos) son temas centrales de la bioética contemporánea, con implicaciones morales, religiosas y legales debatidas en sociedades hispanohablantes y en todo el mundo."
+    correctText: "China tried to halt the illegal British import of opium that was draining Chinese silver.",
+    explanation: "Britain used opium grown in India to reverse a trade deficit with China. When Chinese officials destroyed opium stores, Britain went to war, defeating China and imposing the Treaty of Nanjing (1842) — ceding Hong Kong and opening five 'treaty ports.'"
   },
   {
-    id: "apspanlang-013",
-    topic: "Tema 2: La ciencia y la tecnología",
-    prompt: "Una campaña ambiental en España invita al público «a reducir, reutilizar y reciclar». Estas tres acciones tienen como objetivo principal:",
+    id: "ghii-013",
+    topic: "Unit 4: Imperialism",
+    prompt: "Japan's response to Western imperialism during the Meiji Restoration (1868 onward) differed from China's because Japan:",
     choices: [
-      "Disminuir la cantidad de basura y conservar los recursos naturales.",
-      "Aumentar el consumo de productos desechables.",
-      "Promover la importación de bienes industriales.",
-      "Crear nuevos materiales sintéticos.",
+      "Embraced Western technology, industry, and military methods while preserving its emperor.",
+      "Permanently closed its borders to all foreign contact.",
+      "Was conquered and ruled directly by Western powers until 1945.",
+      "Refused to make any changes to its traditional samurai society.",
     ],
-    correctText: "Disminuir la cantidad de basura y conservar los recursos naturales.",
-    explanation: "Las «3R» (reducir, reutilizar, reciclar) son el pilar de la sostenibilidad doméstica. Reducir el consumo, reutilizar objetos antes de desecharlos, y reciclar materiales para que vuelvan al ciclo productivo, todo apunta a minimizar residuos y preservar recursos."
+    correctText: "Embraced Western technology, industry, and military methods while preserving its emperor.",
+    explanation: "Meiji leaders adopted Western industry, education, and military systems while centralizing power under Emperor Meiji — transforming Japan into an imperial power that defeated Russia in 1905. China's Qing court resisted modernization and suffered repeated defeats."
   },
   {
-    id: "apspanlang-014",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "Un programa de educación bilingüe en una escuela primaria de Texas tiene como objetivo principal:",
+    id: "ghii-014",
+    topic: "Unit 5: World War I",
+    prompt: "The 'MAIN' acronym for long-term causes of World War I stands for:",
     choices: [
-      "Reemplazar el español por el inglés lo más rápido posible.",
-      "Desarrollar competencia académica en ambos idiomas, español e inglés.",
-      "Enseñar únicamente en inglés a los estudiantes hispanohablantes.",
-      "Prohibir el uso del español en el recreo.",
+      "Marxism, agriculture, isolationism, neutrality",
+      "Militarism, alliances, imperialism, nationalism",
+      "Monarchy, anarchism, industry, navy",
+      "Modernization, autocracy, individualism, neocolonialism",
     ],
-    correctText: "Desarrollar competencia académica en ambos idiomas, español e inglés.",
-    explanation: "Los programas bilingües de inmersión dual buscan que los estudiantes alcancen alfabetización académica completa en dos lenguas, valorando ambas. Las otras opciones describen modelos «subtractivos» que la investigación pedagógica desaconseja."
+    correctText: "Militarism, alliances, imperialism, nationalism",
+    explanation: "Militarism (arms races), Alliances (Triple Entente vs. Triple Alliance), Imperialism (colonial rivalry), and Nationalism (especially in the Balkans) created the conditions that turned the Sarajevo assassination of Archduke Franz Ferdinand into a world war."
   },
   {
-    id: "apspanlang-015",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "Lee este menú simplificado de un restaurante español:\n\n• Gazpacho andaluz\n• Paella valenciana\n• Tortilla de patatas\n• Jamón ibérico\n\nUn comensal que pide la paella valenciana puede esperar un plato a base de:",
+    id: "ghii-015",
+    topic: "Unit 5: World War I",
+    prompt: "Why did the 1917 Russian Revolution succeed in overthrowing the Tsar?",
     choices: [
-      "Pasta con salsa de tomate",
-      "Arroz con azafrán, mariscos y/o pollo y conejo",
-      "Carne asada con papas fritas",
-      "Sopa fría de verduras",
+      "Russia won early victories in WWI that inspired political reform.",
+      "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+      "Western powers sent armies to depose Nicholas II.",
+      "The Tsar voluntarily turned over power to the peasantry.",
     ],
-    correctText: "Arroz con azafrán, mariscos y/o pollo y conejo",
-    explanation: "La paella valenciana tradicional se elabora con arroz, azafrán, judías verdes, garrofón, pollo y conejo; las versiones de marisco son adaptaciones costeras. La sopa fría es el gazpacho, también en el menú."
+    correctText: "Massive battlefield losses, food shortages, and the autocratic rule of Nicholas II caused mass strikes and military mutinies.",
+    explanation: "By 1917 Russia had suffered millions of casualties, severe bread shortages in cities, and a collapsing economy. The February Revolution forced Nicholas II to abdicate; the October Revolution brought Lenin's Bolsheviks to power."
   },
   {
-    id: "apspanlang-016",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "El fútbol es el deporte más popular en la mayoría de los países hispanohablantes, pero en uno de los siguientes países el béisbol tiene mayor arraigo cultural:",
+    id: "ghii-016",
+    topic: "Unit 5: World War I",
+    prompt: "Which provision of the 1919 Treaty of Versailles most directly created economic and political instability in Germany during the 1920s?",
     choices: [
-      "Argentina",
-      "España",
-      "República Dominicana",
-      "Chile",
+      "Germany's loss of its colonies in Africa",
+      "The 'war guilt' clause (Article 231) and crushing reparations payments",
+      "The reduction of the German navy",
+      "The redrawing of borders in the Middle East",
     ],
-    correctText: "República Dominicana",
-    explanation: "El béisbol llegó al Caribe en el siglo XIX y se convirtió en deporte nacional en la República Dominicana, Cuba, Venezuela y Puerto Rico. Argentina, España y Chile son territorios futboleros por excelencia."
+    correctText: "The 'war guilt' clause (Article 231) and crushing reparations payments",
+    explanation: "Article 231 forced Germany to accept sole responsibility for the war and pay 132 billion gold marks in reparations. The resulting hyperinflation and resentment fueled the rise of extremist parties — including the Nazis."
   },
   {
-    id: "apspanlang-017",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "Las telenovelas latinoamericanas se distinguen de las series estadounidenses principalmente porque:",
+    id: "ghii-017",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Why did the 1929 stock market crash in the United States have global consequences?",
     choices: [
-      "Duran muchas temporadas a lo largo de varios años.",
-      "Cuentan una historia con principio y fin, generalmente en uno o dos centenares de capítulos diarios.",
-      "Se transmiten solo los fines de semana.",
-      "No tienen actores profesionales.",
+      "All world currencies were physically stored in U.S. banks.",
+      "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+      "Only the United States used a banking system in 1929.",
+      "European nations were forced to convert to communism in response.",
     ],
-    correctText: "Cuentan una historia con principio y fin, generalmente en uno o dos centenares de capítulos diarios.",
-    explanation: "La telenovela tiene una narrativa cerrada: comienza, llega a clímax y termina en una temporada de 100-200 capítulos diarios. Las series estadounidenses tienden a renovarse temporada tras temporada con tramas continuas o episódicas."
+    correctText: "The interconnected global economy and U.S. loans to Europe meant the crash triggered worldwide depression, unemployment, and trade collapse.",
+    explanation: "The U.S. had been the world's largest lender after WWI. When U.S. banks called in loans and the Smoot-Hawley Tariff (1930) collapsed trade, unemployment in Germany hit 30% — creating conditions Hitler exploited."
   },
   {
-    id: "apspanlang-018",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "Lee el siguiente anuncio:\n\n«Se alquila piso de 80 m² en pleno centro de Madrid. Dos dormitorios, salón con balcón, cocina equipada. Cerca del metro Sol. 1.400 €/mes. Comunidad incluida.»\n\n¿Cuál de las siguientes afirmaciones es VERDADERA según el anuncio?",
+    id: "ghii-018",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Stalin's Five-Year Plans in the USSR were designed to:",
     choices: [
-      "El piso tiene tres dormitorios y dos baños.",
-      "La renta mensual no incluye los gastos de la comunidad.",
-      "El piso está ubicado en el centro de Madrid y cerca del metro.",
-      "El piso está en las afueras de la ciudad.",
+      "Demilitarize the Soviet Union",
+      "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+      "Restore private property to peasants",
+      "Establish democratic elections",
     ],
-    correctText: "El piso está ubicado en el centro de Madrid y cerca del metro.",
-    explanation: "El anuncio dice literalmente «en pleno centro de Madrid» y «cerca del metro Sol». La opción A es falsa (dos dormitorios), B es falsa (la comunidad SÍ está incluida), y D contradice «en pleno centro»."
+    correctText: "Rapidly industrialize the Soviet economy through state-owned industry and collectivized agriculture",
+    explanation: "Beginning in 1928, the Five-Year Plans set production quotas for heavy industry and forced peasants onto collective farms. Industrial output grew dramatically, but collectivization caused mass famine — the Ukrainian Holodomor (1932–33) killed millions."
   },
   {
-    id: "apspanlang-019",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "El género musical conocido como reguetón se originó principalmente en:",
+    id: "ghii-019",
+    topic: "Unit 6: Interwar + Totalitarianism",
+    prompt: "Which feature was common to Mussolini's Italy, Hitler's Germany, and Stalin's USSR in the 1930s?",
     choices: [
-      "Argentina y Uruguay",
-      "España y Andorra",
-      "Puerto Rico y Panamá",
-      "Bolivia y Paraguay",
+      "Free press and competitive elections",
+      "A one-party state, suppression of dissent, and a personality cult around the leader",
+      "Decentralized economic decision-making",
+      "Voluntary collective decision-making by citizens' councils",
     ],
-    correctText: "Puerto Rico y Panamá",
-    explanation: "El reguetón surgió a finales de los años 80 y 90 a partir de la fusión del reggae jamaicano en español (Panamá) con el hip hop y la música electrónica (Puerto Rico). Artistas como Daddy Yankee y Don Omar lo popularizaron internacionalmente."
+    correctText: "A one-party state, suppression of dissent, and a personality cult around the leader",
+    explanation: "All three totalitarian regimes monopolized political power in a single party, used secret police to crush opposition, controlled the media, and built personality cults around the leader — though they differed sharply on ideology (fascist vs. communist)."
   },
   {
-    id: "apspanlang-020",
-    topic: "Tema 3: La vida contemporánea",
-    prompt: "En el centro de muchas ciudades hispanoamericanas se encuentra la «plaza mayor» o «plaza de armas». Su función tradicional incluye:",
+    id: "ghii-020",
+    topic: "Unit 7: World War II",
+    prompt: "How did the 1938 Munich Agreement illustrate the policy of appeasement?",
     choices: [
-      "Servir como espacio cívico y social, rodeado de la catedral, el ayuntamiento y comercios.",
-      "Funcionar exclusivamente como aparcamiento para vehículos.",
-      "Servir como zona industrial con fábricas.",
-      "Estar reservada únicamente para uso militar.",
+      "France and Britain went to war with Hitler over Czechoslovakia.",
+      "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+      "Hitler returned previously seized territory to Czechoslovakia.",
+      "The League of Nations sanctioned Germany for aggression.",
     ],
-    correctText: "Servir como espacio cívico y social, rodeado de la catedral, el ayuntamiento y comercios.",
-    explanation: "La plaza mayor es un legado del urbanismo colonial español: el centro físico y simbólico de la ciudad, alrededor del cual se construían los poderes religioso (catedral), político (cabildo/ayuntamiento) y comercial. Sigue siendo punto de reunión social."
+    correctText: "Britain and France allowed Hitler to annex the Sudetenland in exchange for his promise of no further demands.",
+    explanation: "British Prime Minister Neville Chamberlain returned from Munich announcing 'peace for our time.' Hitler invaded the rest of Czechoslovakia six months later and Poland in September 1939 — proving appeasement had only emboldened him."
   },
   {
-    id: "apspanlang-021",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "Una persona bilingüe español-inglés que vive en Los Ángeles a veces dice frases como «Voy al store a comprar leche.» Este fenómeno lingüístico se llama:",
+    id: "ghii-021",
+    topic: "Unit 7: World War II",
+    prompt: "Why did Japan attack Pearl Harbor on December 7, 1941?",
     choices: [
-      "Diglosia",
-      "Cambio de código (code-switching)",
-      "Préstamo monolingüe",
-      "Calco semántico exclusivo",
+      "Japan wanted to capture and occupy the Hawaiian Islands permanently.",
+      "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+      "The United States had declared war on Japan one week earlier.",
+      "Japan was honoring a defensive treaty with China.",
     ],
-    correctText: "Cambio de código (code-switching)",
-    explanation: "El cambio de código consiste en alternar dos lenguas dentro de una misma oración o conversación. Es una práctica natural de comunidades bilingües y refleja competencia, no error. La diglosia es la coexistencia jerarquizada de dos variedades en contextos distintos."
+    correctText: "Japan sought to cripple the U.S. Pacific Fleet to prevent interference with Japanese expansion in Southeast Asia.",
+    explanation: "After U.S. oil and steel embargoes in response to Japan's invasion of China and French Indochina, Japan's military leaders calculated that a surprise strike would force the U.S. to negotiate. Instead, FDR called it a 'date which will live in infamy' and the U.S. entered WWII."
   },
   {
-    id: "apspanlang-022",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "Países como México, Perú, Guatemala y Bolivia comparten una característica demográfica importante:",
+    id: "ghii-022",
+    topic: "Unit 7: World War II",
+    prompt: "The Holocaust was the systematic Nazi genocide that murdered approximately:",
     choices: [
-      "Una mayoría de población de origen africano.",
-      "Una herencia indígena muy presente, con millones de hablantes de lenguas como el náhuatl, quechua, maya o aymara.",
-      "Una población compuesta casi exclusivamente por descendientes europeos.",
-      "Una ausencia total de pueblos originarios.",
+      "100,000 people, primarily Polish soldiers",
+      "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+      "Only Jewish residents of Germany",
+      "Twelve million ethnic Germans",
     ],
-    correctText: "Una herencia indígena muy presente, con millones de hablantes de lenguas como el náhuatl, quechua, maya o aymara.",
-    explanation: "México (náhuatl, maya), Perú y Bolivia (quechua, aymara) y Guatemala (idiomas mayas) tienen comunidades indígenas grandes y lenguas originarias vivas, reconocidas oficialmente en varios casos. La identidad mestiza convive con la identidad indígena diferenciada."
+    correctText: "Six million European Jews, plus millions of Roma, disabled people, Slavs, and political prisoners",
+    explanation: "From 1933 (the first concentration camps) through 1945, the Nazi regime murdered roughly 6 million Jews and millions of other targeted groups in death camps such as Auschwitz, Treblinka, and Sobibor — the defining crime of the 20th century."
   },
   {
-    id: "apspanlang-023",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "Simón Bolívar es conocido como «El Libertador» porque lideró la independencia de varios países sudamericanos del dominio español. ¿Cuál de los siguientes países NO fue liberado bajo su liderazgo militar?",
+    id: "ghii-023",
+    topic: "Unit 7: World War II",
+    prompt: "President Truman's decision to use atomic bombs on Hiroshima and Nagasaki in August 1945 was primarily justified by his administration as:",
     choices: [
-      "Venezuela",
-      "Colombia",
-      "Brasil",
-      "Bolivia (que lleva su nombre)",
+      "A test of the new weapon under combat conditions",
+      "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+      "Retaliation for the Holocaust in Europe",
+      "A response to a Japanese atomic weapons program",
     ],
-    correctText: "Brasil",
-    explanation: "Brasil obtuvo su independencia de Portugal (no de España) en 1822 bajo el liderazgo de Dom Pedro I. Bolívar lideró las campañas de liberación de la actual Venezuela, Colombia, Ecuador, Perú y Bolivia (que adoptó su nombre en su honor)."
+    correctText: "A way to end the war quickly and avoid the projected enormous casualties of a U.S. invasion of Japan",
+    explanation: "Truman's administration argued the bombs would end the war without an invasion of the Japanese home islands, which planners estimated could cost hundreds of thousands of American and Japanese lives. The decision remains historically debated."
   },
   {
-    id: "apspanlang-024",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "José Martí es figura central de la identidad nacional cubana porque:",
+    id: "ghii-024",
+    topic: "Unit 8: Cold War",
+    prompt: "The 1947 Truman Doctrine established a U.S. policy of:",
     choices: [
-      "Fue el primer presidente democráticamente electo de Cuba.",
-      "Fue poeta, periodista y organizador de la lucha por la independencia cubana contra España, muerto en combate en 1895.",
-      "Compuso el himno nacional cubano contemporáneo.",
-      "Fundó la principal universidad de La Habana en el siglo XX.",
+      "Returning to isolationism",
+      "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+      "Direct military conquest of the Soviet Union",
+      "Sharing nuclear technology with all U.S. allies",
     ],
-    correctText: "Fue poeta, periodista y organizador de la lucha por la independencia cubana contra España, muerto en combate en 1895.",
-    explanation: "Martí (1853-1895) unió pluma y espada: escribió ensayos fundacionales del americanismo, organizó el Partido Revolucionario Cubano desde el exilio, y murió en la batalla de Dos Ríos al inicio de la guerra de independencia. Es símbolo máximo de la cubanidad."
+    correctText: "Containment — supporting nations resisting communist takeover, beginning with aid to Greece and Turkey",
+    explanation: "Truman pledged to support 'free peoples who are resisting attempted subjugation' — launching the Cold War policy of containment that shaped U.S. foreign policy for the next 40 years."
   },
   {
-    id: "apspanlang-025",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "En muchos países hispanohablantes existe una distinción entre identidad nacional (por ejemplo, ser «chileno» o «argentino») e identidad regional latinoamericana. ¿Cuál de las siguientes afirmaciones describe MEJOR esta tensión?",
+    id: "ghii-025",
+    topic: "Unit 8: Cold War",
+    prompt: "Which Cold War event came closest to triggering nuclear war?",
     choices: [
-      "Las identidades nacionales y la identidad latinoamericana siempre se contradicen entre sí.",
-      "Una persona puede sentirse simultáneamente miembro de su nación particular y parte de una comunidad cultural latinoamericana más amplia.",
-      "La identidad latinoamericana solo existe en Centroamérica.",
-      "Las identidades nacionales latinoamericanas son idénticas en todos los países.",
+      "The 1948 Berlin Blockade",
+      "The 1962 Cuban Missile Crisis",
+      "The 1953 Korean armistice",
+      "The 1957 Sputnik launch",
     ],
-    correctText: "Una persona puede sentirse simultáneamente miembro de su nación particular y parte de una comunidad cultural latinoamericana más amplia.",
-    explanation: "Las identidades son acumulativas, no excluyentes. Un mexicano puede ser orgullosamente mexicano y también identificarse con una comunidad latinoamericana o hispanohablante compartida (lengua, herencia colonial, literatura, música)."
+    correctText: "The 1962 Cuban Missile Crisis",
+    explanation: "When U.S. spy planes discovered Soviet nuclear missiles in Cuba, President Kennedy imposed a naval quarantine. For 13 days the world stood at the edge of nuclear war until Khrushchev agreed to remove the missiles in exchange for a U.S. pledge not to invade Cuba."
   },
   {
-    id: "apspanlang-026",
-    topic: "Tema 4: Las identidades personales y públicas",
-    prompt: "El cura Miguel Hidalgo y Costilla es recordado en México por:",
+    id: "ghii-026",
+    topic: "Unit 8: Cold War",
+    prompt: "NATO (1949) and the Warsaw Pact (1955) were Cold War alliances designed to:",
     choices: [
-      "Haber pintado los murales del Palacio Nacional.",
-      "Haber lanzado el «Grito de Dolores» en 1810, iniciando la guerra de independencia mexicana.",
-      "Haber escrito la Constitución de 1917.",
-      "Haber descubierto las ruinas de Teotihuacán.",
+      "Promote free trade across Europe",
+      "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+      "Coordinate scientific space programs",
+      "Govern post-war reconstruction in Asia",
     ],
-    correctText: "Haber lanzado el «Grito de Dolores» en 1810, iniciando la guerra de independencia mexicana.",
-    explanation: "La madrugada del 16 de septiembre de 1810, Hidalgo convocó a los feligreses del pueblo de Dolores a alzarse contra el dominio español. Esa fecha se conmemora cada año como el inicio de la independencia mexicana; los muralistas fueron del siglo XX."
+    correctText: "Provide collective military defense between the U.S.-led West and the Soviet-led East",
+    explanation: "NATO bound the U.S., Canada, and Western European nations in mutual defense. The Warsaw Pact (1955) — formed after West Germany joined NATO — bound the USSR and its Eastern European satellites in parallel commitment, hardening Cold War division."
   },
   {
-    id: "apspanlang-027",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "El arquitecto catalán Antoni Gaudí es conocido mundialmente por sus obras modernistas en Barcelona. ¿Cuál de las siguientes es su obra más célebre, aún en construcción más de un siglo después de iniciada?",
+    id: "ghii-027",
+    topic: "Unit 8: Cold War",
+    prompt: "Why did U.S. involvement in Vietnam expand throughout the 1960s?",
     choices: [
-      "La catedral de Burgos",
-      "La basílica de la Sagrada Familia",
-      "El Museo del Prado",
-      "El Acueducto de Segovia",
+      "The U.S. sought to annex Vietnam as a territory.",
+      "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+      "The Vietnamese government formally requested annexation.",
+      "Vietnam had attacked the United States directly in 1960.",
     ],
-    correctText: "La basílica de la Sagrada Familia",
-    explanation: "Gaudí asumió el proyecto de la Sagrada Familia en 1883 y trabajó en él hasta su muerte en 1926. Combina formas naturalistas, simbolismo cristiano y soluciones estructurales innovadoras (columnas arborescentes, paraboloides). Su construcción continúa en el siglo XXI."
+    correctText: "U.S. policymakers feared a communist victory would trigger a 'domino effect' across Southeast Asia.",
+    explanation: "Under the 'domino theory,' Presidents Eisenhower, Kennedy, Johnson, and Nixon believed that if South Vietnam fell to communism, neighboring nations would fall in succession. U.S. troop levels peaked at over 500,000 by 1968."
   },
   {
-    id: "apspanlang-028",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "La pintora mexicana Frida Kahlo (1907-1954) es reconocida principalmente por:",
+    id: "ghii-028",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Mohandas Gandhi's method of nonviolent resistance (satyagraha) advance Indian independence?",
     choices: [
-      "Sus autorretratos que mezclan dolor físico, simbolismo indígena y elementos surrealistas.",
-      "Sus paisajes idealizados de la campiña europea.",
-      "Sus retratos oficiales de la realeza española.",
-      "Sus esculturas abstractas de mármol blanco.",
+      "Through armed military rebellion against British troops",
+      "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+      "By accepting all British demands without protest",
+      "By forming a violent partnership with Japan during WWII",
     ],
-    correctText: "Sus autorretratos que mezclan dolor físico, simbolismo indígena y elementos surrealistas.",
-    explanation: "Frida pintó docenas de autorretratos cargados de iconografía mexicana (vestimenta tehuana, flora, fauna prehispánica) que reflejaban su sufrimiento físico tras un grave accidente y operaciones múltiples. André Breton la asoció al surrealismo, aunque ella prefería decir que pintaba su propia realidad."
+    correctText: "Through mass civil disobedience — boycotts, marches, and refusing to obey unjust laws — pressuring Britain to negotiate",
+    explanation: "Gandhi's 1930 Salt March, the Quit India movement (1942), and decades of disciplined nonviolent campaigns mobilized millions and made British rule politically and economically untenable. India gained independence on August 15, 1947."
   },
   {
-    id: "apspanlang-029",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "Lee este breve fragmento ficticio inspirado en el género de la novela picaresca española del siglo XVI:\n\n«Yo, hijo de molinero y de madre humilde, fui echado a los caminos siendo niño, y aprendí pronto que en este mundo, el que no engaña, es engañado.»\n\n¿Qué tema central de la novela picaresca refleja este fragmento?",
+    id: "ghii-029",
+    topic: "Unit 9: Decolonization",
+    prompt: "What was the immediate result of the 1947 Partition of British India?",
     choices: [
-      "La nobleza heroica del caballero andante.",
-      "El amor cortesano entre damas y galanes.",
-      "La vida de un protagonista de origen humilde que sobrevive mediante el ingenio en una sociedad hostil.",
-      "La devoción religiosa de un monje en su monasterio.",
+      "India and Pakistan formed a single unified democracy.",
+      "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+      "India remained a British colony until 1960.",
+      "The partition created peace across South Asia.",
     ],
-    correctText: "La vida de un protagonista de origen humilde que sobrevive mediante el ingenio en una sociedad hostil.",
-    explanation: "La novela picaresca (modelada por el Lazarillo de Tormes, anónimo, 1554) presenta al «pícaro», un antihéroe de baja extracción social que narra en primera persona sus astucias para sobrevivir, sirviendo a varios amos y criticando la hipocresía social."
+    correctText: "The subcontinent was divided into Hindu-majority India and Muslim-majority Pakistan, with mass migrations and communal violence killing roughly one million people.",
+    explanation: "The hastily drawn Radcliffe Line displaced 10–15 million people in one of history's largest migrations. The unresolved status of Kashmir continues to fuel India-Pakistan conflict today."
   },
   {
-    id: "apspanlang-030",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "Miguel de Cervantes escribió «Don Quijote de la Mancha», considerada por muchos la primera novela moderna. El protagonista, Alonso Quijano, enloquece por:",
+    id: "ghii-030",
+    topic: "Unit 9: Decolonization",
+    prompt: "How did Nelson Mandela contribute to ending apartheid in South Africa?",
     choices: [
-      "Beber demasiado vino de la Mancha.",
-      "Leer en exceso libros de caballerías.",
-      "Pasar muchos días sin dormir trabajando en su huerto.",
-      "Una caída del caballo en su juventud.",
+      "He led a foreign army that invaded South Africa.",
+      "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+      "He restored a system of racial segregation under a new name.",
+      "He oversaw the colonization of South Africa by a European power.",
     ],
-    correctText: "Leer en exceso libros de caballerías.",
-    explanation: "En el primer capítulo, Cervantes explica que Quijano «se enfrascó tanto en su lectura» de libros de caballerías que perdió el juicio. Decide entonces hacerse caballero andante con el nombre de Don Quijote. La novela es una sátira de ese género literario."
+    correctText: "After 27 years of imprisonment for opposing apartheid, he negotiated a peaceful transition, became South Africa's first Black president in 1994, and championed reconciliation.",
+    explanation: "Mandela's African National Congress leadership, his decades of imprisonment, and his 1990 release became symbols of resistance. After winning the 1994 multiracial election, he established the Truth and Reconciliation Commission rather than pursuing retribution."
   },
   {
-    id: "apspanlang-031",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "Sor Juana Inés de la Cruz (Nueva España, siglo XVII) es considerada una de las grandes voces de la literatura hispánica porque:",
+    id: "ghii-031",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "What is the European Union (EU)?",
     choices: [
-      "Fue la primera mujer que gobernó como virreina del Perú.",
-      "Defendió, como monja y poeta, el derecho de las mujeres al estudio y al pensamiento crítico, en obras como su Respuesta a Sor Filotea.",
-      "Conquistó militarmente el territorio de la actual California.",
-      "Fundó la primera universidad de América del Norte.",
+      "A military alliance to replace NATO",
+      "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+      "An international religious organization",
+      "A short-lived 19th-century trade league",
     ],
-    correctText: "Defendió, como monja y poeta, el derecho de las mujeres al estudio y al pensamiento crítico, en obras como su Respuesta a Sor Filotea.",
-    explanation: "Sor Juana (1648-1695) fue una intelectual excepcional del Siglo de Oro novohispano. Su Respuesta a Sor Filotea es un alegato pionero por el acceso femenino al conocimiento, escrito como respuesta a las críticas eclesiásticas a sus escritos."
+    correctText: "A political and economic union of European states with shared institutions, a common market, and (for most members) a common currency, the euro",
+    explanation: "The EU evolved from the 1957 Treaty of Rome through the 1993 Maastricht Treaty. The euro replaced most national currencies in 1999/2002. The EU illustrates how nations have pooled sovereignty to manage globalization."
   },
   {
-    id: "apspanlang-032",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "El flamenco, género musical y dancístico declarado Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO, se originó en:",
+    id: "ghii-032",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "How did the Chinese government respond to the 1989 Tiananmen Square pro-democracy demonstrations?",
     choices: [
-      "El norte de Argentina entre las comunidades gauchas.",
-      "Andalucía, en el sur de España, con fuertes influencias gitanas, árabes y judías.",
-      "La región andina del Perú y Bolivia.",
-      "Las Antillas, derivado de los ritmos africanos.",
+      "It granted multi-party democracy.",
+      "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+      "It abolished the Communist Party.",
+      "It allowed the protests to continue indefinitely.",
     ],
-    correctText: "Andalucía, en el sur de España, con fuertes influencias gitanas, árabes y judías.",
-    explanation: "El flamenco nació en Andalucía y se nutrió de las culturas que coexistieron en la región: la gitana (clave en su desarrollo expresivo), la árabe-andalusí, la judeo-sefardí y la castellana. Sus tres pilares son el cante, el toque (guitarra) y el baile."
+    correctText: "It declared martial law and used military force to crush the protests, killing hundreds or thousands.",
+    explanation: "On June 4, 1989, the People's Liberation Army cleared Tiananmen Square with tanks and live ammunition. The crackdown ended the democracy movement and entrenched single-party Communist rule — a stark counterpoint to the 1989 collapse of communism in Eastern Europe."
   },
   {
-    id: "apspanlang-033",
-    topic: "Tema 5: La belleza y la estética",
-    prompt: "El pintor español Diego Velázquez (siglo XVII) trabajó como pintor de cámara del rey Felipe IV. Su obra más célebre es:",
+    id: "ghii-033",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "The 1994 Rwandan genocide was carried out primarily by:",
     choices: [
-      "El jardín de las delicias",
-      "Las meninas",
-      "Guernica",
-      "La persistencia de la memoria",
+      "French colonial troops",
+      "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+      "United Nations peacekeepers",
+      "American military forces",
     ],
-    correctText: "Las meninas",
-    explanation: "Las meninas (1656) muestra a la infanta Margarita rodeada de sus damas de honor, con el propio Velázquez pintando a la izquierda y los reyes reflejados en un espejo al fondo. Es un estudio magistral sobre la mirada, el espacio y el oficio del pintor. Guernica es de Picasso (siglo XX)."
+    correctText: "Hutu extremists who murdered approximately 800,000 Tutsi and moderate Hutu in 100 days",
+    explanation: "Hutu militias (the Interahamwe) and government forces used radio broadcasts to incite the slaughter. The international community, including the UN and the U.S., failed to intervene — a defining example of the world's failure to apply 'never again.'"
   },
   {
-    id: "apspanlang-034",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "Lee el siguiente fragmento ficticio de una carta abierta:\n\n«Cada día miles de personas cruzan la frontera entre México y Estados Unidos en busca de una vida mejor. Muchas huyen de la violencia o de la pobreza. Pedimos a los gobiernos políticas migratorias que respeten la dignidad humana.»\n\n¿Cuál es el propósito principal de la carta?",
+    id: "ghii-034",
+    topic: "Unit 10: Globalization + Contemporary",
+    prompt: "Which statement best describes the scientific consensus on climate change?",
     choices: [
-      "Anunciar una nueva ruta turística entre los dos países.",
-      "Exigir un trato humano y digno para las personas migrantes.",
-      "Promover el cierre total de la frontera.",
-      "Vender un producto a inmigrantes.",
+      "Earth's climate has not changed in recorded history.",
+      "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+      "Climate change affects only the polar regions.",
+      "Climate change is caused exclusively by natural solar cycles.",
     ],
-    correctText: "Exigir un trato humano y digno para las personas migrantes.",
-    explanation: "El texto contextualiza la migración (razones: violencia, pobreza) y formula una petición explícita: políticas que «respeten la dignidad humana». No vende, no anuncia turismo, ni pide cierre de fronteras."
+    correctText: "Human activity — especially burning fossil fuels — is the dominant cause of observed global warming since the mid-20th century.",
+    explanation: "Reports from the Intergovernmental Panel on Climate Change (IPCC) document with high confidence that human greenhouse-gas emissions have raised global temperatures by roughly 1.1°C since pre-industrial levels — driving sea-level rise, extreme weather, and the 2015 Paris Agreement response."
   },
   {
-    id: "apspanlang-035",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "Las Madres de Plaza de Mayo en Argentina se hicieron mundialmente conocidas por:",
+    id: "ghii-035",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of inequity in the distribution of power?",
     choices: [
-      "Organizar festivales de música popular.",
-      "Marchar semanalmente con pañuelos blancos en la cabeza exigiendo información sobre sus hijos desaparecidos durante la dictadura militar (1976-1983).",
-      "Fundar un equipo de fútbol femenino.",
-      "Liderar campañas para legalizar el comercio internacional.",
+      "Tokugawa daimyo system and South African apartheid",
+      "The printing press and the steam engine",
+      "Monsoon winds and the Nile River",
+      "Pasta and pizza",
     ],
-    correctText: "Marchar semanalmente con pañuelos blancos en la cabeza exigiendo información sobre sus hijos desaparecidos durante la dictadura militar (1976-1983).",
-    explanation: "Desde 1977, las Madres se reúnen los jueves en la Plaza de Mayo, frente a la Casa Rosada, con pañuelos blancos sobre la cabeza (símbolo del pañal de sus hijos). Reclaman justicia y memoria por los desaparecidos del «Proceso de Reorganización Nacional». Son símbolo internacional de derechos humanos."
+    correctText: "Tokugawa daimyo system and South African apartheid",
+    explanation: "Both systems formally restricted political and economic power to a small group while excluding the majority. Inequity in power distribution is a recurring Enduring Issue used to compare cases across eras."
   },
   {
-    id: "apspanlang-036",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "El régimen del general Francisco Franco en España (1939-1975) se caracterizó por:",
+    id: "ghii-036",
+    topic: "Enduring Issues",
+    prompt: "Which pairing best illustrates the Enduring Issue of the impact of technology on society?",
     choices: [
-      "Una democracia parlamentaria amplia y elecciones libres.",
-      "Una dictadura autoritaria de partido único, con represión política y censura cultural.",
-      "Un sistema monárquico constitucional pluralista.",
-      "Un gobierno socialista revolucionario.",
+      "Gutenberg's printing press and the Industrial Revolution's steam engine",
+      "Shaka Zulu's military reforms and Versailles's Hall of Mirrors",
+      "Confucian filial piety and feudal serfdom",
+      "The Treaty of Westphalia and the Truman Doctrine",
     ],
-    correctText: "Una dictadura autoritaria de partido único, con represión política y censura cultural.",
-    explanation: "Tras ganar la Guerra Civil (1936-1939), Franco gobernó España con un régimen autoritario apoyado en el partido único (Movimiento Nacional / Falange), suprimió libertades políticas, persiguió a opositores, prohibió lenguas regionales en la vida pública y mantuvo censura férrea hasta su muerte en 1975."
+    correctText: "Gutenberg's printing press and the Industrial Revolution's steam engine",
+    explanation: "Both technologies fundamentally restructured society. Print enabled mass literacy and the spread of Reformation and Enlightenment ideas; steam power enabled factory production, mass urbanization, and the modern economy."
   },
   {
-    id: "apspanlang-037",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "El régimen militar de Augusto Pinochet en Chile comenzó con un golpe de Estado el 11 de septiembre de 1973 que derrocó al presidente democráticamente elegido:",
+    id: "ghii-037",
+    topic: "Enduring Issues",
+    prompt: "Which pair of documents both address the Enduring Issue of human rights?",
     choices: [
-      "Eduardo Frei",
-      "Salvador Allende",
-      "Patricio Aylwin",
-      "Michelle Bachelet",
+      "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+      "The Code of Hammurabi and the Treaty of Versailles",
+      "The Edict of Nantes and the Smoot-Hawley Tariff",
+      "The Edict of Worms and the Cuban Missile Crisis briefings",
     ],
-    correctText: "Salvador Allende",
-    explanation: "Salvador Allende, primer presidente marxista elegido por votación libre en Latinoamérica (1970), fue derrocado el 11 de septiembre de 1973 por el general Pinochet con apoyo militar. Allende murió ese día en el palacio de La Moneda. La dictadura de Pinochet duró hasta 1990."
+    correctText: "The Magna Carta (1215) and the UN Universal Declaration of Human Rights (1948)",
+    explanation: "The Magna Carta limited royal authority and established that even the king is subject to the law — an early foundation. The UN Universal Declaration of Human Rights, drafted under Eleanor Roosevelt, set out universal civil, political, economic, and cultural rights after WWII."
   },
   {
-    id: "apspanlang-038",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "La deforestación de la selva amazónica preocupa a la comunidad internacional principalmente porque:",
+    id: "ghii-038",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "On a Regents map showing colonial Africa in 1914, the visible borders most directly reflect:",
     choices: [
-      "Reduce la capacidad del planeta de absorber dióxido de carbono y amenaza la biodiversidad y a los pueblos indígenas que viven allí.",
-      "Aumenta la cantidad de petróleo disponible en la región.",
-      "Mejora la calidad del aire en las ciudades europeas.",
-      "Incrementa la producción mundial de azafrán.",
+      "Ancient African kingdoms and ethnic boundaries",
+      "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+      "Geographic features like rivers and mountains",
+      "Borders established by the Ottoman Empire",
     ],
-    correctText: "Reduce la capacidad del planeta de absorber dióxido de carbono y amenaza la biodiversidad y a los pueblos indígenas que viven allí.",
-    explanation: "La Amazonía funciona como sumidero de carbono y alberga una biodiversidad inigualable, además de territorios ancestrales de pueblos indígenas (yanomami, kayapó, shuar, etc.). Su pérdida acelera el cambio climático y vulnera derechos humanos. Brasil, Perú, Colombia, Ecuador, Bolivia y Venezuela comparten cuenca amazónica."
+    correctText: "Lines drawn by European powers at the 1884–85 Berlin Conference based on European negotiations, not African realities",
+    explanation: "European negotiators in Berlin drew straight-line borders across maps without African input — splitting ethnic groups (such as the Yoruba and Maasai) and joining rivals within the same colony. Many post-independence African conflicts trace to these arbitrary lines."
   },
   {
-    id: "apspanlang-039",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "Lee el siguiente fragmento de un informe:\n\n«Si los gobiernos invirtieran más en educación pública, las familias en situación de pobreza tendrían mejores oportunidades.»\n\n¿Por qué se usa el imperfecto del subjuntivo «invirtieran» y el condicional «tendrían»?",
+    id: "ghii-039",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "A 1789 pamphlet declares: 'Men are born and remain free and equal in rights. The aim of every political association is the preservation of the natural and imprescriptible rights of man.' This source most directly reflects:",
     choices: [
-      "Porque describen una situación pasada que ya ocurrió.",
-      "Porque expresan una situación hipotética o contraria a los hechos en el presente.",
-      "Porque son una orden directa al gobierno.",
-      "Porque se trata de una pregunta retórica sin respuesta posible.",
+      "Confucian philosophy",
+      "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+      "Medieval feudal contracts",
+      "Mercantilist economic theory",
     ],
-    correctText: "Porque expresan una situación hipotética o contraria a los hechos en el presente.",
-    explanation: "Esta es la construcción clásica «Si + imperfecto del subjuntivo, + condicional simple» que en español expresa hipótesis irreales en el presente: la situación descrita NO se está dando, pero se imagina su consecuencia. Equivale al «If they invested..., families would have...» del inglés."
+    correctText: "Enlightenment principles incorporated into the French Declaration of the Rights of Man and the Citizen",
+    explanation: "The quoted lines come from the French Declaration of the Rights of Man and of the Citizen (August 1789), drafted at the start of the French Revolution. The language directly echoes John Locke and the U.S. Declaration of Independence."
   },
   {
-    id: "apspanlang-040",
-    topic: "Tema 6: Los desafíos mundiales",
-    prompt: "Lee la siguiente oración:\n\n«El medio ambiente _____ protegido por todos los ciudadanos, y los recursos naturales _____ en peligro de agotarse.»\n\n¿Qué combinación de verbos completa CORRECTAMENTE la oración?",
+    id: "ghii-040",
+    topic: "Skills: Geography + Sourcing",
+    prompt: "Which sequence of 20th-century events is in correct chronological order?",
     choices: [
-      "está / son",
-      "debe ser / están",
-      "está siendo / es",
-      "fue / fueron",
+      "Russian Revolution → World War I → Treaty of Versailles → Great Depression",
+      "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+      "Treaty of Versailles → World War I → Great Depression → Russian Revolution",
+      "Great Depression → World War I → Russian Revolution → Treaty of Versailles",
     ],
-    correctText: "debe ser / están",
-    explanation: "La primera parte expresa una obligación impersonal en voz pasiva: «debe ser protegido» (modo necesario + ser para voz pasiva). La segunda usa «estar + en peligro» (estado/condición circunstancial, no característica esencial), siguiendo la regla ser vs estar. «Están en peligro» es la forma idiomática estándar."
+    correctText: "World War I → Russian Revolution → Treaty of Versailles → Great Depression",
+    explanation: "WWI began in 1914; the Russian Revolution occurred in 1917 (during the war); the Treaty of Versailles was signed in 1919; the Great Depression began with the 1929 stock market crash. Chronological reasoning is a core Regents Social Studies Practice."
   },
 ];
   QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });
 
-const STORAGE_KEY = "ap-spanish-lang-practice-exam-state-v1";
+const STORAGE_KEY = "regents-global-2-practice-exam-state-v1";
 const TOTAL = QUESTIONS.length;
 
 const els = {
@@ -2168,13 +2168,13 @@ function renderIntro() {
   els.progress.hidden = true;
   els.stage.innerHTML = `
     <div class="exam-card" role="region" aria-label="Practice exam introduction">
-      <div class="exam-topic">AP Spanish Practice · 40 Items</div>
+      <div class="exam-topic">Regents Practice · 40 Items</div>
       <p class="exam-prompt">Ready to take the practice exam?</p>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 18px;">
-        You'll see 40 multiple-choice questions drawn from all 6 CED themes of the AP Spanish Language and Culture course
-        plus reading comprehension, vocabulary, cultural knowledge, and grammar skills. Each question gives instant
-        feedback with a short explanation. At the end, you'll see your overall score plus a per-theme mastery breakdown
-        so you know exactly where to focus your review for the May AP exam.
+        You'll see 40 multiple-choice questions drawn from all 10 units of the NYS Global History II curriculum
+        plus cross-unit Enduring Issues and geography/sourcing skills. Each question gives instant feedback with
+        a short explanation. At the end, you'll see your overall score plus a per-topic mastery breakdown so you
+        know exactly where to focus your review for the June Regents.
       </p>
       <div class="exam-actions">
         <button class="btn ghost" id="resetBtn" type="button">Reset Saved Progress</button>
@@ -2311,18 +2311,18 @@ function renderResults() {
 
   els.stage.innerHTML = `
     <div class="exam-results" role="region" aria-label="Practice exam results">
-      <div class="results-eyebrow">Practice Exam Complete · AP Spanish Language</div>
+      <div class="results-eyebrow">Practice Exam Complete · NYS Global History II</div>
       <h2>Your Score</h2>
       <div class="grand-score">${state.correct} / ${TOTAL} <small>${percent}%</small></div>
       <span class="grade-banner">${band}</span>
       <p style="font-family:Inter,system-ui,sans-serif; font-size:clamp(15px,1.6vw,18px); line-height:1.55; color:#dde9fb; margin:0 0 6px;">
         ${percent >= 70
-          ? "Strong work — you're tracking toward a 4 or 5 on the AP exam. The breakdown below shows where to push higher."
-          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which themes to drill before exam day."}
+          ? "Strong work — you're tracking toward a passing Regents performance. The breakdown below shows where to push higher."
+          : "Don't sweat the score — the goal of practice is to surface gaps. The breakdown below shows exactly which units to drill before exam day."}
       </p>
 
       <div class="results-breakdown" id="resultsBreakdown">
-        <h3>Mastery by Theme · Lowest First</h3>
+        <h3>Mastery by Topic · Lowest First</h3>
         ${rowsHtml}
       </div>
 
@@ -2397,7 +2397,7 @@ function renderReview() {
 }
 
 function goToHub() {
-  // Walk up the path: games/ap-spanish-lang-practice/ → root index.html
+  // Walk up the path: games/regents-global-2/ → root index.html
   window.location.href = "../../index.html";
 }
 
