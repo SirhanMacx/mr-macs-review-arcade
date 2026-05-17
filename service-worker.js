@@ -1,4 +1,4 @@
-const CACHE_NAME = "v74-pdf-print-mode-all-practice-exams";
+const CACHE_NAME = "v85-jeopardy-board-audit-9-content-fixes";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
