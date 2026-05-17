@@ -21,6 +21,7 @@ const CORS_HEADERS = {
 
 const PER_GAME_LIMIT = 100;
 const DEFAULT_LIMIT = 10;
+const CLIENT_HASH_PREFIX = "arcade-public-client-v1:";
 
 const BLOCKED_STEMS = [
   "fuck","fck","fuk","shit","sht","piss","cunt","cnt","dick","cock","cok",
@@ -100,6 +101,16 @@ function safeClientId(value) {
     .slice(0, 48) || "unknown";
 }
 
+async function hashClientKey(value) {
+  const seed = CLIENT_HASH_PREFIX + String(value ?? "unknown");
+  const bytes = new TextEncoder().encode(seed);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest))
+    .slice(0, 16)
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 function safeMeta(meta) {
   const allowed = new Set(["course","mode","accuracy","durationMs","rounds","wave","level","source","date","gameType"]);
   const out = {};
@@ -123,6 +134,18 @@ function rankRows(rows) {
     .map((row, index) => ({ ...row, rank: index + 1 }));
 }
 
+function publicRows(rows) {
+  return rankRows(rows).map(row => ({
+    entryId: row.entryId,
+    rank: row.rank,
+    gameId: row.gameId,
+    score: row.score,
+    displayName: row.displayName,
+    ts: row.ts,
+    meta: safeMeta(row.meta)
+  }));
+}
+
 async function readRows(env, gameId) {
   const raw = await env.ARCADE_LEADERBOARD.get(keyFor(gameId));
   const parsed = raw ? JSON.parse(raw) : [];
@@ -138,7 +161,8 @@ async function handleGet(env, url) {
   if (!gameId) return json({ error: "missing gameId" }, 400);
   const limit = Math.max(1, Math.min(25, Number(url.searchParams.get("limit")) || DEFAULT_LIMIT));
   const rows = await readRows(env, gameId);
-  return json({ rows: rows.slice(0, limit), top: rows.slice(0, limit) });
+  const visible = publicRows(rows).slice(0, limit);
+  return json({ rows: visible, top: visible });
 }
 
 async function handlePost(env, request) {
@@ -151,28 +175,28 @@ async function handlePost(env, request) {
   const gameId = safeGameId(body.gameId);
   const score = Math.round(Number(body.score));
   const displayName = safeHandle(body.displayName);
-  const clientId = safeClientId(body.clientId);
+  const clientKey = await hashClientKey(safeClientId(body.clientId));
   if (!gameId || !Number.isFinite(score)) return json({ error: "invalid score" }, 400);
   if (score < 0 || score > 1000000000) return json({ error: "score out of range" }, 400);
 
   const rows = await readRows(env, gameId);
-  const existing = rows.find(row => row.clientId === clientId);
+  const existing = rows.find(row => row.clientKey === clientKey || row.clientId === safeClientId(body.clientId));
   const entry = {
-    entryId: `${clientId}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 7)}`,
+    entryId: `${clientKey.slice(0, 12)}:${Date.now().toString(36)}:${Math.random().toString(36).slice(2, 7)}`,
     gameId,
     score,
     displayName,
-    clientId,
+    clientKey,
     ts: Date.now(),
     meta: safeMeta(body.meta)
   };
   let next = rows;
   if (!existing || score > Number(existing.score || 0)) {
-    next = rows.filter(row => row.clientId !== clientId).concat(entry);
+    next = rows.filter(row => row.clientKey !== clientKey && row.clientId !== safeClientId(body.clientId)).concat(entry);
     await writeRows(env, gameId, next);
   }
-  const ranked = rankRows(next).slice(0, DEFAULT_LIMIT);
-  return json({ ok: true, entry, top: ranked, rows: ranked });
+  const ranked = publicRows(next).slice(0, DEFAULT_LIMIT);
+  return json({ ok: true, entry: ranked.find(row => row.entryId === entry.entryId) || null, top: ranked, rows: ranked });
 }
 
 async function handleDelete(env, request, url) {
@@ -184,7 +208,7 @@ async function handleDelete(env, request, url) {
   const rows = await readRows(env, gameId);
   const next = rows.filter(row => row.entryId !== entryId);
   await writeRows(env, gameId, next);
-  return json({ ok: true, deleted: rows.length - next.length, rows: rankRows(next).slice(0, DEFAULT_LIMIT) });
+  return json({ ok: true, deleted: rows.length - next.length, rows: publicRows(next).slice(0, DEFAULT_LIMIT) });
 }
 
 export default {

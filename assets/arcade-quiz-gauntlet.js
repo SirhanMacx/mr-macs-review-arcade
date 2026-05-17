@@ -322,9 +322,17 @@
       // Submit to leaderboard
       if (leaderboards() && leaderboards().submit) {
         try {
-          leaderboards().submit({ gameId: gameId, score: score, meta: { rounds: rounds, accuracy: acc, course: courseId } });
+          leaderboards().submit({ gameId: gameId, score: score, meta: { rounds: rounds, accuracy: acc, course: courseId, durationMs: Date.now() - startTs } });
         } catch (e) {}
       }
+      try {
+        if (!(root.MrMacsGlobalLeaderboards && root.MrMacsGlobalLeaderboards.installSubmitHook) &&
+            root.dispatchEvent && root.CustomEvent) {
+          root.dispatchEvent(new root.CustomEvent("mrmacs:score-submit", {
+            detail: { gameId: gameId, score: score, meta: { rounds: rounds, accuracy: acc, course: courseId, durationMs: Date.now() - startTs } }
+          }));
+        }
+      } catch (e) {}
       // Award shards
       var shards = Math.round(score / 10);
       if (profile() && profile().addShards) {

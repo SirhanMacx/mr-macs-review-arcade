@@ -10114,9 +10114,9 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
      Powers arcade-multiplayer.js room/peer creation. Loaded async +
      defer so it doesn't block initial paint. -->
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js" defer></script>
-<script src="assets/arcade-multiplayer.js?v=20260516-modal-reopen" defer></script>
+<script src="assets/arcade-multiplayer.js?v=20260517-study-multiplayer" defer></script>
 <script src="assets/arcade-sessions.js?v=20260510-sessions"></script>
-<script src="assets/arcade-progress-extras.js?v=20260513-global-leaderboard"></script>
+<script src="assets/arcade-progress-extras.js?v=20260517-study-multiplayer"></script>
 <script src="assets/arcade-cram-mode.js?v=20260516-all-course-picker"></script>
 <script src="assets/arcade-onboarding-flow.js?v=20260516-all-course-picker"></script>
 <script src="assets/arcade-quick-stats-panel.js?v=20260509-quickstats"></script>
@@ -10698,7 +10698,14 @@ function generatedJeopardyByRuntimeId(id) {
 }
 function openGeneratedJeopardy(game) {
   if (!game || !game.generatedBoardId) return;
-  window.location.href = "games/generated-jeopardy/?board=" + encodeURIComponent(game.generatedBoardId);
+  const target = withMultiplayerRoom("games/generated-jeopardy/?board=" + encodeURIComponent(game.generatedBoardId));
+  announceMultiplayerActivity({
+    id: game.id || game.generatedBoardId,
+    title: game.title || "Generated Jeopardy Review",
+    kind: "Jeopardy",
+    url: target
+  });
+  window.location.href = target;
 }
 function generatedPracticeBlueprintForCourse(courseLabel) {
   const target = displayCourseLabel(courseLabel);
@@ -10706,13 +10713,28 @@ function generatedPracticeBlueprintForCourse(courseLabel) {
     || (GENERATED_PRACTICE_BLUEPRINTS || []).find((exam) => exam.courseId === courseLabel);
 }
 function openGeneratedPracticeExam(courseLabel) {
+  let target;
   if (!courseLabel) {
-    window.location.href = "games/generated-practice-exam/";
+    target = withMultiplayerRoom("games/generated-practice-exam/");
+    announceMultiplayerActivity({
+      id: "generated-practice-exam",
+      title: "Generated Practice Exam",
+      kind: "Practice Exam",
+      url: target
+    });
+    window.location.href = target;
     return;
   }
   const blueprint = generatedPracticeBlueprintForCourse(courseLabel);
   const course = blueprint ? blueprint.courseId : primarySharedBankKey(courseLabel);
-  window.location.href = "games/generated-practice-exam/?course=" + encodeURIComponent(course || "");
+  target = withMultiplayerRoom("games/generated-practice-exam/?course=" + encodeURIComponent(course || ""));
+  announceMultiplayerActivity({
+    id: "generated-practice-exam-" + (course || ""),
+    title: displayCourseLabel(courseLabel) + " Practice Exam",
+    kind: "Practice Exam",
+    url: target
+  });
+  window.location.href = target;
 }
 
 // True when the game's `course` field matches the player's enrolled
@@ -12108,12 +12130,20 @@ function openCoursePractice(course) {
   const label = displayCourseLabel(course);
   const key = primarySharedBankKey(label);
   if (window.MrMacsQuizGauntlet && typeof window.MrMacsQuizGauntlet.open === "function") {
-    window.MrMacsQuizGauntlet.open({
+    const opts = {
       courseId: key,
       courseLabel: label,
       rounds: 10,
       gameId: key + "-course-practice"
+    };
+    announceMultiplayerActivity({
+      id: opts.gameId,
+      title: label + " Practice Run",
+      kind: "quiz-gauntlet",
+      url: withMultiplayerRoom("#practice"),
+      opts
     });
+    window.MrMacsQuizGauntlet.open(opts);
     return;
   }
   alert("Course practice is still loading. Try again in a moment.");
@@ -12294,13 +12324,40 @@ function isMobilePerfMode() {
 function isMobileHeavyGame(game) {
   return isMobilePerfMode() && game && (MOBILE_HEAVY_GAME_IDS.has(game.id) || /hunters|quest|invaders|rally|platform|pokemon/i.test(game.title + " " + game.file));
 }
+function activeMultiplayerCode() {
+  try {
+    const room = window.MrMacsMultiplayer?.activeRoom?.();
+    if (room?.code) return room.code;
+    const desc = window.MrMacsMultiplayer?.activeDescriptor?.();
+    if (desc?.code) return desc.code;
+  } catch (e) {}
+  return "";
+}
+function withMultiplayerRoom(urlValue) {
+  const code = activeMultiplayerCode();
+  if (!code) return urlValue;
+  try {
+    const url = new URL(urlValue, location.href);
+    url.hash = "room=" + code;
+    return url.href;
+  } catch (e) {
+    return urlValue;
+  }
+}
+function announceMultiplayerActivity(activity) {
+  try {
+    if (window.MrMacsMultiplayer?.announceActivity) {
+      window.MrMacsMultiplayer.announceActivity(activity);
+    }
+  } catch (e) {}
+}
 function launchUrl(file) {
-  if (!isMobilePerfMode()) return file;
+  if (!isMobilePerfMode()) return withMultiplayerRoom(file);
   const url = new URL(file, location.href);
   url.searchParams.set("perf", "lite");
   url.searchParams.set("fx", "lite");
   url.searchParams.set("mobile", "1");
-  return url.href;
+  return withMultiplayerRoom(url.href);
 }
 function playerFocusables() {
   return Array.from(player.querySelectorAll("button, [href], iframe, [tabindex]:not([tabindex='-1'])"))
@@ -12331,7 +12388,14 @@ function openGame(game) {
   } catch (e) { /* storage disabled is fine */ }
   // Modifier-click / middle-click → background tab.
   // Otherwise → full-page navigation in same tab. One window. Always.
-  window.location.href = launchUrl(game.file);
+  const target = launchUrl(game.file);
+  announceMultiplayerActivity({
+    id: game.id,
+    title: game.title,
+    kind: displayGameType(game),
+    url: target
+  });
+  window.location.href = target;
 }
 function closeGame() {
   // Retained for any legacy callers; navigation back to hub is handled by

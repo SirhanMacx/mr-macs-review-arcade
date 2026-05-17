@@ -774,6 +774,86 @@ test("global leaderboard posts only safe public handles", async ({ page }) => {
   expect(posted.meta.studentName).toBeUndefined();
 });
 
+test("global leaderboard worker returns public score rows without client identifiers", async () => {
+  const source = fs.readFileSync(path.join(REPO, "workers", "global-leaderboard-worker.js"), "utf8");
+  const worker = (await import(`data:text/javascript,${encodeURIComponent(source)}`)).default;
+  const kv = new Map();
+  const env = {
+    ARCADE_LEADERBOARD: {
+      get: async key => kv.get(key) || null,
+      put: async (key, value) => { kv.set(key, value); }
+    },
+    ADMIN_TOKEN: "test-token"
+  };
+  const post = await worker.fetch(new Request("https://leaderboard.example/scores", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      gameId: "snake-pit",
+      score: 9001,
+      displayName: "student@example.com",
+      clientId: "student@example.com",
+      meta: { course: "AP Psychology", studentName: "Jane Student", accuracy: 0.91 }
+    })
+  }), env);
+  expect(post.status).toBe(200);
+  const posted = await post.json();
+  expect(posted.entry.displayName).toBe("PLAYER-000");
+  expect(posted.entry.clientId).toBeUndefined();
+  expect(posted.entry.clientKey).toBeUndefined();
+  expect(posted.entry.meta.studentName).toBeUndefined();
+
+  const rawStored = Array.from(kv.values()).join("\n");
+  expect(rawStored).not.toContain("student@example.com");
+  expect(rawStored).not.toContain("Jane Student");
+  expect(rawStored).toContain("clientKey");
+
+  const get = await worker.fetch(new Request("https://leaderboard.example/scores?gameId=snake-pit&limit=10"), env);
+  const visible = await get.json();
+  expect(visible.rows[0].displayName).toBe("PLAYER-000");
+  expect(visible.rows[0].clientId).toBeUndefined();
+  expect(visible.rows[0].clientKey).toBeUndefined();
+});
+
+test("multiplayer host has local fallback, safe names, join link, and queued scoring", async ({ page }) => {
+  await loadModuleHarness(page, [
+    "/assets/arcade-name-safety.js?v=test-local-fallback",
+    "/assets/arcade-leaderboards.js?v=test-local-fallback",
+    "/assets/arcade-multiplayer.js?v=test-local-fallback"
+  ]);
+  await page.waitForFunction(() => window.MrMacsMultiplayer && !window.Peer, null, { timeout: 30000 });
+  const result = await page.evaluate(async () => {
+    const room = window.MrMacsMultiplayer.host({ initials: "fuk" });
+    await new Promise(resolve => setTimeout(resolve, 20));
+    const link = window.MrMacsMultiplayer.joinLink(room);
+    const ok = room.updateScore(1234, { gameId: "snake-pit", studentName: "Should Stay Local" });
+    return {
+      code: room.code,
+      localFallback: room.localFallback,
+      initials: room.self.initials,
+      link,
+      ok,
+      queueSize: window.MrMacsMultiplayer.queueSize(),
+      queued: window.MrMacsMultiplayer.queuedScores()[0],
+      announced: window.MrMacsMultiplayer.announceActivity({
+        id: "snake-pit",
+        title: "Snake Pit",
+        kind: "Arcade Game",
+        url: "/games/snake-pit/index.html"
+      })
+    };
+  });
+  expect(result.code).toMatch(/^[A-Z0-9]{3}-[A-Z0-9]{3}$/);
+  expect(result.localFallback).toBe(true);
+  expect(result.initials).toBe("PLR");
+  expect(result.link).toContain("#room=" + result.code);
+  expect(result.ok).toBe(true);
+  expect(result.queueSize).toBeGreaterThanOrEqual(1);
+  expect(result.queued.score).toBe(1234);
+  expect(result.queued.meta.studentName).toBeUndefined();
+  expect(result.announced).toBe(true);
+});
+
 test("multiplayer modal reopen does not spawn duplicate host rooms", async ({ browser }) => {
   // Closing the lobby modal mid-host then reopening it used to render a
   // fresh "Start Hosting" button — clicking it spawned a second peer

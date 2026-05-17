@@ -1419,11 +1419,11 @@
       script.src = src;
       script.defer = true;
       script.onload = done;
-      script.onerror = function () {};
+      script.onerror = done;
       (doc.head || doc.documentElement).appendChild(script);
     }
     loadScript(peerSrc, function () {
-      loadScript(base + "arcade-multiplayer.js?v=20260516-modal-reopen", function () {
+      loadScript(base + "arcade-multiplayer.js?v=20260517-study-multiplayer", function () {
         try {
           if (root.MrMacsMultiplayer && root.MrMacsMultiplayer.mountGameRoomStrip) {
             root.MrMacsMultiplayer.mountGameRoomStrip();

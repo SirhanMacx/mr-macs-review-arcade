@@ -1,4 +1,4 @@
-const CACHE_NAME = "v102-bank-slug-aliases";
+const CACHE_NAME = "v103-study-multiplayer-leaderboard";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to

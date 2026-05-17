@@ -5,10 +5,13 @@
    everything after that is peer-to-peer DataChannel.
 
    Model:
-     · A HOST creates a room with a 4-letter code (e.g. "ARC-DEF").
-     · Up to 16 JOINERS connect by entering the same code.
+     · A HOST creates a room with a 6-character code (e.g. "ARC-DEF").
+     · Up to 40 JOINERS connect by entering the same code or opening
+       a share link. No chat or student-to-student messaging is exposed.
      · Joiners pick 3-char initials (run through the leaderboards
        content filter so inappropriate initials become "PLR").
+     · If the signaling library is blocked/unavailable, a local-safe
+       fallback room still tracks the code and queues scores for retry.
      · Messages flow JSON-encoded through DataChannel:
          { type, from, payload }
        Built-in types:
@@ -25,6 +28,7 @@
      .host(opts) → Room                    create + announce a room
      .join(code, initials) → Room          join an existing room
      .codeFromHash() → string|null         e.g. "#room=ARC-DEF"
+     .announceActivity(activity)           host broadcasts game launch
    Room instance methods:
      .code, .role ("host"|"joiner"), .self, .players[]
      .send(type, payload, toId?)           queues + broadcasts/unicasts
@@ -44,6 +48,8 @@
   // scale fine to this size on modern devices.
   var MAX_PLAYERS = 40;
   var ACTIVE_ROOM_KEY = "arcade.mp.activeRoom.v1";
+  var LOCAL_QUEUE_KEY = "arcade.mp.localScoreQueue.v1";
+  var _activeRoom = null;
 
   function makeCode() {
     var s = "";
@@ -56,6 +62,12 @@
 
   function peerIdFor(roomCode) {
     return ROOM_PREFIX + "-" + roomCode.replace(/[^A-Z0-9]/g, "");
+  }
+
+  function normalizeCode(code) {
+    var clean = String(code || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (clean.length !== 6) return "";
+    return clean.slice(0, 3) + "-" + clean.slice(3);
   }
 
   function available() {
@@ -72,6 +84,18 @@
       var m = h.match(/room=([A-Z0-9]{3}-[A-Z0-9]{3})/i);
       return m ? m[1].toUpperCase() : null;
     } catch (e) { return null; }
+  }
+
+  function joinLink(roomOrCode) {
+    var code = normalizeCode(roomOrCode && roomOrCode.code ? roomOrCode.code : roomOrCode);
+    if (!code || !root.location) return "";
+    try {
+      var url = new URL(root.location.href);
+      url.hash = "room=" + code;
+      return url.href;
+    } catch (e) {
+      return "#room=" + code;
+    }
   }
 
   function sanitizeInitials(s) {
@@ -96,12 +120,63 @@
     try { sessionStorage.removeItem(key); } catch (e) {}
   }
 
+  function readLocalQueue() {
+    try {
+      var raw = localStorage.getItem(LOCAL_QUEUE_KEY);
+      var parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch (e) { return []; }
+  }
+
+  function writeLocalQueue(queue) {
+    try {
+      localStorage.setItem(LOCAL_QUEUE_KEY, JSON.stringify((Array.isArray(queue) ? queue : []).slice(-200)));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function safeMeta(meta) {
+    var allowed = ["gameId","course","courseId","courseLabel","mode","accuracy","durationMs","rounds","wave","level","source","date","gameType","activityTitle"];
+    var out = {};
+    if (!meta || typeof meta !== "object" || Array.isArray(meta)) return out;
+    allowed.forEach(function (key) {
+      var value = meta[key];
+      if (value == null) return;
+      if (typeof value === "number" && isFinite(value)) out[key] = value;
+      else if (typeof value === "boolean") out[key] = value;
+      else if (typeof value === "string") out[key] = value.replace(/[<>]/g, "").slice(0, 60);
+    });
+    return out;
+  }
+
+  function queueScore(room, score, meta) {
+    if (!room || !room.code || !room.self) return 0;
+    var entry = {
+      code: room.code,
+      role: room.role,
+      initials: sanitizeInitials(room.self.initials),
+      score: Math.round(Number(score) || 0),
+      meta: safeMeta(meta),
+      queuedAt: Date.now()
+    };
+    var queue = readLocalQueue();
+    queue.push(entry);
+    writeLocalQueue(queue);
+    return queue.length;
+  }
+
+  function queueSize() {
+    return readLocalQueue().length;
+  }
+
   function rememberActiveRoom(room) {
     if (!room || !room.code || !room.role || !room.self) return false;
+    _activeRoom = room;
     return safeSessionSet(ACTIVE_ROOM_KEY, JSON.stringify({
       code: room.code,
       role: room.role,
       initials: sanitizeInitials(room.self.initials),
+      mode: room.localFallback ? "local" : "webrtc",
       savedAt: Date.now()
     }));
   }
@@ -116,9 +191,10 @@
         return null;
       }
       return {
-        code: String(desc.code).toUpperCase(),
+        code: normalizeCode(desc.code) || String(desc.code).toUpperCase(),
         role: desc.role === "host" ? "host" : "joiner",
-        initials: sanitizeInitials(desc.initials || (desc.role === "host" ? "HST" : "PLR"))
+        initials: sanitizeInitials(desc.initials || (desc.role === "host" ? "HST" : "PLR")),
+        mode: desc.mode === "local" ? "local" : "webrtc"
       };
     } catch (e) {
       return null;
@@ -128,6 +204,7 @@
   function clearActiveRoom(code) {
     var desc = activeDescriptor();
     if (!code || (desc && desc.code === code)) safeSessionRemove(ACTIVE_ROOM_KEY);
+    if (_activeRoom && (!code || _activeRoom.code === code)) _activeRoom = null;
   }
 
   // ─── Room class ──────────────────────────────────────────────────────
@@ -142,6 +219,8 @@
     this._messageHandlers = [];
     this._playersHandlers = [];
     this._destroyed = false;
+    this.connected = false;
+    this.localFallback = !!opts.localFallback;
   }
   Room.prototype.onMessage = function (h) {
     if (typeof h === "function") this._messageHandlers.push(h);
@@ -175,15 +254,26 @@
     }
     if (this.role === "host") {
       this._firePlayers();
-      this.send("host:playerScoreSync", { players: serializablePlayers(this) });
-      this.send("host:announceState", { players: serializablePlayers(this) });
+      if (this.localFallback || !this.connected) {
+        queueScore(this, n, meta);
+        this._fireMessage({ type: "local:scoreQueued", from: this.self.id, payload: { score: n, queueSize: queueSize() } }, this.self.id);
+      } else {
+        this.send("host:playerScoreSync", { players: serializablePlayers(this) });
+        this.send("host:announceState", { players: serializablePlayers(this) });
+      }
     } else {
-      this.send("joiner:score", { score: n, meta: meta || {} });
+      if (this.localFallback || !this.connected) {
+        queueScore(this, n, meta);
+        this._fireMessage({ type: "local:scoreQueued", from: this.self.id, payload: { score: n, queueSize: queueSize() } }, this.self.id);
+      } else {
+        this.send("joiner:score", { score: n, meta: safeMeta(meta) });
+      }
     }
     return true;
   };
 
   Room.prototype.send = function (type, payload, toId) {
+    if (this.localFallback) return false;
     var msg = { type: type, from: this.self.id, payload: payload || null };
     var data = JSON.stringify(msg);
     try {
@@ -202,6 +292,7 @@
         if (this._hostConn && this._hostConn.open) this._hostConn.send(data);
       }
     } catch (e) {}
+    return true;
   };
 
   Room.prototype.leave = function () {
@@ -218,9 +309,9 @@
 
   // ─── host() ───────────────────────────────────────────────────────────
   function host(opts) {
-    if (!available()) throw new Error("PeerJS not loaded");
     opts = opts || {};
-    var code = (opts.code || makeCode()).toUpperCase();
+    if (!available()) return makeLocalRoom("host", opts.code || makeCode(), opts.initials || "HST", opts, "Multiplayer signaling is unavailable.");
+    var code = normalizeCode(opts.code || makeCode()) || makeCode();
     var initials = sanitizeInitials(opts.initials || "HST");
     var peerId = peerIdFor(code);
     var room = new Room({ code: code, role: "host", self: { id: peerId, initials: initials } });
@@ -231,11 +322,16 @@
     room.players.push({ id: peerId, initials: initials, score: 0, isHost: true });
 
     peer.on("open", function () {
+      room.connected = true;
       rememberActiveRoom(room);
       if (typeof opts.onReady === "function") opts.onReady(room);
     });
     peer.on("error", function (err) {
-      if (typeof opts.onError === "function") opts.onError(err);
+      if (canFallbackForError(err)) {
+        activateLocalFallback(room, opts, "Multiplayer signaling is unavailable.");
+      } else if (typeof opts.onError === "function") {
+        opts.onError(err);
+      }
     });
     peer.on("connection", function (conn) {
       conn.on("open", function () {
@@ -313,11 +409,10 @@
 
   // ─── join() ───────────────────────────────────────────────────────────
   function join(code, initials, opts) {
-    if (!available()) throw new Error("PeerJS not loaded");
     opts = opts || {};
-    var clean = (code || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-    if (clean.length !== 6) throw new Error("Invalid room code (must be 6 alphanumeric chars).");
-    var normalizedCode = clean.slice(0, 3) + "-" + clean.slice(3);
+    if (!available()) return makeLocalRoom("joiner", code, initials, opts, "Multiplayer signaling is unavailable.");
+    var normalizedCode = normalizeCode(code);
+    if (!normalizedCode) throw new Error("Invalid room code (must be 6 alphanumeric chars).");
     var hostId = peerIdFor(normalizedCode);
     var myInitials = sanitizeInitials(initials);
     var myId = "mrmac-j-" + Math.random().toString(36).slice(2, 10);
@@ -332,6 +427,9 @@
       conn.on("open", function () {
         // Announce ourselves
         try { conn.send(JSON.stringify({ type: "joiner:hello", from: myId, payload: { initials: myInitials } })); } catch (e) {}
+        room.connected = true;
+        room.players = [{ id: myId, initials: myInitials, score: 0, isHost: false }];
+        room._firePlayers();
         rememberActiveRoom(room);
         if (typeof opts.onReady === "function") opts.onReady(room);
       });
@@ -359,10 +457,54 @@
       var msg = (err && err.type === "peer-unavailable") ?
                 "No room with that code. Check with your teacher." :
                 "Connection error. Try again.";
-      if (typeof opts.onError === "function") opts.onError({ err: err, friendly: msg });
+      if (canFallbackForError(err)) {
+        activateLocalFallback(room, opts, msg);
+      } else if (typeof opts.onError === "function") {
+        opts.onError({ err: err, friendly: msg });
+      }
     });
 
     return room;
+  }
+
+  function canFallbackForError(err) {
+    if (err && err.type === "peer-unavailable") return false;
+    return true;
+  }
+
+  function makeLocalRoom(role, code, initials, opts, friendly) {
+    opts = opts || {};
+    var normalizedCode = normalizeCode(code) || makeCode();
+    var safeInitials = sanitizeInitials(initials || (role === "host" ? "HST" : "PLR"));
+    var id = role === "host" ? peerIdFor(normalizedCode) : ("mrmac-local-" + Math.random().toString(36).slice(2, 10));
+    var room = new Room({
+      code: normalizedCode,
+      role: role === "host" ? "host" : "joiner",
+      self: { id: id, initials: safeInitials },
+      localFallback: true
+    });
+    room.players.push({ id: id, initials: safeInitials, score: 0, isHost: room.role === "host" });
+    room.connected = false;
+    rememberActiveRoom(room);
+    room._firePlayers();
+    setTimeout(function () {
+      room._fireMessage({ type: "local:fallback", from: id, payload: { friendly: friendly || "Local score queue is active." } }, id);
+      if (typeof opts.onReady === "function") opts.onReady(room);
+    }, 0);
+    return room;
+  }
+
+  function activateLocalFallback(room, opts, friendly) {
+    if (!room || room._destroyed) return;
+    room.localFallback = true;
+    room.connected = false;
+    if (!room.players.length) {
+      room.players.push({ id: room.self.id, initials: sanitizeInitials(room.self.initials), score: 0, isHost: room.role === "host" });
+    }
+    rememberActiveRoom(room);
+    room._firePlayers();
+    room._fireMessage({ type: "local:fallback", from: room.self.id, payload: { friendly: friendly || "Local score queue is active." } }, room.self.id);
+    if (typeof opts.onReady === "function") opts.onReady(room);
   }
 
   function parseMsg(raw) {
@@ -422,6 +564,11 @@
       ".mmp-game-strip button{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#f0f5ff;border-radius:6px;padding:5px 7px;font:800 10px/1 'Inter',sans-serif;cursor:pointer;}\n" +
       ".mmp-game-strip.is-error{border-color:rgba(255,56,88,.5);}\n" +
       ".mmp-game-dot{width:8px;height:8px;border-radius:999px;background:#7af0ff;box-shadow:0 0 10px rgba(122,240,255,.8);flex:0 0 auto;}\n" +
+      ".mmp-launch{position:fixed;right:14px;bottom:max(54px,calc(env(safe-area-inset-bottom) + 54px));z-index:8001;width:min(320px,calc(100vw - 28px));padding:12px;background:rgba(4,6,15,.94);border:1px solid rgba(255,208,96,.48);border-radius:10px;box-shadow:0 16px 40px rgba(0,0,0,.55);color:#f0f5ff;}\n" +
+      ".mmp-launch strong{display:block;margin-bottom:4px;font:900 13px/1.2 'Inter',sans-serif;color:#ffd060;}\n" +
+      ".mmp-launch span{display:block;margin-bottom:10px;font:600 12px/1.35 'Inter',sans-serif;color:rgba(240,245,255,.74);}\n" +
+      ".mmp-launch button{appearance:none;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.07);color:#f0f5ff;border-radius:7px;padding:8px 10px;font:800 11px/1 'Inter',sans-serif;cursor:pointer;margin-right:6px;}\n" +
+      ".mmp-launch button:first-of-type{background:linear-gradient(135deg,#ffd060,#f5c451);color:#14100a;border:0;}\n" +
       "@media(max-width:560px){.mmp-game-strip{font-size:10px;padding:7px 8px;}.mmp-game-strip button{padding:5px 6px;}}";
     var style = document.createElement("style");
     style.id = STYLE_ID;
@@ -478,20 +625,20 @@
       '<div class="mmp-modal" role="dialog" aria-modal="true" aria-labelledby="mmpModalTitle" style="position:relative;">' +
         '<button class="mmp-close" id="mmpClose" aria-label="Close">×</button>' +
         '<h2 id="mmpModalTitle">Live Multiplayer</h2>' +
-        '<p class="mmp-sub">Set up a real-time room for in-class competition. No accounts, no logins.</p>' +
+        '<p class="mmp-sub">Set up a real-time study room. No accounts, no chat, no student-identifying data.</p>' +
         '<div class="mmp-tabs" role="tablist">' +
           '<button class="mmp-tab is-active" id="mmpTabHost" role="tab">Host a Room</button>' +
           '<button class="mmp-tab" id="mmpTabJoin" role="tab">Join a Room</button>' +
         '</div>' +
         '<div class="mmp-pane is-active" id="mmpPaneHost">' +
-          '<p class="mmp-hint">Open a room and share the code with your students. Up to 40 players.</p>' +
+          '<p class="mmp-hint">Open a room and share the code or link. Up to 40 players.</p>' +
           '<button class="mmp-btn" id="mmpHostStart" type="button">Start Hosting</button>' +
           '<div id="mmpHostStatus"></div>' +
         '</div>' +
         '<div class="mmp-pane" id="mmpPaneJoin">' +
           '<label class="mmp-label" for="mmpJoinCode">Room Code</label>' +
           '<input class="mmp-input" id="mmpJoinCode" maxlength="7" placeholder="ABC-DEF" value="' + (preset || "") + '" autocapitalize="characters">' +
-          '<label class="mmp-label" for="mmpJoinInitials">Your Initials (3 char)</label>' +
+          '<label class="mmp-label" for="mmpJoinInitials">Your Arcade Initials (3 char)</label>' +
           '<input class="mmp-input" id="mmpJoinInitials" maxlength="3" placeholder="ABC" autocapitalize="characters">' +
           '<button class="mmp-btn" id="mmpJoinStart" type="button">Join Room</button>' +
           '<div id="mmpJoinStatus"></div>' +
@@ -526,13 +673,33 @@
       statusEl.innerHTML =
         '<p class="mmp-hint">Share this code with your students:</p>' +
         '<div class="mmp-code">' + escHtml(r.code) + '</div>' +
-        '<p class="mmp-hint">Players join by entering this code on the same arcade hub.</p>' +
+        '<p class="mmp-hint">Players join by entering this code or opening the share link. ' + (r.localFallback ? 'Local score queue is active until signaling reconnects.' : 'Gameplay sync is active.') + '</p>' +
         '<div class="mmp-label">Players in room</div>' +
         '<div class="mmp-roster" id="mmpHostRoster"></div>' +
+        '<button class="mmp-btn" id="mmpCopyLink" type="button">Copy Join Link</button>' +
+        '<button class="mmp-btn is-secondary" id="mmpPickGame" type="button">Pick a Game</button>' +
         '<button class="mmp-btn" id="mmpHostSaveClass" type="button" style="background:linear-gradient(135deg,#ffd060,#f5c451);color:#14100a;">📋 Save as Class</button>' +
         '<button class="mmp-btn is-secondary" id="mmpHostClose" type="button">End Room</button>';
       renderRoster(r, document.getElementById("mmpHostRoster"));
       r.onPlayersChange(function () { renderRoster(r, document.getElementById("mmpHostRoster")); });
+      bindActivityLaunchHandler(r);
+      document.getElementById("mmpCopyLink").addEventListener("click", function () {
+        var link = joinLink(r);
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(link);
+            this.textContent = "Join Link Copied";
+          } else {
+            window.prompt("Copy this join link:", link);
+          }
+        } catch (e) {
+          window.prompt("Copy this join link:", link);
+        }
+      });
+      document.getElementById("mmpPickGame").addEventListener("click", function () {
+        closeLobbyModal();
+        try { location.hash = "multiplayer"; } catch (e) {}
+      });
       document.getElementById("mmpHostSaveClass").addEventListener("click", function () {
         var name = window.prompt("Save this roster as a class. What's the class name? (e.g. 'Period 3 · AP Psych')");
         if (!name) return;
@@ -556,10 +723,6 @@
     }
 
     document.getElementById("mmpHostStart").addEventListener("click", function () {
-      if (!available()) {
-        document.getElementById("mmpHostStatus").innerHTML = '<div class="mmp-error">Multiplayer library not loaded. Check your internet connection and reload.</div>';
-        return;
-      }
       // Defense: if a host room is already live for this tab, surface it
       // instead of opening a second one.
       if (_modalOpenRoom && _modalOpenRoom.role === "host" && !_modalOpenRoom._destroyed) {
@@ -603,10 +766,6 @@
         statusEl.innerHTML = '<div class="mmp-error">Pick 3 initials for the leaderboard.</div>';
         return;
       }
-      if (!available()) {
-        statusEl.innerHTML = '<div class="mmp-error">Multiplayer library not loaded. Check your internet connection and reload.</div>';
-        return;
-      }
       statusEl.innerHTML = '<p class="mmp-hint">Connecting…</p>';
       try {
         var room = join(code, initials, {
@@ -614,10 +773,13 @@
             _modalOpenRoom = r;
             statusEl.innerHTML =
               '<p class="mmp-hint">Joined room <strong>' + r.code + '</strong> as <strong>' + r.self.initials + '</strong>.</p>' +
+              '<p class="mmp-hint">' + (r.localFallback ? 'Local score queue is active until signaling reconnects.' : 'Wait here or pick any activity. Host launches appear automatically.') + '</p>' +
               '<div class="mmp-label">Players in room</div>' +
               '<div class="mmp-roster" id="mmpJoinRoster"></div>' +
+              '<button class="mmp-btn is-secondary" id="mmpJoinPickGame" type="button">Pick a Game</button>' +
               '<button class="mmp-btn is-secondary" id="mmpJoinClose" type="button">Leave Room</button>';
             renderRoster(r, document.getElementById("mmpJoinRoster"));
+            bindActivityLaunchHandler(r);
             r.onPlayersChange(function () { renderRoster(r, document.getElementById("mmpJoinRoster")); });
             r.onMessage(function (msg) {
               if (msg.type === "host:disconnected") {
@@ -633,6 +795,10 @@
               r.leave();
               _modalOpenRoom = null;
               closeLobbyModal();
+            });
+            document.getElementById("mmpJoinPickGame").addEventListener("click", function () {
+              closeLobbyModal();
+              try { location.hash = "multiplayer"; } catch (e) {}
             });
           },
           onError: function (e) {
@@ -672,6 +838,79 @@
     container.innerHTML = counter + grid;
   }
 
+  function safeActivity(activity) {
+    if (!activity || typeof activity !== "object") return null;
+    var url = String(activity.url || "").trim();
+    if (!url || /^javascript:/i.test(url)) return null;
+    var code = (_activeRoom && _activeRoom.code) || codeFromHash();
+    if (code && url.indexOf("#room=") === -1) {
+      url += (url.indexOf("#") === -1 ? "#" : "&") + "room=" + encodeURIComponent(code);
+    }
+    return {
+      id: String(activity.id || "").replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 80),
+      title: String(activity.title || "Arcade activity").replace(/[<>]/g, "").slice(0, 80),
+      kind: String(activity.kind || "review").replace(/[<>]/g, "").slice(0, 40),
+      url: url,
+      opts: safeMeta(activity.opts)
+    };
+  }
+
+  function currentRoom() {
+    return (_activeRoom && !_activeRoom._destroyed) ? _activeRoom : (_modalOpenRoom && !_modalOpenRoom._destroyed ? _modalOpenRoom : _gameRoom);
+  }
+
+  function announceActivity(activity) {
+    var room = currentRoom();
+    var safe = safeActivity(activity);
+    if (!room || !safe) return false;
+    rememberActiveRoom(room);
+    if (room.role === "host") {
+      room.send("host:activity", safe);
+    } else {
+      room.send("joiner:activity", safe);
+    }
+    return true;
+  }
+
+  function bindActivityLaunchHandler(room) {
+    if (!room || room.__activityLaunchBound) return;
+    room.__activityLaunchBound = true;
+    room.onMessage(function (msg) {
+      if (!msg || msg.type !== "host:activity") return;
+      mountActivityLaunchControl(msg.payload);
+    });
+  }
+
+  function mountActivityLaunchControl(activity) {
+    var safe = safeActivity(activity);
+    if (!safe || !document.body) return;
+    injectStyles();
+    var existing = document.getElementById("mmpActivityLaunch");
+    if (existing) existing.remove();
+    var box = document.createElement("div");
+    box.id = "mmpActivityLaunch";
+    box.className = "mmp-launch";
+    box.setAttribute("role", "status");
+    box.innerHTML =
+      '<strong>' + escHtml(safe.title) + '</strong>' +
+      '<span>Host opened this activity for the room.</span>' +
+      '<button type="button" id="mmpOpenActivity">Open Activity</button>' +
+      '<button type="button" id="mmpDismissActivity">Later</button>';
+    document.body.appendChild(box);
+    document.getElementById("mmpOpenActivity").addEventListener("click", function () {
+      if (safe.kind === "quiz-gauntlet" && root.MrMacsQuizGauntlet &&
+          typeof root.MrMacsQuizGauntlet.open === "function" && safe.opts) {
+        root.MrMacsQuizGauntlet.open(safe.opts);
+        box.remove();
+        return;
+      }
+      location.href = safe.url;
+    });
+    document.getElementById("mmpDismissActivity").addEventListener("click", function () {
+      box.remove();
+    });
+  }
+
   var _gameRoom = null;
   function restoreActiveRoom(opts) {
     opts = opts || {};
@@ -685,6 +924,7 @@
           onReady: function (room) {
             _gameRoom = room;
             rememberActiveRoom(room);
+            bindActivityLaunchHandler(room);
             if (typeof opts.onReady === "function") opts.onReady(room);
           },
           onError: opts.onError
@@ -694,6 +934,7 @@
         onReady: function (room) {
           _gameRoom = room;
           rememberActiveRoom(room);
+          bindActivityLaunchHandler(room);
           if (typeof opts.onReady === "function") opts.onReady(room);
         },
         onError: opts.onError
@@ -716,24 +957,33 @@
     strip.innerHTML =
       '<span class="mmp-game-dot" aria-hidden="true"></span>' +
       '<span><strong>Room ' + escHtml(desc.code) + '</strong><em id="mmpGameStripStatus"> reconnecting...</em></span>' +
+      '<button type="button" id="mmpGameStripRetry">Retry</button>' +
       '<button type="button" id="mmpGameStripLeave">Leave</button>';
     document.body.appendChild(strip);
     var status = document.getElementById("mmpGameStripStatus");
+    var retry = document.getElementById("mmpGameStripRetry");
     var leave = document.getElementById("mmpGameStripLeave");
-    var restored = restoreActiveRoom({
+    function connect() {
+      strip.classList.remove("is-error");
+      if (status) status.textContent = " reconnecting...";
+      return restoreActiveRoom({
       onReady: function (room) {
         _gameRoom = room;
-        if (status) status.textContent = " score sync on";
+        bindActivityLaunchHandler(room);
+        if (status) status.textContent = room.localFallback ? (" local queue (" + queueSize() + ")") : " score sync on";
         room.onPlayersChange(function (players) {
           var students = players.filter(function (p) { return !p.isHost; }).length;
-          if (status) status.textContent = " " + students + "/" + MAX_PLAYERS + " students";
+          if (status) status.textContent = room.localFallback ? (" local queue (" + queueSize() + ")") : (" " + students + "/" + MAX_PLAYERS + " students");
         });
       },
       onError: function (error) {
         if (status) status.textContent = " " + ((error && error.friendly) || "room unavailable");
         strip.classList.add("is-error");
       }
-    });
+      });
+    }
+    var restored = connect();
+    if (retry) retry.addEventListener("click", function () { restored = connect(); });
     if (leave) {
       leave.addEventListener("click", function () {
         try { if (_gameRoom) _gameRoom.leave(); else if (restored) restored.leave(); } catch (e) {}
@@ -745,7 +995,39 @@
       var detail = event && event.detail;
       if (!_gameRoom || !detail) return;
       _gameRoom.updateScore(detail.score, detail.meta || {});
+      if (status && _gameRoom.localFallback) status.textContent = " local queue (" + queueSize() + ")";
     });
+    startScoreWatcher(function (score) {
+      if (!_gameRoom) return;
+      _gameRoom.updateScore(score, { source: "score-watcher" });
+      if (status && _gameRoom.localFallback) status.textContent = " local queue (" + queueSize() + ")";
+    });
+  }
+
+  function readPageScore() {
+    var selectors = ["#score", "#scoreText", "#finalScore", ".score", "[data-score]"];
+    for (var i = 0; i < selectors.length; i++) {
+      var el = document.querySelector(selectors[i]);
+      if (!el) continue;
+      var raw = el.getAttribute("data-score") || el.textContent || "";
+      var m = String(raw).replace(/,/g, "").match(/-?\d+/);
+      if (!m) continue;
+      var n = Number(m[0]);
+      if (isFinite(n)) return n;
+    }
+    return null;
+  }
+
+  function startScoreWatcher(onScore) {
+    if (!document.body || document.body.__mmpScoreWatcher) return;
+    document.body.__mmpScoreWatcher = true;
+    var last = null;
+    setInterval(function () {
+      var score = readPageScore();
+      if (score == null || score === last) return;
+      last = score;
+      if (score > 0) onScore(score);
+    }, 2500);
   }
 
   function escHtml(s) {
@@ -846,6 +1128,13 @@
     clearActiveRoom: clearActiveRoom,
     restoreActiveRoom: restoreActiveRoom,
     mountGameRoomStrip: mountGameRoomStrip,
+    announceActivity: announceActivity,
+    mountActivityLaunchControl: mountActivityLaunchControl,
+    activeRoom: currentRoom,
+    joinLink: joinLink,
+    queuedScores: readLocalQueue,
+    queueSize: queueSize,
+    localRoom: makeLocalRoom,
     // Class roster persistence (local — no backend)
     saveRoomAsClass: saveRoomAsClass,
     listClasses: listClasses,
