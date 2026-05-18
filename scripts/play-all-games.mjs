@@ -57,9 +57,15 @@ async function maybeClick(page, selector) {
   const handle = await page.evaluateHandle(visibleSelector, selector);
   const element = handle.asElement();
   if (!element) return false;
-  await element.click({ timeout: 2500 }).catch(() => {});
+  let clicked = true;
+  try {
+    await element.scrollIntoViewIfNeeded({ timeout: 1500 }).catch(() => {});
+    await element.click({ timeout: 2500 });
+  } catch (error) {
+    clicked = false;
+  }
   await handle.dispose();
-  return true;
+  return clicked;
 }
 
 async function clickByText(page, patterns) {
@@ -82,6 +88,7 @@ async function clickByText(page, patterns) {
 }
 
 async function clickStartSurface(page) {
+  await clickByText(page, ["play in portrait anyway", "continue in portrait"]);
   const selectors = [
     "[data-quiz-gauntlet-start]",
     "#startBtn",
@@ -169,10 +176,7 @@ async function driveInput(page, durationMs) {
         if (!target) return false;
         const x = target.box.left + target.box.width * (0.3 + ((step % 5) * 0.1));
         const y = target.box.top + target.box.height * (0.35 + ((step % 4) * 0.1));
-        const el = document.elementFromPoint(x, y);
-        if (el && typeof el.dispatchEvent === "function") {
-          el.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, clientX: x, clientY: y }));
-        }
+        target.canvas.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, clientX: x, clientY: y }));
         return true;
       }, i).catch(() => {});
     }
@@ -330,6 +334,7 @@ const report = {
   })),
   results,
 };
+fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + "\n");
 console.log(`[play-all-games] ${report.passCount}/${report.runCount} passed`);
 console.log(`[play-all-games] report: ${path.relative(root, reportPath)}`);

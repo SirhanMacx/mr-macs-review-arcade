@@ -292,7 +292,7 @@
       <a class="btn" href="../../index.html">Back to the arcade</a>
     </section>
   </main>
-  <script src="../../assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
+  <script src="../../assets/arcade-bank-loader.js?v=20260518-fast-bank"></script>
   <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script> <!-- MRMAC_QUESTION_VALIDATOR_V1 -->
   <script src="../../assets/document-viewer.js?v=20260516-generated-practice-pages"></script>
   <script>
@@ -477,6 +477,16 @@
       else renderQuestion();
     }
     function startExam() {
+      if (window.MrMacsQuestionBank && !window.MrMacsQuestionBank.isLoaded()) {
+        $("#startBtn").disabled = true;
+        window.MrMacsQuestionBank.load({ priority: true }).then(() => {
+          $("#startBtn").disabled = false;
+          startExam();
+        }).catch(() => {
+          $("#startBtn").disabled = false;
+        });
+        return;
+      }
       state.exam = examByCourse($("#courseSelect").value);
       const count = Number($("#lengthSelect").value) || 20;
       state.items = buildItems(state.exam, count);

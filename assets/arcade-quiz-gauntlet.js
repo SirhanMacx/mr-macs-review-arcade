@@ -204,6 +204,25 @@
   }
 
   // ─── Main UX ──────────────────────────────────────────────────────────
+  function showBankLoading(courseLabel, opts) {
+    injectStyles();
+    var overlay = document.createElement("div");
+    overlay.className = "mmq-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.innerHTML = '<div class="mmq-panel" style="position:relative;">' +
+                          '<button class="mmq-close" aria-label="Close gauntlet">×</button>' +
+                          '<div class="mmq-content">' +
+                            '<p class="mmq-kicker">' + escHtml(courseLabel) + ' Gauntlet</p>' +
+                            '<h2 class="mmq-title">Loading question bank...</h2>' +
+                            '<p class="mmq-prompt">Getting the course questions ready.</p>' +
+                          '</div>' +
+                        '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelector(".mmq-close").addEventListener("click", function () { overlay.remove(); });
+    return overlay;
+  }
+
   function open(opts) {
     opts = opts || {};
     var courseId = opts.courseId || opts.course || "";
@@ -212,6 +231,17 @@
     var gameId = opts.gameId || (courseId + "-gauntlet");
 
     var questions = getQuestions(courseId, rounds);
+    if (!questions.length && root.MrMacsQuestionBank && !root.MrMacsQuestionBank.isLoaded()) {
+      var loading = showBankLoading(courseLabel, opts);
+      root.MrMacsQuestionBank.load({ priority: true }).then(function () {
+        if (loading && loading.parentNode) loading.remove();
+        open(opts);
+      }).catch(function () {
+        if (loading && loading.parentNode) loading.remove();
+        alert("No questions available for " + courseLabel + " yet. Check back soon!");
+      });
+      return;
+    }
     if (!questions.length) {
       alert("No questions available for " + courseLabel + " yet. Check back soon!");
       return;

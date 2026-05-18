@@ -575,8 +575,15 @@
   function init() {
     cacheEls();
     if (!window.DIAG_BANK_BY_COURSE) {
-      els.bankStatus.textContent = "Shared question bank did not load.";
+      els.bankStatus.textContent = "Loading shared question bank...";
       els.startBtn.disabled = true;
+      if (window.MrMacsQuestionBank && typeof window.MrMacsQuestionBank.load === "function") {
+        window.MrMacsQuestionBank.load({ priority: true }).then(init).catch(function () {
+          els.bankStatus.textContent = "Shared question bank did not load.";
+        });
+      } else {
+        els.bankStatus.textContent = "Shared question bank did not load.";
+      }
       return;
     }
     populateCourses();

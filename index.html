@@ -10151,8 +10151,8 @@ body.cb-tritanope   .ce { filter: hue-rotate(20deg) saturate(.85); }
 <script src="assets/arcade-heatmap.js?v=20260510-heatmap"></script>
 <script src="assets/arcade-a11y-quicktoggle.js?v=20260517-a11y-modal"></script>
 <script src="assets/source-bank.js?v=20260502-perfect-pass"></script>
-<script src="assets/shared-question-bank.js?v=20260516-course-depth-v2"></script>
-<script src="assets/arcade-quiz-gauntlet.js?v=20260517-gauntlet-links"></script>
+<script src="assets/arcade-bank-loader.js?v=20260518-fast-bank"></script>
+<script src="assets/arcade-quiz-gauntlet.js?v=20260518-fast-bank"></script>
 <script src="assets/mastery-engine.js?v=20260502-perfect-pass"></script>
 <script>
 let GAMES = [];
@@ -15916,7 +15916,10 @@ boot();
   // Merge the generated all-subject shared bank into the hub diagnostic
   // so a student with no selected course gets true general 5-12/AP trivia.
   // Keep the older hand-curated labels intact and append by human label.
-  if (window.DIAG_BANK_BY_COURSE && window.DIAG_BANK_COURSE_LABELS) {
+  // The bank now lazy-loads after first paint, so this merge can run once at
+  // boot and again when MrMacsQuestionBank finishes warming.
+  function mergeSharedBankIntoDiagnostic() {
+    if (!window.DIAG_BANK_BY_COURSE || !window.DIAG_BANK_COURSE_LABELS) return;
     Object.keys(window.DIAG_BANK_BY_COURSE).forEach(function (courseId) {
       var label = window.DIAG_BANK_COURSE_LABELS[courseId] || courseId;
       if (!DIAG_BANK_BY_COURSE[label]) DIAG_BANK_BY_COURSE[label] = [];
@@ -15942,7 +15945,17 @@ boot();
         });
       });
     });
+    if (Array.isArray(DIAG_BANK_FLAT)) {
+      DIAG_BANK_FLAT.length = 0;
+      Object.keys(DIAG_BANK_BY_COURSE).forEach(function (courseName) {
+        DIAG_BANK_BY_COURSE[courseName].forEach(function (q) {
+          DIAG_BANK_FLAT.push(Object.assign({ course: courseName }, q));
+        });
+      });
+    }
   }
+  mergeSharedBankIntoDiagnostic();
+  window.addEventListener("mrmacs:question-bank-ready", mergeSharedBankIntoDiagnostic);
 
   // Flatten the bank for easy iteration when no course is set, and so
   // the "no enrolled course" path still works on a fresh device.

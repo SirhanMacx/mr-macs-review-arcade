@@ -586,6 +586,17 @@
   function boot() {
     els.bestScore.textContent = String(bestScore());
     if (!Object.keys(questionBank()).length || !generalPool().length) {
+      if (window.MrMacsQuestionBank && typeof window.MrMacsQuestionBank.load === "function") {
+        els.setupMetrics.innerHTML = '<div class="metric"><strong>...</strong><span>loading bank</span></div>';
+        els.startBtn.disabled = true;
+        els.startBtn.textContent = "Loading Bank";
+        window.MrMacsQuestionBank.load({ priority: true }).then(boot).catch(function () {
+          els.setupMetrics.innerHTML = '<div class="metric"><strong>0</strong><span>bank missing</span></div>';
+          els.startBtn.disabled = true;
+          els.startBtn.textContent = "Bank Unavailable";
+        });
+        return;
+      }
       els.setupMetrics.innerHTML = '<div class="metric"><strong>0</strong><span>bank missing</span></div>';
       els.startBtn.disabled = true;
       els.startBtn.textContent = "Bank Unavailable";

@@ -1,4 +1,4 @@
-const CACHE_NAME = "v107-e2e-smoke";
+const CACHE_NAME = "v108-fast-bank-loader";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -60,6 +60,7 @@ const CACHE_FILES = [
   "./assets/arcade-icons.js",
   "./assets/arcade-import-export.js",
   "./assets/arcade-keyboard-remap.js",
+  "./assets/arcade-bank-loader.js",
   "./assets/arcade-leaderboard-globe.js",
   "./assets/arcade-leaderboards.js",
   "./assets/arcade-mascot-dialog.js",
@@ -100,7 +101,6 @@ const CACHE_FILES = [
   "./assets/document-viewer.js",
   "./assets/mastery-engine.js",
   "./assets/portal-card.webp",
-  "./assets/shared-question-bank.js",
   "./assets/source-bank.js",
   "./assets/cabinet/arcade-marquee.webp",
   "./assets/cabinet/attract-mode-board.webp",
