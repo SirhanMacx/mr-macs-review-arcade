@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
   <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
   <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
-  <link rel="stylesheet" href="styles.css?v=20260519-schoolcraft-v1">
+  <link rel="stylesheet" href="styles.css?v=20260519-schoolcraft-v2">
 </head>
 <body data-game-page="1">
   <div class="game-marquee" role="presentation" aria-hidden="true">
@@ -22,7 +22,7 @@
   </div>
 
   <main class="schoolcraft-shell" id="app">
-    <canvas id="worldCanvas" aria-label="SchoolCraft voxel city builder world" tabindex="0"></canvas>
+    <canvas id="worldCanvas" aria-label="SchoolCraft first-person block study world" tabindex="0"></canvas>
     <div class="scanline-overlay" aria-hidden="true"></div>
 
     <section class="top-hud" aria-label="SchoolCraft status">
@@ -30,32 +30,32 @@
         <span class="brand-core" aria-hidden="true"></span>
         <div class="brand-text">
           <strong class="brand-title"><span>School</span><em>Craft</em></strong>
-          <span class="brand-sub" id="brandSub">Open World Study Builder</span>
+          <span class="brand-sub" id="brandSub">Trivia Survival World</span>
         </div>
       </div>
       <div class="hud-stats" aria-label="City statistics">
-        <div class="stat-cell"><strong id="hudScore" class="stat-value mono">0</strong><span class="stat-label">score</span></div>
+        <div class="stat-cell"><strong id="hudScore" class="stat-value mono">0</strong><span class="stat-label">xp</span></div>
         <div class="stat-cell"><strong id="hudBlocks" class="stat-value mono">0</strong><span class="stat-label">blocks</span></div>
-        <div class="stat-cell"><strong id="hudInsight" class="stat-value mono">0</strong><span class="stat-label">insight</span></div>
+        <div class="stat-cell"><strong id="hudInsight" class="stat-value mono">0</strong><span class="stat-label">levels</span></div>
         <div class="stat-cell"><strong id="hudBiome" class="stat-value mono">PLAINS</strong><span class="stat-label">biome</span></div>
-        <div class="stat-cell"><strong id="hudCoords" class="stat-value mono">0,0</strong><span class="stat-label">coords</span></div>
+        <div class="stat-cell"><strong id="hudCoords" class="stat-value mono">0,0</strong><span class="stat-label">xyz</span></div>
       </div>
       <div class="hud-controls">
         <button class="hud-btn glass-pill" id="saveBtn" type="button" aria-label="Save city">Save</button>
-        <button class="hud-btn glass-pill" id="finishBtn" type="button" aria-label="Publish city score">Publish</button>
+        <button class="hud-btn glass-pill" id="finishBtn" type="button" aria-label="Publish city score">Score</button>
         <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
         <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
       </div>
     </section>
 
     <aside class="build-panel" id="buildPanel" aria-label="Build palette">
-      <div class="panel-title">Blocks</div>
+      <div class="panel-title">Hotbar</div>
       <div class="palette-grid" id="paletteGrid"></div>
       <div class="resources-grid" id="resourcesGrid" aria-live="polite"></div>
     </aside>
 
     <aside class="quest-panel" id="questPanel" aria-label="SchoolCraft objectives">
-      <div class="panel-title">City Charter</div>
+      <div class="panel-title">Crafting Book</div>
       <div class="charter-lines" id="charterLines"></div>
       <div class="blueprint-list" id="blueprintList"></div>
     </aside>
@@ -63,9 +63,9 @@
     <section class="setup-screen show" id="setupScreen" aria-label="SchoolCraft setup" aria-modal="true">
       <div class="setup-card">
         <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">Back to Arcade</a>
-        <div class="setup-kicker">Voxel Study Builder</div>
+        <div class="setup-kicker">Block World Trivia</div>
         <h1><span>School</span><em>Craft</em></h1>
-        <p class="setup-sub">Build ancient cities, civic towns, science districts, and literary archives in a procedural study world. Course-content challenges unlock stronger blocks and blueprint districts.</p>
+        <p class="setup-sub">Drop into a blocky school world, mine resources, build history and science landmarks, and answer course-content questions to unlock stronger blocks.</p>
         <div class="setup-options">
           <label for="worldTheme">World focus</label>
           <select id="worldTheme">
@@ -81,9 +81,9 @@
         <div class="setup-actions">
           <button class="btn glass-pill" id="soundBtn" type="button">Sound On</button>
           <button class="btn glass-pill" id="fullscreenBtn" type="button">Fullscreen</button>
-          <button class="btn primary brass-btn" id="startBtn" type="button">Insert Coin - Build SchoolCraft</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button">Singleplayer Study World</button>
         </div>
-        <p class="key-hints"><kbd>WASD</kbd> move - <kbd>1-8</kbd> block - <kbd>Space</kbd> build - <kbd>E</kbd> gather - <kbd>Q</kbd> challenge - <kbd>X</kbd> erase</p>
+        <p class="key-hints"><kbd>W/S</kbd> walk - <kbd>A/D</kbd> strafe - <kbd>Arrows</kbd> look - <kbd>1-8</kbd> hotbar - <kbd>Space</kbd> place - <kbd>E</kbd> mine - <kbd>Q</kbd> quiz</p>
       </div>
     </section>
 
@@ -126,10 +126,10 @@
 
     <section class="touch-pad" id="touchPad" aria-label="Touch controls">
       <div class="touch-cluster">
-        <button class="touch-btn" data-move="0,-1" type="button" aria-label="Move north">N</button>
-        <button class="touch-btn" data-move="-1,0" type="button" aria-label="Move west">W</button>
-        <button class="touch-btn" data-move="1,0" type="button" aria-label="Move east">E</button>
-        <button class="touch-btn" data-move="0,1" type="button" aria-label="Move south">S</button>
+        <button class="touch-btn" data-turn="-0.22" type="button" aria-label="Turn left">&lt;</button>
+        <button class="touch-btn" data-move="0.56,0" type="button" aria-label="Move forward">^</button>
+        <button class="touch-btn" data-move="-0.56,0" type="button" aria-label="Move backward">v</button>
+        <button class="touch-btn" data-turn="0.22" type="button" aria-label="Turn right">&gt;</button>
       </div>
       <div class="touch-cluster">
         <button class="touch-btn primary" id="touchBuild" type="button" aria-label="Build block">+</button>
@@ -157,6 +157,6 @@
   <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script>
   <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
   <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
-  <script src="game.js?v=20260519-schoolcraft-v1"></script>
+  <script src="game.js?v=20260519-schoolcraft-v2"></script>
 </body>
 </html>

@@ -165,7 +165,7 @@
   ];
 
   function $(id) { return document.getElementById(id); }
-  function key(x, y) { return x + "," + y; }
+  function key(x, y) { return Math.round(x) + "," + Math.round(y); }
   function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
   function fmt(n) {
     try { return Math.round(Number(n) || 0).toLocaleString(); } catch (e) { return String(Math.round(Number(n) || 0)); }
@@ -238,6 +238,7 @@
       seed: Math.floor(Math.random() * 999999) + 1000,
       theme: "global",
       player: { x: 0, y: 0 },
+      angle: -Math.PI / 4,
       camera: { x: 0, y: 0 },
       selected: "road",
       mode: "build",
@@ -284,6 +285,8 @@
   }
 
   function baseTile(x, y) {
+    x = Math.round(x);
+    y = Math.round(y);
     var n = hash2(x, y, state.seed);
     var m = hash2(Math.floor(x / 4), Math.floor(y / 4), state.seed + 17);
     if (Math.abs(((x * 7 + y * 11) % 37)) < 2 && m > 0.38) return { id: "river", label: "River", color: "#2e7ca7", edge: "#1f536f", resource: "glass" };
@@ -298,6 +301,18 @@
 
   function placedCount() {
     return Object.keys(state.placed).length;
+  }
+
+  function playerCell() {
+    return { x: Math.round(state.player.x), y: Math.round(state.player.y) };
+  }
+
+  function targetCell(distance) {
+    var d = distance || 2.4;
+    return {
+      x: Math.round(state.player.x + Math.cos(state.angle) * d),
+      y: Math.round(state.player.y + Math.sin(state.angle) * d)
+    };
   }
 
   function worldToScreen(x, y, z) {
@@ -374,27 +389,176 @@
 
   function render() {
     ctx.clearRect(0, 0, view.w, view.h);
-    var sky = ctx.createLinearGradient(0, 0, 0, view.h);
-    sky.addColorStop(0, "#102434");
-    sky.addColorStop(0.52, "#12322a");
-    sky.addColorStop(1, "#09100d");
-    ctx.fillStyle = sky;
-    ctx.fillRect(0, 0, view.w, view.h);
+    drawBlockSky();
+    drawFirstPersonWorld();
+    drawCrosshair();
+    drawHeldBlock();
+    drawMinimap();
+  }
 
-    var cx = Math.round(state.camera.x);
-    var cy = Math.round(state.camera.y);
+  function drawBlockSky() {
+    var horizon = Math.round(view.h * 0.48);
+    var sky = ctx.createLinearGradient(0, 0, 0, horizon);
+    sky.addColorStop(0, "#7db6e8");
+    sky.addColorStop(0.7, "#b9ddf3");
+    sky.addColorStop(1, "#e8f3e3");
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, view.w, horizon);
+    ctx.fillStyle = "#f2d15d";
+    ctx.fillRect(Math.round(view.w * 0.78), Math.round(view.h * 0.12), 52, 52);
+    ctx.fillStyle = "rgba(255,255,255,.65)";
+    for (var c = 0; c < 4; c++) {
+      var bx = (c * 230 + state.seed % 140) % (view.w + 180) - 90;
+      var by = 60 + c * 28;
+      ctx.fillRect(bx, by, 54, 18);
+      ctx.fillRect(bx + 32, by - 14, 70, 18);
+      ctx.fillRect(bx + 88, by + 2, 58, 18);
+    }
+    var ground = ctx.createLinearGradient(0, horizon, 0, view.h);
+    ground.addColorStop(0, "#6e9a55");
+    ground.addColorStop(0.54, "#3f7d43");
+    ground.addColorStop(1, "#1d4f35");
+    ctx.fillStyle = ground;
+    ctx.fillRect(0, horizon, view.w, view.h - horizon);
+    ctx.fillStyle = "rgba(0,0,0,.18)";
+    for (var i = 0; i < 18; i++) {
+      var y = horizon + i * i * 2.2;
+      ctx.fillRect(0, y, view.w, 2);
+    }
+  }
+
+  function projectPoint(x, y, z) {
+    var dx = x - state.player.x;
+    var dy = y - state.player.y;
+    var cos = Math.cos(state.angle);
+    var sin = Math.sin(state.angle);
+    var forward = dx * cos + dy * sin;
+    var side = -dx * sin + dy * cos;
+    if (forward <= 0.18) return null;
+    var scale = 330 / forward;
+    return {
+      x: view.w / 2 + side * scale,
+      y: view.h * 0.47 + 142 / forward - (z || 0) * 54 / forward,
+      forward: forward,
+      side: side,
+      scale: scale
+    };
+  }
+
+  function drawFirstPersonWorld() {
+    var center = playerCell();
     var items = [];
-    for (var x = cx - VIEW_PAD; x <= cx + VIEW_PAD; x++) {
-      for (var y = cy - VIEW_PAD; y <= cy + VIEW_PAD; y++) {
-        items.push({ x: x, y: y, sort: x + y });
+    var radius = view.w < 700 ? 9 : 12;
+    var target = targetCell();
+    for (var x = center.x - radius; x <= center.x + radius; x++) {
+      for (var y = center.y - radius; y <= center.y + radius; y++) {
+        var p = projectPoint(x + 0.5, y + 0.5, 0);
+        if (!p || Math.abs(p.side) > p.forward * 2.3) continue;
+        var built = state.placed[key(x, y)];
+        var base = baseTile(x, y);
+        var block = built ? BLOCK_BY_ID[built.id] : terrainBlockFor(base);
+        items.push({
+          x: x,
+          y: y,
+          p: p,
+          base: base,
+          block: block,
+          built: !!built,
+          target: target.x === x && target.y === y,
+          dist: p.forward
+        });
       }
     }
-    items.sort(function (a, b) { return a.sort - b.sort || a.x - b.x; });
-    for (var i = 0; i < items.length; i++) {
-      drawTile(items[i].x, items[i].y);
+    items.sort(function (a, b) { return b.dist - a.dist; });
+    for (var i = 0; i < items.length; i++) drawFirstPersonTile(items[i]);
+  }
+
+  function terrainBlockFor(base) {
+    if (base.id === "forest") return { id: "tree", color: "#2f7c4f", side: "#1f5338", h: 0.95 };
+    if (base.id === "quarry") return { id: "stone-node", color: "#8f8a7d", side: "#5e5a53", h: 0.45 };
+    if (base.id === "clay") return { id: "clay-node", color: "#b76748", side: "#7b432f", h: 0.38 };
+    if (base.id === "ruin") return { id: "ruin-node", color: "#b8a06e", side: "#746145", h: 0.55 };
+    if (base.id === "river") return { id: "water", color: "#2e7ca7", side: "#1f536f", h: 0.16 };
+    if (base.id === "sand") return { id: "sand", color: "#b69b61", side: "#7c6942", h: 0.2 };
+    return { id: "grass", color: base.color, side: base.edge, h: 0.18 };
+  }
+
+  function drawFirstPersonTile(item) {
+    var p = item.p;
+    var size = clamp(126 / p.forward, 14, 168);
+    var groundY = p.y;
+    var baseW = size * 1.35;
+    ctx.fillStyle = item.base.color;
+    ctx.globalAlpha = item.built ? 0.58 : 0.42;
+    ctx.fillRect(p.x - baseW / 2, groundY - size * 0.16, baseW, size * 0.32);
+    ctx.globalAlpha = 1;
+    if (item.block) drawPerspectiveCube(p.x, groundY, size, item.block, item.built);
+    if (item.target) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(255,255,255,.9)";
+      ctx.lineWidth = Math.max(2, size * 0.035);
+      ctx.strokeRect(p.x - size * 0.62, groundY - size * 1.12, size * 1.24, size * 1.02);
+      ctx.restore();
     }
-    drawPlayer();
-    drawMinimap();
+  }
+
+  function drawPerspectiveCube(cx, groundY, size, block, built) {
+    var h = size * clamp(block.h || 1, 0.3, 2.2);
+    var w = size;
+    var top = groundY - h;
+    var color = block.color;
+    var side = block.side || shade(color, -45);
+    ctx.save();
+    ctx.fillStyle = shade(side, -24);
+    ctx.fillRect(cx - w * 0.52, top + w * 0.12, w * 0.18, h);
+    ctx.fillStyle = side;
+    ctx.fillRect(cx + w * 0.34, top + w * 0.12, w * 0.18, h);
+    ctx.fillStyle = color;
+    ctx.fillRect(cx - w * 0.5, top, w, h);
+    ctx.fillStyle = shade(color, 34);
+    ctx.beginPath();
+    ctx.moveTo(cx - w * 0.5, top);
+    ctx.lineTo(cx - w * 0.32, top - w * 0.18);
+    ctx.lineTo(cx + w * 0.68, top - w * 0.18);
+    ctx.lineTo(cx + w * 0.5, top);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = built ? "rgba(255,255,255,.32)" : "rgba(0,0,0,.28)";
+    ctx.lineWidth = Math.max(1, w * 0.02);
+    ctx.strokeRect(cx - w * 0.5, top, w, h);
+    if (block.id === "scholar") {
+      ctx.strokeStyle = "rgba(255,242,165,.9)";
+      ctx.lineWidth = Math.max(2, w * 0.045);
+      ctx.strokeRect(cx - w * 0.34, top + h * 0.22, w * 0.68, h * 0.5);
+    }
+    ctx.restore();
+  }
+
+  function drawCrosshair() {
+    if (state.phase !== "playing") return;
+    var x = view.w / 2;
+    var y = view.h / 2;
+    ctx.save();
+    ctx.strokeStyle = "rgba(255,255,255,.92)";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(x - 12, y);
+    ctx.lineTo(x - 4, y);
+    ctx.moveTo(x + 4, y);
+    ctx.lineTo(x + 12, y);
+    ctx.moveTo(x, y - 12);
+    ctx.lineTo(x, y - 4);
+    ctx.moveTo(x, y + 4);
+    ctx.lineTo(x, y + 12);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function drawHeldBlock() {
+    if (state.phase !== "playing") return;
+    var block = selectedBlock();
+    var size = Math.min(112, Math.max(74, view.w * 0.09));
+    drawPerspectiveCube(view.w - size * 1.1, view.h - size * 0.24, size, block, true);
   }
 
   function drawTile(x, y) {
@@ -492,6 +656,13 @@
   }
 
   function buildAt(x, y, id, free) {
+    if (typeof x !== "number" || typeof y !== "number") {
+      var target = targetCell();
+      x = target.x;
+      y = target.y;
+    }
+    x = Math.round(x);
+    y = Math.round(y);
     var block = BLOCK_BY_ID[id || state.selected];
     if (!block) return false;
     var k = key(x, y);
@@ -508,10 +679,18 @@
     state.score += block.score;
     updateHud();
     scheduleSave();
+    toast(block.label + " placed.");
     return true;
   }
 
   function eraseAt(x, y) {
+    if (typeof x !== "number" || typeof y !== "number") {
+      var target = targetCell();
+      x = target.x;
+      y = target.y;
+    }
+    x = Math.round(x);
+    y = Math.round(y);
     var k = key(x, y);
     var built = state.placed[k];
     if (!built) {
@@ -528,19 +707,25 @@
     state.score = Math.max(0, state.score - 4);
     updateHud();
     scheduleSave();
+    toast((block ? block.label : "Block") + " removed.");
     return true;
   }
 
   function gatherAtPlayer() {
-    var k = key(state.player.x, state.player.y);
+    var cell = targetCell(1.6);
+    var tile = baseTile(cell.x, cell.y);
+    if (!tile.resource) {
+      cell = playerCell();
+      tile = baseTile(cell.x, cell.y);
+    }
+    var k = key(cell.x, cell.y);
     if (state.harvested[k]) {
-      toast("This tile has already been cataloged.");
+      toast("This block has already been mined.");
       return;
     }
-    var tile = baseTile(state.player.x, state.player.y);
     var resource = tile.resource;
     if (!resource) {
-      toast("Move to forest, quarry, clay, sand, river, or ruin to gather.");
+      toast("Aim at forest, quarry, clay, sand, river, or ruin blocks to gather.");
       return;
     }
     var amount = tile.id === "ruin" ? 4 : 3;
@@ -554,6 +739,7 @@
 
   function placeBlueprint(bp) {
     if (!bp) return;
+    var center = playerCell();
     if (state.correct < bp.unlockAt) {
       toast("Answer " + bp.unlockAt + " content challenges to unlock " + bp.label + ".");
       openQuestion();
@@ -566,7 +752,7 @@
     spend(bp.cost);
     for (var i = 0; i < bp.pattern.length; i++) {
       var item = bp.pattern[i];
-      buildAt(state.player.x + item[0], state.player.y + item[1], item[2], true);
+      buildAt(center.x + item[0], center.y + item[1], item[2], true);
     }
     state.blueprints[bp.id] = true;
     state.builtBlueprints = Object.keys(state.blueprints).length;
@@ -584,20 +770,41 @@
     if (state.phase !== "playing") return;
     state.player.x += dx;
     state.player.y += dy;
-    var tile = baseTile(state.player.x, state.player.y);
-    if (tile.id === "ruin" && !state.harvested[key(state.player.x, state.player.y)]) {
+    var cell = playerCell();
+    var tile = baseTile(cell.x, cell.y);
+    if (tile.id === "ruin" && !state.harvested[key(cell.x, cell.y)]) {
       toast("Ancient ruin found. Gather or answer a challenge for scholar blocks.");
     }
-    updateHud();
+    updatePositionHud();
+  }
+
+  function moveLocal(forward, strafe) {
+    var cos = Math.cos(state.angle);
+    var sin = Math.sin(state.angle);
+    move(cos * forward + -sin * strafe, sin * forward + cos * strafe);
+  }
+
+  function turn(delta) {
+    if (state.phase !== "playing") return;
+    state.angle += delta;
+    while (state.angle > Math.PI) state.angle -= Math.PI * 2;
+    while (state.angle < -Math.PI) state.angle += Math.PI * 2;
+    updatePositionHud();
+  }
+
+  function updatePositionHud() {
+    var cell = playerCell();
+    var target = targetCell();
+    var aimed = baseTile(target.x, target.y);
+    dom.hudBiome.textContent = aimed.label.toUpperCase().slice(0, 8);
+    dom.hudCoords.textContent = cell.x + "," + cell.y;
   }
 
   function updateHud() {
-    var tile = baseTile(state.player.x, state.player.y);
     dom.hudScore.textContent = fmt(cityScore());
     dom.hudBlocks.textContent = fmt(placedCount());
     dom.hudInsight.textContent = fmt(state.inventory.insight || 0);
-    dom.hudBiome.textContent = tile.label.toUpperCase().slice(0, 8);
-    dom.hudCoords.textContent = state.player.x + "," + state.player.y;
+    updatePositionHud();
     renderPalette();
     renderResources();
     renderCharter();
@@ -816,6 +1023,7 @@
   }
 
   function showScreen(name) {
+    document.body.classList.toggle("schoolcraft-menu-open", !!name);
     [dom.setupScreen, dom.questionScreen, dom.pauseScreen, dom.endScreen].forEach(function (el) {
       if (el) el.classList.remove("show");
     });
@@ -888,6 +1096,7 @@
       seed: state.seed,
       theme: state.theme,
       player: state.player,
+      angle: state.angle,
       selected: state.selected,
       placed: state.placed,
       harvested: state.harvested,
@@ -924,9 +1133,10 @@
       if (!data || typeof data !== "object") return null;
       var next = freshState();
       Object.keys(next).forEach(function (k) {
-        if (data[k] !== undefined) next[k] = data[k];
+      if (data[k] !== undefined) next[k] = data[k];
       });
       next.phase = "setup";
+      next.angle = typeof next.angle === "number" ? next.angle : -Math.PI / 4;
       next.camera = { x: next.player.x || 0, y: next.player.y || 0 };
       return next;
     } catch (e) {
@@ -1022,10 +1232,12 @@
       }
       if (state.phase !== "playing") return;
       var k = e.key;
-      if (k === "ArrowUp" || k === "w" || k === "W") { move(0, -1); e.preventDefault(); return; }
-      if (k === "ArrowDown" || k === "s" || k === "S") { move(0, 1); e.preventDefault(); return; }
-      if (k === "ArrowLeft" || k === "a" || k === "A") { move(-1, 0); e.preventDefault(); return; }
-      if (k === "ArrowRight" || k === "d" || k === "D") { move(1, 0); e.preventDefault(); return; }
+      if (k === "ArrowUp" || k === "w" || k === "W") { moveLocal(0.56, 0); e.preventDefault(); return; }
+      if (k === "ArrowDown" || k === "s" || k === "S") { moveLocal(-0.56, 0); e.preventDefault(); return; }
+      if (k === "a" || k === "A") { moveLocal(0, -0.56); e.preventDefault(); return; }
+      if (k === "d" || k === "D") { moveLocal(0, 0.56); e.preventDefault(); return; }
+      if (k === "ArrowLeft" || k === "," || k === "[") { turn(-0.18); e.preventDefault(); return; }
+      if (k === "ArrowRight" || k === "." || k === "]") { turn(0.18); e.preventDefault(); return; }
       if (k >= "1" && k <= "8") {
         state.selected = BLOCKS[Number(k) - 1].id;
         state.mode = "build";
@@ -1033,44 +1245,64 @@
         e.preventDefault();
         return;
       }
-      if (k === " " || k === "Enter") { buildAt(state.player.x, state.player.y); e.preventDefault(); return; }
+      if (k === " " || k === "Enter") { buildAt(); e.preventDefault(); return; }
       if (k === "e" || k === "E") { gatherAtPlayer(); e.preventDefault(); return; }
       if (k === "q" || k === "Q") { openQuestion(); e.preventDefault(); return; }
-      if (k === "x" || k === "X" || k === "Backspace") { eraseAt(state.player.x, state.player.y); e.preventDefault(); return; }
+      if (k === "x" || k === "X" || k === "Backspace") { eraseAt(); e.preventDefault(); return; }
       if (k === "p" || k === "P") { togglePause(); e.preventDefault(); }
     });
 
-    canvas.addEventListener("mousemove", function (e) {
-      var rect = canvas.getBoundingClientRect();
-      state.hover = screenToWorld(e.clientX - rect.left, e.clientY - rect.top);
-    });
-    canvas.addEventListener("mouseleave", function () { state.hover = null; });
-    canvas.addEventListener("click", function (e) {
+    var pointer = { active: false, x: 0, y: 0, moved: 0, button: 0 };
+    canvas.addEventListener("pointerdown", function (e) {
       if (state.phase !== "playing") return;
-      var rect = canvas.getBoundingClientRect();
-      var cell = screenToWorld(e.clientX - rect.left, e.clientY - rect.top);
-      state.hover = cell;
-      if (state.mode === "erase") eraseAt(cell.x, cell.y);
-      else buildAt(cell.x, cell.y);
+      pointer.active = true;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.moved = 0;
+      pointer.button = e.button || 0;
+      try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+      e.preventDefault();
     });
+    canvas.addEventListener("pointermove", function (e) {
+      if (!pointer.active || state.phase !== "playing") return;
+      var dx = e.clientX - pointer.x;
+      var dy = e.clientY - pointer.y;
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.moved += Math.abs(dx) + Math.abs(dy);
+      if (Math.abs(dx) > 0) turn(dx * 0.0065);
+      e.preventDefault();
+    });
+    canvas.addEventListener("pointerup", function (e) {
+      if (!pointer.active) return;
+      var shouldPlace = state.phase === "playing" && pointer.moved < 10 && pointer.button !== 2;
+      pointer.active = false;
+      try { canvas.releasePointerCapture(e.pointerId); } catch (err) {}
+      if (shouldPlace) buildAt();
+      e.preventDefault();
+    });
+    canvas.addEventListener("pointercancel", function () { pointer.active = false; });
     canvas.addEventListener("contextmenu", function (e) {
       e.preventDefault();
       if (state.phase !== "playing") return;
-      var rect = canvas.getBoundingClientRect();
-      var cell = screenToWorld(e.clientX - rect.left, e.clientY - rect.top);
-      eraseAt(cell.x, cell.y);
+      eraseAt();
     });
 
     Array.from(document.querySelectorAll("[data-move]")).forEach(function (btn) {
       btn.addEventListener("click", function () {
         var parts = btn.getAttribute("data-move").split(",");
-        move(Number(parts[0]), Number(parts[1]));
+        moveLocal(Number(parts[0]), Number(parts[1]));
       });
     });
-    $("touchBuild").addEventListener("click", function () { buildAt(state.player.x, state.player.y); });
+    Array.from(document.querySelectorAll("[data-turn]")).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        turn(Number(btn.getAttribute("data-turn")));
+      });
+    });
+    $("touchBuild").addEventListener("click", function () { buildAt(); });
     $("touchGather").addEventListener("click", gatherAtPlayer);
     $("touchQuiz").addEventListener("click", openQuestion);
-    $("touchErase").addEventListener("click", function () { eraseAt(state.player.x, state.player.y); });
+    $("touchErase").addEventListener("click", function () { eraseAt(); });
   }
 
   function bindUi() {
@@ -1137,14 +1369,16 @@
       if (!window.MrMacsHelpOverlay) return;
       window.MrMacsHelpOverlay.register(GAME_ID, {
         title: "SchoolCraft",
-        goal: "Build a study city in a procedural voxel world. Course-content challenges unlock insight and blueprint districts.",
+        goal: "Explore a first-person block world, mine resources, place study blocks, and answer course-content challenges to unlock upgrades.",
         controls: [
-          { key: "WASD / arrows", action: "Move through the world" },
+          { key: "W/S", action: "Walk forward and backward" },
+          { key: "A/D", action: "Strafe left and right" },
+          { key: "Arrow left/right", action: "Look around" },
           { key: "1-8", action: "Select a block" },
-          { key: "Space", action: "Build at your tile" },
-          { key: "E", action: "Gather from terrain" },
+          { key: "Space", action: "Place the selected block at the crosshair" },
+          { key: "E", action: "Mine the block at the crosshair" },
           { key: "Q", action: "Answer a content challenge" },
-          { key: "X", action: "Remove a placed block" }
+          { key: "X", action: "Remove the placed block at the crosshair" }
         ],
         tips: [
           "Forests, quarries, clay, sand, rivers, and ruins provide different resources.",
@@ -1163,6 +1397,7 @@
     bindUi();
     mountHelp();
     renderSetupExtras();
+    showScreen("setup");
     updateHud();
     startLoop();
     window.addEventListener("resize", resize);
