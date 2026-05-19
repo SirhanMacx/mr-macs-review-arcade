@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07130f">
+  <title>SchoolCraft - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <link rel="stylesheet" href="styles.css?v=20260519-schoolcraft-v1">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>&lt;&lt;&lt;</span>
+    <span>MR. MAC'S REVIEW ARCADE - SCHOOLCRAFT</span>
+    <span>&gt;&gt;&gt;</span>
+  </div>
+
+  <main class="schoolcraft-shell" id="app">
+    <canvas id="worldCanvas" aria-label="SchoolCraft voxel city builder world" tabindex="0"></canvas>
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <section class="top-hud" aria-label="SchoolCraft status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span>School</span><em>Craft</em></strong>
+          <span class="brand-sub" id="brandSub">Open World Study Builder</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="City statistics">
+        <div class="stat-cell"><strong id="hudScore" class="stat-value mono">0</strong><span class="stat-label">score</span></div>
+        <div class="stat-cell"><strong id="hudBlocks" class="stat-value mono">0</strong><span class="stat-label">blocks</span></div>
+        <div class="stat-cell"><strong id="hudInsight" class="stat-value mono">0</strong><span class="stat-label">insight</span></div>
+        <div class="stat-cell"><strong id="hudBiome" class="stat-value mono">PLAINS</strong><span class="stat-label">biome</span></div>
+        <div class="stat-cell"><strong id="hudCoords" class="stat-value mono">0,0</strong><span class="stat-label">coords</span></div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="saveBtn" type="button" aria-label="Save city">Save</button>
+        <button class="hud-btn glass-pill" id="finishBtn" type="button" aria-label="Publish city score">Publish</button>
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <aside class="build-panel" id="buildPanel" aria-label="Build palette">
+      <div class="panel-title">Blocks</div>
+      <div class="palette-grid" id="paletteGrid"></div>
+      <div class="resources-grid" id="resourcesGrid" aria-live="polite"></div>
+    </aside>
+
+    <aside class="quest-panel" id="questPanel" aria-label="SchoolCraft objectives">
+      <div class="panel-title">City Charter</div>
+      <div class="charter-lines" id="charterLines"></div>
+      <div class="blueprint-list" id="blueprintList"></div>
+    </aside>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="SchoolCraft setup" aria-modal="true">
+      <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">Back to Arcade</a>
+        <div class="setup-kicker">Voxel Study Builder</div>
+        <h1><span>School</span><em>Craft</em></h1>
+        <p class="setup-sub">Build ancient cities, civic towns, science districts, and literary archives in a procedural study world. Course-content challenges unlock stronger blocks and blueprint districts.</p>
+        <div class="setup-options">
+          <label for="worldTheme">World focus</label>
+          <select id="worldTheme">
+            <option value="global">Global History Builder</option>
+            <option value="ush">U.S. History Town</option>
+            <option value="civics">Civic City</option>
+            <option value="science">Science Campus</option>
+            <option value="mixed">All-Course Sandbox</option>
+          </select>
+        </div>
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button">Insert Coin - Build SchoolCraft</button>
+        </div>
+        <p class="key-hints"><kbd>WASD</kbd> move - <kbd>1-8</kbd> block - <kbd>Space</kbd> build - <kbd>E</kbd> gather - <kbd>Q</kbd> challenge - <kbd>X</kbd> erase</p>
+      </div>
+    </section>
+
+    <section class="question-screen" id="questionScreen" aria-label="SchoolCraft content challenge" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Content Challenge</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading challenge...</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Paused</div>
+        <h2>City Saved in Place</h2>
+        <p class="setup-sub">Your placed blocks and unlocked blueprints remain on this device.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="newCityBtn" type="button">New City</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="SchoolCraft city summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">City Published</div>
+        <h2 id="endTitle">SchoolCraft City Score</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="returnBuildBtn" type="button">Keep Building</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">New City</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="touch-pad" id="touchPad" aria-label="Touch controls">
+      <div class="touch-cluster">
+        <button class="touch-btn" data-move="0,-1" type="button" aria-label="Move north">N</button>
+        <button class="touch-btn" data-move="-1,0" type="button" aria-label="Move west">W</button>
+        <button class="touch-btn" data-move="1,0" type="button" aria-label="Move east">E</button>
+        <button class="touch-btn" data-move="0,1" type="button" aria-label="Move south">S</button>
+      </div>
+      <div class="touch-cluster">
+        <button class="touch-btn primary" id="touchBuild" type="button" aria-label="Build block">+</button>
+        <button class="touch-btn" id="touchGather" type="button" aria-label="Gather resource">G</button>
+        <button class="touch-btn" id="touchQuiz" type="button" aria-label="Open content challenge">Q</button>
+        <button class="touch-btn" id="touchErase" type="button" aria-label="Erase block">X</button>
+      </div>
+    </section>
+
+    <div class="toast-line" id="toastLine" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-name-safety.js?v=20260513-safe-names"></script>
+  <script src="../../assets/arcade-leaderboards.js?v=20260513-safe-names"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260517-study-multiplayer"></script>
+  <script src="../../assets/arcade-toast.js?v=20260510-toast-ambient"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260517-a11y-modal"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script src="../../assets/arcade-bank-loader.js?v=20260518-fast-bank"></script>
+  <script src="../../assets/arcade-review-mix.js?v=20260511-review-mix-v1"></script>
+  <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="game.js?v=20260519-schoolcraft-v1"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "v108-fast-bank-loader";
+const CACHE_NAME = "v109-schoolcraft";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -12,6 +12,10 @@ const CACHE_FILES = [
   "./games/generated-jeopardy/index.html",
   "./games/generated-practice-exam/",
   "./games/generated-practice-exam/index.html",
+  "./games/schoolcraft/",
+  "./games/schoolcraft/index.html",
+  "./games/schoolcraft/game.js",
+  "./games/schoolcraft/styles.css",
   "./games/claim-evidence/",
   "./games/claim-evidence/index.html",
   "./games/claim-evidence/game.js",
@@ -127,6 +131,9 @@ const CACHE_FILES = [
   "./assets/cabinet/question-panel.webp",
   "./assets/cabinet/answer-panel.webp",
   "./assets/cabinet/scanline-overlay.svg",
+  "./assets/game-thumbnails/schoolcraft.webp",
+  "./assets/game-card-art/schoolcraft.webp",
+  "./assets/game-marquees/schoolcraft.webp",
   // Critical fonts
   "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap"
 ];
