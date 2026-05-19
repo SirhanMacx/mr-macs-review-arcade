@@ -876,3 +876,175 @@ kbd {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* SchoolCraft play view intentionally overrides the cabinet chrome. */
+body[data-game-page="1"] .schoolcraft-shell .top-hud {
+  top: calc(10px + env(safe-area-inset-top, 0px)) !important;
+  left: 10px !important;
+  right: auto !important;
+  width: auto !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  align-items: flex-start !important;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .brand {
+  display: none;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .brand-core {
+  width: 26px;
+  height: 26px;
+  border-width: 2px;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .brand-title {
+  font-size: 0.82rem;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .brand-sub {
+  display: none;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .hud-stats {
+  width: auto;
+  min-width: 0;
+  grid-template-columns: repeat(5, minmax(44px, auto));
+  opacity: 0.72;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .stat-cell {
+  padding: 4px 6px;
+  background: rgba(18, 18, 18, 0.78);
+}
+
+body[data-game-page="1"] .schoolcraft-shell .stat-value {
+  font-size: 0.74rem;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .stat-label {
+  font-size: 0.5rem;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .hud-controls {
+  position: fixed;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  right: 10px;
+  padding: 5px;
+  gap: 4px;
+  opacity: 0.76;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .hud-btn {
+  min-height: 30px;
+  padding: 5px 7px;
+  font-size: 0.62rem;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .quest-panel {
+  top: calc(68px + env(safe-area-inset-top, 0px));
+  right: 10px;
+  width: min(244px, calc(100vw - 20px));
+  max-height: min(38vh, 286px);
+  overflow: auto;
+  opacity: 0.68;
+  transition: opacity 140ms ease;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .quest-panel:hover,
+body[data-game-page="1"] .schoolcraft-shell .quest-panel:focus-within {
+  opacity: 0.94;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .charter-line,
+body[data-game-page="1"] .schoolcraft-shell .blueprint-btn span {
+  font-size: 0.58rem;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .blueprint-btn {
+  padding: 6px;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .blueprint-btn:nth-of-type(n+3) {
+  display: none;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .build-panel {
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  width: min(690px, calc(100vw - 18px));
+}
+
+body[data-game-page="1"] .schoolcraft-shell .palette-grid {
+  grid-template-columns: repeat(8, minmax(48px, 1fr));
+  gap: 3px;
+  padding: 3px;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .palette-btn {
+  min-height: 58px;
+}
+
+body[data-game-page="1"] .schoolcraft-shell .resources-grid {
+  width: min(490px, 100%);
+}
+
+body[data-game-page="1"] .schoolcraft-shell .toast-line {
+  bottom: calc(106px + env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 920px) {
+  body[data-game-page="1"] .schoolcraft-shell .quest-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  body[data-game-page="1"] .schoolcraft-shell .top-hud {
+    left: 8px !important;
+    right: 8px !important;
+    width: auto !important;
+    gap: 6px !important;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .brand {
+    display: none;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .hud-stats {
+    display: none !important;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .hud-controls {
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    right: 8px;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .hud-btn {
+    min-height: 28px;
+    padding: 5px 6px;
+    font-size: 0.56rem;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .touch-pad {
+    bottom: calc(230px + env(safe-area-inset-bottom, 0px));
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .toast-line {
+    bottom: calc(198px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-game-page="1"] .schoolcraft-shell .top-hud {
+    top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .hud-stats {
+    display: none !important;
+  }
+
+  body[data-game-page="1"] .schoolcraft-shell .palette-grid {
+    grid-template-columns: repeat(4, minmax(52px, 1fr));
+  }
+}

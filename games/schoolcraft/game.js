@@ -239,6 +239,7 @@
       theme: "global",
       player: { x: 0, y: 0 },
       angle: -Math.PI / 4,
+      pitch: -0.22,
       camera: { x: 0, y: 0 },
       selected: "road",
       mode: "build",
@@ -389,24 +390,23 @@
 
   function render() {
     ctx.clearRect(0, 0, view.w, view.h);
-    drawBlockSky();
-    drawFirstPersonWorld();
+    drawMinecraftSky();
+    drawVoxelWorld();
     drawCrosshair();
     drawHeldBlock();
-    drawMinimap();
   }
 
-  function drawBlockSky() {
-    var horizon = Math.round(view.h * 0.48);
+  function drawMinecraftSky() {
+    var horizon = Math.round(view.h * 0.46);
     var sky = ctx.createLinearGradient(0, 0, 0, horizon);
-    sky.addColorStop(0, "#7db6e8");
-    sky.addColorStop(0.7, "#b9ddf3");
-    sky.addColorStop(1, "#e8f3e3");
+    sky.addColorStop(0, "#7fb7ef");
+    sky.addColorStop(0.72, "#bde3ff");
+    sky.addColorStop(1, "#e8f6ff");
     ctx.fillStyle = sky;
     ctx.fillRect(0, 0, view.w, horizon);
     ctx.fillStyle = "#f2d15d";
-    ctx.fillRect(Math.round(view.w * 0.78), Math.round(view.h * 0.12), 52, 52);
-    ctx.fillStyle = "rgba(255,255,255,.65)";
+    ctx.fillRect(Math.round(view.w * 0.76), Math.round(view.h * 0.1), 56, 56);
+    ctx.fillStyle = "rgba(255,255,255,.72)";
     for (var c = 0; c < 4; c++) {
       var bx = (c * 230 + state.seed % 140) % (view.w + 180) - 90;
       var by = 60 + c * 28;
@@ -415,122 +415,148 @@
       ctx.fillRect(bx + 88, by + 2, 58, 18);
     }
     var ground = ctx.createLinearGradient(0, horizon, 0, view.h);
-    ground.addColorStop(0, "#6e9a55");
-    ground.addColorStop(0.54, "#3f7d43");
-    ground.addColorStop(1, "#1d4f35");
+    ground.addColorStop(0, "#6ba052");
+    ground.addColorStop(0.55, "#477d3f");
+    ground.addColorStop(1, "#2b5730");
     ctx.fillStyle = ground;
     ctx.fillRect(0, horizon, view.w, view.h - horizon);
-    ctx.fillStyle = "rgba(0,0,0,.18)";
-    for (var i = 0; i < 18; i++) {
-      var y = horizon + i * i * 2.2;
-      ctx.fillRect(0, y, view.w, 2);
-    }
   }
 
-  function projectPoint(x, y, z) {
+  function cameraProject(x, y, z) {
     var dx = x - state.player.x;
     var dy = y - state.player.y;
+    var dz = z - 1.62;
     var cos = Math.cos(state.angle);
     var sin = Math.sin(state.angle);
     var forward = dx * cos + dy * sin;
     var side = -dx * sin + dy * cos;
-    if (forward <= 0.18) return null;
-    var scale = 330 / forward;
+    var pitch = typeof state.pitch === "number" ? state.pitch : -0.22;
+    var cp = Math.cos(pitch);
+    var sp = Math.sin(pitch);
+    var depth = forward * cp - dz * sp;
+    var vertical = forward * sp + dz * cp;
+    if (depth <= 0.12) return null;
+    var focal = Math.max(360, Math.min(620, view.w * 0.52));
+    var scale = focal / depth;
     return {
       x: view.w / 2 + side * scale,
-      y: view.h * 0.47 + 142 / forward - (z || 0) * 54 / forward,
-      forward: forward,
-      side: side,
-      scale: scale
+      y: view.h * 0.49 - vertical * scale,
+      depth: depth,
+      scale: scale,
+      side: side
     };
   }
 
-  function drawFirstPersonWorld() {
+  function drawVoxelWorld() {
     var center = playerCell();
-    var items = [];
-    var radius = view.w < 700 ? 9 : 12;
+    var faces = [];
+    var radius = view.w < 700 ? 7 : 10;
     var target = targetCell();
     for (var x = center.x - radius; x <= center.x + radius; x++) {
       for (var y = center.y - radius; y <= center.y + radius; y++) {
-        var p = projectPoint(x + 0.5, y + 0.5, 0);
-        if (!p || Math.abs(p.side) > p.forward * 2.3) continue;
-        var built = state.placed[key(x, y)];
         var base = baseTile(x, y);
-        var block = built ? BLOCK_BY_ID[built.id] : terrainBlockFor(base);
-        items.push({
-          x: x,
-          y: y,
-          p: p,
-          base: base,
-          block: block,
-          built: !!built,
-          target: target.x === x && target.y === y,
-          dist: p.forward
-        });
+        var terrain = terrainBlockFor(base);
+        var isTarget = target.x === x && target.y === y;
+        addCube(faces, x, y, -0.45, x + 1, y + 1, base.id === "river" ? -0.06 : 0, terrain, { target: isTarget && !state.placed[key(x, y)], terrain: true });
+        drawTerrainFeature(faces, x, y, base, isTarget);
+        var built = state.placed[key(x, y)];
+        if (built && BLOCK_BY_ID[built.id]) {
+          var block = BLOCK_BY_ID[built.id];
+          addCube(faces, x + 0.04, y + 0.04, 0, x + 0.96, y + 0.96, Math.max(0.22, block.h || 1), block, { target: isTarget, built: true });
+        }
       }
     }
-    items.sort(function (a, b) { return b.dist - a.dist; });
-    for (var i = 0; i < items.length; i++) drawFirstPersonTile(items[i]);
+    faces.sort(function (a, b) { return b.depth - a.depth; });
+    for (var i = 0; i < faces.length; i++) drawFace(faces[i]);
   }
 
   function terrainBlockFor(base) {
-    if (base.id === "forest") return { id: "tree", color: "#2f7c4f", side: "#1f5338", h: 0.95 };
-    if (base.id === "quarry") return { id: "stone-node", color: "#8f8a7d", side: "#5e5a53", h: 0.45 };
-    if (base.id === "clay") return { id: "clay-node", color: "#b76748", side: "#7b432f", h: 0.38 };
-    if (base.id === "ruin") return { id: "ruin-node", color: "#b8a06e", side: "#746145", h: 0.55 };
-    if (base.id === "river") return { id: "water", color: "#2e7ca7", side: "#1f536f", h: 0.16 };
-    if (base.id === "sand") return { id: "sand", color: "#b69b61", side: "#7c6942", h: 0.2 };
-    return { id: "grass", color: base.color, side: base.edge, h: 0.18 };
+    if (base.id === "river") return { id: "water", color: "#2c84bd", side: "#1f5d85", top: "#49a8dd" };
+    if (base.id === "sand") return { id: "sand", color: "#bba15f", side: "#866f3d", top: "#d6c174" };
+    if (base.id === "quarry") return { id: "stone-node", color: "#7d7b73", side: "#56544e", top: "#9a978a" };
+    if (base.id === "clay") return { id: "clay-node", color: "#a86145", side: "#74402e", top: "#c57555" };
+    if (base.id === "ruin") return { id: "ruin-node", color: "#8d7a5b", side: "#5c4e3b", top: "#b09a70" };
+    if (base.id === "forest" || base.id === "meadow") return { id: "grass", color: "#4f8a55", side: "#3b6b39", top: "#69a64e" };
+    return { id: "grass", color: base.color, side: base.edge, top: "#67a84a" };
   }
 
-  function drawFirstPersonTile(item) {
-    var p = item.p;
-    var size = clamp(126 / p.forward, 14, 168);
-    var groundY = p.y;
-    var baseW = size * 1.35;
-    ctx.fillStyle = item.base.color;
-    ctx.globalAlpha = item.built ? 0.58 : 0.42;
-    ctx.fillRect(p.x - baseW / 2, groundY - size * 0.16, baseW, size * 0.32);
-    ctx.globalAlpha = 1;
-    if (item.block) drawPerspectiveCube(p.x, groundY, size, item.block, item.built);
-    if (item.target) {
-      ctx.save();
-      ctx.strokeStyle = "rgba(255,255,255,.9)";
-      ctx.lineWidth = Math.max(2, size * 0.035);
-      ctx.strokeRect(p.x - size * 0.62, groundY - size * 1.12, size * 1.24, size * 1.02);
-      ctx.restore();
+  function drawTerrainFeature(faces, x, y, base, target) {
+    var n = hash2(x, y, state.seed + 91);
+    if (base.id === "forest") {
+      addCube(faces, x + 0.38, y + 0.38, 0, x + 0.62, y + 0.62, 0.9, { color: "#7a4f2b", side: "#54331f", top: "#95633a" }, { feature: true });
+      addCube(faces, x + 0.18, y + 0.18, 0.72, x + 0.82, y + 0.82, 1.45, { color: "#2f7c4f", side: "#1f5338", top: "#3f9a62" }, { target: target, feature: true });
+    } else if (base.id === "quarry") {
+      addCube(faces, x + 0.18, y + 0.18, 0, x + 0.82, y + 0.82, 0.42 + n * 0.18, { color: "#858279", side: "#5a5751", top: "#aaa69a" }, { target: target, feature: true });
+    } else if (base.id === "clay") {
+      addCube(faces, x + 0.16, y + 0.18, 0, x + 0.84, y + 0.82, 0.34, { color: "#b76748", side: "#7b432f", top: "#d48965" }, { target: target, feature: true });
+    } else if (base.id === "ruin") {
+      addCube(faces, x + 0.12, y + 0.18, 0, x + 0.46, y + 0.82, 0.75, { color: "#b8a06e", side: "#746145", top: "#dbc48c" }, { target: target, feature: true });
+      addCube(faces, x + 0.56, y + 0.24, 0, x + 0.82, y + 0.76, 0.52, { color: "#b8a06e", side: "#746145", top: "#dbc48c" }, { feature: true });
+    } else if (base.id === "river") {
+      addCube(faces, x + 0.06, y + 0.06, -0.04, x + 0.94, y + 0.94, 0.04, { color: "#2c84bd", side: "#1f5d85", top: "#5fc4f2" }, { target: target, feature: true, alpha: 0.84 });
     }
   }
 
-  function drawPerspectiveCube(cx, groundY, size, block, built) {
-    var h = size * clamp(block.h || 1, 0.3, 2.2);
-    var w = size;
-    var top = groundY - h;
-    var color = block.color;
-    var side = block.side || shade(color, -45);
+  function addCube(faces, x1, y1, z1, x2, y2, z2, block, opts) {
+    opts = opts || {};
+    var top = block.top || shade(block.color, 28);
+    var side = block.side || shade(block.color, -42);
+    var dark = shade(side, -30);
+    var p = {
+      a: { x: x1, y: y1, z: z1 }, b: { x: x2, y: y1, z: z1 }, c: { x: x2, y: y2, z: z1 }, d: { x: x1, y: y2, z: z1 },
+      e: { x: x1, y: y1, z: z2 }, f: { x: x2, y: y1, z: z2 }, g: { x: x2, y: y2, z: z2 }, h: { x: x1, y: y2, z: z2 }
+    };
+    addFace(faces, [p.e, p.f, p.g, p.h], top, opts);
+    addFace(faces, [p.a, p.b, p.f, p.e], side, opts);
+    addFace(faces, [p.b, p.c, p.g, p.f], shade(side, -8), opts);
+    addFace(faces, [p.c, p.d, p.h, p.g], dark, opts);
+    addFace(faces, [p.d, p.a, p.e, p.h], shade(side, 8), opts);
+  }
+
+  function addFace(faces, points, color, opts) {
+    var projected = [];
+    var depth = 0;
+    for (var i = 0; i < points.length; i++) {
+      var p = cameraProject(points[i].x, points[i].y, points[i].z);
+      if (!p) return;
+      projected.push(p);
+      depth += p.depth;
+    }
+    if (!faceInView(projected)) return;
+    faces.push({
+      points: projected,
+      color: color,
+      depth: depth / points.length,
+      target: !!opts.target,
+      alpha: opts.alpha || 1,
+      built: !!opts.built
+    });
+  }
+
+  function faceInView(points) {
+    var minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (var i = 0; i < points.length; i++) {
+      minX = Math.min(minX, points[i].x);
+      maxX = Math.max(maxX, points[i].x);
+      minY = Math.min(minY, points[i].y);
+      maxY = Math.max(maxY, points[i].y);
+    }
+    return maxX > -120 && minX < view.w + 120 && maxY > -120 && minY < view.h + 160;
+  }
+
+  function drawFace(face) {
+    var pts = face.points;
     ctx.save();
-    ctx.fillStyle = shade(side, -24);
-    ctx.fillRect(cx - w * 0.52, top + w * 0.12, w * 0.18, h);
-    ctx.fillStyle = side;
-    ctx.fillRect(cx + w * 0.34, top + w * 0.12, w * 0.18, h);
-    ctx.fillStyle = color;
-    ctx.fillRect(cx - w * 0.5, top, w, h);
-    ctx.fillStyle = shade(color, 34);
+    ctx.globalAlpha = face.alpha;
     ctx.beginPath();
-    ctx.moveTo(cx - w * 0.5, top);
-    ctx.lineTo(cx - w * 0.32, top - w * 0.18);
-    ctx.lineTo(cx + w * 0.68, top - w * 0.18);
-    ctx.lineTo(cx + w * 0.5, top);
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
     ctx.closePath();
+    ctx.fillStyle = face.color;
     ctx.fill();
-    ctx.strokeStyle = built ? "rgba(255,255,255,.32)" : "rgba(0,0,0,.28)";
-    ctx.lineWidth = Math.max(1, w * 0.02);
-    ctx.strokeRect(cx - w * 0.5, top, w, h);
-    if (block.id === "scholar") {
-      ctx.strokeStyle = "rgba(255,242,165,.9)";
-      ctx.lineWidth = Math.max(2, w * 0.045);
-      ctx.strokeRect(cx - w * 0.34, top + h * 0.22, w * 0.68, h * 0.5);
-    }
+    ctx.strokeStyle = face.target ? "rgba(255,255,255,.9)" : (face.built ? "rgba(0,0,0,.38)" : "rgba(0,0,0,.18)");
+    ctx.lineWidth = face.target ? 3 : 1;
+    ctx.stroke();
     ctx.restore();
   }
 
@@ -557,8 +583,23 @@
   function drawHeldBlock() {
     if (state.phase !== "playing") return;
     var block = selectedBlock();
-    var size = Math.min(112, Math.max(74, view.w * 0.09));
-    drawPerspectiveCube(view.w - size * 1.1, view.h - size * 0.24, size, block, true);
+    var size = Math.min(120, Math.max(78, view.w * 0.1));
+    var x = view.w - size * 1.24;
+    var y = view.h - size * 0.52;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.fillStyle = shade(block.side || block.color, -28);
+    ctx.fillRect(0, size * 0.22, size * 0.28, size * 0.74);
+    ctx.fillStyle = block.side || shade(block.color, -44);
+    ctx.fillRect(size * 0.72, size * 0.22, size * 0.28, size * 0.74);
+    ctx.fillStyle = block.color;
+    ctx.fillRect(size * 0.12, 0, size * 0.78, size * 0.78);
+    ctx.fillStyle = shade(block.color, 36);
+    ctx.fillRect(size * 0.12, 0, size * 0.78, size * 0.16);
+    ctx.strokeStyle = "rgba(0,0,0,.48)";
+    ctx.lineWidth = 3;
+    ctx.strokeRect(size * 0.12, 0, size * 0.78, size * 0.78);
+    ctx.restore();
   }
 
   function drawTile(x, y) {
@@ -790,6 +831,11 @@
     while (state.angle > Math.PI) state.angle -= Math.PI * 2;
     while (state.angle < -Math.PI) state.angle += Math.PI * 2;
     updatePositionHud();
+  }
+
+  function look(delta) {
+    if (state.phase !== "playing") return;
+    state.pitch = clamp((state.pitch || -0.22) + delta, -0.48, 0.08);
   }
 
   function updatePositionHud() {
@@ -1097,6 +1143,7 @@
       theme: state.theme,
       player: state.player,
       angle: state.angle,
+      pitch: state.pitch,
       selected: state.selected,
       placed: state.placed,
       harvested: state.harvested,
@@ -1137,6 +1184,7 @@
       });
       next.phase = "setup";
       next.angle = typeof next.angle === "number" ? next.angle : -Math.PI / 4;
+      next.pitch = typeof next.pitch === "number" ? next.pitch : -0.22;
       next.camera = { x: next.player.x || 0, y: next.player.y || 0 };
       return next;
     } catch (e) {
@@ -1238,6 +1286,8 @@
       if (k === "d" || k === "D") { moveLocal(0, 0.56); e.preventDefault(); return; }
       if (k === "ArrowLeft" || k === "," || k === "[") { turn(-0.18); e.preventDefault(); return; }
       if (k === "ArrowRight" || k === "." || k === "]") { turn(0.18); e.preventDefault(); return; }
+      if (k === "PageUp") { look(-0.08); e.preventDefault(); return; }
+      if (k === "PageDown") { look(0.08); e.preventDefault(); return; }
       if (k >= "1" && k <= "8") {
         state.selected = BLOCKS[Number(k) - 1].id;
         state.mode = "build";
@@ -1261,16 +1311,24 @@
       pointer.moved = 0;
       pointer.button = e.button || 0;
       try { canvas.setPointerCapture(e.pointerId); } catch (err) {}
+      try {
+        if (document.pointerLockElement !== canvas && e.pointerType === "mouse") canvas.requestPointerLock();
+      } catch (err) {}
       e.preventDefault();
     });
     canvas.addEventListener("pointermove", function (e) {
-      if (!pointer.active || state.phase !== "playing") return;
+      if ((!pointer.active && document.pointerLockElement !== canvas) || state.phase !== "playing") return;
       var dx = e.clientX - pointer.x;
       var dy = e.clientY - pointer.y;
+      if (document.pointerLockElement === canvas) {
+        dx = e.movementX || 0;
+        dy = e.movementY || 0;
+      }
       pointer.x = e.clientX;
       pointer.y = e.clientY;
       pointer.moved += Math.abs(dx) + Math.abs(dy);
       if (Math.abs(dx) > 0) turn(dx * 0.0065);
+      if (Math.abs(dy) > 0) look(dy * 0.0035);
       e.preventDefault();
     });
     canvas.addEventListener("pointerup", function (e) {
@@ -1282,6 +1340,11 @@
       e.preventDefault();
     });
     canvas.addEventListener("pointercancel", function () { pointer.active = false; });
+    document.addEventListener("mousemove", function (e) {
+      if (document.pointerLockElement !== canvas || state.phase !== "playing") return;
+      turn((e.movementX || 0) * 0.0065);
+      look((e.movementY || 0) * 0.0035);
+    });
     canvas.addEventListener("contextmenu", function (e) {
       e.preventDefault();
       if (state.phase !== "playing") return;
