@@ -1,4 +1,4 @@
-const CACHE_NAME = "v112-schoolcraft-12-landmarks";
+const CACHE_NAME = "v113-practice-exam-fallback";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -78,6 +78,7 @@ const CACHE_FILES = [
   "./assets/arcade-past-exam-library.js",
   "./assets/arcade-pedagogy-callout.js",
   "./assets/arcade-perf.js",
+  "./assets/arcade-practice-fallback.js",
   "./assets/arcade-print-mode.js",
   "./assets/arcade-profile.js",
   "./assets/arcade-progress-extras.js",
