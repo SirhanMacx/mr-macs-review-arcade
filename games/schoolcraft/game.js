@@ -74,6 +74,171 @@
         [-1, 1, "marble"], [0, 1, "glass"], [1, 1, "marble"],
         [0, -2, "column"], [0, 2, "column"]
       ]
+    },
+    // ── 12 named historical-landmark blueprints (Mr. Mac's request) ──
+    // Each is buildable in player vicinity. unlockAt scales with era/complexity.
+    // Original content only — no copyrighted exam or commercial reproductions.
+    {
+      id: "stonehenge",
+      label: "Stonehenge",
+      unlockAt: 1,
+      note: "Neolithic Britain · c. 2500 BCE. Sarsen trilithons in a ring.",
+      cost: { stone: 8, insight: 1 },
+      pattern: [
+        [-2, -1, "column"], [2, -1, "column"],
+        [-3, 0, "column"], [3, 0, "column"],
+        [-2, 1, "column"], [2, 1, "column"],
+        [0, -2, "column"], [0, 2, "column"]
+      ]
+    },
+    {
+      id: "pyramid-giza",
+      label: "Pyramid of Giza",
+      unlockAt: 2,
+      note: "Old Kingdom Egypt · c. 2560 BCE. Stepped tomb of Pharaoh Khufu.",
+      cost: { stone: 14, clay: 4, insight: 2 },
+      pattern: [
+        [-3, 2, "marble"], [-2, 2, "marble"], [-1, 2, "marble"], [0, 2, "marble"], [1, 2, "marble"], [2, 2, "marble"], [3, 2, "marble"],
+        [-2, 1, "marble"], [-1, 1, "marble"], [0, 1, "marble"], [1, 1, "marble"], [2, 1, "marble"],
+        [-1, 0, "marble"], [0, 0, "marble"], [1, 0, "marble"],
+        [0, -1, "scholar"]
+      ]
+    },
+    {
+      id: "parthenon",
+      label: "The Parthenon",
+      unlockAt: 3,
+      note: "Classical Athens · 447 BCE. Doric colonnade honoring Athena.",
+      cost: { stone: 16, clay: 6, insight: 3 },
+      pattern: [
+        [-3, -2, "roof"], [-2, -2, "roof"], [-1, -2, "roof"], [0, -2, "roof"], [1, -2, "roof"], [2, -2, "roof"], [3, -2, "roof"],
+        [-3, -1, "column"], [-1, -1, "column"], [1, -1, "column"], [3, -1, "column"],
+        [-3, 0, "marble"], [-2, 0, "marble"], [-1, 0, "marble"], [0, 0, "scholar"], [1, 0, "marble"], [2, 0, "marble"], [3, 0, "marble"]
+      ]
+    },
+    {
+      id: "maya-pyramid",
+      label: "Maya Step Pyramid",
+      unlockAt: 4,
+      note: "Classic Maya · c. 800 CE. Astronomical staircase + temple shrine.",
+      cost: { stone: 16, clay: 6, insight: 4 },
+      pattern: [
+        [-2, 2, "marble"], [-1, 2, "marble"], [0, 2, "marble"], [1, 2, "marble"], [2, 2, "marble"],
+        [-1, 1, "marble"], [0, 1, "marble"], [1, 1, "marble"],
+        [0, 0, "marble"],
+        [0, -1, "scholar"],
+        [-2, 3, "road"], [-1, 3, "road"], [0, 3, "road"], [1, 3, "road"], [2, 3, "road"]
+      ]
+    },
+    {
+      id: "great-wall",
+      label: "Great Wall Watchtower",
+      unlockAt: 4,
+      note: "Qin → Ming China · 220 BCE+. Crenellated stone watch station.",
+      cost: { stone: 18, clay: 4, insight: 3 },
+      pattern: [
+        [-3, 0, "brick"], [-2, 0, "brick"], [-1, 0, "brick"], [2, 0, "brick"], [3, 0, "brick"],
+        [0, 0, "marble"], [1, 0, "marble"],
+        [0, -1, "marble"], [1, -1, "marble"],
+        [0, -2, "scholar"],
+        [-3, 1, "road"], [-2, 1, "road"], [-1, 1, "road"], [0, 1, "road"], [1, 1, "road"], [2, 1, "road"], [3, 1, "road"]
+      ]
+    },
+    {
+      id: "colosseum",
+      label: "Roman Colosseum",
+      unlockAt: 6,
+      note: "Imperial Rome · 80 CE. Arched amphitheater built under Vespasian.",
+      cost: { stone: 24, clay: 12, insight: 5 },
+      pattern: [
+        [-2, -2, "brick"], [0, -2, "brick"], [2, -2, "brick"],
+        [-3, -1, "column"], [3, -1, "column"],
+        [-3, 0, "column"], [0, 0, "scholar"], [3, 0, "column"],
+        [-3, 1, "column"], [3, 1, "column"],
+        [-2, 2, "brick"], [0, 2, "brick"], [2, 2, "brick"]
+      ]
+    },
+    {
+      id: "castle",
+      label: "Medieval Castle Keep",
+      unlockAt: 7,
+      note: "High Middle Ages · c. 1200 CE. Stone keep with corner towers.",
+      cost: { stone: 20, clay: 10, wood: 6, insight: 5 },
+      pattern: [
+        [-2, -1, "column"], [2, -1, "column"],
+        [-2, 0, "brick"], [-1, 0, "brick"], [0, 0, "scholar"], [1, 0, "brick"], [2, 0, "brick"],
+        [-2, 1, "brick"], [-1, 1, "brick"], [0, 1, "brick"], [1, 1, "brick"], [2, 1, "brick"],
+        [-2, 2, "road"], [-1, 2, "road"], [0, 2, "road"], [1, 2, "road"], [2, 2, "road"]
+      ]
+    },
+    {
+      id: "mosque",
+      label: "Great Mosque (Dome + Minarets)",
+      unlockAt: 5,
+      note: "Islamic Golden Age · c. 800 CE. Ribbed dome + twin minarets.",
+      cost: { stone: 18, clay: 6, glass: 4, insight: 4 },
+      pattern: [
+        [-3, -1, "column"], [3, -1, "column"],
+        [-3, 0, "column"], [3, 0, "column"],
+        [-3, 1, "marble"], [3, 1, "marble"],
+        [-1, -1, "glass"], [0, -1, "glass"], [1, -1, "glass"],
+        [-2, 0, "marble"], [-1, 0, "marble"], [0, 0, "scholar"], [1, 0, "marble"], [2, 0, "marble"],
+        [-2, 1, "marble"], [-1, 1, "marble"], [0, 1, "marble"], [1, 1, "marble"], [2, 1, "marble"]
+      ]
+    },
+    {
+      id: "globe-theatre",
+      label: "Globe Theatre",
+      unlockAt: 6,
+      note: "Elizabethan England · 1599. Wooden polygonal open-air playhouse.",
+      cost: { wood: 22, clay: 4, insight: 4 },
+      pattern: [
+        [-1, -2, "timber"], [0, -2, "timber"], [1, -2, "timber"],
+        [-2, -1, "timber"], [2, -1, "timber"],
+        [-2, 0, "timber"], [0, 0, "scholar"], [2, 0, "timber"],
+        [-2, 1, "timber"], [2, 1, "timber"],
+        [-1, 2, "timber"], [0, 2, "timber"], [1, 2, "timber"]
+      ]
+    },
+    {
+      id: "lighthouse",
+      label: "Lighthouse of Alexandria",
+      unlockAt: 8,
+      note: "Ptolemaic Egypt · c. 280 BCE. One of the Seven Wonders.",
+      cost: { stone: 16, glass: 4, insight: 6 },
+      pattern: [
+        [-2, 2, "marble"], [-1, 2, "marble"], [0, 2, "marble"], [1, 2, "marble"], [2, 2, "marble"],
+        [-1, 1, "marble"], [0, 1, "marble"], [1, 1, "marble"],
+        [0, 0, "column"],
+        [0, -1, "column"],
+        [0, -2, "scholar"]
+      ]
+    },
+    {
+      id: "mt-vernon",
+      label: "Mount Vernon",
+      unlockAt: 9,
+      note: "Colonial Virginia · 1758. Washington's portico mansion.",
+      cost: { wood: 18, glass: 8, stone: 10, insight: 6 },
+      pattern: [
+        [-3, -1, "roof"], [-2, -1, "roof"], [-1, -1, "roof"], [0, -1, "roof"], [1, -1, "roof"], [2, -1, "roof"], [3, -1, "roof"],
+        [-3, 0, "column"], [-1, 0, "glass"], [0, 0, "marble"], [1, 0, "glass"], [3, 0, "column"],
+        [-3, 1, "marble"], [-2, 1, "marble"], [-1, 1, "marble"], [0, 1, "scholar"], [1, 1, "marble"], [2, 1, "marble"], [3, 1, "marble"]
+      ]
+    },
+    {
+      id: "eiffel",
+      label: "Eiffel Tower",
+      unlockAt: 10,
+      note: "Industrial France · 1889. Lattice iron tower for the World's Fair.",
+      cost: { stone: 12, glass: 6, insight: 8 },
+      pattern: [
+        [-2, 2, "marble"], [-1, 2, "marble"], [0, 2, "marble"], [1, 2, "marble"], [2, 2, "marble"],
+        [-1, 1, "column"], [1, 1, "column"],
+        [0, 0, "column"],
+        [0, -1, "column"],
+        [0, -2, "scholar"]
+      ]
     }
   ];
 
