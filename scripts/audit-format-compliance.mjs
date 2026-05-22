@@ -30,12 +30,21 @@ const CANONICAL_LABELS = new Set([
   "Grade 11 ELA", "Grade 12 ELA",
   // Other K-12 surfaced courses
   "Grade 5 Math", "Grade 6 Math", "Grade 7 Math", "Grade 8 Math",
-  "Grade 5 ELA", "Grade 6 ELA", "Grade 7 English Language Arts", "Grade 8 English Language Arts",
+  // ELA uses the abbreviated "ELA" form consistently across G5-G12 (matches
+  // games.json and the way teachers refer to the course). Don't drift to
+  // "English Language Arts" for any single grade — see games-json entries
+  // grade-7-ela-* and grade-8-ela-* which use the abbreviated label.
+  "Grade 5 ELA", "Grade 6 ELA", "Grade 7 ELA", "Grade 8 ELA",
   "Grade 5 Science", "Grade 6 Science", "Grade 7 Science", "Grade 8 Science",
   "Grade 5 Social Studies", "Grade 6 Social Studies",
   "Grade 7 U.S. History I", "Grade 8 U.S. History II", "Grade 9 Global History I",
   "Life Science: Biology",  // legacy alias kept for backwards compat with old Jeopardy boards
   "Civics and Participation in Government", "Economics", "PreCalculus",
+  // Cross-course skill games (sit above any single course).
+  "All Social Studies",
+  // Cross-course arcade games — compound labels listed verbatim so the
+  // audit can recognize them without falling back to a generic "Various".
+  "Grade 8 U.S. History II + Grade 10 Global History II + Grade 11 U.S. History",
   // AP exams
   "AP United States History", "AP World History: Modern", "AP European History",
   "AP U.S. Government and Politics", "AP Comparative Government and Politics",

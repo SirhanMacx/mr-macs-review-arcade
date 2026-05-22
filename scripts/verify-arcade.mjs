@@ -54,7 +54,22 @@ function decodeSegments(ref) {
 function resolveRefVariants(fromFile, ref) {
   const raw = resolveRef(fromFile, ref);
   const decoded = ref.includes("%") ? resolveRef(fromFile, decodeSegments(ref)) : null;
-  return [raw, decoded].filter(Boolean);
+  // The May 22 2026 perf pass extracted ~17,000 lines out of index.html
+  // into assets/arcade-hub-bootstrap.js. Inline string refs like
+  // "games.json" or "data/foo.json" were written relative to index.html
+  // (which loads the script), not relative to assets/. When verify-arcade
+  // walks those refs from inside assets/*.js, dirname(fromFile) points at
+  // assets/ and the script flags false-positive "missing assets/games.json"
+  // errors. Also try resolving the ref from repo root as a fallback —
+  // we still require the file to exist, so this only loosens the
+  // resolution, never makes a real missing file pass.
+  const rootRel = (ref.startsWith("./") || ref.startsWith("../") || ref.startsWith("/"))
+    ? null
+    : resolve(root, ref);
+  const rootRelDecoded = (rootRel && ref.includes("%"))
+    ? resolve(root, decodeSegments(ref))
+    : null;
+  return [raw, decoded, rootRel, rootRelDecoded].filter(Boolean);
 }
 
 function extractRefs(text) {

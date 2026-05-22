@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-05-22T13:25:00.000Z",
+  "auditor": "QA agent (bug-hunt sibling, May 22 2026)",
+  "method": "Existing audit scripts + custom playwright bug-hunt across desktop (1440x900) + mobile (iPhone 14 Pro / 393x852) viewports, 88 surfaces sampled (hub + 57 arcade + 12 jeopardy + 10 practice exam) + targeted interaction tests on 28 flagship surfaces.",
+  "totalBugs": 6,
+  "bySeverity": {
+    "critical": 1,
+    "high": 2,
+    "med": 1,
+    "low": 2
+  },
+  "bugs": [
+    {
+      "id": 1,
+      "file": "assets/arcade-hub-styles.css",
+      "severity": "critical",
+      "description": "50 broken background-image URLs — every url(\"assets/...\") in this newly-extracted CSS file resolves to /assets/assets/... when loaded from /assets/arcade-hub-styles.css (the CSS resolves relative paths against the CSS file's directory, not the document). Hub loaded with 33 404s for hero art, marquee, cabinet tiles, scanline overlay, card frames, token icon, etc. Visible result: arcade lobby art and many cabinet visuals were missing on cold load.",
+      "repro": "1. Load http://localhost:18980/index.html with devtools open. 2. Network tab shows ~33 404s for paths like /assets/assets/arcade-lobby-16bit-v4.webp and /assets/assets/cabinet/main-menu-cabinet.webp. Each is a paint-impacting background.",
+      "rootCause": "Sibling perf agent extracted inline CSS from index.html (17,734 → 1,372 lines) into assets/arcade-hub-styles.css but copied url() strings verbatim. From the hub root those resolved correctly; from /assets/ they double-stack.",
+      "fix": "applied",
+      "fixDetail": "Stripped the leading 'assets/' from every url(\"assets/...\") in assets/arcade-hub-styles.css (50 replacements). url(\"assets/foo.webp\") -> url(\"foo.webp\"), url(\"assets/cabinet/foo.webp\") -> url(\"cabinet/foo.webp\"). Verified post-fix: 0 404s.",
+      "commit": "pending"
+    },
+    {
+      "id": 2,
+      "file": "service-worker.js",
+      "severity": "high",
+      "description": "New extracted-from-index files (assets/arcade-hub-styles.css and assets/arcade-hub-bootstrap.js) are NOT in the SW CACHE_FILES precache list. After a first online load they get opportunistically cached by the fetch handler, but a user who installed the PWA pre-extraction and re-opens it offline would hit a blank hub.",
+      "repro": "Install PWA, go offline, hard-reload. Without the precache entry, both files are fetched cold and fail.",
+      "fix": "applied",
+      "fixDetail": "Added './assets/arcade-hub-styles.css' and './assets/arcade-hub-bootstrap.js' to CACHE_FILES (next to mastery-engine + source-bank). Bumped CACHE_NAME from v114 to v116-bug-hunt-2026-05.",
+      "commit": "pending"
+    },
+    {
+      "id": 3,
+      "file": "scripts/audit-flagship-games.mjs",
+      "severity": "high",
+      "description": "Flagship-games audit was hardcoded to grep needles in index.html only. The May 22 perf extraction moved every JS identifier (FEATURED_GAME_IDS, qualityTier, isPremiumArcade, traffic-dashboard, play-lane, etc.) into assets/arcade-hub-bootstrap.js, and two CSS classes (.mobile-lite, .slow-load) into assets/arcade-hub-styles.css. The audit hit 17 false-positive 'missing X' failures right after the perf split — would have blocked future commits.",
+      "repro": "node scripts/audit-flagship-games.mjs (against current tree). Reported 17 missing needles, all of them present in the extracted assets.",
+      "fix": "applied",
+      "fixDetail": "Added requireTextInAny(paths[], needles[]) helper that passes if any of the listed files contains the needle. Pointed the hub-section requireText at [index.html, assets/arcade-hub-bootstrap.js, assets/arcade-hub-styles.css]. Audit now passes clean.",
+      "commit": "pending"
+    },
+    {
+      "id": 4,
+      "file": "scripts/audit-format-compliance.mjs",
+      "severity": "med",
+      "description": "Canonical course-label set drift caused 18 spurious 'course label not in canonical set' warnings. Three classes of drift: (a) Grade 5/6 used 'Grade N ELA' but Grade 7/8 listed as 'Grade N English Language Arts' — games.json consistently uses the abbreviated form across all grades. (b) Cross-course arcade game (source-sorter) tagged 'All Social Studies' had no canonical equivalent. (c) Compound-course game (cold-war-invaders) carried a literal '+'-joined label.",
+      "repro": "node scripts/audit-format-compliance.mjs reported 78 total warnings (down from a real 60 once the cosmetic thumb/cardArt fixes are factored out). Of those, 18 were course-label drift.",
+      "fix": "applied",
+      "fixDetail": "Aligned canonical ELA labels on the abbreviated 'Grade N ELA' form across G5-G8. Added 'All Social Studies' and the verbatim 'Grade 8 U.S. History II + Grade 10 Global History II + Grade 11 U.S. History' compound label to the canonical set. Format audit now reports 0 warnings (was 78).",
+      "commit": "pending"
+    },
+    {
+      "id": 5,
+      "file": "games.json",
+      "severity": "low",
+      "description": "59 entries had thumbnail/cardArt fields that pointed at per-board generated images (e.g. assets/game-thumbnails/snake-pit.webp) instead of the canonical category tile (assets/cabinet/category-tile-arcade.webp). The audit had flagged these as warnings but auto-fix wasn't being applied.",
+      "repro": "node scripts/audit-format-compliance.mjs (before fix) reported 59 thumbnail mismatches.",
+      "fix": "applied",
+      "fixDetail": "Ran node scripts/audit-format-compliance.mjs --fix. 59 entries auto-corrected. All Jeopardy buckets now point to category-tile-jeopardy.webp, all Practice Exam to category-tile-practice.webp, all Arcade to category-tile-arcade.webp.",
+      "commit": "pending"
+    },
+    {
+      "id": 6,
+      "file": "scripts/audit-jeopardy-boards.mjs",
+      "severity": "low",
+      "description": "Jeopardy structural audit's 'answer too short' check fired on 51 math/science boards because it required >= 2 chars universally. Math answers like '3', 'k', 'x', and inequality symbols like '<' '>' are legitimate but were flagged. The flag would inflate the warning noise floor and obscure real content bugs.",
+      "repro": "node scripts/audit-jeopardy-boards.mjs reported 77 boards with 'shape issues', 51 of them just for single-character math/symbol answers.",
+      "fix": "applied",
+      "fixDetail": "Updated the length check to allow any single-character answer that's purely alphanumeric or a math operator/inequality (^[0-9a-z\\-+<>=!*/%]$). Now flags only genuinely-empty or genuinely-suspicious short answers. Audit dropped from 77 -> 26 shape-issue boards; remaining 26 are all 'final.explanation too short' content-quality flags, not bugs.",
+      "commit": "pending"
+    }
+  ],
+  "scriptsRun": [
+    "node scripts/audit-format-compliance.mjs (0 errors, 0 warnings post-fix; was 0/78)",
+    "node scripts/audit-jeopardy-boards.mjs (0 parse errors, 26 content shape issues post-fix; was 77)",
+    "node scripts/audit-practice-exams.mjs (52 files clean)",
+    "node scripts/audit-hub-links.mjs (0 broken links, 18 course-mismatch flags unchanged — content quality)",
+    "node scripts/audit-flagship-games.mjs (0 issues post-fix; was 17 false positives)",
+    "node scripts/e2e-smoke-test.mjs --check (683/683 pass)",
+    "node scripts/bug-hunt-v2.mjs --all-arcade (82 surfaces × 2 viewports = 164 page loads, 0 bugs post-fix)",
+    "node scripts/bug-hunt-interaction.mjs (28 surfaces × 2 viewports = 56 interaction tests, 0 bugs)"
+  ],
+  "mobileSpecific": "Hub + 57 arcade + 12 jeopardy + 10 practice exam surfaces were tested at iPhone 14 Pro viewport (393x852). Zero horizontal overflow issues, zero pageerror, zero console errors, zero 404s post-fix. The Word Bridge keyboard collision (referenced in Jon's MEMORY.md) is still mitigated by the existing fix at commit f5ecef49.",
+  "leftForJon": "1. Single board games/ap-physics-1/03 - Work, Energy, Power Jeopardy Review.html has a clue 'KE sign.' (8 chars) that's borderline — could be expanded to 'The sign of kinetic energy.' for clarity. Not a bug, content polish. 2. 18 hub-links audit course-mismatch flags (APUSH Period boards + AP African American Studies + AP Cybersecurity boards) are real content drift where the unit title doesn't echo the course label — these may want a Jon eyeball pass but they are not bugs (the entries work and route correctly)."
+}

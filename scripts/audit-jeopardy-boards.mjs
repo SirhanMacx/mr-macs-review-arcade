@@ -180,7 +180,14 @@ function checkGame(game, file, dirSlug) {
           for (const g of gib) issues.push({ kind: "gibberish", field: `${clLabel}.clue`, phrase: g, text: cl.clue });
         }
         // answer
-        if (typeof cl.answer !== "string" || cl.answer.trim().length < 2) {
+        // Math boards legitimately have 1-char numeric answers (e.g. "3", "x",
+        // "0"). We still require the answer to be non-empty, but allow any
+        // single-character answer if it's purely numeric, a math variable, or
+        // a one-letter Roman numeral / unit. The deeper rigor check is the
+        // aliases array — those must be ≥ 1 alias entry below.
+        if (typeof cl.answer !== "string" || cl.answer.trim().length < 1) {
+          issues.push({ kind: "clue", detail: `${clLabel}: answer empty` });
+        } else if (cl.answer.trim().length < 2 && !/^[0-9a-z\-+<>=!*/%]$/i.test(cl.answer.trim())) {
           issues.push({ kind: "clue", detail: `${clLabel}: answer too short` });
         } else {
           const gib = findGibberish(cl.answer);

@@ -272,10 +272,24 @@ def check_flagship_game_audit() -> list[str]:
     return [detail]
 
 
+def _hub_text() -> str:
+    """Combined source for the hub: index.html + the May 22 2026 extracted
+    hub bootstrap + extracted hub styles. Several validator checks were
+    written when the hub was one monolithic HTML; the perf split moved
+    most identifiers into separate files. Scan the union so the checks
+    keep finding their markers regardless of which file holds them."""
+    parts = []
+    for rel in ("index.html", "assets/arcade-hub-bootstrap.js", "assets/arcade-hub-styles.css"):
+        try:
+            parts.append((ROOT / rel).read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            continue
+    return "\n".join(parts)
+
+
 def check_index_uses_games_json() -> list[str]:
     errors: list[str] = []
-    index_path = ROOT / "index.html"
-    text = index_path.read_text(encoding="utf-8")
+    text = _hub_text()
     if "const GAMES = [" in text:
         errors.append("index.html still embeds the full GAMES array; expected runtime load from games.json.")
     if "fetch(\"games.json\"" not in text and "fetch('games.json'" not in text:
@@ -285,7 +299,7 @@ def check_index_uses_games_json() -> list[str]:
 
 def check_premium_quality_gate() -> list[str]:
     errors: list[str] = []
-    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    index_text = _hub_text()
     games = load_json(ROOT / "games.json")
     by_id = {game.get("id"): game for game in games}
     rebuild_ids = {"regents-rally-source-circuit", "review-maze-chase", "boss-rush-arena", "empire-ascendant"}
@@ -339,7 +353,7 @@ def check_public_traffic_footer() -> list[str]:
 def check_game_thumbnails() -> list[str]:
     errors: list[str] = []
     games = load_json(ROOT / "games.json")
-    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    index_text = _hub_text()
     if "assets/game-thumbnails/" not in index_text:
         errors.append("index.html is not wired to the generated game thumbnail directory.")
     if "assets/game-card-art/" not in index_text:
@@ -451,7 +465,7 @@ def check_mastery_platform() -> list[str]:
     for marker in ["global-eie", "us-cle", "setHints", "state.task.docs", "state.task.setHints", "doc.images.map"]:
         if marker not in writing_text:
             errors.append(f"writing-coach missing document-matching marker: {marker}")
-    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    index_text = _hub_text()
     for marker in ["id=\"mastery\"", "renderMasteryModes", "assets/mastery-engine.js", "mastery-path", "source-lab", "writing-coach"]:
         if marker not in index_text:
             errors.append(f"index.html missing mastery platform marker: {marker}")
@@ -602,7 +616,7 @@ def check_ap_practice_exam() -> list[str]:
     for course in ["AP World History: Modern", "AP European History", "AP Human Geography", "AP U.S. Government and Politics"]:
         if not any(page.get("course") == course and str(page.get("url", "")).startswith("https://apcentral.collegeboard.org/") for page in frq_pages):
             errors.append(f"Missing official AP released-FRQ page marker for {course}.")
-    index_text = (ROOT / "index.html").read_text(encoding="utf-8")
+    index_text = _hub_text()
     for marker in ["Practice Exams", "ap-practice-exam", "Regents + AP"]:
         if marker not in index_text:
             errors.append(f"index.html missing AP practice launch marker: {marker}")
@@ -765,6 +779,10 @@ def check_jeopardy_boards() -> list[str]:
 def check_javascript_syntax() -> list[str]:
     errors: list[str] = []
     js_files = sorted([*ROOT.glob("games/**/*.js"), *ROOT.glob("assets/**/*.js")])
+    # Skip macOS resource-fork metadata files ("._*") that appear on
+    # SMB/exFAT volumes. They are AppleDouble blobs, never JavaScript,
+    # and don't exist on Linux CI runners.
+    js_files = [p for p in js_files if not p.name.startswith("._")]
     for path in js_files:
         result = subprocess.run(
             ["node", "--check", str(path)],

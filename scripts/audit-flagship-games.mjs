@@ -16,6 +16,21 @@ function requireText(path, needles) {
   }
 }
 
+// Some flagship needles got hoisted out of index.html into the extracted
+// hub bootstrap (assets/arcade-hub-bootstrap.js) by the May 22 2026 perf
+// pass. Check any of the listed paths — the audit passes if at least one
+// of them contains the needle.
+function requireTextInAny(paths, needles) {
+  const sources = paths.map((p) => {
+    try { return { path: p, src: text(p) }; }
+    catch { return { path: p, src: "" }; }
+  });
+  for (const needle of needles) {
+    const found = sources.some((s) => s.src.includes(needle));
+    if (!found) errors.push(`${paths.join("|")}: missing ${needle}`);
+  }
+}
+
 function requireAsset(path, minBytes = 2048) {
   const full = resolve(root, path);
   let size = 0;
@@ -28,7 +43,10 @@ function requireAsset(path, minBytes = 2048) {
   if (size < minBytes) errors.push(`${path}: asset looks too small (${size} bytes)`);
 }
 
-requireText("index.html", [
+// As of the May 22 2026 perf pass, most hub JS lives in
+// assets/arcade-hub-bootstrap.js. Index.html itself only carries the
+// shell + script tags, so search both files.
+requireTextInAny(["index.html", "assets/arcade-hub-bootstrap.js", "assets/arcade-hub-styles.css"], [
   '["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"]',
   "FEATURED_GAME_IDS",
   "PREMIUM_ARCADE_IDS",
