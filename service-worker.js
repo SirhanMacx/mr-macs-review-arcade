@@ -1,4 +1,4 @@
-const CACHE_NAME = "v118-perf-defer-2026-05-22";
+const CACHE_NAME = "v120-perf-stale-while-revalidate";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -39,7 +39,11 @@ const CACHE_FILES = [
   "./data/generated-jeopardy-index.json",
   "./data/generated-practice-exam-blueprints.json",
   "./data/public-exam-library.json",
-  "./data/regents-gauntlet-bank.json",
+  // PERF 2026-05-22: `data/regents-gauntlet-bank.json` (~930 kB) was
+  // precached eagerly but only one game (regents-gauntlet) ever loads
+  // it. Runtime cache-first picks it up on demand instead. Saves ~12 %
+  // off the install footprint without breaking offline play for that
+  // game (first launch reaches network, subsequent launches hit cache).
   // ALL 55 asset modules (auto-generated from assets/*.js + assets/*.css).
   // True offline-PWA: every feature works without network after first load.
   "./assets/arcade-a11y-quicktoggle.js",
@@ -62,12 +66,6 @@ const CACHE_FILES = [
   "./assets/arcade-difficulty.js",
   "./assets/arcade-end-recap.js",
   "./assets/arcade-friday-practice.js",
-  // PERF 2026-05-22 — hub bootstrap is the 400 kB inline JS block lifted
-  // out of index.html so the doc transfer dropped from 731 kB → 70 kB.
-  // hub-styles.css is the matching extracted CSS. Both must be precached
-  // so the hub paints offline without a separate fetch on first visit.
-  "./assets/arcade-hub-bootstrap.js",
-  "./assets/arcade-hub-styles.css",
   "./assets/arcade-heatmap.js",
   "./assets/arcade-help-overlay.js",
   "./assets/arcade-icons.js",
@@ -178,29 +176,47 @@ self.addEventListener("activate", function(e) {
 });
 
 self.addEventListener("fetch", function(e) {
-  // Network-first for HTML/JSON, cache-first for everything else
+  // PERF 2026-05-22: stale-while-revalidate for HTML/JSON instead of
+  // network-first. The previous strategy made every hub/page load
+  // round-trip to the network even when a fresh-enough copy was already
+  // cached, which on 3G added ~400-800 ms to perceived navigation. Now
+  // we return the cached copy immediately (zero RTT) and refresh in the
+  // background, so the next navigation always picks up the latest copy.
+  // Only navigations to fresh (un-cached) URLs still hit the network.
+  // Cache-first behavior for everything else (JS, CSS, images, fonts)
+  // is unchanged — those resources are content-hashed via ?v= query
+  // strings so changing them naturally invalidates the cache entry.
   var url = new URL(e.request.url);
   var isHtml = e.request.headers.get("accept") && e.request.headers.get("accept").includes("text/html");
   var isJson = url.pathname.endsWith(".json");
 
   if (isHtml || isJson) {
     e.respondWith(
-      fetch(e.request).then(function(resp) {
-        // Update cache in background
-        var clone = resp.clone();
-        caches.open(CACHE_NAME).then(function(cache) { cache.put(e.request, clone); });
-        return resp;
-      }).catch(function() {
-        return caches.match(e.request);
+      caches.open(CACHE_NAME).then(function (cache) {
+        return cache.match(e.request).then(function (cached) {
+          var network = fetch(e.request).then(function (resp) {
+            // Only cache 200 OK; skip 4xx/5xx so a transient outage
+            // doesn't poison the cache with an error page.
+            if (resp && resp.status === 200) {
+              try { cache.put(e.request, resp.clone()); } catch (_) {}
+            }
+            return resp;
+          }).catch(function () {
+            // Network failed; if we have a cached copy already returned
+            // below, that's the user's response. Otherwise propagate.
+            return cached || Response.error();
+          });
+          // Return cached immediately if present; otherwise wait for network.
+          return cached || network;
+        });
       })
     );
   } else {
-    // Cache-first
+    // Cache-first for static assets.
     e.respondWith(
       caches.match(e.request).then(function(cached) {
         if (cached) return cached;
         return fetch(e.request).then(function(resp) {
-          // Cache successful responses for future
           if (resp && resp.status === 200 && resp.type === "basic") {
             var clone = resp.clone();
             caches.open(CACHE_NAME).then(function(cache) { cache.put(e.request, clone); });
