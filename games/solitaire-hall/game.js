@@ -2432,7 +2432,12 @@
       var box = el.getBoundingClientRect();
       chromeBottom = Math.max(chromeBottom, box.bottom - rect.top);
     });
-    var dealRowTop = Math.max(0, chromeBottom) + 16;
+    // 24px (was 16) buffer — gives clearance to the smoke-test threshold of
+    // chromeBottom + 4 and absorbs the 2-6px FOUT layout shift that lands
+    // after the May 22 perf pass made the game.js script `defer` (chrome
+    // gets its initial size with fallback fonts, grows when the real font
+    // arrives, and the cards otherwise stay anchored to the smaller chrome).
+    var dealRowTop = Math.max(0, chromeBottom) + 24;
     var sx = rect.width / LOGICAL_W;
     var sy = rect.height / LOGICAL_H;
     scale = Math.min(sx, sy);
@@ -2520,6 +2525,22 @@
     initState({});
     resize();
     window.addEventListener("resize", resize, { passive: true });
+    // Re-run resize when the HUD or ribbon resizes (e.g. when web fonts
+    // finish swapping in after the deferred script load completes). This
+    // closes the FOUT race that left cards anchored to the pre-swap chrome
+    // height after the May 22 perf pass moved game.js to `defer`.
+    if (typeof ResizeObserver === "function") {
+      try {
+        var roTargets = [document.querySelector(".top-hud"), document.querySelector(".wave-ribbon")].filter(Boolean);
+        if (roTargets.length) {
+          var ro = new ResizeObserver(function () { resize(); });
+          roTargets.forEach(function (el) { ro.observe(el); });
+        }
+      } catch (_e) { /* old browser — fall back to window resize alone */ }
+    }
+    if (document.fonts && document.fonts.ready && typeof document.fonts.ready.then === "function") {
+      document.fonts.ready.then(function () { resize(); }).catch(function () {});
+    }
     bindInput();
     bindUi();
     showScreen("setup");
