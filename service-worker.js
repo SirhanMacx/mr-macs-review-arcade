@@ -1,4 +1,4 @@
-const CACHE_NAME = "v114-analytics-coverage";
+const CACHE_NAME = "v118-perf-defer-2026-05-22";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -62,6 +62,12 @@ const CACHE_FILES = [
   "./assets/arcade-difficulty.js",
   "./assets/arcade-end-recap.js",
   "./assets/arcade-friday-practice.js",
+  // PERF 2026-05-22 — hub bootstrap is the 400 kB inline JS block lifted
+  // out of index.html so the doc transfer dropped from 731 kB → 70 kB.
+  // hub-styles.css is the matching extracted CSS. Both must be precached
+  // so the hub paints offline without a separate fetch on first visit.
+  "./assets/arcade-hub-bootstrap.js",
+  "./assets/arcade-hub-styles.css",
   "./assets/arcade-heatmap.js",
   "./assets/arcade-help-overlay.js",
   "./assets/arcade-icons.js",
@@ -110,6 +116,11 @@ const CACHE_FILES = [
   "./assets/mastery-engine.js",
   "./assets/portal-card.webp",
   "./assets/source-bank.js",
+  // Extracted-from-index hub assets (perf split, May 22 2026). These must
+  // precache so the hub renders correctly offline — they carry every CSS
+  // rule and every JS routine that used to be inline in index.html.
+  "./assets/arcade-hub-styles.css",
+  "./assets/arcade-hub-bootstrap.js",
   "./assets/cabinet/arcade-marquee.webp",
   "./assets/cabinet/attract-mode-board.webp",
   "./assets/cabinet/card-frame.webp",

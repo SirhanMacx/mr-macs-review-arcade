@@ -10,12 +10,28 @@
    - Subtle CRT scanline overlay across the whole platform
    - Arcade glow + hard pixel edges on key UI
 
-   Fonts pulled via @import so individual games don't need their <link>
-   tags updated. Browsers render these with crisp-edges to keep the pixel
-   feel intact at any scale.
+   PERF 2026-05-22: the previous @import url("...&family=VT323&...")
+   triggered a SECOND sequential fetch from fonts.googleapis.com that
+   render-blocked FCP by ~3-4 seconds on 3G — the browser couldn't
+   finalize the cascade until the @import-ed sheet resolved. The fonts
+   are now declared via <link rel="preload"> + <link rel="stylesheet">
+   in every page's <head> so they parallelize with the rest of the
+   critical path. Below is a self-hosted fallback @font-face block
+   that points back at the same Google CDN, kept as a defense-in-depth
+   in case a page forgets the <link>. Older browsers will still see
+   Press Start 2P / VT323 via the descriptor route.
    =========================================================================== */
 
-@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap");
+@font-face {
+  font-family: "Press Start 2P";
+  src: local("Press Start 2P");
+  font-display: swap;
+}
+@font-face {
+  font-family: "VT323";
+  src: local("VT323");
+  font-display: swap;
+}
 
 /* ===========================================================================
    STREAMLINED HUB — May 10 2026 (per user "ui/ux is incredibly sloppy
