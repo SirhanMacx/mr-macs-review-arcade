@@ -208,6 +208,10 @@
   <script>
   (function () {
     "use strict";
+    // PERF 2026-05-22: deferred-script dependencies (MrMacsHelpOverlay etc.)
+    // load with `defer`, but this inline <script> runs at parse time. Wait
+    // until window.load so every defer module has executed.
+    function __mrmacs_init__() {
     var GAME_ID = "review-maze-chase";
     window.MrMacsHelpOverlay.register(GAME_ID, {
       title: "How to Play — Review Maze Chase",
@@ -229,6 +233,10 @@
       var container = document.querySelector("#setup .actions");
       if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
     });
+  
+    }
+    if (document.readyState === "complete") __mrmacs_init__();
+    else window.addEventListener("load", __mrmacs_init__, { once: true });
   })();
   </script>
   <script src="../../assets/arcade-bank-loader.js?v=20260518-fast-bank" defer></script>

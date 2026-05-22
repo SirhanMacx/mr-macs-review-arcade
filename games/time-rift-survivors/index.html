@@ -137,6 +137,10 @@
 <script>
 (function () {
   "use strict";
+    // PERF 2026-05-22: deferred-script dependencies (MrMacsHelpOverlay etc.)
+    // load with `defer`, but this inline <script> runs at parse time. Wait
+    // until window.load so every defer module has executed.
+    function __mrmacs_init__() {
   var GAME_ID = "time-rift-survivors";
   if (!window.MrMacsHelpOverlay) return;
   window.MrMacsHelpOverlay.register(GAME_ID, {
@@ -163,7 +167,11 @@
     var hud = document.querySelector(".topbar .hud");
     if (hud) window.MrMacsHelpOverlay.mountButton(hud, GAME_ID, { label: "?" });
   });
-})();
+
+    }
+    if (document.readyState === "complete") __mrmacs_init__();
+    else window.addEventListener("load", __mrmacs_init__, { once: true });
+  })();
 </script>
   <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2" defer></script>
 <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4" defer></script>

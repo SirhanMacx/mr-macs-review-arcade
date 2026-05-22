@@ -228,9 +228,12 @@
   <script>
   // Register Atlas 2048 with the help-overlay system so the "How to Play"
   // button mounts on the setup screen.
+  // PERF 2026-05-22: arcade-help-overlay.js loads with `defer`, so this
+  // inline script may run before the global exists. Defer to load event.
   (function () {
     "use strict";
     var GAME_ID = "atlas-2048";
+    function __mrmacs_init__() {
     if (!window.MrMacsHelpOverlay) return;
     window.MrMacsHelpOverlay.register(GAME_ID, {
       title: "How to Play — Atlas 2048",
@@ -255,6 +258,9 @@
       var container = document.querySelector("#setupScreen .setup-actions");
       if (container) window.MrMacsHelpOverlay.mountButton(container, GAME_ID);
     });
+    }
+    if (document.readyState === "complete") __mrmacs_init__();
+    else window.addEventListener("load", __mrmacs_init__, { once: true });
   })();
   </script>
   <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2" defer></script>
