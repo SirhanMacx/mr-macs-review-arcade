@@ -16,7 +16,7 @@ Every new course, board, exam, or arcade game added to this repo must match the 
 6. **Required scaffolding** in every practice exam: `QUESTIONS.forEach((q) => { q.correctIdx = q.choices.indexOf(q.correctText); });` immediately after the `QUESTIONS` array.
 7. **Required scaffolding** in every Jeopardy board: `const TOTAL_CLUES = (GAME.categories || []).reduce((n, c) => n + ((c.clues || []).length), 0);` right after `const GAME`.
 8. **No `sourceClue`/`sourceExplanation`/`rigor` keys** on clue objects — these are template-build leftovers and get auto-stripped.
-9. **Thumbnails** — exactly one per bucket (Jeopardy → `category-tile-jeopardy.webp`, Practice Exam → `category-tile-practice.webp`, Arcade → `category-tile-arcade.webp`). No per-board generated thumbnails.
+9. **Thumbnails — UPDATED 2026-05-22** — per-game art at `assets/game-thumbnails/<id>.webp` + `assets/game-card-art/<id>.webp` is PREFERRED. Leave `thumbnail` and `cardArt` OUT of the games.json entry for any game that has per-game art on disk — the hub's bootstrap (`assets/arcade-hub-bootstrap.js`) falls back to those files automatically. Only set explicit `thumbnail`/`cardArt` when intentionally overriding. Category tiles (`category-tile-jeopardy/practice/arcade.webp`) remain the implicit fallback for entries with no per-game file. Do NOT run `audit-format-compliance.mjs --fix` against the thumbnail field — that auto-fix was removed because it was shadowing per-game art with generic category tiles.
 10. **Bump `service-worker.js` `CACHE_NAME`** on every commit that touches user-facing files. Otherwise students keep seeing stale content forever.
 
 ## Pre-commit checklist

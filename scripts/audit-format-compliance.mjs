@@ -140,16 +140,30 @@ for (const g of games) {
   }
 
   // Thumbnail consistency
-  if (g.gameType && ALLOWED_THUMBS[g.gameType]) {
-    const want = ALLOWED_THUMBS[g.gameType];
-    if (g.thumbnail !== want || g.cardArt !== want) {
-      if (FIX) {
-        g.thumbnail = want;
-        g.cardArt = want;
-        fixed++;
-      } else {
-        flag("warn", g, `thumbnail/cardArt should be '${want}' for ${g.gameType}`);
-      }
+  // POLICY UPDATE 2026-05-22 (Jon's "all thumbnails are mixed up" report):
+  // Per-game art in assets/game-thumbnails/<id>.webp + assets/game-card-art/<id>.webp
+  // is now PREFERRED. The hub's bootstrap (assets/arcade-hub-bootstrap.js)
+  // falls back to per-game art whenever the games.json entry has no
+  // explicit thumbnail/cardArt field. Setting an explicit category-tile
+  // path SHADOWS the per-game art and makes every Jeopardy / Practice
+  // Exam / Arcade tile look identical in the hub — which is what Jon was
+  // complaining about. The auto-fix that used to force every entry to
+  // the category tile is removed. Category tiles remain the implicit
+  // fallback for entries with no per-game art file on disk.
+  //
+  // The ALLOWED_THUMBS map is kept above for reference (and so any future
+  // tooling that needs to know the canonical fallback list can import
+  // it), but we no longer auto-mutate the games.json entries.
+  if (g.gameType && ALLOWED_THUMBS[g.gameType] && g.thumbnail) {
+    // Soft warning ONLY if a manually-set thumbnail points at something
+    // outside both the per-game art directory and the canonical tile set.
+    const okPrefixes = [
+      "assets/game-thumbnails/",
+      "assets/game-card-art/",
+      "assets/cabinet/category-tile-"
+    ];
+    if (!okPrefixes.some((p) => g.thumbnail.startsWith(p))) {
+      flag("warn", g, `thumbnail in unexpected path: ${g.thumbnail}`);
     }
   }
 
