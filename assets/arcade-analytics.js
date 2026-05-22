@@ -223,6 +223,14 @@
     if (detail && detail.gameId) {
       var id = slug(detail.gameId);
       data.games[id] = data.games[id] || { title: detail.title || detail.gameId, launches: 0, views: 0, plays: 0, completions: 0 };
+      // Cleaner titles arrive on subsequent events (the practice-exam wrapper
+      // strips the " — Mr. Mac's Review Arcade" suffix from document.title).
+      // Prefer the shorter / cleaner title when both exist.
+      if (detail.title && data.games[id].title && detail.title.length < data.games[id].title.length) {
+        data.games[id].title = detail.title;
+      } else if (detail.title && !data.games[id].title) {
+        data.games[id].title = detail.title;
+      }
       data.games[id].launches = Number(data.games[id].launches || 0);
       data.games[id].views = Number(data.games[id].views || 0);
       data.games[id].plays = Number(data.games[id].plays || 0);
@@ -922,6 +930,101 @@
     });
   }
 
+  // Per-game summary table for teachers / Jon. Aggregates the local
+  // stats blob (which counts every event fired by this device) into a
+  // sortable rows array. Used by the admin dashboard + the console
+  // helper viewMetrics() below.
+  function getSummary() {
+    var local = readLocal();
+    var globalCache = Object.assign({}, readPublicCache(), window.__MR_MACS_GLOBAL_TRAFFIC__ || {});
+    var games = local.games || {};
+    var rows = Object.keys(games).map(function (id) {
+      var g = games[id] || {};
+      var launches = Number(g.launches || 0);
+      var completions = Number(g.completions || 0);
+      var pct = launches ? Math.round((completions / launches) * 100) : 0;
+      return {
+        id: id,
+        title: g.title || id,
+        launches: launches,
+        views: Number(g.views || 0),
+        plays: Number(g.plays || 0),
+        completions: completions,
+        completionPct: pct,
+        engagement: Number(g.engagement || 0),
+        lastSeen: g.lastSeen || ""
+      };
+    });
+    rows.sort(function (a, b) { return b.engagement - a.engagement; });
+    return {
+      totals: {
+        pageViews: Number(local.pageViews || 0),
+        gameLaunches: Number(local.gameLaunches || 0),
+        gameViews: Number(local.gameViews || 0),
+        gamePlays: Number(local.gamePlays || 0),
+        completions: Number(local.completions || 0),
+        engagedSessions: Number(local.engagedSessions || 0),
+        events: Number(local.events || 0)
+      },
+      sessionId: sessionId(),
+      device: deviceClass(),
+      devices: local.devices || {},
+      courses: local.courses || {},
+      gameTypes: local.gameTypes || {},
+      days: local.days || {},
+      firstSeen: local.firstSeen || "",
+      lastSeen: local.lastSeen || "",
+      games: rows,
+      global: globalCache,
+      eventLog: getEventLog(50)
+    };
+  }
+
+  // Console helper: prints a per-game completion-rate table. Teachers
+  // (and Jon) can run `MrMacsAnalytics.viewMetrics()` in DevTools on
+  // any page to see what this device has tracked.
+  function viewMetrics() {
+    var summary = getSummary();
+    if (typeof console === "undefined") return summary;
+    try {
+      if (console.group) console.group("Mr. Mac's Arcade — Local Analytics");
+      if (console.table) {
+        console.table([summary.totals]);
+        var compact = summary.games.slice(0, 30).map(function (g) {
+          return { id: g.id, launches: g.launches, plays: g.plays, completions: g.completions, "%": g.completionPct };
+        });
+        console.table(compact);
+      } else {
+        console.log("totals:", summary.totals);
+        console.log("games:", summary.games);
+      }
+      if (console.log) console.log("Full dashboard: /analytics/?admin=mrmac-arcade-admin-2026");
+      if (console.groupEnd) console.groupEnd();
+    } catch (error) {}
+    return summary;
+  }
+
+  // Export the local stats blob + event log as a downloadable JSON
+  // string (for teacher backup / migration).
+  function exportMetrics() {
+    return JSON.stringify({
+      exportedAt: new Date().toISOString(),
+      hostname: location.hostname,
+      summary: getSummary(),
+      eventLog: getEventLog(),
+      raw: readLocal()
+    }, null, 2);
+  }
+
+  // Wipe local analytics state (counters + event log). Profile data
+  // (in arcade-profile.js) is untouched. Used by the admin dashboard.
+  function resetMetrics() {
+    try { localStorage.removeItem(LOCAL_KEY); } catch (error) {}
+    try { localStorage.removeItem(PUBLIC_CACHE_KEY); } catch (error) {}
+    try { localStorage.removeItem(EVENT_LOG_KEY); } catch (error) {}
+    try { safeSession.remove(SESSION_KEY); } catch (error) {}
+  }
+
   window.MrMacsAnalytics = {
     track: track,
     refresh: refreshGlobal,
@@ -933,7 +1036,13 @@
     onEvent: onEvent,
     stripPII: stripPII,
     setDebug: setDebug,
-    isDebug: function () { return debugMode; }
+    isDebug: function () { return debugMode; },
+    getSummary: getSummary,
+    viewMetrics: viewMetrics,
+    exportMetrics: exportMetrics,
+    resetMetrics: resetMetrics,
+    isLocalOnly: function () { return localOnly; },
+    counterKey: counterKey
   };
 
   document.addEventListener("DOMContentLoaded", function () {

@@ -1,4 +1,4 @@
-const CACHE_NAME = "v113-practice-exam-fallback";
+const CACHE_NAME = "v114-analytics-coverage";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -46,6 +46,9 @@ const CACHE_FILES = [
   "./assets/arcade-a11y.css",
   "./assets/arcade-card-blue.webp",
   "./assets/arcade-analytics.js",
+  "./assets/arcade-practice-exam-analytics.js",
+  "./analytics/",
+  "./analytics/index.html",
   "./assets/arcade-lobby-v3.webp",
   "./assets/arcade-cabinet-fx.js",
   "./assets/arcade-celebration.js",
