@@ -160,6 +160,7 @@ let lastPlayerFocus = null;
 // (rounds 1, 1.5, 2) and the existing premium classics so new players
 // always land on something fresh.
 const FEATURED_GAME_IDS = [
+  "block-blast",
   // Arcade games stay grouped after Jeopardy and exam/source practice.
   "snake-pit", "chess-cabinet", "defender-drift",
   "boggle-beat", "memory-palace", "knights-quest", "crossword-cabinet",
@@ -183,6 +184,7 @@ const FEATURED_GAME_IDS = [
 const VALIDATION_FEATURED_CORE_IDS = ["history-hunters", "archive-quest", "cold-war-invaders", "timeline-runner", "regents-practice-exam", "ap-practice-exam"];
 const SOURCE_LOCKED_GAME_IDS = new Set(["regents-practice-exam", "ap-practice-exam", "source-sprint", "source-lab", "regents-gauntlet", "source-audit", "archive-cipher"]);
 const PREMIUM_ARCADE_IDS = new Set([
+  "block-blast",
   "history-hunters", "archive-quest", "cold-war-invaders",
   "timeline-runner", "chrono-defense-infinite", "chrono-pinball",
   "time-rift-survivors",

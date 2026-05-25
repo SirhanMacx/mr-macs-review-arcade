@@ -1,6 +1,6 @@
 # Mr. Mac's Review Arcade
 
-**2,967 review games, boards, and generated practice surfaces backed by a standards-aligned 5-12/AP question system — playable in the browser, no install required.**
+**683 review games, boards, and practice surfaces backed by a standards-aligned 5-12/AP question system — playable in the browser, no install required.**
 
 A student-facing arcade for NYS grades 5-12 standards areas, all AP courses tracked in the AP Central course catalog, and full Regents/AP practice systems. Premium arcade flagships (History Hunters, Archive Quest, Cold War Invaders, Brickoria, Stellar Drift, Source Snake, Chronoblocks, Cascade, Chronohop, Step Pyramid, Citadel, Rumor Whack, and more) sit beside Jeopardy boards, source-reading labs, writing coaches, and full timed practice exams.
 
@@ -10,18 +10,18 @@ https://sirhanmacx.github.io/mr-macs-review-arcade
 
 ## Stats
 
-- **2,967 catalog entries** in `games.json`, including the original arcade/social-studies surfaces plus generated all-subject Jeopardy and practice entries
-- **65 achievements** across onboarding, streaks, per-flagship feats, cross-arcade tiers, and hidden Easter eggs
+- **683 catalog entries** in `games.json` (**568 Jeopardy** · **57 practice exams** · **58 arcade games**)
+- **83 achievements** across onboarding, streaks, per-flagship feats, cross-arcade tiers, and hidden Easter eggs
 - **7 power-up shop items** — Streak Shield, Hint Token, Time Boost, Lucky Charm (24h 2x), Fortune Refresh, Daily Double, Coin Doubler (4h 2x)
 - **Multi-profile roster** — multiple students can share a Chromebook with isolated shards, achievements, settings, course, and streaks
 - **Persistent + offline-capable** — student profiles, rosters, answers, shards, achievements, sessions, and settings live in `localStorage`; no backend, no logins, no PII by default
 - **Optional global leaderboards** — teachers can configure a vetted HTTPS endpoint; public arcade handles are filtered client-side and server-side before any score is stored
 - **Generated arcade art** — every catalog entry has original WebP thumbnail, card, and marquee art produced by `scripts/generate_arcade_assets.py`
-- **22,042-prompt** shared review library across 99 course buckets, including 42 AP/AP Career Kickstart courses and 3,926 social-studies prompts derived from the mature named Jeopardy boards
+- **14,063-prompt** shared review library across **65 course banks** (loaded on-demand via `assets/shared-question-bank.js`)
 - **90-course all-subject taxonomy** aligned to NYSED P-12 standards areas plus College Board AP CED course structures
-- **101 visible course labels** in the hub/course pickers after canonicalizing generated NYS/AP labels with existing social-studies labels
-- **1,992 generated unit Jeopardy boards**: Review, Challenge, and Final Sprint variants for each generated unit, playable through `games/generated-jeopardy/`
-- **90 generated course practice exams**, hundreds of unit practice entries, and **360 zoomable practice source packet pages** playable through `games/generated-practice-exam/`
+- **72 visible course labels** in the hub/course pickers after canonicalizing NYS/AP labels
+- **568 Jeopardy boards** playable through `games/`
+- **57 practice exams** plus **90 zoomable practice source packet pages** playable through `games/generated-practice-exam/`
 - **Course-depth guardrails** require every generated course to cover every unit, every generated unit to carry at least 18 arcade questions, every generated practice exam to sample each unit, and every generated board to use the 5x5 + Final Jeopardy shape.
 
 ## Tech stack

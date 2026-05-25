@@ -7,6 +7,7 @@
   "scripts": {
     "test": "playwright test",
     "smoke": "playwright test --reporter=list",
+    "perf:budget": "node scripts/performance-budget.mjs",
     "bank": "node scripts/build-shared-question-bank.mjs",
     "content:all-subjects": "node scripts/generate-all-subject-content.mjs && node scripts/build-shared-question-bank.mjs",
     "validate:content": "node scripts/validate-all-subject-content.mjs",

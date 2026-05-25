@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b12">
+  <title>Block Blast Academy - Mr. Mac's Review Arcade</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/arcade-a11y.css?v=20260508-a11y">
+  <link rel="stylesheet" href="../../assets/arcade-cross-device.css?v=20260510-crossdev-ribbon">
+  <link rel="stylesheet" href="../../assets/arcade-retro-theme.css?v=20260512-question-readability">
+  <link rel="stylesheet" href="styles.css?v=20260519-block-blast-v1">
+</head>
+<body data-game-page="1">
+  <div class="game-marquee" role="presentation" aria-hidden="true">
+    <span>&lt;&lt;&lt;</span>
+    <span>MR. MAC'S REVIEW ARCADE - BLOCK BLAST ACADEMY</span>
+    <span>&gt;&gt;&gt;</span>
+  </div>
+
+  <main class="block-blast-shell" id="app">
+    <div class="scanline-overlay" aria-hidden="true"></div>
+
+    <section class="top-hud" aria-label="Block Blast Academy status">
+      <div class="brand">
+        <span class="brand-core" aria-hidden="true"></span>
+        <div class="brand-text">
+          <strong class="brand-title"><span>Block Blast</span><em>Academy</em></strong>
+          <span class="brand-sub" id="brandSub">Place Blocks - Clear Lines - Earn Study Boosts</span>
+        </div>
+      </div>
+      <div class="hud-stats" aria-label="Run statistics">
+        <div class="stat-cell"><strong id="hudScore" class="stat-value mono">0</strong><span class="stat-label">score</span></div>
+        <div class="stat-cell"><strong id="hudClears" class="stat-value mono">0</strong><span class="stat-label">clears</span></div>
+        <div class="stat-cell"><strong id="hudStreak" class="stat-value mono">x1</strong><span class="stat-label">streak</span></div>
+        <div class="stat-cell"><strong id="hudBest" class="stat-value mono">0</strong><span class="stat-label">best</span></div>
+      </div>
+      <div class="hud-controls">
+        <button class="hud-btn glass-pill" id="pauseBtn" type="button" aria-label="Pause game">Pause</button>
+        <button class="hud-btn glass-pill" id="exitBtn" type="button" aria-label="Exit to arcade">Exit</button>
+      </div>
+    </section>
+
+    <section class="playfield" aria-label="Block Blast Academy play area">
+      <aside class="study-panel" aria-label="Study boosts">
+        <div class="panel-title">Study Boosts</div>
+        <button class="boost-btn" id="bombBtn" type="button" aria-label="Use eraser burst">
+          <span class="boost-icon">3x3</span><strong>Eraser</strong><span id="bombCount">0</span>
+        </button>
+        <button class="boost-btn" id="rowBtn" type="button" aria-label="Use best row clear">
+          <span class="boost-icon">ROW</span><strong>Line Clear</strong><span id="rowCount">0</span>
+        </button>
+        <button class="boost-btn" id="shuffleBtn" type="button" aria-label="Use tray refresh">
+          <span class="boost-icon">NEW</span><strong>Refresh</strong><span id="shuffleCount">1</span>
+        </button>
+        <div class="next-question" id="nextQuestion">Study Boost in 3 placements</div>
+      </aside>
+
+      <section class="board-zone" aria-label="Puzzle board">
+        <div class="board-frame">
+          <div class="board" id="board" role="grid" aria-label="Nine by nine block puzzle grid"></div>
+        </div>
+        <div class="status-strip" id="statusStrip" role="status" aria-live="polite">Pick a block, then tap the board.</div>
+      </section>
+
+      <aside class="tray-panel" aria-label="Block tray">
+        <div class="panel-title">Block Tray</div>
+        <div class="piece-tray" id="pieceTray"></div>
+        <div class="topic-card" id="topicCard">Each block carries a course topic. Clear rows and columns to build score.</div>
+      </aside>
+    </section>
+
+    <section class="setup-screen show" id="setupScreen" aria-label="Block Blast Academy setup" aria-modal="true">
+      <div class="setup-card">
+        <a class="setup-back-link" href="../../index.html" aria-label="Back to arcade hub">Back to Arcade</a>
+        <div class="setup-kicker">School Trivia Block Puzzle</div>
+        <h1><span>Block Blast</span><em>Academy</em></h1>
+        <p class="setup-sub">Fit study blocks onto the board, clear full rows and columns, and answer course-content questions to earn erasers, line clears, and tray refreshes.</p>
+        <div class="resume-card" id="resumeCard" hidden></div>
+        <div class="leaderboard-panel" id="leaderboardPanel" hidden></div>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="soundBtn" type="button">Sound On</button>
+          <button class="btn glass-pill" id="fullscreenBtn" type="button">Fullscreen</button>
+          <button class="btn primary brass-btn" id="startBtn" type="button">Start Block Blast</button>
+        </div>
+        <p class="key-hints"><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> select block - <kbd>B</kbd> eraser - <kbd>L</kbd> line clear - <kbd>R</kbd> refresh - <kbd>Esc</kbd>/<kbd>P</kbd> pause</p>
+      </div>
+    </section>
+
+    <section class="question-screen" id="questionScreen" aria-label="Study boost content question" aria-modal="true">
+      <div class="question-card glass-card">
+        <div class="question-header">
+          <div class="question-meta" id="questionMeta">Study Boost</div>
+          <button class="question-close glass-pill" id="questionCloseBtn" type="button">Skip</button>
+        </div>
+        <h2 id="questionPrompt">Loading question...</h2>
+        <div class="choice-grid" id="choiceGrid" role="group" aria-label="Answer choices"></div>
+        <p class="explanation" id="explanation" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="pause-screen" id="pauseScreen" aria-label="Game paused" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker">Paused</div>
+        <h2>Board Held</h2>
+        <p class="setup-sub">Resume the puzzle or restart the run.</p>
+        <div class="setup-actions">
+          <button class="btn primary brass-btn" id="resumeBtn" type="button">Resume</button>
+          <button class="btn glass-pill" id="restartBtn" type="button">Restart</button>
+          <button class="btn glass-pill" id="pauseExitBtn" type="button">Exit Arcade</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="end-screen" id="endScreen" aria-label="Block Blast Academy run summary" aria-modal="true">
+      <div class="setup-card compact">
+        <div class="setup-kicker" id="endKicker">Run Complete</div>
+        <h2 id="endTitle">Block Blast Academy Score</h2>
+        <div class="end-grid" id="endGrid"></div>
+        <div class="leaderboard-panel end-leaderboard" id="endLeaderboard" hidden></div>
+        <div class="setup-actions">
+          <button class="btn glass-pill" id="setupBtn" type="button">Setup</button>
+          <button class="btn primary brass-btn" id="againBtn" type="button">Play Again</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/arcade-icons.js?v=20260509-icons"></script>
+  <script src="../../assets/arcade-profile.js?v=20260507-phase1"></script>
+  <script src="../../assets/arcade-name-safety.js?v=20260513-safe-names"></script>
+  <script src="../../assets/arcade-leaderboards.js?v=20260513-safe-names"></script>
+  <script src="../../assets/arcade-progress-extras.js?v=20260517-study-multiplayer"></script>
+  <script src="../../assets/arcade-toast.js?v=20260510-toast-ambient"></script>
+  <script src="../../assets/arcade-celebration.js?v=20260509-celebration"></script>
+  <script src="../../assets/arcade-music.js?v=20260508-phase4"></script>
+  <script src="../../assets/arcade-a11y-quicktoggle.js?v=20260517-a11y-modal"></script>
+  <script src="../../assets/arcade-help-overlay.js?v=20260510-help"></script>
+  <script src="../../assets/arcade-bank-loader.js?v=20260518-fast-bank"></script>
+  <script src="../../assets/arcade-review-mix.js?v=20260511-review-mix-v1"></script>
+  <script src="../../assets/arcade-question-validator.js?v=20260516-validator-v1"></script>
+  <script src="../../assets/arcade-sfx.js?v=20260511-sfx-v2"></script>
+  <script src="../../assets/arcade-cabinet-fx.js?v=20260511-cabfx-v4"></script>
+  <script src="game.js?v=20260519-block-blast-v1"></script>
+</body>
+</html>

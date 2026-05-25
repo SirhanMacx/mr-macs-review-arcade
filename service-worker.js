@@ -1,4 +1,4 @@
-const CACHE_NAME = "v126-practice-exam-style-tag-fix";
+const CACHE_NAME = "v128-e2e-smoke";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -16,6 +16,10 @@ const CACHE_FILES = [
   "./games/schoolcraft/index.html",
   "./games/schoolcraft/game.js",
   "./games/schoolcraft/styles.css",
+  "./games/block-blast/",
+  "./games/block-blast/index.html",
+  "./games/block-blast/game.js",
+  "./games/block-blast/styles.css",
   "./games/claim-evidence/",
   "./games/claim-evidence/index.html",
   "./games/claim-evidence/game.js",
@@ -147,6 +151,9 @@ const CACHE_FILES = [
   "./assets/game-thumbnails/schoolcraft.webp",
   "./assets/game-card-art/schoolcraft.webp",
   "./assets/game-marquees/schoolcraft.webp",
+  "./assets/game-thumbnails/block-blast.webp",
+  "./assets/game-card-art/block-blast.webp",
+  "./assets/game-marquees/block-blast.webp",
   // Critical fonts
   "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,700;1,9..144,900;0,9..144,400&family=JetBrains+Mono:wght@700;800&family=Inter:wght@400;600;700;800;900&display=swap"
 ];
