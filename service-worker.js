@@ -1,4 +1,4 @@
-const CACHE_NAME = "v128-e2e-smoke";
+const CACHE_NAME = "v129-ap-psych-2024-ced-scrub";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to

@@ -12,7 +12,7 @@
 
    Course labels: window.DIAG_BANK_COURSE_LABELS = { courseId: humanLabel }
 
-   Built: 2026-05-22T13:37:39.217Z
+   Built: 2026-06-10T01:34:16.099Z
    Courses: 65
    Total questions: 14063
    ============================================================================ */
@@ -129631,7 +129631,7 @@
       "id": "ap-psychology-113",
       "prompt": "Explaining behavior by personality or internal traits.",
       "choices": [
-        "Maslow",
+        "Situational attribution",
         "Foot-in-the-door phenomenon",
         "Dispositional attribution",
         "Dissociative disorders"
@@ -129671,16 +129671,16 @@
     },
     {
       "id": "ap-psychology-111",
-      "prompt": "Psychologist known for hierarchy of needs.",
+      "prompt": "Principle stating that performance is best at a moderate level of arousal.",
       "choices": [
         "Big Five",
         "Social loafing",
-        "Maslow",
+        "Yerkes-Dodson law",
         "Dispositional attribution"
       ],
-      "correctText": "Maslow",
+      "correctText": "Yerkes-Dodson law",
       "topic": "Classic Studies",
-      "explanation": "Abraham Maslow proposed a motivational hierarchy of needs (1943) arranged as a pyramid: physiological (food, water, shelter) → safety → love/belonging → esteem → self-actualization (reaching one's potential). The hierarchy assumes lower-level needs motivate behavior more urgently until met. Critics note the pyramid is culturally biased — collectivist cultures prioritize belonging before esteem — and that needs don't operate as rigidly sequential as the model suggests.",
+      "explanation": "The Yerkes-Dodson law holds that performance increases with arousal up to an optimal point, then declines as arousal becomes too high. The optimal level depends on task difficulty: easy or well-learned tasks are performed best under relatively high arousal, while difficult or novel tasks are performed best under lower arousal. This arousal view of motivation explains why moderate stress can sharpen performance while excessive stress impairs it.",
       "domain": "Review",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -129694,7 +129694,7 @@
       "id": "ap-psychology-115",
       "prompt": "Tendency to agree to larger requests after agreeing to a small one.",
       "choices": [
-        "Maslow",
+        "Door-in-the-face phenomenon",
         "Dispositional attribution",
         "Misinformation effect",
         "Foot-in-the-door phenomenon"
@@ -130457,7 +130457,7 @@
       ],
       "correctText": "Humanistic psychology",
       "topic": "Groups + Influence",
-      "explanation": "Humanistic psychology, championed by Abraham Maslow and Carl Rogers, reacted against both psychoanalysis and behaviorism by focusing on conscious experience, free will, and human potential for growth. Rogers' person-centered therapy emphasized unconditional positive regard, empathy, and genuineness as the keys to therapeutic change. Maslow's hierarchy of needs proposed that basic physiological and safety needs must be met before higher needs for love, esteem, and self-actualization can emerge.",
+      "explanation": "Humanistic psychology, championed by Carl Rogers, reacted against both psychoanalysis and behaviorism by focusing on conscious experience, free will, and human potential for growth. Rogers' person-centered therapy emphasized unconditional positive regard, empathy, and genuineness as the keys to therapeutic change. Rogers held that people have an innate tendency toward growth and self-fulfillment when their environment is supportive and non-judgmental.",
       "domain": "Review",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -130520,7 +130520,7 @@
       ],
       "correctText": "Freud",
       "topic": "Groups + Influence",
-      "explanation": "Sigmund Freud founded psychoanalytic theory, proposing that behavior is driven by unconscious conflicts among the id (pleasure principle), ego (reality principle), and superego (internalized moral standards). His stages of psychosexual development (oral, anal, phallic, latency, genital) suggested adult personality reflects fixations from unresolved childhood conflicts. While much of Freud's specific theory lacks empirical support, his contributions to unconscious processing and talk therapy reshaped the field.",
+      "explanation": "Sigmund Freud founded psychoanalytic theory, proposing that behavior is driven by unconscious conflicts among the id (pleasure principle), ego (reality principle), and superego (internalized moral standards). He argued that defense mechanisms such as repression keep threatening impulses out of awareness. While much of Freud's specific theory lacks empirical support, his contributions to unconscious processing and talk therapy reshaped the field.",
       "domain": "Review",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -131923,7 +131923,7 @@
         "Random sample",
         "Sample",
         "Informed consent",
-        "Maslow"
+        "Convenience sample"
       ],
       "correctText": "Random sample",
       "topic": "Sampling + Ethics",
@@ -132263,7 +132263,7 @@
       ],
       "correctText": "Humanistic therapy",
       "topic": "Therapies",
-      "explanation": "Humanistic therapy, especially Carl Rogers' Person-Centered Therapy, holds that people naturally move toward growth and self-actualization when provided a safe therapeutic environment. Rogers' core conditions — unconditional positive regard (accepting the client without judgment), empathy (accurately reflecting feelings), and congruence (therapist genuineness) — are considered necessary and sufficient for therapeutic change. These conditions have also been identified in research as common factors that predict outcomes across different therapeutic approaches.",
+      "explanation": "Humanistic therapy, especially Carl Rogers' Person-Centered Therapy, holds that people naturally move toward growth and self-fulfillment when provided a safe therapeutic environment. Rogers' core conditions — unconditional positive regard (accepting the client without judgment), empathy (accurately reflecting feelings), and congruence (therapist genuineness) — are considered necessary and sufficient for therapeutic change. These conditions have also been identified in research as common factors that predict outcomes across different therapeutic approaches.",
       "domain": "Review",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -132452,7 +132452,7 @@
       ],
       "correctText": "Superego",
       "topic": "Traits + Self",
-      "explanation": "The superego is the internalized moral standard — partly the conscience (punishing wrong behavior with guilt) and partly the ego ideal (rewarding good behavior with pride). It develops through identification with parents during the phallic stage and its resolution of the Oedipus/Electra complex. An overly harsh superego produces excessive guilt and neurosis; a weak superego is linked to antisocial behavior. The superego operates largely unconsciously, influencing behavior through guilt without conscious awareness.",
+      "explanation": "The superego is the internalized moral standard — partly the conscience (punishing wrong behavior with guilt) and partly the ego ideal (rewarding good behavior with pride). In Freud's model it represents the demands of society and parents, and it often conflicts with the id's impulses, with the ego mediating between them. An overly harsh superego produces excessive guilt; a weak superego is linked to poor impulse control. The superego operates largely unconsciously, influencing behavior through guilt without conscious awareness.",
       "domain": "Review",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -132736,6 +132736,27 @@
       "course": "ap-psychology"
     },
     {
+      "id": "ap-psychology-pe-015",
+      "prompt": "Charles Spearman observed that scores on different mental tests tend to correlate positively, leading him to propose:",
+      "choices": [
+        "A single general intelligence factor (g) underlying performance across tasks",
+        "That intelligence is fixed entirely by genetics at birth",
+        "That working memory and intelligence are unrelated constructs",
+        "That intelligence can only be measured by reaction-time tasks"
+      ],
+      "correctText": "A single general intelligence factor (g) underlying performance across tasks",
+      "topic": "Unit 2: Cognition",
+      "explanation": "Using factor analysis, Spearman found that people who score well on one type of mental test tend to score well on others, which he attributed to a general intelligence factor (g). Debates over whether intelligence is one general ability or several more specific abilities remain central to the psychometric study of intelligence.",
+      "domain": "Practice Exam",
+      "gradeBand": "Multi",
+      "subjectArea": "Review",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-practice-exam",
+      "assessmentSourceId": "practice-exam-ap-psych-practice",
+      "itemMode": "from-practice-exam",
+      "course": "ap-psychology"
+    },
+    {
       "id": "ap-psychology-pe-013",
       "prompt": "Elizabeth Loftus's research on eyewitness testimony demonstrated that subtly changing the wording of a question (for example, 'smashed' versus 'hit') can shift later memory reports. This effect is best labeled:",
       "choices": [
@@ -132768,27 +132789,6 @@
       "correctText": "Absolute threshold",
       "topic": "Unit 2: Cognition",
       "explanation": "The absolute threshold is the minimum stimulus intensity needed to detect a signal 50% of the time. Detecting the faint tick reflects approaching that lower limit of perception.",
-      "domain": "Practice Exam",
-      "gradeBand": "Multi",
-      "subjectArea": "Review",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-practice-exam",
-      "assessmentSourceId": "practice-exam-ap-psych-practice",
-      "itemMode": "from-practice-exam",
-      "course": "ap-psychology"
-    },
-    {
-      "id": "ap-psychology-pe-015",
-      "prompt": "Howard Gardner's theory of multiple intelligences differs from a traditional g-factor view because it argues that:",
-      "choices": [
-        "Intelligence is a single general capacity captured by IQ",
-        "Intelligence consists of several relatively independent abilities such as linguistic, musical, and bodily-kinesthetic",
-        "Intelligence is purely a product of working-memory capacity",
-        "Intelligence is best measured by reaction-time tasks"
-      ],
-      "correctText": "Intelligence consists of several relatively independent abilities such as linguistic, musical, and bodily-kinesthetic",
-      "topic": "Unit 2: Cognition",
-      "explanation": "Gardner proposed multiple, partly autonomous intelligences, contrasting with Spearman's general intelligence (g) and challenging the idea that one number captures cognitive ability.",
       "domain": "Practice Exam",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -132862,6 +132862,27 @@
       "course": "ap-psychology"
     },
     {
+      "id": "ap-psychology-pe-019",
+      "prompt": "A 4-year-old insists that there is 'more' juice after it is poured from a short, wide cup into a tall, narrow one. According to Piaget, this child has not yet mastered:",
+      "choices": [
+        "Conservation",
+        "Object permanence",
+        "Attachment",
+        "Habituation"
+      ],
+      "correctText": "Conservation",
+      "topic": "Unit 3: Development and Learning",
+      "explanation": "Conservation is the understanding that quantity stays the same despite a change in appearance. Children in Piaget's preoperational stage typically lack conservation and are misled by perceptual features such as the height of the liquid; mastery of conservation marks entry into the concrete operational stage.",
+      "domain": "Practice Exam",
+      "gradeBand": "Multi",
+      "subjectArea": "Review",
+      "standardRefs": [],
+      "sourceAuthority": "mr-macs-practice-exam",
+      "assessmentSourceId": "practice-exam-ap-psych-practice",
+      "itemMode": "from-practice-exam",
+      "course": "ap-psychology"
+    },
+    {
       "id": "ap-psychology-pe-017",
       "prompt": "A 5-year-old watches as water from a tall, narrow glass is poured into a short, wide glass. She says the short glass now has less water. In Piaget's framework she has not yet mastered:",
       "choices": [
@@ -132873,27 +132894,6 @@
       "correctText": "Conservation",
       "topic": "Unit 3: Development and Learning",
       "explanation": "Conservation — understanding that quantity remains constant despite changes in shape — is a hallmark achievement of Piaget's concrete operational stage, typically around age 7.",
-      "domain": "Practice Exam",
-      "gradeBand": "Multi",
-      "subjectArea": "Review",
-      "standardRefs": [],
-      "sourceAuthority": "mr-macs-practice-exam",
-      "assessmentSourceId": "practice-exam-ap-psych-practice",
-      "itemMode": "from-practice-exam",
-      "course": "ap-psychology"
-    },
-    {
-      "id": "ap-psychology-pe-019",
-      "prompt": "A child explains that stealing is wrong only because 'you might get caught and punished.' According to Kohlberg's stages of moral reasoning, this response reflects which level?",
-      "choices": [
-        "Preconventional morality",
-        "Conventional morality",
-        "Postconventional morality",
-        "Universal ethical principles"
-      ],
-      "correctText": "Preconventional morality",
-      "topic": "Unit 3: Development and Learning",
-      "explanation": "Preconventional reasoning judges acts by external consequences — punishment or reward — rather than internalized norms or abstract principles.",
       "domain": "Practice Exam",
       "gradeBand": "Multi",
       "subjectArea": "Review",
@@ -133077,7 +133077,7 @@
       "choices": [
         "Sense of being valued unconditionally by others",
         "Belief in their own ability to successfully execute a particular behavior",
-        "Need to reach the top of Maslow's hierarchy",
+        "Belief that outcomes are determined mainly by luck or fate",
         "Tendency to attribute outcomes to internal traits"
       ],
       "correctText": "Belief in their own ability to successfully execute a particular behavior",
