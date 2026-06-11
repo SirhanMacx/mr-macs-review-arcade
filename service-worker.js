@@ -1,4 +1,4 @@
-const CACHE_NAME = "v129-ap-psych-2024-ced-scrub";
+const CACHE_NAME = "v130-enl-glossary-regents-bridge";
 // Use relative paths so the SW works on GitHub Pages subpath
 // (https://sirhanmacx.github.io/mr-macs-review-arcade/) AND local dev AND
 // any future custom domain. The SW's scope is set at register-time to
@@ -98,6 +98,9 @@ const CACHE_FILES = [
   "./assets/arcade-recommender.js",
   "./assets/arcade-question-validator.js",
   "./assets/arcade-quiz-gauntlet.js",
+  "./assets/arcade-read-aloud.js",
+  "./assets/arcade-enl-glossary.js",
+  "./assets/data/enl-glossary-global9.json",
   "./assets/arcade-review-mix.js",
   "./assets/arcade-replay.js",
   "./assets/arcade-resume-chip.js",

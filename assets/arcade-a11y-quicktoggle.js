@@ -318,6 +318,38 @@
       { label: "Trit.", value: "tritanopia"   }
     ], "colorblind");
 
+    // Read-aloud (ENL/accessibility TTS) — only when the shared engine is
+    // loaded on this page. Its state lives in the engine's own localStorage
+    // key (not MrMacsProfile), so this row is hand-built, not addRow().
+    (function () {
+      var ra = window.MrMacsReadAloud;
+      if (!ra || !ra.available()) return;
+      var row = document.createElement("div");
+      row.className = "maqt-row";
+      var label = document.createElement("span");
+      label.className = "maqt-label";
+      label.textContent = "Read aloud";
+      row.appendChild(label);
+      var pills = document.createElement("div");
+      pills.className = "maqt-pills";
+      [{ label: "On", value: true }, { label: "Off", value: false }].forEach(function (opt) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "maqt-pill";
+        btn.textContent = opt.label;
+        btn.setAttribute("aria-pressed", String(ra.isEnabled() === opt.value));
+        btn.addEventListener("click", function () {
+          ra.setEnabled(opt.value);
+          pills.querySelectorAll(".maqt-pill").forEach(function (p, i) {
+            p.setAttribute("aria-pressed", String((i === 0) === opt.value));
+          });
+        });
+        pills.appendChild(btn);
+      });
+      row.appendChild(pills);
+      modal.appendChild(row);
+    })();
+
     // Close handlers
     function close() {
       if (closed) return;
